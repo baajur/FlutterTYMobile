@@ -16,7 +16,7 @@ class ToastMessage extends StatelessWidget {
     Future.delayed(Duration(milliseconds: 200))
         .then((value) => FLToast.showText(
               text: message,
-              position: FLToastPosition.bottom,
+              position: FLToastPosition.top,
               showDuration: (waitLong)
                   ? ToastDuration.LONG.value
                   : ToastDuration.DEFAULT.value,

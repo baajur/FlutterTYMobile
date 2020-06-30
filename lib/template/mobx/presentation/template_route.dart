@@ -74,7 +74,7 @@ class _TemplateRouteState extends State<TemplateRoute> {
             case StoreState.loaded:
               {
                 _descText = _templateStore.description;
-                return MessageDisplay(message: _descText);
+                return WarningDisplay(message: _descText);
               }
             default:
               return SizedBox.shrink();

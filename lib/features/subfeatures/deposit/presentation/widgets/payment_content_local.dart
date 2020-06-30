@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/message_display.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/entity/payment_enum.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/form/deposit_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/payment_freezed.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/payment_promo.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
-import 'package:flutter_ty_mobile/utils/string_util.dart'
-    show ValueStringExtension;
-import 'package:flutter_ty_mobile/utils/value_range.dart';
+import 'package:flutter_ty_mobile/utils/value_util.dart';
+import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
 import 'package:intl/intl.dart' show NumberFormat;
+
+import '../../data/entity/payment_enum.dart';
+import '../../data/form/deposit_form.dart';
+import '../../data/model/payment_freezed.dart';
+import '../../data/model/payment_promo.dart';
 
 /// Content View for [PaymentEnum.bank]
 ///@author H.C.CHIANG
@@ -76,8 +71,8 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
   Widget build(BuildContext context) {
     if (widget.dataList == null || widget.dataList.isEmpty) {
       return Center(
-        child: MessageDisplay(
-          message: Failure.dataSource().message,
+        child: WarningDisplay(
+          message: Failure.jsonFormat().message,
         ),
       );
     } else {
@@ -109,30 +104,33 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                 shrinkWrap: true,
                 children: <Widget>[
                   /* Promo Option */
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: CustomizeDropdownWidget(
-                      prefixTitle: localeStr.depositPaymentSpinnerTitlePromo,
-                      spacing: 4,
-                      optionValues: promos.map((item) => item.promoId).toList(),
-                      optionStrings:
-                          promos.map((item) => item.promoDesc).toList(),
-                      changeNotify: (data) {
-                        if (data is PaymentPromoData)
-                          _promoSelected = data.promoId;
-                      },
-                    ),
+                  CustomizeDropdownWidget(
+                    prefixTitle: localeStr.depositPaymentSpinnerTitlePromo,
+                    titleLetterSpacing: 4,
+                    optionValues: promos.map((item) => item.promoId).toList(),
+                    optionStrings:
+                        promos.map((item) => item.promoDesc).toList(),
+                    changeNotify: (data) {
+                      // clear text field focus
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      // set selected data
+                      if (data is PaymentPromoData)
+                        _promoSelected = data.promoId;
+                    },
                   ),
                   /* Bank Option */
                   CustomizeDropdownWidget(
                     prefixTitle: localeStr.depositPaymentSpinnerTitleBank,
-                    spacing: 4,
+                    titleLetterSpacing: 4,
                     optionValues: widget.dataList
                         .map((item) => item.bankAccountId)
                         .toList(),
                     optionStrings:
                         widget.dataList.map((item) => item.type).toList(),
                     changeNotify: (data) {
+                      // clear text field focus
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      // set selected data
                       if (data is PaymentDataLocal) {
                         if (_localData == data) return;
                         print('change bank: $data');
@@ -153,17 +151,17 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                     ),
                   ),
                   /* Method Option */
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: CustomizeDropdownWidget(
-                      prefixTitle: localeStr.depositPaymentSpinnerTitleMethod,
-                      spacing: 4,
-                      optionStrings: methods,
-                      optionValues: [1, 2],
-                      changeNotify: (data) {
-                        _methodSelected = data;
-                      },
-                    ),
+                  CustomizeDropdownWidget(
+                    prefixTitle: localeStr.depositPaymentSpinnerTitleMethod,
+                    titleLetterSpacing: 4,
+                    optionStrings: methods,
+                    optionValues: [1, 2],
+                    changeNotify: (data) {
+                      // clear text field focus
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      // set selected data
+                      _methodSelected = data;
+                    },
                   ),
                   /* Name Input Field */
                   new CustomizeFieldWidget(
@@ -171,34 +169,35 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                     fieldType: FieldType.ChineseOnly,
                     hint: localeStr.depositPaymentEditTitleNameHint,
                     persistHint: false,
-                    prefixTitle: localeStr.depositPaymentEditTitleName,
+                    prefixText: localeStr.depositPaymentEditTitleName,
                     errorMsg: localeStr.messageInvalidDepositName,
                     validCondition: (value) =>
                         rangeCheck(value: value.length, min: 2, max: 12),
                     parentWidth: MediaQuery.of(context).size.width,
-                    spacing: 0.5,
+                    titleLetterSpacing: 0.5,
                     maxInputLength: 12,
+                    debug: true,
                   ),
                   /* Amount Input Field */
                   new CustomizeFieldWidget(
                     key: _amountFieldKey,
                     fieldType: FieldType.Numbers,
                     hint: localeStr.depositPaymentEditTitleAmountHintRange(
-                      _localData.min?.valueToInt ?? 1,
-                      _localData.max.valueToInt,
+                      _localData.min?.strToInt ?? 1,
+                      _localData.max.strToInt,
                     ),
                     persistHint: false,
-                    prefixTitle: localeStr.depositPaymentEditTitleAmount,
+                    prefixText: localeStr.depositPaymentEditTitleAmount,
                     errorMsg: localeStr.messageInvalidDepositAmount,
                     validCondition: (value) =>
                         value.contains('.') == false &&
                         rangeCheck(
                           value: (value.isNotEmpty) ? int.parse(value) : 0,
-                          min: _localData.min?.valueToInt ?? 1,
-                          max: _localData.max.valueToInt,
+                          min: _localData.min?.strToInt ?? 1,
+                          max: _localData.max.strToInt,
                         ),
                     parentWidth: MediaQuery.of(context).size.width,
-                    spacing: 4,
+                    titleLetterSpacing: 4,
                     maxInputLength: _localData.max.length,
                   ),
                   /* Amount Limit Hint */
@@ -207,7 +206,7 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                     child: Text(
                       localeStr.depositHintTextAmount(
                           NumberFormat.simpleCurrency(decimalDigits: 0)
-                              .format(_localData.max.valueToInt)),
+                              .format(_localData.max.strToInt)),
                       style: TextStyle(color: Themes.hintHighlight),
                     ),
                   ),
@@ -221,13 +220,12 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                 Expanded(
                   child: RaisedButton(
                     child: Text(localeStr.btnConfirm),
-                    color: Themes.defaultAccentColor,
                     textColor: Themes.defaultTextColorBlack,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
                     onPressed: () {
                       try {
+                        // clear text field focus
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        // validate and send request
                         _validateForm();
                       } catch (e) {
                         MyLogger.error(

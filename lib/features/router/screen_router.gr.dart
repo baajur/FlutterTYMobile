@@ -4,13 +4,13 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_ty_mobile/features/screen/feature_screen.dart';
 import 'package:flutter_ty_mobile/features/screen/web_game_screen.dart';
-import 'package:flutter_ty_mobile/temp/test_nested_nav_screen.dart';
 import 'package:flutter_ty_mobile/temp/test_screen.dart';
+import 'package:flutter_ty_mobile/temp/test_nested_nav_screen.dart';
 
 export 'screen_router.dart' show ScreenEnum;
 
@@ -19,11 +19,19 @@ abstract class ScreenRoutes {
   static const webGameScreen = '/web-game-screen';
   static const testScreen = '/test-screen';
   static const testScreenNav = '/test-screen-nav';
+  static const all = {
+    featureScreen,
+    webGameScreen,
+    testScreen,
+    testScreenNav,
+  };
 }
 
 class ScreenRouter extends RouterBase {
-  //This will probably be removed in future versions
-  //you should call ExtendedNavigator.ofRouter<Router>() directly
+  @override
+  Set<String> get allRoutes => ScreenRoutes.all;
+
+  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
   static ExtendedNavigatorState get navigator =>
       ExtendedNavigator.ofRouter<ScreenRouter>();
 
@@ -33,7 +41,7 @@ class ScreenRouter extends RouterBase {
     switch (settings.name) {
       case ScreenRoutes.featureScreen:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => FeatureScreen(),
+          builder: (context) => FeatureScreen(),
           settings: settings,
           maintainState: true,
         );
@@ -44,17 +52,17 @@ class ScreenRouter extends RouterBase {
         final typedArgs =
             args as WebGameScreenArguments ?? WebGameScreenArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => WebGameScreen(startUrl: typedArgs.startUrl),
+          builder: (context) => WebGameScreen(startUrl: typedArgs.startUrl),
           settings: settings,
         );
       case ScreenRoutes.testScreen:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => TestScreen(),
+          builder: (context) => TestScreen(),
           settings: settings,
         );
       case ScreenRoutes.testScreenNav:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => TestNestedNavScreen(),
+          builder: (context) => TestNestedNavScreen(),
           settings: settings,
         );
       default:
@@ -63,9 +71,9 @@ class ScreenRouter extends RouterBase {
   }
 }
 
-//**************************************************************************
+// *************************************************************************
 // Arguments holder classes
-//***************************************************************************
+// **************************************************************************
 
 //WebGameScreen arguments holder class
 class WebGameScreenArguments {
@@ -73,12 +81,12 @@ class WebGameScreenArguments {
   WebGameScreenArguments({this.startUrl = 'https://eg990.com/'});
 }
 
-//**************************************************************************
+// *************************************************************************
 // Navigation helper methods extension
-//***************************************************************************
+// **************************************************************************
 
 extension ScreenRouterNavigationHelperMethods on ExtendedNavigatorState {
-  Future pushFeatureScreen() => ScreenRouter.navigator.pushNamedAndRemoveUntil(
+  Future pushFeatureScreen() => pushNamedAndRemoveUntil(
         ScreenRoutes.featureScreen,
         (route) => route.settings.name == ScreenRoutes.featureScreen,
       );

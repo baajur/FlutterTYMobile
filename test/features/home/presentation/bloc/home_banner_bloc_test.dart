@@ -80,12 +80,12 @@ void main() {
         // act
         bloc.add(GetBannerEvent());
         await untilCalled(mockGetHomeBanner(any));
-        await untilCalled(bloc.transformStates(
-            Stream.value(HomeBannerState.bCaching(banners: [bannerInfo]))));
+//        await untilCalled(bloc.transformStates(
+//            Stream.value(HomeBannerState.bCaching(banners: [bannerInfo]))));
         bloc.add(GetBannerImageEvent());
         await untilCalled(mockGetHomeBannerImageInfo(any));
-        await untilCalled(bloc.transformStates(
-            Stream.value(HomeBannerState.bLoaded(images: any, promoIds: any))));
+//        await untilCalled(bloc.transformStates(
+//            Stream.value(HomeBannerState.bLoaded(images: any, promoIds: any))));
         // assert
         await Future.delayed(Duration(milliseconds: 200));
         expect(bloc.state,

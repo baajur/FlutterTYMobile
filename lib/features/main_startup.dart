@@ -9,10 +9,21 @@ import 'general/toast_widget_export.dart';
 import 'router/app_navigate.dart';
 import 'screen/web_game_screen_store.dart';
 
-///@author H.C.CHIANG
-///@version 2020/2/5
-class MainStartup extends StatelessWidget {
+///
+/// Build the main ui using [ScreenRouter] and
+/// add [WillPopScope] to intercept back button action.
+///
+/// @author H.C.CHIANG
+/// @version 2020/2/5
+///
+class MainStartup extends StatefulWidget {
+  @override
+  _MainStartupState createState() => _MainStartupState();
+}
+
+class _MainStartupState extends State<MainStartup> {
   final String keyId = 'Navi';
+
   int closeAppCount = 0;
 
   void registerLocale(BuildContext context) {
@@ -57,8 +68,6 @@ class MainStartup extends StatelessWidget {
           ScreenNavigate.switchScreen(screen: ScreenEnum.Feature);
         } else if (ScreenNavigate.screenIndex == 2) {
           ScreenNavigate.switchScreen();
-        } else if (RouterNavigate.current == Routes.depositWebRoute) {
-          RouterNavigate.navigateBack();
         } else if (RouterNavigate.current == Routes.homeRoute) {
           closeAppCount += 1;
           Future.delayed(Duration(milliseconds: 500), () => closeAppCount = 0);
@@ -71,7 +80,7 @@ class MainStartup extends StatelessWidget {
               showDuration: ToastDuration.SHORT.value,
             );
         } else {
-          RouterNavigate.navigateClean();
+          RouterNavigate.navigateBack();
         }
         return Future(() => false);
       },

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/font_size.dart';
 
+export 'hex_color.dart';
+export 'font_size.dart';
+
 final appTheme = Themes();
 
 class Themes {
@@ -12,33 +15,55 @@ class Themes {
   static final defaultDisabledColor = Color(0xff575757);
   static final defaultErrorColor = Color(0xffe53935);
 
+  static final stackBackgroundColor = Color(0xff3a3a3a);
+  static final stackBackgroundColorDark = Color(0xff272727);
+  static final stackBackgroundColorLight = Color(0xff4e4e4e);
+
   static final accentLightColor = Color(0xffeace98);
   static final dialogBgColor = Color(0xff424242);
+  static final dialogBgTransparent = Color(0xD0383838);
   static final dialogTextColor = Color(0xffe6e6e6);
   static final dialogTitleColor = Color(0xffe7c080);
 
   static final defaultTextColor = Color(0xffb5b5b5);
-  static final defaultSubtitleColor = Color(0xffeea942);
-  static final defaultHintColor = Color(0xffdadada);
-  static final defaultMessageColor = Color(0xffbcbcbc);
   static final defaultTextColorWhite = Color(0xffffffff);
   static final defaultTextColorBlack = Color(0xff000000);
+  static final defaultSubtitleColor = Color(0xffeea942);
+  static final defaultHintColor = Color(0xffdadada);
+  static final defaultHintColorDark = Color(0xffa4a4a4);
+  static final defaultMessageColor = Color(0xffbcbcbc);
 
   static final iconColor = Color(0xffffffff);
-  static final iconColorDark = Color(0xffa4a4a4);
+  static final iconColorLightGrey = Color(0xffa4a4a4);
+  static final iconColorGrey = Color(0xff606060);
+  static final iconColorDarkGrey = Color(0xff3a3a3a);
+  static final iconColorGreen = Color(0xff40b92c);
+  static final iconColorYellow = Color(0xffffe940);
   static final iconBgColorTrans = Color(0x40a4a4a4);
 
   static final buttonSubColor = Color(0xfff19149);
+  static final buttonSubColorGrey = Color(0xff4e4e4e);
+  static final buttonSubColorDarkGrey = Color(0xff3b3b3b);
   static final buttonDisabledColor = Color(0xffc9c9c9);
+  static final buttonDisabledColorDark = Color(0xc03a3a3a);
   static final buttonDisabledTextColor = Color(0xff575757);
+  static final buttonLightAccentColor = Color(0xfff4daa3);
 
-  static final fieldHeight = 53.6;
-  static final fieldIconSize = 24.0;
+  static final double fieldHeight = 53.6;
+  static final double fieldIconSize = 24.0;
   static final fieldInputBgColor = Color(0xff4e4e4e);
   static final fieldInputHintColor = Color(0xffececec);
 
+  static const double prefixTextWidthFactor = 0.3;
+  static const double prefixTextSpacing = 12.0;
+  static const double prefixIconWidthFactor = 0.166;
+
   static final hintHighlight = Color(0xffff7eb8);
+  static final hintHighlightDarkRed = Color(0xffe63f3f);
   static final hintHighlightRed = Color(0xffff0000);
+  static final hintHighlightYellow = Color(0xffffdd3a);
+  static final hintHighlightLightYellow = Color(0xffffe6b1);
+  static final hintHighlightOrange = Color(0xffde9c57);
   static final hintHyperLink = Color(0xff82f8ff);
 
   static final linearAccentColor1 = Color(0xffbb904d);
@@ -49,6 +74,10 @@ class Themes {
     primaryColor: defaultAppbarColor,
     accentColor: defaultAccentColor,
     backgroundColor: defaultBackgroundColor,
+    colorScheme: ColorScheme.dark().copyWith(
+      primary: defaultAccentColor,
+      secondary: defaultWidgetColor,
+    ),
     /* Widgets Theme */
     scaffoldBackgroundColor: defaultBackgroundColor,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -71,7 +100,7 @@ class Themes {
     indicatorColor: accentLightColor,
     dividerColor: accentLightColor,
     cursorColor: iconColor,
-    textSelectionHandleColor: iconColorDark,
+    textSelectionHandleColor: iconColorLightGrey,
     cardColor: dialogBgColor,
     dialogBackgroundColor: dialogBgColor,
     /* Buttons Theme */
@@ -80,13 +109,15 @@ class Themes {
       shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(4.0),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
-      textTheme: ButtonTextTheme.normal,
+      padding: EdgeInsets.fromLTRB(4.0, 6.0, 4.0, 8.0),
+      // set button minimum width, default is 88
+      minWidth: 60,
+      textTheme: ButtonTextTheme.primary,
       buttonColor: defaultAccentColor,
       disabledColor: buttonDisabledColor,
     ),
     iconTheme: IconThemeData(color: iconColor),
-    primaryIconTheme: IconThemeData(color: iconColorDark),
+    primaryIconTheme: IconThemeData(color: iconColorLightGrey),
     accentIconTheme: IconThemeData(color: defaultAccentColor),
     /* Text Theme */
     textTheme: TextTheme(

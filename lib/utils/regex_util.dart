@@ -1,24 +1,46 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 
-final _loginAPI = 'api/login';
-final _gameAutoAPI = 'api/openUrl';
-final _gameAPI = 'api/open';
+const String _loginAPI = 'api/login';
+const String _gameAutoAPI = 'api/openUrl';
+const String _gameAPI = 'api/open';
 
-final _serviceRegexString =
+const String _serviceRegexString =
     (Global.IS_TEST_VER) ? Global.TEST_BASE_URL : _tyRegString;
-final _tyRegString = 'https://www.vip66[6-7][0-9][0-9].com';
+const String _tyRegString = 'https://www.vip66[6-7][0-9][0-9].com';
 
-final _routeRegex = RegExp("^(?:$_serviceRegexString/?)");
-final _gameAutoRegex = RegExp("^(?:$_serviceRegexString$_gameAutoAPI/.*)");
-final _gameRegex = RegExp("^(?:$_serviceRegexString$_gameAPI/.*)");
-final _imageRegex = RegExp("^(?:${_serviceRegexString}images/.*(jpg|png))");
-final _loginRegex = RegExp("^(?:$_serviceRegexString$_loginAPI)");
-final _ptLoginRegex = RegExp("^(?:https://login.greenjade88.com/.*\$)");
-final _webResRegex = RegExp("^(?=.*(js|lib|gif|png|html)).*\$");
+final RegExp _routeRegex = RegExp("^(?:$_serviceRegexString/?)");
+final RegExp _gameAutoRegex =
+    RegExp("^(?:$_serviceRegexString$_gameAutoAPI/.*)");
+final RegExp _gameRegex = RegExp("^(?:$_serviceRegexString$_gameAPI/.*)");
+final RegExp _imageRegex =
+    RegExp("^(?:${_serviceRegexString}images/.*(jpg|png))");
+final RegExp _loginRegex = RegExp("^(?:$_serviceRegexString$_loginAPI)");
+final RegExp _ptLoginRegex = RegExp("^(?:https://login.greenjade88.com/.*\$)");
+final RegExp _webResRegex = RegExp("^(?=.*(js|lib|gif|png|html)).*\$");
+final RegExp _routeTestRegex = RegExp("^(?:$_tyRegString/?)");
 
-final _routeTestRegex = RegExp("^(?:$_tyRegString/?)");
+final RegExp _htmlRegex = RegExp('<\s*html.*?>.*?<\s*/\s*html.*?>');
+
+final RegExp _urlRegex = RegExp(
+    r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)',
+    caseSensitive: false);
+
+final RegExp _dateRegex =
+    RegExp('((19|20)[0-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])');
+
+final _chineseRegex = RegExp(
+    "[\u4e00-\u9fa5]|[\u3105-\u3129]|[\u02CA]|[\u02CB]|[\u02C7]|[\u02C9]");
 
 extension RegexExtension on String {
+  /// String Regex
+  bool get isUrl => Uri.parse(this).isAbsolute || _urlRegex.hasMatch(this);
+  bool get isEmail => EmailValidator.validate(this);
+  bool get isHtmlFormat => _htmlRegex.hasMatch(this);
+  bool get isValidDate => _dateRegex.hasMatch(this);
+  bool get hasChinese => _chineseRegex.hasMatch(this);
+
+  /// URL's Regex
   bool get testTyRouteUrl => _routeTestRegex.hasMatch(this);
   bool get isRouteUrl => _routeRegex.hasMatch(this);
   bool get isLoginUrl => _loginRegex.hasMatch(this);

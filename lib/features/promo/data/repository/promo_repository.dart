@@ -1,5 +1,6 @@
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/core/error/exceptions.dart' show HiveDataException;
+import 'package:flutter_ty_mobile/core/error/exceptions.dart'
+    show HiveDataException;
 import 'package:flutter_ty_mobile/features/promo/data/models/promo_freezed.dart';
 import 'package:flutter_ty_mobile/features/promo/data/source/promo_local_data_source.dart';
 import 'package:flutter_ty_mobile/features/promo/data/source/promo_remote_data_source.dart';
@@ -24,19 +25,18 @@ class PromoRepositoryImpl implements PromoRepository {
   @override
   Future<Either<Failure, List<PromoEntity>>> getPromos() async {
     final connected = await networkInfo.isConnected;
-//    print('network connected: $connected');
     if (connected) {
-      final result = await handleResponse<List<PromoModel>>(
-          remoteDataSource.getPromos());
+      final result =
+          await handleResponse<List<PromoModel>>(remoteDataSource.getPromos());
 //      print('test response type: ${result.runtimeType}');
       return result.fold(
-            (failure) {
+        (failure) {
           if (failure.typeIndex == 0)
             return getCachedPromos();
           else
             return Left(failure);
         },
-            (models) => Right(transformPromoModels(models)),
+        (models) => Right(transformPromoModels(models)),
       );
     }
     return getCachedPromos();

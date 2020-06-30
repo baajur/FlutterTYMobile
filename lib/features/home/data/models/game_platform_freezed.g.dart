@@ -43,6 +43,7 @@ class GamePlatformEntityAdapter extends TypeAdapter<_$GamePlatformEntity> {
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$GamePlatformEntity _$_$GamePlatformEntityFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['class', 'type']);
   return _$GamePlatformEntity(
@@ -53,6 +54,7 @@ _$GamePlatformEntity _$_$GamePlatformEntityFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$GamePlatformEntityToJson(
         _$GamePlatformEntity instance) =>
     <String, dynamic>{
@@ -62,6 +64,7 @@ Map<String, dynamic> _$_$GamePlatformEntityToJson(
       'type': instance.category,
     };
 
+// ignore: non_constant_identifier_names
 _$GamePlatformModel _$_$GamePlatformModelFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['class', 'type']);
   return _$GamePlatformModel(
@@ -76,6 +79,7 @@ _$GamePlatformModel _$_$GamePlatformModelFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$GamePlatformModelToJson(
         _$GamePlatformModel instance) =>
     <String, dynamic>{

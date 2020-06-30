@@ -37,6 +37,7 @@ class GameCategoryModelAdapter extends TypeAdapter<_$_GameCategoryModel> {
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_GameCategoryModel _$_$_GameCategoryModelFromJson(Map<String, dynamic> json) {
   return _$_GameCategoryModel(
     ch: json['ch'] as String,
@@ -44,6 +45,7 @@ _$_GameCategoryModel _$_$_GameCategoryModelFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_GameCategoryModelToJson(
         _$_GameCategoryModel instance) =>
     <String, dynamic>{

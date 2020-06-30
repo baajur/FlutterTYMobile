@@ -23,4 +23,7 @@ class FontSize extends GenericEnum<double> {
 
   /// font size = 28
   static const FontSize LARGE = FontSize._(28.0);
+
+  /// font size = 32
+  static const FontSize XLARGE = FontSize._(32.0);
 }

@@ -23,19 +23,6 @@ class RoutePage extends GenericEnum<RouteInfo> {
     hideAppbarActions: true,
   ));
 
-  static RoutePage deposit = RoutePage._(RouteInfo(
-    route: Routes.depositRoute,
-    title: localeStr.pageTitleDeposit,
-    isFeature: true,
-    bottomNavIndex: 1,
-  ));
-
-  static RoutePage depositWeb = RoutePage._(RouteInfo(
-    route: Routes.depositWebRoute,
-    title: localeStr.pageTitleDeposit,
-    parentRoute: Routes.depositRoute,
-  ));
-
   static RoutePage promo = RoutePage._(RouteInfo(
     route: Routes.promoRoute,
     title: localeStr.pageTitlePromo,
@@ -57,6 +44,94 @@ class RoutePage extends GenericEnum<RouteInfo> {
     bottomNavIndex: 4,
   ));
 
+  static RoutePage deposit = RoutePage._(RouteInfo(
+    route: Routes.depositRoute,
+    title: localeStr.pageTitleDeposit,
+    isFeature: true,
+    bottomNavIndex: 1,
+  ));
+
+  static RoutePage depositWeb = RoutePage._(RouteInfo(
+    route: Routes.depositWebPage,
+    title: localeStr.pageTitleDeposit,
+    parentRoute: Routes.depositRoute,
+  ));
+
+  static RoutePage transfer = RoutePage._(RouteInfo(
+    route: Routes.transferRoute,
+    title: localeStr.pageTitleMemberTransfer,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage bankcard = RoutePage._(RouteInfo(
+    route: Routes.bankcardRoute,
+    title: localeStr.pageTitleMemberCard,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage withdraw = RoutePage._(RouteInfo(
+    route: Routes.bankcardRoute,
+    title: localeStr.pageTitleMemberWithdraw,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage balance = RoutePage._(RouteInfo(
+    route: Routes.balanceRoute,
+    title: localeStr.pageTitleMemberBalance,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage wallet = RoutePage._(RouteInfo(
+    route: Routes.walletRoute,
+    title: localeStr.pageTitleMemberWallet,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage message = RoutePage._(RouteInfo(
+    route: Routes.messageRoute,
+    title: localeStr.pageTitleMemberMessage,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage center = RoutePage._(RouteInfo(
+    route: Routes.centerRoute,
+    title: localeStr.pageTitleMemberCenter,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage centerPassword = RoutePage._(RouteInfo(
+    route: Routes.centerPasswordPage,
+    title: localeStr.pageTitleMemberPassword,
+    parentRoute: Routes.centerRoute,
+    hideAppbarActions: true,
+  ));
+
+  static RoutePage centerWeb = RoutePage._(RouteInfo(
+    route: Routes.centerWebPage,
+    title: localeStr.pageTitleMemberCenter,
+    parentRoute: Routes.centerRoute,
+    hideAppbarActions: true,
+  ));
+
+  static RoutePage transaction = RoutePage._(RouteInfo(
+    route: Routes.transactionRoute,
+    title: localeStr.pageTitleMemberTransaction,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  /// side menu route
+  static RoutePage downloadArea = RoutePage._(RouteInfo(
+    route: Routes.downloadAreaRoute,
+    title: localeStr.pageTitleDownload,
+    hideAppbarActions: true,
+  ));
+
+  static RoutePage noticeBoard = RoutePage._(RouteInfo(
+    route: Routes.noticeRoute,
+    title: localeStr.pageTitleNotice,
+    hideAppbarActions: true,
+  ));
+
   /// test route
   static RoutePage template = RoutePage._(RouteInfo(
       route: Routes.templateRoute,
@@ -66,6 +141,11 @@ class RoutePage extends GenericEnum<RouteInfo> {
   static RoutePage template2 = RoutePage._(RouteInfo(
       route: Routes.template2Route,
       title: 'Test Bloc',
+      hideAppbarActions: true));
+
+  static RoutePage testArea = RoutePage._(RouteInfo(
+      route: Routes.testAreaRoute,
+      title: 'Test Widget',
       hideAppbarActions: true));
 }
 
@@ -96,6 +176,8 @@ extension PagesNameExtension on String {
         return RoutePage.service;
       case Routes.memberRoute:
         return RoutePage.member;
+      case Routes.centerRoute:
+        return RoutePage.center;
       case Routes.templateRoute:
         return RoutePage.template;
       case Routes.template2Route:

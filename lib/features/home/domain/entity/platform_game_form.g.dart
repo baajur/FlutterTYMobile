@@ -6,6 +6,7 @@ part of 'platform_game_form.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_PlatformGameForm _$_$_PlatformGameFormFromJson(Map<String, dynamic> json) {
   return _$_PlatformGameForm(
     category: json['category'] as String,
@@ -13,6 +14,7 @@ _$_PlatformGameForm _$_$_PlatformGameFormFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_PlatformGameFormToJson(
         _$_PlatformGameForm instance) =>
     <String, dynamic>{

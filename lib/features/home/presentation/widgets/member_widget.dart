@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart'
     show LoginStatus;
 import 'package:flutter_ty_mobile/features/users/presentation/login_dialog.dart';
+import 'package:flutter_ty_mobile/res.dart';
 
-import '../../../resource_export.dart';
 import '../../../route_page_export.dart';
 
 /// Creates a widget to show member info under Marquee
@@ -28,6 +30,13 @@ class MemberWidgetState extends State<MemberWidget> {
       _userData = getRouteUserStreams.lastUser;
       print('member area user: $_userData');
     });
+  }
+
+  void toastLogin() {
+    FLToast.showInfo(
+      text: localeStr.messageErrorNotLogin,
+      showDuration: ToastDuration.DEFAULT.value,
+    );
   }
 
   @override
@@ -137,6 +146,7 @@ class MemberWidgetState extends State<MemberWidget> {
             borderRadius: BorderRadius.circular(4.0),
           ),
           color: Themes.defaultAppbarColor,
+          visualDensity: VisualDensity(horizontal: 4.0),
           onPressed: () => showDialog(
             context: context,
             barrierDismissible: true,
@@ -189,8 +199,8 @@ class MemberWidgetState extends State<MemberWidget> {
                   children: <TextSpan>[
                     TextSpan(text: localeStr.homeHintMemberCreditLeft),
                     TextSpan(
-                      text: _userData.currentUser.credit
-                          .trimValue(floorIfInt: true, creditSign: true),
+                      text: formatValue(_userData.currentUser.credit,
+                          floorIfInt: true, creditSign: true),
                       style: TextStyle(
                         color: Themes.defaultAccentColor,
                       ),
@@ -220,21 +230,29 @@ class MemberWidgetState extends State<MemberWidget> {
               () {
                 (_userData.loggedIn)
                     ? RouterNavigate.navigateToPage(RoutePage.deposit)
-                    : FLToast.showInfo(
-                        text: localeStr.messageErrorNotLogin,
-                        position: FLToastPosition.center,
-                        showDuration: ToastDuration.DEFAULT.value);
+                    : toastLogin();
               },
             ),
             _createIconButton(
               Res.homeMemberAreaIconWithdraw,
               localeStr.pageTitleMemberWithdraw,
-              () => FLToast.showInfo(text: localeStr.workInProgress),
+              () {
+                (_userData.loggedIn)
+                    ? RouterNavigate.navigateToPage(
+                        RoutePage.withdraw,
+                        arg: BankcardRouteArguments(withdraw: true),
+                      )
+                    : toastLogin();
+              },
             ),
             _createIconButton(
               Res.homeMemberAreaIconTransfer,
               localeStr.pageTitleMemberTransfer,
-              () => FLToast.showInfo(text: localeStr.workInProgress),
+              () {
+                (_userData.loggedIn)
+                    ? RouterNavigate.navigateToPage(RoutePage.transfer)
+                    : toastLogin();
+              },
             ),
             _createIconButton(
               Res.homeMemberAreaIconVip,
@@ -255,7 +273,7 @@ class MemberWidgetState extends State<MemberWidget> {
         children: <Widget>[
           ConstrainedBox(
             constraints:
-                BoxConstraints.tightFor(height: (_areaHeight > 70) ? 28 : 24),
+                BoxConstraints.tightFor(height: (_areaHeight > 70) ? 30 : 24),
             child: networkImageBuilder(urlIconName),
           ),
           Text(

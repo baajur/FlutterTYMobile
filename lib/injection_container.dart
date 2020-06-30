@@ -1,5 +1,4 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:flutter_ty_mobile/features/screen/web_game_screen_store.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,7 +8,16 @@ import 'features/home/home_inject.dart';
 import 'features/member/member_inject.dart';
 import 'features/promo/promo_inject.dart';
 import 'features/router/route_user_streams.dart';
+import 'features/screen/web_game_screen_store.dart';
+import 'features/subfeatures/bankcard/bankcard_inject.dart';
 import 'features/subfeatures/deposit/deposit_inject.dart';
+import 'features/subfeatures/transfer/transfer_inject.dart';
+import 'features/subfeatures/balance/balance_inject.dart';
+import 'features/subfeatures/wallet/wallet_inject.dart';
+import 'features/subfeatures/message/message_inject.dart';
+import 'features/subfeatures/accountcenter/center_inject.dart';
+import 'features/subfeatures/transactions/transaction_inject.dart';
+import 'features/subfeatures/notice/notice_inject.dart';
 import 'features/users/user_inject.dart';
 import 'template/template_inject.dart';
 
@@ -34,11 +42,11 @@ Future<void> init() async {
   sl.registerFactory(
     () => HomeGameBloc(gamesData: sl(), gameUrl: sl()),
   );
-  sl.registerFactory(
-    () => UserLoginBloc(userData: sl()),
+  sl.registerLazySingleton<WebGameScreenStore>(
+    () => WebGameScreenStore(),
   );
   sl.registerFactory(
-    () => DepositStore(sl<DepositRepository>()),
+    () => UserLoginBloc(userData: sl()),
   );
   sl.registerFactory(
     () => PromoStore(sl<PromoRepository>()),
@@ -46,8 +54,35 @@ Future<void> init() async {
   sl.registerFactory(
     () => MemberCreditStore(sl.get<MemberRepository>()),
   );
-  sl.registerLazySingleton<WebGameScreenStore>(
-    () => WebGameScreenStore(),
+  sl.registerFactory(
+    () => DepositStore(sl<DepositRepository>()),
+  );
+  sl.registerFactory(
+    () => TransferStore(sl<TransferRepository>()),
+  );
+  sl.registerFactory(
+    () => BankcardStore(sl<BankcardRepository>()),
+  );
+  sl.registerFactory(
+    () => WithdrawStore(sl<WithdrawRepository>()),
+  );
+  sl.registerFactory(
+    () => BalanceStore(sl<BalanceRepository>()),
+  );
+  sl.registerFactory(
+    () => WalletStore(sl<WalletRepository>()),
+  );
+  sl.registerFactory(
+    () => MessageStore(sl<MessageRepository>()),
+  );
+  sl.registerFactory(
+    () => CenterStore(sl<CenterRepository>()),
+  );
+  sl.registerFactory(
+    () => TransactionStore(sl<TransactionRepository>()),
+  );
+  sl.registerFactory(
+    () => NoticeStore(sl<NoticeRepository>()),
   );
 
   /// Use cases
@@ -73,12 +108,6 @@ Future<void> init() async {
       remoteDataSource: sl(),
     ),
   );
-  sl.registerLazySingleton<DepositRepository>(
-    () => DepositRepositoryImpl(
-      networkInfo: sl(),
-      remoteDataSource: sl(),
-    ),
-  );
   sl.registerLazySingleton<PromoRepository>(
     () => PromoRepositoryImpl(
       networkInfo: sl(),
@@ -88,6 +117,42 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<MemberRepository>(
     () => MemberRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<DepositRepository>(
+    () => DepositRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<TransferRepository>(
+    () => TransferRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<BankcardRepository>(
+    () => BankcardRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<WithdrawRepository>(
+    () => WithdrawRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<WalletRepository>(
+    () => WalletRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton<CenterRepository>(
+    () => CenterRepositoryImpl(
       networkInfo: sl(),
       remoteDataSource: sl(),
     ),
@@ -103,9 +168,6 @@ Future<void> init() async {
   sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(dioApiService: sl()),
   );
-  sl.registerLazySingleton<DepositRemoteDataSource>(
-    () => DepositRemoteDataSourceImpl(dioApiService: sl()),
-  );
   sl.registerLazySingleton<PromoRemoteDataSource>(
     () => PromoRemoteDataSourceImpl(dioApiService: sl()),
   );
@@ -114,6 +176,39 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<MemberRemoteDataSource>(
     () => MemberRemoteDataSourceImpl(dioApiService: sl()),
+  );
+  sl.registerLazySingleton<MemberJwtInterface>(
+    () => MemberJwtInterfaceImpl(dioApiService: sl()),
+  );
+  sl.registerLazySingleton<DepositRemoteDataSource>(
+    () => DepositRemoteDataSourceImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<TransferRemoteDataSource>(
+    () => TransferRemoteDataSourceImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<BankcardRemoteDataSource>(
+    () => BankcardRemoteDataSourceImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<WithdrawRemoteDataSource>(
+    () => WithdrawRemoteDataSourceImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<BalanceRepository>(
+    () => BalanceRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<WalletRemoteDataSource>(
+    () => WalletRemoteDataSourceImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<MessageRepository>(
+    () => MessageRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<CenterRemoteDataSource>(
+    () => CenterRemoteDataSourceImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<TransactionRepository>(
+    () => TransactionRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<NoticeRepository>(
+    () => NoticeRepositoryImpl(dioApiService: sl()),
   );
 
   /// Core

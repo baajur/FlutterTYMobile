@@ -9,8 +9,15 @@ abstract class RouteInfo with _$RouteInfo {
     @required String route,
     @required String title,
     @Default(Routes.homeRoute) String parentRoute,
+
+    /// 1. effect the navigation action
+    /// 2. if true, shows the side menu action bar
     @Default(false) bool isFeature,
+
+    /// if true, shows the widget on the right side (logout, lang...etc)
     @Default(false) bool hideAppbarActions,
+
+    /// sets the bottom navigator index to highlight icon
     @Default(-1) int bottomNavIndex,
   }) = _RouteInfo;
 }

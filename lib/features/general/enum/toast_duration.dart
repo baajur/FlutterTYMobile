@@ -5,7 +5,7 @@ class ToastDuration extends GenericEnum<Duration> {
 
   /// duration = 1500ms
   static const ToastDuration SHORT =
-      ToastDuration._(Duration(milliseconds: 1500));
+      ToastDuration._(Duration(milliseconds: 2000));
 
   /// duration = 3000ms
   static const ToastDuration DEFAULT =

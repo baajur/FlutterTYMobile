@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
 
-import '../../../route_page_export.dart' show sl;
+import '../../../route_page_export.dart' show RouterNavigate, sl;
 import 'state/deposit_store.dart';
 import 'widgets/deposit_display.dart';
 
@@ -27,22 +27,29 @@ class _DepositRouteState extends State<DepositRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4.0),
-      child: Observer(
-        builder: (_) {
-          if (_store.errorMessage != null && _store.errorMessage.isNotEmpty) {
-            return ToastError(message: _store.errorMessage);
-          }
-          switch (_store.state) {
-            case DepositStoreState.loading:
-              return LoadingWidget();
-            case DepositStoreState.loaded:
-              return DepositDisplay(store: _store);
-            default:
-              return SizedBox.shrink();
-          }
-        },
+    return WillPopScope(
+      onWillPop: () async {
+        print('pop deposit route');
+        RouterNavigate.navigateBack();
+        return Future(() => true);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 4.0),
+        child: Observer(
+          builder: (_) {
+            if (_store.errorMessage != null && _store.errorMessage.isNotEmpty) {
+              return ToastError(message: _store.errorMessage);
+            }
+            switch (_store.state) {
+              case DepositStoreState.loading:
+                return LoadingWidget();
+              case DepositStoreState.loaded:
+                return DepositDisplay(store: _store);
+              default:
+                return SizedBox.shrink();
+            }
+          },
+        ),
       ),
     );
   }

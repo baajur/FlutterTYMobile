@@ -53,6 +53,16 @@ class S {
     );
   }
 
+  /// `APP Download`
+  String get pageTitleDownload {
+    return Intl.message(
+      'APP Download',
+      name: 'pageTitleDownload',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tutorial`
   String get pageTitleTutorial {
     return Intl.message(
@@ -64,10 +74,10 @@ class S {
   }
 
   /// `Announcement`
-  String get pageTitleMarquee {
+  String get pageTitleNotice {
     return Intl.message(
       'Announcement',
-      name: 'pageTitleMarquee',
+      name: 'pageTitleNotice',
       desc: '',
       args: [],
     );
@@ -263,11 +273,11 @@ class S {
     );
   }
 
-  /// `Account Center`
-  String get pageTitleMemberAccount {
+  /// `Center`
+  String get pageTitleMemberCenter {
     return Intl.message(
-      'Account Center',
-      name: 'pageTitleMemberAccount',
+      'Center',
+      name: 'pageTitleMemberCenter',
       desc: '',
       args: [],
     );
@@ -433,6 +443,36 @@ class S {
     );
   }
 
+  /// `Send`
+  String get btnSend {
+    return Intl.message(
+      'Send',
+      name: 'btnSend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get btnSubmit {
+    return Intl.message(
+      'Submit',
+      name: 'btnSubmit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm & Send`
+  String get btnConfirmSend {
+    return Intl.message(
+      'Confirm & Send',
+      name: 'btnConfirmSend',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get btnLogin {
     return Intl.message(
@@ -478,6 +518,36 @@ class S {
     return Intl.message(
       'Sign in',
       name: 'btnSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download`
+  String get btnDownload {
+    return Intl.message(
+      'Download',
+      name: 'btnDownload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bind`
+  String get btnBind {
+    return Intl.message(
+      'Bind',
+      name: 'btnBind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get btnQueryNow {
+    return Intl.message(
+      'Search',
+      name: 'btnQueryNow',
       desc: '',
       args: [],
     );
@@ -543,6 +613,16 @@ class S {
     );
   }
 
+  /// `Please select`
+  String get hintActionSelect {
+    return Intl.message(
+      'Please select',
+      name: 'hintActionSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please login first`
   String get hintActionLogin {
     return Intl.message(
@@ -558,46 +638,6 @@ class S {
     return Intl.message(
       'Please enter your member info',
       name: 'hintTitleLogin',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Welcome！ Please login first`
-  String get homeHintWelcomeLogin {
-    return Intl.message(
-      'Welcome！ Please login first',
-      name: 'homeHintWelcomeLogin',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Welcome！`
-  String get homeHintWelcome {
-    return Intl.message(
-      'Welcome！',
-      name: 'homeHintWelcome',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Hello, {name}！`
-  String homeHintWelcomeMember(Object name) {
-    return Intl.message(
-      'Hello, $name！',
-      name: 'homeHintWelcomeMember',
-      desc: '',
-      args: [name],
-    );
-  }
-
-  /// `Credit`
-  String get homeHintMemberCreditLeft {
-    return Intl.message(
-      'Credit',
-      name: 'homeHintMemberCreditLeft',
       desc: '',
       args: [],
     );
@@ -658,6 +698,46 @@ class S {
     return Intl.message(
       'Enter the password again',
       name: 'hintConfirmed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome！ Please login first`
+  String get homeHintWelcomeLogin {
+    return Intl.message(
+      'Welcome！ Please login first',
+      name: 'homeHintWelcomeLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome！`
+  String get homeHintWelcome {
+    return Intl.message(
+      'Welcome！',
+      name: 'homeHintWelcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hello, {name}！`
+  String homeHintWelcomeMember(Object name) {
+    return Intl.message(
+      'Hello, $name！',
+      name: 'homeHintWelcomeMember',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Credit`
+  String get homeHintMemberCreditLeft {
+    return Intl.message(
+      'Credit',
+      name: 'homeHintMemberCreditLeft',
       desc: '',
       args: [],
     );
@@ -803,6 +883,16 @@ class S {
     );
   }
 
+  /// `Please fill the form`
+  String get messageActionFillForm {
+    return Intl.message(
+      'Please fill the form',
+      name: 'messageActionFillForm',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{name}, please log in again`
   String messageLogout(Object name) {
     return Intl.message(
@@ -823,23 +913,83 @@ class S {
     );
   }
 
-  /// `Success: {msg}`
+  /// `{msg} success`
   String messageTaskSuccess(Object msg) {
     return Intl.message(
-      'Success: $msg',
+      '$msg success',
       name: 'messageTaskSuccess',
       desc: '',
       args: [msg],
     );
   }
 
-  /// `Cancel: {msg}`
+  /// `{msg} canceled`
   String messageTaskCanceled(Object msg) {
     return Intl.message(
-      'Cancel: $msg',
+      '$msg canceled',
       name: 'messageTaskCanceled',
       desc: '',
       args: [msg],
+    );
+  }
+
+  /// `{msg} failed`
+  String messageTaskFailed(Object msg) {
+    return Intl.message(
+      '$msg failed',
+      name: 'messageTaskFailed',
+      desc: '',
+      args: [msg],
+    );
+  }
+
+  /// `{msg} error`
+  String messageError(Object msg) {
+    return Intl.message(
+      '$msg error',
+      name: 'messageError',
+      desc: '',
+      args: [msg],
+    );
+  }
+
+  /// `Error:{msg}({msg2})`
+  String messageErrorCause(Object msg, Object msg2) {
+    return Intl.message(
+      'Error:$msg($msg2)',
+      name: 'messageErrorCause',
+      desc: '',
+      args: [msg, msg2],
+    );
+  }
+
+  /// `Error:{msg}`
+  String messageErrorStatus(Object msg) {
+    return Intl.message(
+      'Error:$msg',
+      name: 'messageErrorStatus',
+      desc: '',
+      args: [msg],
+    );
+  }
+
+  /// `Cannot open link：{url}`
+  String messageErrorLink(Object url) {
+    return Intl.message(
+      'Cannot open link：$url',
+      name: 'messageErrorLink',
+      desc: '',
+      args: [url],
+    );
+  }
+
+  /// `Error Data Format`
+  String get messageInvalidFormat {
+    return Intl.message(
+      'Error Data Format',
+      name: 'messageInvalidFormat',
+      desc: '',
+      args: [],
     );
   }
 
@@ -868,6 +1018,16 @@ class S {
     return Intl.message(
       'Wrong phone format',
       name: 'messageInvalidPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid WeChat account`
+  String get messageInvalidWechat {
+    return Intl.message(
+      'Invalid WeChat account',
+      name: 'messageInvalidWechat',
       desc: '',
       args: [],
     );
@@ -1053,26 +1213,6 @@ class S {
     );
   }
 
-  /// `Error: {msg} ({msg2})`
-  String messageError(Object msg, Object msg2) {
-    return Intl.message(
-      'Error: $msg ($msg2)',
-      name: 'messageError',
-      desc: '',
-      args: [msg, msg2],
-    );
-  }
-
-  /// `Error: {msg}`
-  String messageErrorStatus(Object msg) {
-    return Intl.message(
-      'Error: $msg',
-      name: 'messageErrorStatus',
-      desc: '',
-      args: [msg],
-    );
-  }
-
   /// `Internal error, please try again later or contact customer service`
   String get messageErrorInternal {
     return Intl.message(
@@ -1093,11 +1233,11 @@ class S {
     );
   }
 
-  /// `User data error`
-  String get messageErrorData {
+  /// `User token error, please logout and login again`
+  String get messageErrorToken {
     return Intl.message(
-      'User data error',
-      name: 'messageErrorData',
+      'User token error, please logout and login again',
+      name: 'messageErrorToken',
       desc: '',
       args: [],
     );
@@ -1153,11 +1293,11 @@ class S {
     );
   }
 
-  /// `Server error, please try again later or contact customer service`
-  String get messageErrorServerError {
+  /// `Server data error, please try again later or contact customer service`
+  String get messageErrorServerData {
     return Intl.message(
-      'Server error, please try again later or contact customer service',
-      name: 'messageErrorServerError',
+      'Server data error, please try again later or contact customer service',
+      name: 'messageErrorServerData',
       desc: '',
       args: [],
     );
@@ -1210,6 +1350,16 @@ class S {
       name: 'messageErrorFieldError',
       desc: '',
       args: [msg],
+    );
+  }
+
+  /// `Cannot retrieve {wallet} wallet url`
+  String messageErrorBindUrl(Object wallet) {
+    return Intl.message(
+      'Cannot retrieve $wallet wallet url',
+      name: 'messageErrorBindUrl',
+      desc: '',
+      args: [wallet],
     );
   }
 
@@ -1303,6 +1453,16 @@ class S {
     );
   }
 
+  /// `Some of the transfer action has failed`
+  String get messagePartFailed {
+    return Intl.message(
+      'Some of the transfer action has failed',
+      name: 'messagePartFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Old Password:`
   String get userPwdFieldTitleOld {
     return Intl.message(
@@ -1370,6 +1530,46 @@ class S {
       name: 'userPwdButtonTitle',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Verify:`
+  String get userVerifyFieldTitle {
+    return Intl.message(
+      'Verify:',
+      name: 'userVerifyFieldTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enter verify code`
+  String get userVerifyFieldHint {
+    return Intl.message(
+      'enter verify code',
+      name: 'userVerifyFieldHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can only request once in 24 hrs`
+  String get userVerifyFieldInfo {
+    return Intl.message(
+      'You can only request once in 24 hrs',
+      name: 'userVerifyFieldInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request{separator}Code`
+  String userVerifyButtonText(Object separator) {
+    return Intl.message(
+      'Request${separator}Code',
+      name: 'userVerifyButtonText',
+      desc: '',
+      args: [separator],
     );
   }
 
@@ -1673,11 +1873,31 @@ class S {
     );
   }
 
-  /// `Transfer In`
+  /// `To`
   String get transferViewTitleIn {
     return Intl.message(
-      'Transfer In',
+      'To',
       name: 'transferViewTitleIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From`
+  String get transferViewTitleOut {
+    return Intl.message(
+      'From',
+      name: 'transferViewTitleOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select One`
+  String get transferViewSiteHint {
+    return Intl.message(
+      'Select One',
+      name: 'transferViewSiteHint',
       desc: '',
       args: [],
     );
@@ -1843,16 +2063,6 @@ class S {
     );
   }
 
-  /// `Submit`
-  String get withdrawViewTitleSend {
-    return Intl.message(
-      'Submit',
-      name: 'withdrawViewTitleSend',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Do not use virtual currency`
   String get withdrawViewOptionVirtual {
     return Intl.message(
@@ -1863,11 +2073,51 @@ class S {
     );
   }
 
+  /// `Use CGP`
+  String get withdrawViewOptionCgp {
+    return Intl.message(
+      'Use CGP',
+      name: 'withdrawViewOptionCgp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use CPW`
+  String get withdrawViewOptionCpw {
+    return Intl.message(
+      'Use CPW',
+      name: 'withdrawViewOptionCpw',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `If you want to withdraw virtual currency, please select it after binding`
-  String get withdrawViewOptionHint {
+  String get withdrawViewOptionHint1 {
     return Intl.message(
       'If you want to withdraw virtual currency, please select it after binding',
-      name: 'withdrawViewOptionHint',
+      name: 'withdrawViewOptionHint1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will need to keep at least: `
+  String get withdrawViewOptionHint2 {
+    return Intl.message(
+      'You will need to keep at least: ',
+      name: 'withdrawViewOptionHint2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data delay will very from game suppliers`
+  String get withdrawViewOptionHint3 {
+    return Intl.message(
+      'Data delay will very from game suppliers',
+      name: 'withdrawViewOptionHint3',
       desc: '',
       args: [],
     );
@@ -1913,21 +2163,31 @@ class S {
     );
   }
 
-  /// `One Click Home`
-  String get walletViewButtonOneclick {
+  /// `Transfer Here`
+  String get walletViewButtonOneClick {
     return Intl.message(
-      'One Click Home',
-      name: 'walletViewButtonOneclick',
+      'Transfer Here',
+      name: 'walletViewButtonOneClick',
       desc: '',
       args: [],
     );
   }
 
-  /// `All platform credits are transferred to the main wallet`
-  String get walletViewHintOneclick {
+  /// `All platform credits will transfer to the main wallet`
+  String get walletViewHintOneClick {
     return Intl.message(
-      'All platform credits are transferred to the main wallet',
-      name: 'walletViewHintOneclick',
+      'All platform credits will transfer to the main wallet',
+      name: 'walletViewHintOneClick',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transferring...`
+  String get walletViewHintOneClickWait {
+    return Intl.message(
+      'Transferring...',
+      name: 'walletViewHintOneClickWait',
       desc: '',
       args: [],
     );
@@ -1953,6 +2213,16 @@ class S {
     );
   }
 
+  /// `change wallet settings`
+  String get walletViewMessageSetting {
+    return Intl.message(
+      'change wallet settings',
+      name: 'walletViewMessageSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Profile`
   String get centerViewTitleData {
     return Intl.message(
@@ -1963,10 +2233,10 @@ class S {
     );
   }
 
-  /// `Liuhe Lucky Code`
+  /// `Lucky Code`
   String get centerViewTitleLotto {
     return Intl.message(
-      'Liuhe Lucky Code',
+      'Lucky Code',
       name: 'centerViewTitleLotto',
       desc: '',
       args: [],
@@ -2013,20 +2283,20 @@ class S {
     );
   }
 
-  /// `Format is: Yyyy–Mm–Dd`
+  /// `Format is: 0000–00–00`
   String get centerTextTitleDateHint {
     return Intl.message(
-      'Format is: Yyyy–Mm–Dd',
+      'Format is: 0000–00–00',
       name: 'centerTextTitleDateHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please enter the correct date (format: Yyyy–Mm–Dd)`
+  /// `Please enter the correct date (format: YYYY–MM–DD)`
   String get centerTextTitleDateError {
     return Intl.message(
-      'Please enter the correct date (format: Yyyy–Mm–Dd)',
+      'Please enter the correct date (format: YYYY–MM–DD)',
       name: 'centerTextTitleDateError',
       desc: '',
       args: [],
@@ -2193,83 +2463,63 @@ class S {
     );
   }
 
-  /// `Valid bets:`
-  String get centerVipTextValidAmount {
+  /// `APP not installed？`
+  String get centerDialogCpwLeftTitle {
     return Intl.message(
-      'Valid bets:',
-      name: 'centerVipTextValidAmount',
+      'APP not installed？',
+      name: 'centerDialogCpwLeftTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Slot Machine Betting:`
-  String get centerVipTextBetAmount {
+  /// `※ Will close APP`
+  String get centerDialogCpwLeftHint {
     return Intl.message(
-      'Slot Machine Betting:',
-      name: 'centerVipTextBetAmount',
+      '※ Will close APP',
+      name: 'centerDialogCpwLeftHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Normal`
-  String get centerVipTextVip0 {
+  /// `APP installed`
+  String get centerDialogCpwRightTitle {
     return Intl.message(
-      'Normal',
-      name: 'centerVipTextVip0',
+      'APP installed',
+      name: 'centerDialogCpwRightTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Gold`
-  String get centerVipTextVip1 {
+  /// `(please wait for data update after bind wallet)`
+  String get centerDialogCpwRightHint {
     return Intl.message(
-      'Gold',
-      name: 'centerVipTextVip1',
+      '(please wait for data update after bind wallet)',
+      name: 'centerDialogCpwRightHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ruby`
-  String get centerVipTextVip2 {
+  /// `or`
+  String get centerDialogCpwRightHint2 {
     return Intl.message(
-      'Ruby',
-      name: 'centerVipTextVip2',
+      'or',
+      name: 'centerDialogCpwRightHint2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Emerald`
-  String get centerVipTextVip3 {
+  /// `Url Error, please contact service.`
+  String get centerDialogCpwRightLinkError {
     return Intl.message(
-      'Emerald',
-      name: 'centerVipTextVip3',
+      'Url Error, please contact service.',
+      name: 'centerDialogCpwRightLinkError',
       desc: '',
       args: [],
-    );
-  }
-
-  /// `Diamond`
-  String get centerVipTextVip4 {
-    return Intl.message(
-      'Diamond',
-      name: 'centerVipTextVip4',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `{num} 万`
-  String centerVipTextVipCondition(Object num) {
-    return Intl.message(
-      '$num 万',
-      name: 'centerVipTextVipCondition',
-      desc: '',
-      args: [num],
     );
   }
 
@@ -3453,13 +3703,33 @@ class S {
     );
   }
 
-  /// `Are you sure of the {value} {value2} platform?`
-  String balanceTransferAlertMsg(Object value, Object value2) {
+  /// `Not enough credit: {value}`
+  String balanceTransferAmountError(Object value) {
     return Intl.message(
-      'Are you sure of the $value $value2 platform?',
+      'Not enough credit: $value',
+      name: 'balanceTransferAmountError',
+      desc: '',
+      args: [value],
+    );
+  }
+
+  /// `Please confirm`
+  String get balanceTransferAlertTitle {
+    return Intl.message(
+      'Please confirm',
+      name: 'balanceTransferAlertTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure of {action} to {platform} platform?`
+  String balanceTransferAlertMsg(Object action, Object platform) {
+    return Intl.message(
+      'Are you sure of $action to $platform platform?',
       name: 'balanceTransferAlertMsg',
       desc: '',
-      args: [value, value2],
+      args: [action, platform],
     );
   }
 
@@ -3473,40 +3743,40 @@ class S {
     );
   }
 
-  /// `1 Please exit the game or game betting interface before transferring money.`
+  /// `1. Please exit the game or game betting interface before transferring money.`
   String get balanceHintText1 {
     return Intl.message(
-      '1 Please exit the game or game betting interface before transferring money.',
+      '1. Please exit the game or game betting interface before transferring money.',
       name: 'balanceHintText1',
       desc: '',
       args: [],
     );
   }
 
-  /// `2 When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.`
+  /// `2. When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.`
   String get balanceHintText2 {
     return Intl.message(
-      '2 When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.',
+      '2. When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.',
       name: 'balanceHintText2',
       desc: '',
       args: [],
     );
   }
 
-  /// `3 If you have a slow internet connection, please wait for a while and don't repeat the submission multiple times.`
+  /// `3. If you have a slow internet connection, please wait for a while and don't repeat the submission multiple times.`
   String get balanceHintText3 {
     return Intl.message(
-      '3 If you have a slow internet connection, please wait for a while and don\'t repeat the submission multiple times.',
+      '3. If you have a slow internet connection, please wait for a while and don\'t repeat the submission multiple times.',
       name: 'balanceHintText3',
       desc: '',
       args: [],
     );
   }
 
-  /// `If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service`
+  /// `4. If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service`
   String get balanceHintText4 {
     return Intl.message(
-      'If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service',
+      '4. If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service',
       name: 'balanceHintText4',
       desc: '',
       args: [],
@@ -4278,26 +4548,6 @@ class S {
     return Intl.message(
       'Please select',
       name: 'storeRequestWindowSpinnerHint',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `OK to send`
-  String get storeRequestWindowButton {
-    return Intl.message(
-      'OK to send',
-      name: 'storeRequestWindowButton',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Transfer Out`
-  String get transferViewTitleOut {
-    return Intl.message(
-      'Transfer Out',
-      name: 'transferViewTitleOut',
       desc: '',
       args: [],
     );

@@ -1,6 +1,11 @@
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart' show RequestStatusModel;
+import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart'
+    show RequestStatusModel;
 import 'package:super_enum/super_enum.dart';
+
+import 'failure_code.dart';
+
+export 'failure_code.dart';
 
 part 'failures.g.dart';
 
@@ -13,12 +18,12 @@ enum _Failure {
   @object
   Server,
   @object
-  DataSource,
+  JsonFormat,
   @object
   DataType,
   @object
   CachedFile,
-  @object
+  @UseClass(FailureCode)
   Internal,
   @UseClass(RequestStatusModel)
   Login,
@@ -36,16 +41,16 @@ extension FailureExtension on Failure {
         return localeStr.messageWarnNetworkLocation;
       case _Failure.Server:
         return localeStr.messageErrorNoServerConnection;
-      case _Failure.DataSource:
-        return localeStr.messageErrorServerError;
+      case _Failure.JsonFormat:
+        return localeStr.messageErrorServerData;
       case _Failure.Login:
         return localeStr.messageLoginFailed;
       case _Failure.Token:
-        return localeStr.messageErrorData;
+        return localeStr.messageErrorToken;
       case _Failure.CachedFile:
         return localeStr.messageErrorCachedFile;
       case _Failure.Internal:
-        return localeStr.messageErrorInternal;
+        return localeStr.messageErrorInternal + '(${this.props.first.value})';
       default:
         return _OTHER_FAILURE_MESSAGE;
     }

@@ -10,6 +10,8 @@ import 'package:flutter_ty_mobile/mylogger.dart';
 
 import 'test_basic_dropdown_widget.dart';
 import 'test_basic_input_widget.dart';
+import 'test_basic_chip_widget.dart';
+import 'test_single_input_chip_widget.dart';
 
 class TestScreen extends StatefulWidget {
   @override
@@ -67,6 +69,15 @@ class _TestScreenState extends State<TestScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: new TestBasicInputWidget(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: <Widget>[
+                    TestBasicChipWidget(),
+                    SingleInputChipWidget(),
+                  ],
+                ),
               ),
             ],
           ),

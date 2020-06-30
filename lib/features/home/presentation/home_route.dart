@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/home/presentation/bloc/bloc_home_export.dart';
 import 'package:flutter_ty_mobile/features/home/presentation/widgets/home_widgets_export.dart';
 
-import '../../resource_export.dart' show FontSize, Themes;
 import '../../route_page_export.dart';
 
 /// Main View of [Router.homeRoute]
@@ -55,6 +56,8 @@ class _HomeRouteState extends State<HomeRoute> {
       key: _key,
       child: Scaffold(
         backgroundColor: Themes.defaultBackgroundColor,
+
+        /// TODO change this to scroll because keyboard will shrink the view
         body: Column(
           children: <Widget>[
             Expanded(
@@ -148,12 +151,12 @@ class _HomeRouteState extends State<HomeRoute> {
           ),
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           child: RaisedButton(
-            color: Themes.defaultAccentColor,
             child: Text(
-              localeStr.pageTitleMarquee,
+              localeStr.pageTitleNotice,
               style: TextStyle(
-                  fontSize: FontSize.NORMAL.value,
-                  color: Themes.defaultTextColorBlack),
+                fontSize: FontSize.NORMAL.value,
+                color: Themes.defaultTextColorBlack,
+              ),
             ),
             visualDensity: VisualDensity(horizontal: -4.0, vertical: -3.0),
             onPressed: () => {},
@@ -176,7 +179,7 @@ class _HomeRouteState extends State<HomeRoute> {
               mLoaded: (_) => MarqueeDisplay(marquees: state.props.first),
               mError: (_) => Padding(
                 padding: const EdgeInsets.only(left: 48.0, right: 16.0),
-                child: MessageDisplay(
+                child: WarningDisplay(
                   message: state.props.first,
                   smallText: Global.device.width <= 360,
                   highlight: true,
@@ -205,7 +208,7 @@ class _HomeRouteState extends State<HomeRoute> {
                 tInitial: (_) => GameControl(),
                 tLoading: (_) => LoadingWidget(),
                 tLoaded: (_) => GameDisplayTab(tabsData: state.props.first),
-                tError: (_) => MessageDisplay(
+                tError: (_) => WarningDisplay(
                   message: state.props.first,
                 ),
               );

@@ -1,3 +1,4 @@
+import 'package:flutter_ty_mobile/utils/json_util.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'request_status_freezed.freezed.dart';
@@ -7,7 +8,7 @@ part 'request_status_freezed.g.dart';
 abstract class RequestStatusModel with _$RequestStatusModel {
   factory RequestStatusModel({
     @required String status,
-    @JsonKey(fromJson: _msgFromJson, required: false) String msg,
+    @JsonKey(fromJson: JsonUtil.getRawJson, required: false) String msg,
   }) = _RequestStatusModel;
 
   factory RequestStatusModel.fromJson(Map<String, dynamic> json) =>
@@ -19,8 +20,6 @@ abstract class RequestStatusModel with _$RequestStatusModel {
   @late
   bool get isSuccess => status == 'success';
 }
-
-String _msgFromJson(dynamic msg) => (msg != null) ? msg.toString() : '';
 
 @freezed
 abstract class DataRequestResult with _$DataRequestResult {

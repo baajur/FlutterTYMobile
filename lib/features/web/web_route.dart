@@ -3,12 +3,11 @@ import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
+import 'package:flutter_ty_mobile/features/route_page_export.dart';
 import 'package:mobx/mobx.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../features/member/data/repository/member_repository.dart';
-import '../../injection_container.dart';
-import '../../utils/string_util.dart' show StringVerifyExtension;
+import '../../utils/regex_util.dart';
 import '../web/state/web_route_store.dart';
 
 class WebRoute extends StatefulWidget {
@@ -29,7 +28,8 @@ class _WebRouteState extends State<WebRoute> {
 
   @override
   void initState() {
-    _store ??= WebRouteStore(sl.get<MemberRepository>());
+//    _store ??= WebRouteStore(sl.get<MemberRepository>());
+    _store ??= WebRouteStore();
     // to hide only bottom bar:
 //    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
     // to hide only status bar:
@@ -84,57 +84,70 @@ class _WebRouteState extends State<WebRoute> {
             Uri.dataFromString(localeStr.messageErrorLoadingPay).toString());
       }
     });
-    return IndexedStack(
-      index: _stackToView,
-      children: <Widget>[
-        Container(
-          child: WebView(
+    return WillPopScope(
+      onWillPop: () async {
+        print('pop web route');
+        if (RouterNavigate.current == Routes.depositWebPage ||
+            RouterNavigate.current == Routes.centerWebPage) {
+          Future.delayed(
+            Duration(milliseconds: 300),
+            () => RouterNavigate.navigateBack(),
+          );
+        }
+        return Future(() => true);
+      },
+      child: IndexedStack(
+        index: _stackToView,
+        children: <Widget>[
+          Container(
+            child: WebView(
 //            initialUrl: widget.startUrl,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController controller) async {
-              _controller = controller;
-              _controller.loadUrl(widget.startUrl);
-            },
-            onPageStarted: (String url) {
-              print('start loading: $url');
-            },
-            onPageFinished: (String url) async {
-              if (_stackToView == 1) {
-                setState(() {
-                  _stackToView = 0;
-                });
-              }
-
-              print('web page loaded: $url');
-              if (url.isUrl == false) return;
-
-              String pageTitle = await _controller.getTitle();
-              print('web page title: $pageTitle');
-              //TODO check the normal page title or 404
-              // Error 500 Title: 500 Internal Server Error
-              if (pageTitle.contains('Error') ||
-                  pageTitle.contains('Exception')) {
-                if (pageTitle.startsWith('500')) {
-                  _controller.loadUrl(Uri.dataFromString(
-                    pageTitle,
-                    mimeType: Global.WEB_MIMETYPE,
-                    encoding: Global.webEncoding,
-                  ).toString());
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController controller) async {
+                _controller = controller;
+                _controller.loadUrl(widget.startUrl);
+              },
+              onPageStarted: (String url) {
+                print('start loading: $url');
+              },
+              onPageFinished: (String url) async {
+                if (_stackToView == 1) {
+                  setState(() {
+                    _stackToView = 0;
+                  });
                 }
-              }
-            },
-            javascriptChannels: <JavascriptChannel>[
-              _toasterJavascriptChannel(context),
-            ].toSet(),
+
+                print('web page loaded: $url');
+                if (url.isUrl == false) return;
+
+                String pageTitle = await _controller.getTitle();
+                print('web page title: $pageTitle');
+                //TODO check the normal page title or 404
+                // Error 500 Title: 500 Internal Server Error
+                if (pageTitle.contains('Error') ||
+                    pageTitle.contains('Exception')) {
+                  if (pageTitle.startsWith('500')) {
+                    _controller.loadUrl(Uri.dataFromString(
+                      pageTitle,
+                      mimeType: Global.WEB_MIMETYPE,
+                      encoding: Global.webEncoding,
+                    ).toString());
+                  }
+                }
+              },
+              javascriptChannels: <JavascriptChannel>[
+                _toasterJavascriptChannel(context),
+              ].toSet(),
+            ),
           ),
-        ),
-        Container(
-          color: Themes.defaultBackgroundColor,
-          child: Center(
-            child: CircularProgressIndicator(),
+          Container(
+            color: Themes.defaultBackgroundColor,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

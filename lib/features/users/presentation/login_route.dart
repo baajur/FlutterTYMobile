@@ -2,19 +2,14 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ty_mobile/core/base/usecase_export.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart'
-    show ToastError;
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
+import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
 import 'package:flutter_ty_mobile/features/route_page_export.dart'
-    show localeStr, sl;
-import 'package:flutter_ty_mobile/features/users/data/form/login_form.dart';
-import 'package:flutter_ty_mobile/features/users/presentation/bloc/bloc_user_export.dart';
-import 'package:flutter_ty_mobile/features/users/presentation/widgets/fast_login_widget.dart';
-import 'package:flutter_ty_mobile/features/users/presentation/widgets/user_display.dart';
-import 'package:flutter_ty_mobile/utils/value_range.dart';
+    show MyLogger, rangeCheck, sl;
+
+import '../data/form/login_form.dart';
+import 'bloc/bloc_user_export.dart';
+import 'widgets/fast_login_widget.dart';
+import 'widgets/user_display.dart';
 
 /// Main View of [Router.loginRoute]
 ///@author H.C.CHIANG
@@ -91,7 +86,6 @@ class _LoginRouteState extends State<LoginRoute> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: false,
       body: InkWell(
         // to dismiss the keyboard when the user tabs out of the TextField
@@ -119,6 +113,8 @@ class _LoginRouteState extends State<LoginRoute> with AfterLayoutMixin {
                       uLoaded: (_) {
                         if (_fastKey.currentState.fastLogin) {
                           _bloc.saveToBox(_hiveForm);
+                        } else {
+                          _bloc.cleanBox();
                         }
                         return UserDisplay(user: state.props.first);
                       },
@@ -186,21 +182,31 @@ class _LoginRouteState extends State<LoginRoute> with AfterLayoutMixin {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              onPressed: () => _validateForm(),
+                              onPressed: () {
+                                // clear text field focus
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+                                _validateForm();
+                              },
                             ),
                           ),
                           SizedBox(width: 8.0),
                           Expanded(
                             child: RaisedButton(
-                              child: Text(localeStr.btnResetPassword),
-                              color: Themes.buttonDisabledColor,
-                              textColor: Themes.buttonDisabledTextColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              onPressed: () => FLToast.showInfo(
-                                  text: localeStr.workInProgress),
-                            ),
+                                child: Text(localeStr.btnResetPassword),
+                                color: Themes.buttonDisabledColor,
+                                textColor: Themes.buttonDisabledTextColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                onPressed: () {
+                                  // clear text field focus
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  FLToast.showInfo(
+                                    text: localeStr.workInProgress,
+                                  );
+                                }),
                           ),
                         ],
                       ),
@@ -225,7 +231,14 @@ class _LoginRouteState extends State<LoginRoute> with AfterLayoutMixin {
         password: _pwdFieldKey.currentState.inputText,
         fastLogin: _fastKey.currentState.fastLogin,
       );
-      _bloc.add(GetUserEvent(form: _hiveForm.simple));
+      if (_hiveForm.isValid)
+        _bloc.add(GetUserEvent(form: _hiveForm.simple));
+      else
+        FLToast.showText(
+          text: localeStr.messageActionFillForm,
+          position: FLToastPosition.top,
+          showDuration: ToastDuration.DEFAULT.value,
+        );
     }
   }
 }

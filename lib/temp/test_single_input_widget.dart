@@ -4,7 +4,6 @@ import 'package:flutter/services.dart'
         LengthLimitingTextInputFormatter,
         TextInputFormatter,
         WhitelistingTextInputFormatter;
-import 'package:flutter_ty_mobile/core/internal/font_size.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 
@@ -54,10 +53,10 @@ class SingleInputWidget extends StatefulWidget {
     this.widgetPadding,
     this.fieldContentInset,
     this.prefixTitle,
-    this.titleWidthFactor = 0.286,
+    this.titleWidthFactor = Themes.prefixTextWidthFactor,
     this.spacing = 12.0,
     this.prefixIconData,
-    this.iconWidthFactor = 0.166,
+    this.iconWidthFactor = Themes.prefixIconWidthFactor,
     this.suffixIconData,
     this.suffixText,
     this.suffixAction,
@@ -215,7 +214,7 @@ class SingleInputWidgetState extends State<SingleInputWidget> {
             child: Icon(
               widget.prefixIconData,
               size: Themes.fieldIconSize,
-              color: Themes.iconColorDark,
+              color: Themes.iconColorLightGrey,
             ),
           ),
           Padding(
@@ -256,7 +255,7 @@ class SingleInputWidgetState extends State<SingleInputWidget> {
         child: Icon(
           widget.prefixIconData,
           size: Themes.fieldIconSize,
-          color: Themes.iconColorDark,
+          color: Themes.iconColorLightGrey,
         ),
       );
     }

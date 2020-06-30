@@ -74,7 +74,7 @@ class _DepositDisplayState extends State<DepositDisplay> with AfterLayoutMixin {
         (DepositResult result) {
           print('deposit display result: $result');
           if (result == null) return;
-          if (result.code == 0 && result.ledger != null) {
+          if (result.code == 0 && result.ledger != null && result.ledger > 0) {
             FLToast.showSuccess(
               text: localeStr.depositMessageSuccessLocal(result.ledger),
               showDuration: ToastDuration.DEFAULT.value,
@@ -83,7 +83,7 @@ class _DepositDisplayState extends State<DepositDisplay> with AfterLayoutMixin {
             print('deposit display url: ${result.url}');
             RouterNavigate.navigateToPage(
               RoutePage.depositWeb,
-              arg: result.url,
+              arg: WebRouteArguments(startUrl: result.url),
             );
           } else {
             FLToast.showError(

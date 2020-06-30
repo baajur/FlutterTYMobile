@@ -4,8 +4,8 @@ import 'package:flutter_ty_mobile/features/home/data/models/banner_freezed.dart'
     show BannerEntity;
 import 'package:flutter_ty_mobile/features/home/domain/usecase/get_banner_data.dart';
 import 'package:flutter_ty_mobile/features/home/domain/usecase/get_banner_image.dart';
-import 'package:flutter_ty_mobile/utils/string_util.dart'
-    show ValueStringExtension;
+import 'package:flutter_ty_mobile/utils/value_util.dart'
+    show ValueUtilExtension;
 import 'package:meta/meta.dart' show required;
 
 import 'home_banner_event.dart';
@@ -74,7 +74,7 @@ class HomeBannerBloc extends Bloc<HomeBannerEvent, HomeBannerState> {
         blocPromoIds = banners.map((data) {
           if (data.noPromo || data.promoUrl.startsWith('promo') == false)
             return -1;
-          return data.promoUrl.split('/').last.valueToInt;
+          return data.promoUrl.split('/').last.strToInt;
         }).toList();
 //          print('banner promo ids: ${blocPromoIds.length}');
         return HomeBannerState.bCaching(banners: blocData);

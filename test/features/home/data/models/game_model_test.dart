@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_ty_mobile/features/home/data/models/game_data_freezed.dart';
-import 'package:flutter_ty_mobile/utils/json_decode_util.dart';
+import 'package:flutter_ty_mobile/utils/json_util.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -36,8 +36,7 @@ void main() {
   );
 
   test('test model list data decode', () {
-    List<dynamic> list =
-        JsonDecodeUtil.decodeArray(fixture('home/game_array.json'));
+    List<dynamic> list = JsonUtil.decodeArray(fixture('home/game_array.json'));
     final dataList =
         list.map((model) => GameModel.jsonToGameModel(model)).toList();
     expect(dataList.length, 11);

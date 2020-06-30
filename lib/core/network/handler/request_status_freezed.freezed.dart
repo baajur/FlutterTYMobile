@@ -17,7 +17,7 @@ class _$RequestStatusModelTearOff {
 
   _RequestStatusModel call(
       {@required String status,
-      @JsonKey(fromJson: _msgFromJson, required: false) String msg}) {
+      @JsonKey(fromJson: JsonUtil.getRawJson, required: false) String msg}) {
     return _RequestStatusModel(
       status: status,
       msg: msg,
@@ -30,7 +30,7 @@ const $RequestStatusModel = _$RequestStatusModelTearOff();
 
 mixin _$RequestStatusModel {
   String get status;
-  @JsonKey(fromJson: _msgFromJson, required: false)
+  @JsonKey(fromJson: JsonUtil.getRawJson, required: false)
   String get msg;
 
   Map<String, dynamic> toJson();
@@ -43,7 +43,7 @@ abstract class $RequestStatusModelCopyWith<$Res> {
       _$RequestStatusModelCopyWithImpl<$Res>;
   $Res call(
       {String status,
-      @JsonKey(fromJson: _msgFromJson, required: false) String msg});
+      @JsonKey(fromJson: JsonUtil.getRawJson, required: false) String msg});
 }
 
 class _$RequestStatusModelCopyWithImpl<$Res>
@@ -74,7 +74,7 @@ abstract class _$RequestStatusModelCopyWith<$Res>
   @override
   $Res call(
       {String status,
-      @JsonKey(fromJson: _msgFromJson, required: false) String msg});
+      @JsonKey(fromJson: JsonUtil.getRawJson, required: false) String msg});
 }
 
 class __$RequestStatusModelCopyWithImpl<$Res>
@@ -103,7 +103,7 @@ class __$RequestStatusModelCopyWithImpl<$Res>
 class _$_RequestStatusModel implements _RequestStatusModel {
   _$_RequestStatusModel(
       {@required this.status,
-      @JsonKey(fromJson: _msgFromJson, required: false) this.msg})
+      @JsonKey(fromJson: JsonUtil.getRawJson, required: false) this.msg})
       : assert(status != null);
 
   factory _$_RequestStatusModel.fromJson(Map<String, dynamic> json) =>
@@ -112,7 +112,7 @@ class _$_RequestStatusModel implements _RequestStatusModel {
   @override
   final String status;
   @override
-  @JsonKey(fromJson: _msgFromJson, required: false)
+  @JsonKey(fromJson: JsonUtil.getRawJson, required: false)
   final String msg;
 
   bool _didisSuccess = false;
@@ -160,9 +160,10 @@ class _$_RequestStatusModel implements _RequestStatusModel {
 
 abstract class _RequestStatusModel implements RequestStatusModel {
   factory _RequestStatusModel(
-          {@required String status,
-          @JsonKey(fromJson: _msgFromJson, required: false) String msg}) =
-      _$_RequestStatusModel;
+      {@required
+          String status,
+      @JsonKey(fromJson: JsonUtil.getRawJson, required: false)
+          String msg}) = _$_RequestStatusModel;
 
   factory _RequestStatusModel.fromJson(Map<String, dynamic> json) =
       _$_RequestStatusModel.fromJson;
@@ -170,7 +171,7 @@ abstract class _RequestStatusModel implements RequestStatusModel {
   @override
   String get status;
   @override
-  @JsonKey(fromJson: _msgFromJson, required: false)
+  @JsonKey(fromJson: JsonUtil.getRawJson, required: false)
   String get msg;
   @override
   _$RequestStatusModelCopyWith<_RequestStatusModel> get copyWith;

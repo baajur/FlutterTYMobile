@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_ty_mobile/features/home/data/models/banner_freezed.dart'
     show BannerModel;
-import 'package:flutter_ty_mobile/utils/json_decode_util.dart';
+import 'package:flutter_ty_mobile/utils/json_util.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -46,7 +46,7 @@ void main() {
 
   test('test model list data decode', () {
     List<dynamic> list =
-        JsonDecodeUtil.decodeArray(fixture('home/banner_array.json'));
+        JsonUtil.decodeArray(fixture('home/banner_array.json'));
     final dataList =
         list.map((model) => BannerModel.jsonToBannerModel(model)).toList();
     expect(dataList.length, 3);
