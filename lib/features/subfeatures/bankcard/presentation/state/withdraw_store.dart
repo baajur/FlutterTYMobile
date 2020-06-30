@@ -129,8 +129,7 @@ abstract class _WithdrawStore with Store {
     } on Exception {
       waitForWithdrawResult = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.WITHDRAW))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.WITHDRAW)).message;
     }
   }
 }

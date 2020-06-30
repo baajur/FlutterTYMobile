@@ -1,58 +1,61 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
+import 'package:dataclass/dataclass.dart';
 
-part 'failure_code.freezed.dart';
+part 'failure_code.g.dart';
 
-@freezed
-abstract class FailureCode with _$FailureCode {
-  factory FailureCode({
-    @Default(FailureTypeCode.NOT_DEFINED) FailureTypeCode typeCode,
-    @Default(0) int code,
-  }) = _FailureCode;
+@dataClass
+class FailureCode extends _$FailureCode {
+  final FailureType type;
+  final int code;
 
-  @late
-  int get errorCode => typeCode.value + code;
+  const FailureCode({this.type = FailureType.NOT_DEFINED, this.code = 0});
 }
 
-class FailureTypeCode extends GenericEnum<int> {
-  const FailureTypeCode._(int value) : super(value);
+@VnumDefinition
+class FailureType extends Vnum<int> {
+  /// Case Definition
+  static const FailureType LOGIN = const FailureType.define(0100);
+  static const FailureType REGISTER = const FailureType.define(0200);
+  static const FailureType WEB = const FailureType.define(0500);
+  static const FailureType WEB_URL = const FailureType.define(0600);
 
-  static const FailureTypeCode LOGIN = FailureTypeCode._(0100);
-  static const FailureTypeCode REGISTER = FailureTypeCode._(0200);
-  static const FailureTypeCode WEB = FailureTypeCode._(0500);
-  static const FailureTypeCode WEB_URL = FailureTypeCode._(0600);
+  static const FailureType HOME = const FailureType.define(1000);
+  static const FailureType BANNER = const FailureType.define(1100);
+  static const FailureType MARQUEE = const FailureType.define(1200);
+  static const FailureType GAMES = const FailureType.define(1300);
+  static const FailureType RECOMMENDS = const FailureType.define(1400);
+  static const FailureType FAVORITE = const FailureType.define(1500);
+  static const FailureType MOVIE = const FailureType.define(1600);
+  static const FailureType PROMO = const FailureType.define(1700);
+  static const FailureType SERVICE = const FailureType.define(1800);
+  static const FailureType MORE = const FailureType.define(1900);
 
-  static const FailureTypeCode HOME = FailureTypeCode._(1000);
-  static const FailureTypeCode BANNER = FailureTypeCode._(1100);
-  static const FailureTypeCode MARQUEE = FailureTypeCode._(1200);
-  static const FailureTypeCode GAMES = FailureTypeCode._(1300);
-  static const FailureTypeCode PROMO = FailureTypeCode._(1400);
-  static const FailureTypeCode SERVICE = FailureTypeCode._(1500);
-  static const FailureTypeCode MORE = FailureTypeCode._(1600);
+  static const FailureType MEMBER = const FailureType.define(2000);
+  static const FailureType DEPOSIT = const FailureType.define(2100);
+  static const FailureType TRANSFER = const FailureType.define(2200);
+  static const FailureType BANKCARD = const FailureType.define(2300);
+  static const FailureType WITHDRAW = const FailureType.define(2400);
+  static const FailureType BALANCE = const FailureType.define(2500);
+  static const FailureType WALLET = const FailureType.define(2600);
+  static const FailureType MESSAGE = const FailureType.define(2700);
+  static const FailureType CENTER = const FailureType.define(2800);
+  static const FailureType TRANSACTIONS = const FailureType.define(2900);
+  static const FailureType BETS = const FailureType.define(2910);
+  static const FailureType DEALS = const FailureType.define(2920);
+  static const FailureType FLOWS = const FailureType.define(2930);
 
-  static const FailureTypeCode MEMBER = FailureTypeCode._(2000);
-  static const FailureTypeCode DEPOSIT = FailureTypeCode._(2100);
-  static const FailureTypeCode TRANSFER = FailureTypeCode._(2200);
-  static const FailureTypeCode BANKCARD = FailureTypeCode._(2300);
-  static const FailureTypeCode WITHDRAW = FailureTypeCode._(2400);
-  static const FailureTypeCode BALANCE = FailureTypeCode._(2500);
-  static const FailureTypeCode WALLET = FailureTypeCode._(2600);
-  static const FailureTypeCode MESSAGE = FailureTypeCode._(2700);
-  static const FailureTypeCode CENTER = FailureTypeCode._(2800);
-  static const FailureTypeCode TRANSACTIONS = FailureTypeCode._(2900);
-  static const FailureTypeCode BETS = FailureTypeCode._(2910);
-  static const FailureTypeCode DEALS = FailureTypeCode._(2920);
-  static const FailureTypeCode FLOWS = FailureTypeCode._(2930);
+  static const FailureType SIDE_MENU = const FailureType.define(3000);
+  static const FailureType DOWNLOAD_AREA = const FailureType.define(3100);
+  static const FailureType TUTORIAL = const FailureType.define(3200);
+  static const FailureType NOTICE = const FailureType.define(3300);
+  static const FailureType VIP_LEVEL = const FailureType.define(3400);
+  static const FailureType STORE = const FailureType.define(3500);
+  static const FailureType AGENT = const FailureType.define(3600);
 
-  static const FailureTypeCode SIDE_MENU = FailureTypeCode._(3000);
-  static const FailureTypeCode DOWNLOAD_AREA = FailureTypeCode._(3100);
-  static const FailureTypeCode TUTORIAL = FailureTypeCode._(3200);
-  static const FailureTypeCode NOTICE = FailureTypeCode._(3300);
-  static const FailureTypeCode VIP_LEVEL = FailureTypeCode._(3400);
-  static const FailureTypeCode STORE = FailureTypeCode._(3500);
-  static const FailureTypeCode AGENT = FailureTypeCode._(3600);
+  static const FailureType TASK = const FailureType.define(8000);
 
-  static const FailureTypeCode TASK = FailureTypeCode._(8000);
+  static const FailureType NOT_DEFINED = const FailureType.define(9000);
 
-  static const FailureTypeCode NOT_DEFINED = FailureTypeCode._(9000);
+  /// Used for defining cases
+  const FailureType.define(int fromValue) : super.define(fromValue);
 }

@@ -30,22 +30,22 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
     ScreenNavigationBarItem.more,
   ];
 
-  FeatureScreenStore store;
+  FeatureScreenStore _store;
   int _navIndex = 0;
-  bool isUserTabs = false;
-  bool showingEventDialog = false;
-  Widget barWidget;
+  bool _isUserTabs = false;
+  bool _showingEventDialog = false;
+  Widget _barWidget;
 
   void _itemTapped(int index, bool hasUser) {
 //            RouterNavigate.testNavigate(_tabRoute[index]);
 //              RouterNavigate.switchScreen(web: true);
-    var item = (isUserTabs) ? _userTabs[index] : _tabs[index];
+    var item = (_isUserTabs) ? _userTabs[index] : _tabs[index];
     print('tapped item: $item');
     if (item == ScreenNavigationBarItem.more) {
       showDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) => new MoreDialog(),
+        builder: (context) => new MoreDialog(_store),
       );
     } else if (item.value.route == null) {
       FLToast.showInfo(text: localeStr.workInProgress);
@@ -66,7 +66,7 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final viewState = FeatureScreenInheritedWidget.of(context);
-    store ??= viewState.store;
+    _store ??= viewState.store;
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -77,14 +77,14 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
           stream: viewState.store.loginStateStream,
           initialData: false,
           builder: (context, snapshot) {
-            if (isUserTabs != snapshot.data) {
-              barWidget = _buildWidget(
+            if (_isUserTabs != snapshot.data) {
+              _barWidget = _buildWidget(
                 snapshot.data,
               );
             }
-            barWidget ??= _buildWidget(snapshot.data);
-            isUserTabs = snapshot.data;
-            return barWidget;
+            _barWidget ??= _buildWidget(snapshot.data);
+            _isUserTabs = snapshot.data;
+            return _barWidget;
           }),
     );
   }
@@ -92,34 +92,34 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
   Widget _buildWidget(bool hasUser) {
     return Observer(builder: (_) {
       // observe nav index to change icon icon color (setState does not work).
-      final index = store.navIndex;
+      final index = _store.navIndex;
       if (index >= 0) _navIndex = index;
-      if (store.showEvent && !showingEventDialog) {
-        showingEventDialog = true;
+      if (_store.showEvent && !_showingEventDialog) {
+        _showingEventDialog = true;
         Future.delayed(Duration(milliseconds: 1500), () {
           // will not show
-          if (store.hasUser == false ||
-              (store.navIndex != 0 && store.forceShowEvent == false)) {
+          if (_store.hasUser == false ||
+              (_store.navIndex != 0 && _store.forceShowEvent == false)) {
             stopEventAutoShow();
             return;
           } else {
             // set to false so it will not pop on other pages
-            store.setForceShowEvent = false;
+            _store.setForceShowEvent = false;
           }
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => (store.hasSignedEvent == false)
+            builder: (context) => (_store.hasSignedEvent == false)
                 ? new EventDialog(
-                    event: store.event.eventData,
-                    signCount: store.event.signData.times,
-                    onSign: () => store.signEvent(),
-                    onSignError: () => store.getEventError(),
+                    event: _store.event.eventData,
+                    signCount: _store.event.signData.times,
+                    onSign: () => _store.signEvent(),
+                    onSignError: () => _store.getEventError(),
                     onDialogClose: () => stopEventAutoShow(),
                   )
                 : new EventDialogSigned(
-                    event: store.event.eventData,
-                    signCount: store.event.signData.times,
+                    event: _store.event.eventData,
+                    signCount: _store.event.signData.times,
                     onDialogClose: () => stopEventAutoShow(),
                   ),
           );
@@ -127,8 +127,8 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
       }
       return BottomNavigationBar(
         onTap: (index) {
-          print('store state user: ${store.userStatus}');
-          _itemTapped(index, store.hasUser);
+          print('store state user: ${_store.userStatus}');
+          _itemTapped(index, _store.hasUser);
         },
         currentIndex: _navIndex,
         type: BottomNavigationBarType.fixed,
@@ -140,11 +140,11 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
         items: (hasUser)
             ? List.generate(_userTabs.length, (index) {
                 var itemValue = _userTabs[index].value;
-                return _createBarItem(itemValue, index == 4, store);
+                return _createBarItem(itemValue, index == 4, _store);
               })
             : List.generate(_tabs.length, (index) {
                 var itemValue = _tabs[index].value;
-                return _createBarItem(itemValue, index == 4, store);
+                return _createBarItem(itemValue, index == 4, _store);
               }),
       );
     });
@@ -179,9 +179,9 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
   }
 
   void stopEventAutoShow() {
-    if (store == null) return;
-    showingEventDialog = false;
+    if (_store == null) return;
+    _showingEventDialog = false;
     // set to false so it will not pop again when return to home page
-    store.setShowEvent = false;
+    _store.setShowEvent = false;
   }
 }

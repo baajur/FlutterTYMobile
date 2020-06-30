@@ -46,7 +46,7 @@ class BetRecordRepositoryImpl implements BetRecordRepository {
     var modelList = result.getOrElse(() => []);
     if (modelList.isEmpty) return Left(Failure.internal(FailureCode()));
 
-    final result2 = await requestRawData(
+    final result2 = await requestDataString(
       request: dioApiService.get(
         BetRecordApi.GET_PLATFORM,
         userToken: jwtInterface.token,
@@ -80,7 +80,7 @@ class BetRecordRepositoryImpl implements BetRecordRepository {
       jsonToModel: BetRecordModel.jsonToBetRecordModel,
       tag: 'remote-RECORD',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -91,7 +91,7 @@ class BetRecordRepositoryImpl implements BetRecordRepository {
   Future<Either<Failure, List<BetRecordDataAllPlatform>>> getRecordAll(
     BetRecordForm form,
   ) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         '${BetRecordApi.GET_RECORD}${form.categoryId}',
         userToken: jwtInterface.token,
@@ -100,7 +100,7 @@ class BetRecordRepositoryImpl implements BetRecordRepository {
       allowJsonString: true,
       tag: 'remote-RECORD_ALL',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (data) {

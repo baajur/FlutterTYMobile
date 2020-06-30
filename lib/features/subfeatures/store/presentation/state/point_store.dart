@@ -1,5 +1,5 @@
 import 'package:flutter_ty_mobile/core/network/handler/request_code_model.dart';
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 
 import '../../data/form/store_exchange_form.dart';
@@ -131,8 +131,7 @@ abstract class _PointStore with Store {
       waitForInitializeData = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.STORE)).message;
     }
   }
 
@@ -155,8 +154,7 @@ abstract class _PointStore with Store {
       });
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.STORE)).message;
     }
   }
 
@@ -182,8 +180,7 @@ abstract class _PointStore with Store {
       });
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.STORE)).message;
     }
   }
 
@@ -204,8 +201,7 @@ abstract class _PointStore with Store {
       });
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.STORE)).message;
     }
   }
 
@@ -239,8 +235,7 @@ abstract class _PointStore with Store {
     } on Exception {
       waitForExchange = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.STORE)).message;
     }
   }
 
@@ -258,8 +253,7 @@ abstract class _PointStore with Store {
           );
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.STORE)).message;
     }
   }
 
@@ -282,8 +276,7 @@ abstract class _PointStore with Store {
     } on Exception {
       waitForRecord = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.STORE)).message;
     }
   }
 

@@ -54,8 +54,7 @@ class _AgentDisplayChartState extends State<AgentDisplayChart> {
       return Center(
         child: WarningDisplay(
           message:
-              Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-                  .message,
+              Failure.internal(FailureCode(type: FailureType.AGENT)).message,
         ),
       );
     }

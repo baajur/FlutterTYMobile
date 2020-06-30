@@ -169,14 +169,14 @@ mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
   @override
   String toString() {
     return '''
-errorMessage: ${errorMessage},
-pageInfo: ${pageInfo},
-userStatus: ${userStatus},
-showEvent: ${showEvent},
-hasSignedEvent: ${hasSignedEvent},
-hasNewMessage: ${hasNewMessage},
-navIndex: ${navIndex},
-hasUser: ${hasUser}
+errorMessage: $errorMessage,
+pageInfo: $pageInfo,
+userStatus: $userStatus,
+showEvent: $showEvent,
+hasSignedEvent: $hasSignedEvent,
+hasNewMessage: $hasNewMessage,
+navIndex: $navIndex,
+hasUser: $hasUser
     ''';
   }
 }

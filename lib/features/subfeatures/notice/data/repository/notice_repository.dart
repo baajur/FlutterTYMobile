@@ -25,7 +25,7 @@ class NoticeRepositoryImpl implements NoticeRepository {
       trim: false,
       tag: 'remote-NOTICE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

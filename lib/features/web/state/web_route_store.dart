@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/base/usecase_export.dart';
+import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:mobx/mobx.dart';
 
 part 'web_route_store.g.dart';

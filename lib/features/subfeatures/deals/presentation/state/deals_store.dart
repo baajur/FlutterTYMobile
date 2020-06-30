@@ -48,8 +48,7 @@ abstract class _DealsStore with Store {
           .whenComplete(() => waitForPageData = false);
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.DEALS))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.DEALS)).message;
     }
   }
 }

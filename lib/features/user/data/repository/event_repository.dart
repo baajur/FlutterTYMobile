@@ -36,7 +36,7 @@ class EventRepositoryImpl implements EventRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-EVENT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -57,7 +57,7 @@ class EventRepositoryImpl implements EventRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-EVENT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -81,7 +81,7 @@ class EventRepositoryImpl implements EventRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-EVENT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/entity/payment_enum.dart';
 
-import '../../data/entity/payment_enum.dart';
 import '../../data/model/deposit_result.dart';
 import '../state/deposit_store.dart';
 import 'deposit_display_grid.dart';

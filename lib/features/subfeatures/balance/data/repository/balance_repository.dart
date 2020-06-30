@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
 import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/form/transfer_form.dart';
@@ -34,7 +34,7 @@ class BalanceRepositoryImpl implements BalanceRepository {
 
   @override
   Future<Either<Failure, List<String>>> getPromise() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         BalanceApi.GET_PROMISE,
         userToken: jwtInterface.token,
@@ -59,7 +59,7 @@ class BalanceRepositoryImpl implements BalanceRepository {
 
   @override
   Future<Either<Failure, String>> getBalance(String platform) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         '${BalanceApi.GET_BALANCE}/$platform',
         userToken: jwtInterface.token,
@@ -90,7 +90,7 @@ class BalanceRepositoryImpl implements BalanceRepository {
 
   @override
   Future<Either<Failure, String>> getLimit() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         BalanceApi.GET_LIMIT,
         userToken: jwtInterface.token,
@@ -129,12 +129,12 @@ class BalanceRepositoryImpl implements BalanceRepository {
       jsonToModel: RequestStatusModel.jsonToStatusModel,
       tag: 'remote-TRANSFER',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) async {
         String platform = (form.from == '0') ? form.to : form.from;
-        await requestRawData(
+        await requestDataString(
           request:
               dioApiService.get('${BalanceApi.GET_BALANCE}/$platform/reload'),
           allowJsonString: true,

@@ -33,7 +33,7 @@ Future<Either<Failure, dynamic>> runTypedTask<T>(Future<T> future) {
       .catchError((e, s) {
     print('task has exception: $e');
     MyLogger.error(msg: 'task has exception: $e', tag: 'TaskX', stackTrace: s);
-    return Left(Failure.internal(FailureCode(typeCode: FailureTypeCode.TASK)));
+    return Left(Failure.internal(FailureCode(type: FailureType.TASK)));
   });
 }
 
@@ -72,7 +72,7 @@ Future<Either<Failure, dynamic>> runTask(
         default:
           MyLogger.error(msg: 'task has exception: $e', tag: 'TaskX');
           return Left(
-              Failure.internal(FailureCode(typeCode: FailureTypeCode.TASK)));
+              Failure.internal(FailureCode(type: FailureType.TASK)));
       }
     },
   );

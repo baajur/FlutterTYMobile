@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/base/usecase_export.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DownloadAreaRoute extends StatelessWidget {
@@ -36,8 +31,7 @@ class DownloadAreaRoute extends StatelessWidget {
     if (appLinks.length != appImages.length) {
       return WarningDisplay(
         message:
-            Failure.internal(FailureCode(typeCode: FailureTypeCode.SIDE_MENU))
-                .message,
+            Failure.internal(FailureCode(type: FailureType.SIDE_MENU)).message,
       );
     } else {
       return Padding(

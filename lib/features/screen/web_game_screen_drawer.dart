@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
-import 'package:flutter_ty_mobile/features/router/route_user_streams.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/screen/screen_drawer_item.dart';
 import 'package:flutter_ty_mobile/features/screen/web_game_screen_store.dart';
 
@@ -31,14 +28,15 @@ class _WebGameScreenDrawerState extends State<WebGameScreenDrawer>
   final List<ScreenDrawerItem> itemList = [
     ScreenDrawerItem.backHome,
     ScreenDrawerItem.rotate,
+    ScreenDrawerItem.rotateLock,
   ];
 
   AnimationController _animationController;
   Animation<double> _widthAnimation;
   bool isCollapsed = true;
 
-  String username;
-  int userLevel;
+  String username = '';
+  int userLevel = 0;
 
   @override
   void initState() {
@@ -107,25 +105,30 @@ class _WebGameScreenDrawerState extends State<WebGameScreenDrawer>
                       item: item,
                       animationController: _animationController,
                       onTap: () {
-                        if (item.route == RoutePage.home) {
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('tap button home')),
-                          );
-                          ScreenNavigate.switchScreen(
-                            force: true,
-                            screen: ScreenEnum.Feature,
-                          );
-                        } else {
-                          switch (index) {
-                            case 1:
-                              Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('tap button rotate')),
-                              );
-                              widget.store.rotateScreenLeft();
-                              break;
-                            default:
-                              break;
-                          }
+                        switch (index) {
+                          case 0: // [ScreenDrawerItem.backHome]
+                            ScreenNavigate.switchScreen(
+                              force: true,
+                              screen: ScreenEnum.Feature,
+                            );
+                            break;
+                          case 1: // [ScreenDrawerItem.rotate]
+                            widget.store.rotateScreenLeft();
+                            break;
+
+                          case 2: // [ScreenDrawerItem.rotateLock]
+                            bool isLock = widget.store.isLockRotate;
+                            String value =
+                                (isLock) ? localeStr.btnOff : localeStr.btnOn;
+                            widget.store.lockRotate = !isLock;
+                            FLToast.showText(
+                              text: '${localeStr.sideBtnLockRotate}($value)',
+                              position: FLToastPosition.top,
+                              showDuration: ToastDuration.DEFAULT.value,
+                            );
+                            break;
+                          default:
+                            break;
                         }
                         if (widget.scaffoldKey.currentState.isDrawerOpen)
                           Navigator.of(context).pop();
@@ -134,11 +137,8 @@ class _WebGameScreenDrawerState extends State<WebGameScreenDrawer>
                   },
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: () {
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text('tap list view')),
-                  );
                   setState(() {
                     isCollapsed = !isCollapsed;
                     isCollapsed

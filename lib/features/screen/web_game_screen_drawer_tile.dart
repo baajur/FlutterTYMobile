@@ -36,16 +36,16 @@ class _WebGameScreenDrawerTileState extends State<WebGameScreenDrawerTile> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => widget.onTap(),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
-          color: Colors.transparent,
-        ),
-        width: widthAnimation.value,
-        margin: EdgeInsets.symmetric(horizontal: 8.0),
-        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        color: Colors.transparent,
+      ),
+      width: widthAnimation.value,
+      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      child: GestureDetector(
+        onTap: () => widget.onTap(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

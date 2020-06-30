@@ -118,10 +118,10 @@ mixin _$MemberCreditStore on _MemberCreditStore, Store {
   @override
   String toString() {
     return '''
-user: ${user},
-hasNewMessage: ${hasNewMessage},
-credit: ${credit},
-errorMessage: ${errorMessage}
+user: $user,
+hasNewMessage: $hasNewMessage,
+credit: $credit,
+errorMessage: $errorMessage
     ''';
   }
 }

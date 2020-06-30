@@ -55,7 +55,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: CenterModel.jsonToCenterModel,
       tag: 'remote-ACCOUNT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) =>
@@ -65,7 +65,7 @@ class CenterRepositoryImpl implements CenterRepository {
 
   @override
   Future<Either<Failure, List<String>>> getCgpBindUrl() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         CenterApi.GET_CGP_URL,
         userToken: jwtInterface.token,
@@ -82,7 +82,7 @@ class CenterRepositoryImpl implements CenterRepository {
 
   @override
   Future<Either<Failure, List<String>>> getCpwBindUrl() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         CenterApi.GET_CPW_URL,
         userToken: jwtInterface.token,
@@ -123,7 +123,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: RequestStatusModel.jsonToStatusModel,
       tag: 'remote-CENTER_PWD',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -143,7 +143,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: RequestStatusModel.jsonToStatusModel,
       tag: 'remote-CENTER_BIRTH',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -161,7 +161,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: RequestStatusModel.jsonToStatusModel,
       tag: 'remote-CENTER_EMAIL',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -181,7 +181,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: RequestStatusModel.jsonToStatusModel,
       tag: 'remote-CENTER_WECHAT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -201,7 +201,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: RequestStatusModel.jsonToStatusModel,
       tag: 'remote-CENTER_LUCKY',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -221,7 +221,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-CENTER_VERIFY',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -242,7 +242,7 @@ class CenterRepositoryImpl implements CenterRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-CENTER_VERIFY',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

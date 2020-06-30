@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' show MediaQueryData, Orientation;
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 
 class Device {
+  final bool isIos;
   final MediaQueryData _mediaQueryData;
   double _screenWidth;
   double _screenHeight;
@@ -18,9 +19,10 @@ class Device {
   // computed button height
   double _screenButtonHeight;
 
-  Device(this._mediaQueryData) {
-    _screenWidth = _mediaQueryData.size.width;
-    _screenHeight = _mediaQueryData.size.height;
+  Device(this._mediaQueryData, this.isIos) {
+    _screenWidth = double.parse(_mediaQueryData.size.width.toStringAsFixed(2));
+    _screenHeight =
+        double.parse(_mediaQueryData.size.height.toStringAsFixed(2));
     _screenWidthScale = _screenWidth / Global.TEST_DEVICE_WIDTH;
     _screenHeightScale = _screenHeight / Global.TEST_DEVICE_HEIGHT;
     _screenTopPadding = _mediaQueryData.viewPadding.top;

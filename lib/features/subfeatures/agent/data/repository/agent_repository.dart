@@ -75,7 +75,7 @@ class AgentRepositoryImpl implements AgentRepository {
 
   @override
   Future<Either<Failure, AgentModel>> postAgentStatus() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.post(
         AgentApi.POST_AGENT_CODE,
         userToken: jwtInterface.token,
@@ -93,7 +93,7 @@ class AgentRepositoryImpl implements AgentRepository {
     AgentChartTime time,
     AgentChartType type,
   }) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.post(
         AgentApi.POST_REPORT,
         userToken: jwtInterface.token,
@@ -179,7 +179,7 @@ class AgentRepositoryImpl implements AgentRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-AGENT_LEDGER',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -212,7 +212,7 @@ class AgentRepositoryImpl implements AgentRepository {
       jsonToModel: AgentAdModel.jsonToAgentAdModel,
       tag: 'remote-AGENT_ADS',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (list) => Right(list),
@@ -229,7 +229,7 @@ class AgentRepositoryImpl implements AgentRepository {
       jsonToModel: AgentAdModel.jsonToAgentAdModel,
       tag: 'remote-AGENT_MERGE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (list) => Right(list),
@@ -247,7 +247,7 @@ class AgentRepositoryImpl implements AgentRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-AGENT_MERGE_AD',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

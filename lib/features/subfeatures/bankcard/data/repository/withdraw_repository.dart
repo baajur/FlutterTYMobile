@@ -34,7 +34,7 @@ class WithdrawRepositoryImpl implements WithdrawRepository {
 
   @override
   Future<Either<Failure, String>> getCgpWallet() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         WithdrawApi.GET_CGP,
         userToken: jwtInterface.token,
@@ -50,7 +50,7 @@ class WithdrawRepositoryImpl implements WithdrawRepository {
 
   @override
   Future<Either<Failure, String>> getCpwWallet() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         WithdrawApi.GET_CPW,
         userToken: jwtInterface.token,
@@ -75,7 +75,7 @@ class WithdrawRepositoryImpl implements WithdrawRepository {
       jsonToModel: WithdrawModel.jsonToWithdrawModel,
       tag: 'remote-WITHDRAW',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

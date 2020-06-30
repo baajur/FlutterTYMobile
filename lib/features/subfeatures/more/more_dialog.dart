@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/dialog_widget.dart';
+import 'package:flutter_ty_mobile/features/screen/feature_screen_store.dart';
 
 import 'more_grid_item.dart';
 
@@ -11,6 +12,10 @@ import 'more_grid_item.dart';
 ///@version 2020/6/1
 ///
 class MoreDialog extends StatelessWidget {
+  final FeatureScreenStore store;
+
+  MoreDialog(this.store);
+
   static final List<MoreGridItem> gridItems = [
     MoreGridItem.notice,
     MoreGridItem.download,
@@ -20,13 +25,15 @@ class MoreDialog extends StatelessWidget {
     MoreGridItem.store,
     MoreGridItem.roller,
     MoreGridItem.task,
+    MoreGridItem.sign,
     MoreGridItem.agentAbout,
+    MoreGridItem.collect,
   ];
 
   void _itemTapped(BuildContext context, RouteListItem itemValue) {
     print('item tapped: $itemValue');
     if (itemValue.route != null) {
-      if (itemValue.isUserOnly && getRouteUserStreams.hasUser == false) {
+      if (itemValue.isUserOnly && store.hasUser == false) {
         // navigate to login page
         RouterNavigate.navigateToPage(RoutePage.login);
       } else if (itemValue.route == RoutePage.moreWeb ||
@@ -47,6 +54,12 @@ class MoreDialog extends StatelessWidget {
         Duration(milliseconds: 100),
         () => Navigator.of(context).pop(),
       );
+    } else if (itemValue == MoreGridItem.sign.value) {
+      if (store == null) return;
+      if (store.hasUser == false)
+        FLToast.showError(text: localeStr.messageErrorNotLogin);
+      else
+        store.setForceShowEvent = true;
     } else {
       FLToast.showInfo(text: localeStr.workInProgress);
     }
@@ -55,7 +68,7 @@ class MoreDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogWidget(
-      constraints: BoxConstraints.tight(Size(320.0, 321.0)),
+      constraints: BoxConstraints.tight(Size(320.0, 410.0)),
       darkBg: true,
       children: <Widget>[
         Column(
@@ -97,15 +110,19 @@ class MoreDialog extends StatelessWidget {
                 ),
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 9,
+                itemCount: 12,
                 itemBuilder: (context, index) {
-                  var itemValue = gridItems[index].value;
+                  var itemValue = (index < gridItems.length)
+                      ? gridItems[index].value
+                      : null;
                   return GestureDetector(
-                    onTap: () => _itemTapped(context, itemValue),
+                    onTap: (itemValue != null)
+                        ? () => _itemTapped(context, itemValue)
+                        : null,
                     child: _createGridItem(
                       itemValue,
-                      cornerBorderLeft: index == 6,
-                      cornerBorderRight: index == 8,
+                      cornerBorderLeft: index == 9,
+                      cornerBorderRight: index == 11,
                     ),
                   );
                 },
@@ -145,32 +162,36 @@ class MoreDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
-            child: (itemValue.imageName != null)
-                ? SizedBox(
-                    width: 32.0,
-                    height: 32.0,
-                    child: networkImageBuilder(itemValue.imageName),
-                  )
-                : Icon(
-                    itemValue.iconData,
-                    color: Themes.defaultAccentColor,
-                    size: 32.0,
+        children: (itemValue == null)
+            ? []
+            : <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: (itemValue.imageName != null)
+                      ? SizedBox(
+                          width: 32.0,
+                          height: 32.0,
+                          child: (itemValue.imageName.startsWith('assets/'))
+                              ? Image.asset(itemValue.imageName)
+                              : networkImageBuilder(itemValue.imageName),
+                        )
+                      : Icon(
+                          itemValue.iconData,
+                          color: Themes.defaultAccentColor,
+                          size: 32.0,
+                        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6.0),
+                  child: Text(
+                    itemValue.replaceTitle ?? itemValue.route?.pageTitle ?? '?',
+                    style: TextStyle(
+                      fontSize: FontSize.SUBTITLE.value - 1,
+                      color: Themes.defaultTextColorWhite,
+                    ),
                   ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6.0),
-            child: Text(
-              itemValue.replaceTitle ?? itemValue.route?.pageTitle ?? '?',
-              style: TextStyle(
-                fontSize: FontSize.SUBTITLE.value - 1,
-                color: Themes.defaultTextColorWhite,
-              ),
-            ),
-          ),
-        ],
+                ),
+              ],
       ),
     );
   }

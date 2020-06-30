@@ -5,7 +5,6 @@ import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_wi
 import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 
-import '../../data/entity/payment_enum.dart';
 import '../../data/form/deposit_form.dart';
 import '../../data/model/payment_freezed.dart';
 import '../../data/model/payment_promo.dart';

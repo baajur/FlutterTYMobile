@@ -43,47 +43,17 @@ Future<void> init() async {
   sl.registerSingleton(() => MyLogger());
   sl.registerLazySingleton(() => DataConnectionChecker());
 
-  /// Bloc
-  sl.registerFactory(
-    () => HomeBannerBloc(
-      homeBannerData: sl(),
-      homeBannerImageInfo: sl(),
-    ),
+  /// Repository
+  sl.registerLazySingleton<HomeLocalStorage>(
+    () => HomeLocalStorageImpl(),
   );
-  sl.registerFactory(
-    () => HomeMarqueeBloc(homeMarqueeData: sl()),
-  );
-  sl.registerFactory(
-    () => HomeGameTabsBloc(gameTypesData: sl()),
-  );
-  sl.registerFactory(
-    () => HomeGameBloc(gamesData: sl(), gameUrl: sl()),
-  );
-
-  /// Use cases
-  sl.registerLazySingleton(() => GetHomeBannerData(sl()));
-  sl.registerLazySingleton(() => GetHomeBannerImage());
-  sl.registerLazySingleton(() => GetHomeMarqueeData(sl()));
-  sl.registerLazySingleton(() => GetGameTypesData(sl()));
-  sl.registerLazySingleton(() => GetGamesData(sl()));
-  sl.registerLazySingleton(() => GetGameUrl(sl()));
-
-  /// Data sources
   sl.registerLazySingleton<HomeRepository>(
     () => HomeRepositoryImpl(
-      localDataSource: sl(),
-      networkInfo: sl(),
-      remoteDataSource: sl(),
-    ),
+        dioApiService: sl(),
+        jwtInterface: sl(),
+        networkInfo: sl(),
+        localStorage: sl()),
   );
-  sl.registerLazySingleton<HomeRemoteDataSource>(
-    () => HomeRemoteDataSourceImpl(dioApiService: sl()),
-  );
-  sl.registerLazySingleton<HomeLocalDataSource>(
-    () => HomeLocalDataSourceImpl(),
-  );
-
-  /// Repository
   sl.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
   );
@@ -158,6 +128,9 @@ Future<void> init() async {
   /// Mobx Store
   sl.registerLazySingleton<WebGameScreenStore>(
     () => WebGameScreenStore(),
+  );
+  sl.registerLazySingleton(
+    () => HomeStore(sl<HomeRepository>()),
   );
   sl.registerFactory(
     () => LoginStore(sl<UserRepository>()),
@@ -235,27 +208,5 @@ Future<void> init() async {
 
   sl.registerLazySingleton<TemplateStore>(
     () => TemplateStore(sl<TemplateRepository>()),
-  );
-
-  /* Template Bloc */
-  sl.registerFactory(
-    () => Template2Bloc(
-      descriptionData: sl(),
-      descriptionData2: sl(),
-    ),
-  );
-
-  sl.registerLazySingleton(() => GetDescriptionData(sl()));
-  sl.registerLazySingleton(() => GetDescriptionData2(sl()));
-
-  sl.registerLazySingleton<Template2Repository>(
-    () => Template2RepositoryImpl(
-      networkInfo: sl(),
-      remoteDataSource: sl(),
-    ),
-  );
-
-  sl.registerLazySingleton<Template2DataSource>(
-    () => Template2DataSourceImpl(dioApiService: sl()),
   );
 }

@@ -95,8 +95,7 @@ class _CenterDisplayAccountState extends State<CenterDisplayAccount>
       return Center(
         child: WarningDisplay(
           message:
-              Failure.internal(FailureCode(typeCode: FailureTypeCode.CENTER))
-                  .message,
+              Failure.internal(FailureCode(type: FailureType.CENTER)).message,
         ),
       );
     }

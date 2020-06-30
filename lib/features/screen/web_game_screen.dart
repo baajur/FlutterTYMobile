@@ -18,7 +18,7 @@ class WebGameScreen extends StatefulWidget {
 }
 
 class _WebGameScreenState extends State<WebGameScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey =
+  GlobalKey<ScaffoldState> _scaffoldKey =
       new GlobalKey<ScaffoldState>(debugLabel: 'webgame');
 
   WebViewController _controller;
@@ -30,14 +30,6 @@ class _WebGameScreenState extends State<WebGameScreen> {
   @override
   void initState() {
     print('web url: ${widget.startUrl}');
-    // to hide only bottom bar:
-//    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
-    // to hide only status bar:
-//    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.bottom]);
-    // to hide both:
-//    SystemChrome.setEnabledSystemUIOverlays([]);
-    // to restore
-//    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     _store ??= sl.get<WebGameScreenStore>();
 
     isForm =
@@ -47,7 +39,6 @@ class _WebGameScreenState extends State<WebGameScreen> {
 
     super.initState();
     _store.initSensorStream();
-//    _store.getCredit('');
   }
 
   ///
@@ -74,12 +65,12 @@ class _WebGameScreenState extends State<WebGameScreen> {
   }
 
   @override
-  void dispose() async {
+  void dispose() {
     MyLogger.debug(msg: 'dispose web game screen', tag: 'WebGameScreen');
-
-    _store.stopSensor();
-    OrientationHelper.restoreUI();
-
+    try {
+      _store.stopSensor();
+      OrientationHelper.restoreUI();
+    } catch (e) {}
     // edit the source code in FlutterWebView
     // (under external lib -> webview_flutter -> android
     // -> src.main -> java.io.flutter.plugins.webviewflutter)
@@ -114,46 +105,48 @@ class _WebGameScreenState extends State<WebGameScreen> {
             scaffoldKey: _scaffoldKey,
             store: _store,
           ),
-          body: WebView(
-            initialUrl: widget.startUrl,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController controller) async {
-              _controller = controller;
-              _store.bindController(_controller);
-              if (isForm) {
-                _controller.loadUrl(Uri.dataFromString(
-                  parsedHtml,
-                  mimeType: Global.WEB_MIMETYPE,
-                  encoding: Global.webEncoding,
-                ).toString());
-              } else if (widget.startUrl.isUrl == false) {
-                _controller.loadUrl(Uri.dataFromString(
-                  widget.startUrl,
-                  mimeType: Global.WEB_MIMETYPE,
-                  encoding: Global.webEncoding,
-                ).toString());
-              }
-            },
-            onPageFinished: (String url) async {
-              print('web page loaded: $url');
-              if (url.isUrl == false) return;
-              if (isForm) isForm = false;
-
-              String pageTitle = await _controller.getTitle();
-              print('web page title: $pageTitle');
-              //TODO check the normal page title or 404
-              // Error 500 Title: 500 Internal Server Error
-              if (pageTitle.contains('Error') ||
-                  pageTitle.contains('Exception')) {
-                if (pageTitle.startsWith('500')) {
+          body: GestureDetector(
+            onDoubleTap: () => _scaffoldKey.currentState.openDrawer(),
+            child: WebView(
+              initialUrl: widget.startUrl,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController controller) async {
+                _controller = controller;
+                if (isForm) {
                   _controller.loadUrl(Uri.dataFromString(
-                    pageTitle,
+                    parsedHtml,
+                    mimeType: Global.WEB_MIMETYPE,
+                    encoding: Global.webEncoding,
+                  ).toString());
+                } else if (widget.startUrl.isUrl == false) {
+                  _controller.loadUrl(Uri.dataFromString(
+                    widget.startUrl,
                     mimeType: Global.WEB_MIMETYPE,
                     encoding: Global.webEncoding,
                   ).toString());
                 }
-              }
-            },
+              },
+              onPageFinished: (String url) async {
+                print('web page loaded: $url');
+                if (url.isUrl == false) return;
+                if (isForm) isForm = false;
+
+                String pageTitle = await _controller.getTitle();
+                print('web page title: $pageTitle');
+                //TODO check the normal page title or 404
+                // Error 500 Title: 500 Internal Server Error
+                if (pageTitle.contains('Error') ||
+                    pageTitle.contains('Exception')) {
+                  if (pageTitle.startsWith('500')) {
+                    _controller.loadUrl(Uri.dataFromString(
+                      pageTitle,
+                      mimeType: Global.WEB_MIMETYPE,
+                      encoding: Global.webEncoding,
+                    ).toString());
+                  }
+                }
+              },
+            ),
           ),
         ),
         onWillPop: () async {

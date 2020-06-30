@@ -78,8 +78,7 @@ class _AgentDisplayLedgerState extends State<AgentDisplayLedger>
       return Center(
         child: WarningDisplay(
           message:
-              Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-                  .message,
+              Failure.internal(FailureCode(type: FailureType.AGENT)).message,
         ),
       );
     }

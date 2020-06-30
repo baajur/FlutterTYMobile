@@ -136,12 +136,12 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
     if (_prefixWidth < 56.0) _prefixWidth = 56.0;
 
     _suffixWidth = FontSize.NORMAL.value * widget.suffixLetterWidth;
-    if (Platform.isIOS) _suffixWidth += 8.0;
+    if (Global.device.isIos) _suffixWidth += 8.0;
 
     _currentMaxLines = widget.maxLines;
 
     _smallWidgetHeight =
-        ((Platform.isAndroid) ? Themes.fieldHeight : Themes.fieldHeight + 8) -
+        ((Global.device.isIos) ? Themes.fieldHeight + 8 : Themes.fieldHeight) -
             widget.minusHeight;
     if (widget.prefixIconData != null) _smallWidgetHeight += 8.0;
 
@@ -189,9 +189,10 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
     // update constraints if max line has changed
     if (widget.maxLines != _currentMaxLines) {
       _currentMaxLines = widget.maxLines;
-      _smallWidgetHeight =
-          ((Platform.isAndroid) ? Themes.fieldHeight : Themes.fieldHeight + 8) -
-              widget.minusHeight;
+      _smallWidgetHeight = ((Global.device.isIos)
+              ? Themes.fieldHeight + 8
+              : Themes.fieldHeight) -
+          widget.minusHeight;
       _prefixConstraints = BoxConstraints(
         minWidth: _prefixWidth,
         maxWidth: _prefixWidth,

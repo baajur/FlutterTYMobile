@@ -1,7 +1,7 @@
 import 'package:flutter_ty_mobile/core/data/hive_actions.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/user/data/form/login_form.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
@@ -127,8 +127,7 @@ abstract class _CenterStore with Store {
       });
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.CENTER))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.CENTER)).message;
     }
   }
 
@@ -227,7 +226,7 @@ abstract class _CenterStore with Store {
     } on Exception {
       waitForResponse = false;
       errorMessage = Failure.internal(
-        FailureCode(typeCode: FailureTypeCode.CENTER),
+        FailureCode(type: FailureType.CENTER),
       ).message;
     }
   }
@@ -289,7 +288,7 @@ abstract class _CenterStore with Store {
     } on Exception {
       waitForResponse = false;
       errorMessage = Failure.internal(
-        FailureCode(typeCode: FailureTypeCode.CENTER),
+        FailureCode(type: FailureType.CENTER),
       ).message;
     }
   }
@@ -320,7 +319,7 @@ abstract class _CenterStore with Store {
     } on Exception {
       waitForResponse = false;
       errorMessage = Failure.internal(
-        FailureCode(typeCode: FailureTypeCode.CENTER),
+        FailureCode(type: FailureType.CENTER),
       ).message;
     }
   }
@@ -345,7 +344,7 @@ abstract class _CenterStore with Store {
     } on Exception {
       waitForResponse = false;
       errorMessage = Failure.internal(
-        FailureCode(typeCode: FailureTypeCode.CENTER),
+        FailureCode(type: FailureType.CENTER),
       ).message;
     }
   }
@@ -374,7 +373,7 @@ abstract class _CenterStore with Store {
     } on Exception {
       waitForResponse = false;
       errorMessage = Failure.internal(
-        FailureCode(typeCode: FailureTypeCode.CENTER),
+        FailureCode(type: FailureType.CENTER),
       ).message;
     }
   }

@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 
 import '../../data/repository/bankcard_repository.dart';
@@ -186,8 +186,7 @@ abstract class _BankcardStore with Store {
     } on Exception {
       waitForNewCardResult = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.BANKCARD))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.BANKCARD)).message;
     }
   }
 }

@@ -300,7 +300,8 @@ abstract class _NoticeDataModel implements NoticeDataModel {
 class _$NoticeDataTearOff {
   const _$NoticeDataTearOff();
 
-  _NoticeData call({String content, String date, int sort}) {
+  _NoticeData call(
+      {@JsonKey(name: 'content_cn') String content, String date, int sort}) {
     return _NoticeData(
       content: content,
       date: date,
@@ -313,6 +314,7 @@ class _$NoticeDataTearOff {
 const $NoticeData = _$NoticeDataTearOff();
 
 mixin _$NoticeData {
+  @JsonKey(name: 'content_cn')
   String get content;
   String get date;
   int get sort;
@@ -324,7 +326,8 @@ abstract class $NoticeDataCopyWith<$Res> {
   factory $NoticeDataCopyWith(
           NoticeData value, $Res Function(NoticeData) then) =
       _$NoticeDataCopyWithImpl<$Res>;
-  $Res call({String content, String date, int sort});
+  $Res call(
+      {@JsonKey(name: 'content_cn') String content, String date, int sort});
 }
 
 class _$NoticeDataCopyWithImpl<$Res> implements $NoticeDataCopyWith<$Res> {
@@ -353,7 +356,8 @@ abstract class _$NoticeDataCopyWith<$Res> implements $NoticeDataCopyWith<$Res> {
           _NoticeData value, $Res Function(_NoticeData) then) =
       __$NoticeDataCopyWithImpl<$Res>;
   @override
-  $Res call({String content, String date, int sort});
+  $Res call(
+      {@JsonKey(name: 'content_cn') String content, String date, int sort});
 }
 
 class __$NoticeDataCopyWithImpl<$Res> extends _$NoticeDataCopyWithImpl<$Res>
@@ -380,9 +384,11 @@ class __$NoticeDataCopyWithImpl<$Res> extends _$NoticeDataCopyWithImpl<$Res>
 }
 
 class _$_NoticeData implements _NoticeData {
-  const _$_NoticeData({this.content, this.date, this.sort});
+  const _$_NoticeData(
+      {@JsonKey(name: 'content_cn') this.content, this.date, this.sort});
 
   @override
+  @JsonKey(name: 'content_cn')
   final String content;
   @override
   final String date;
@@ -420,10 +426,13 @@ class _$_NoticeData implements _NoticeData {
 }
 
 abstract class _NoticeData implements NoticeData {
-  const factory _NoticeData({String content, String date, int sort}) =
-      _$_NoticeData;
+  const factory _NoticeData(
+      {@JsonKey(name: 'content_cn') String content,
+      String date,
+      int sort}) = _$_NoticeData;
 
   @override
+  @JsonKey(name: 'content_cn')
   String get content;
   @override
   String get date;

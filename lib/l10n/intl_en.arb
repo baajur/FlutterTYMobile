@@ -39,8 +39,12 @@
   "@pageTitleSign": {
     "type": "text"
   },
-  "pageTitleRoller": "Lucky Roulette",
+  "pageTitleRoller": "Lucky Roller",
   "@pageTitleRoller": {
+    "type": "text"
+  },
+  "pageTitleCollect": "Word Collect",
+  "@pageTitleCollect": {
     "type": "text"
   },
   "pageTitleDeposit": "Recharge",
@@ -232,12 +236,24 @@
   "@btnShow": {
     "type": "text"
   },
+  "btnOn": "On",
+  "@btnOn": {
+    "type": "text"
+  },
+  "btnOff": "Off",
+  "@btnOff": {
+    "type": "text"
+  },
   "sideBtnBackHome": "Return",
   "@sideBtnBackHome": {
     "type": "text"
   },
-  "sideBtnRotate": "Rotate",
+  "sideBtnRotate": "Rotate Left",
   "@sideBtnRotate": {
+    "type": "text"
+  },
+  "sideBtnLockRotate": "Lock Rotate",
+  "@sideBtnLockRotate": {
     "type": "text"
   },
   "spinnerDateAll": "All",

@@ -1,32 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_ty_mobile/features/export_internal_file.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
-import 'package:flutter_ty_mobile/features/router/app_navigate.dart'
-    show BankcardRouteArguments, RoutePage, RouterNavigate;
-import 'package:flutter_ty_mobile/features/router/route_user_streams.dart';
 import 'package:flutter_ty_mobile/features/user/data/entity/login_status.dart';
 import 'package:flutter_ty_mobile/features/user/login/presentation/login_route.dart';
 import 'package:flutter_ty_mobile/res.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';
+import 'package:flutter_ty_mobile/utils/regex_util.dart';
 
+import 'home_display_size_calc.dart';
+
+///
 /// Creates a widget to show member info under Marquee
-///@author H.C.CHIANG
-///@version 2020/2/13
-class MemberWidget extends StatefulWidget {
-  MemberWidget({Key key}) : super(key: key);
+/// @author H.C.CHIANG
+/// @version 2020/6/19
+///
+class HomeShortcutWidget extends StatefulWidget {
+  final HomeDisplaySizeCalc sizeCalc;
+  HomeShortcutWidget({
+    Key key,
+    @required this.sizeCalc,
+  }) : super(key: key);
 
   @override
-  MemberWidgetState createState() => MemberWidgetState();
+  HomeShortcutWidgetState createState() => HomeShortcutWidgetState();
 }
 
-class MemberWidgetState extends State<MemberWidget> {
+class HomeShortcutWidgetState extends State<HomeShortcutWidget> {
   double _areaHeight;
+  double _leftAreaMaxWidth;
+  double _leftAreaMinWidth;
+
   LoginStatus _userData;
+  bool isUserContent = false;
+  Widget _contentWidget;
+  BorderSide _widgetBorder;
 
   void updateUser() {
     print('updating member area data...');
-    print('streamed user: ${getRouteUserStreams.userStream.toList()}');
     setState(() {
       _userData = getRouteUserStreams.lastUser;
       print('member area user: $_userData');
@@ -43,6 +54,24 @@ class MemberWidgetState extends State<MemberWidget> {
   @override
   void initState() {
     _areaHeight = Global.device.height / 10.5;
+    if (_areaHeight < widget.sizeCalc.shortcutMinHeight)
+      _areaHeight = widget.sizeCalc.shortcutMinHeight;
+    if (_areaHeight > widget.sizeCalc.shortcutMaxHeight)
+      _areaHeight = widget.sizeCalc.shortcutMaxHeight;
+
+    double availableWidth =
+        (Global.device.width >= 600) ? 200 : Global.device.width / 3;
+    _leftAreaMinWidth = FontSize.NORMAL.value * 6;
+    _leftAreaMaxWidth = FontSize.NORMAL.value * 9.5 + 10.0;
+
+    if (Global.device.width > 600)
+      _leftAreaMaxWidth = _leftAreaMaxWidth * 2;
+    else if (Global.device.isIos) _leftAreaMaxWidth += 16;
+
+    if (_leftAreaMinWidth < availableWidth) _leftAreaMinWidth = availableWidth;
+    if (_leftAreaMaxWidth < _leftAreaMinWidth)
+      _leftAreaMaxWidth = _leftAreaMinWidth;
+
     _userData = getRouteUserStreams.lastUser;
     print('updating member area height: $_areaHeight');
     super.initState();
@@ -50,76 +79,82 @@ class MemberWidgetState extends State<MemberWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 6.0),
-      child: Container(
-        /* Outside border */
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: Themes.defaultAccentColor,
-            width: 2.0,
-            style: BorderStyle.solid,
-          ),
-          color: Themes.defaultAppbarColor,
-        ),
-        /* Area frame */
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Themes.defaultAccentColor,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(4.0),
+    if (isUserContent != _userData.loggedIn) {
+      isUserContent = _userData.loggedIn;
+      _contentWidget = _buildContent(context);
+    }
+    _contentWidget ??= _buildContent(context);
+    _widgetBorder ??= BorderSide(
+      color: Themes.defaultAccentColor,
+      width: 2.0,
+      style: BorderStyle.solid,
+    );
+    return Container(
+      constraints: BoxConstraints(
+        maxWidth: Global.device.width - 16.0,
+        maxHeight: (isUserContent)
+            ? _areaHeight - widget.sizeCalc.shortcutTitleHeight
+            : _areaHeight,
+      ),
+      child: Stack(
+        // use stack to hide frame line between widgets
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Themes.defaultAppbarColor,
+              border: Border.fromBorderSide(_widgetBorder),
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+            padding: (isUserContent)
+                ? EdgeInsets.zero
+                : EdgeInsets.only(
+                    top: widget.sizeCalc.shortcutTitleHeight - 2.0,
                   ),
+            child: _contentWidget,
+          ),
+          if (!isUserContent)
+            Container(
+              height: widget.sizeCalc.shortcutTitleHeight,
+              decoration: BoxDecoration(
+                color: Themes.defaultAccentColor,
+                border: Border.fromBorderSide(_widgetBorder),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  topRight: Radius.circular(4.0),
                 ),
-                /* Area title message */
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 2.0, 12.0, 6.0),
-                      child: Text(
-                        (_userData.loggedIn)
-                            ? localeStr.homeHintWelcome
-                            : localeStr.homeHintWelcomeLogin,
-                        style: TextStyle(
-                            color: Themes.defaultTextColorBlack,
-                            fontSize: (Global.device.height > 700)
-                                ? FontSize.NORMAL.value + 1
-                                : FontSize.NORMAL.value),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: Text(
+                      localeStr.homeHintWelcomeLogin,
+                      style: TextStyle(
+                        color: Themes.defaultTextColorBlack,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              /* Area Content */
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(6.0),
                   ),
-                ),
-                child: _buildMemberArea(),
+                ],
               ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }
 
-  Widget _buildMemberArea() {
+  Widget _buildContent(BuildContext context) {
     return Row(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 6.0),
-          child: _buildLeftContent(),
+        Container(
+          constraints: (isUserContent)
+              ? BoxConstraints(
+                  maxWidth: _leftAreaMaxWidth,
+                  minWidth: _leftAreaMinWidth,
+                )
+              : BoxConstraints.tightFor(width: _areaHeight),
+          alignment: Alignment.center,
+          child: _buildLeftContent(context),
         ),
         VerticalDivider(
           thickness: 2.0,
@@ -130,32 +165,28 @@ class MemberWidgetState extends State<MemberWidget> {
     );
   }
 
-  Widget _buildLeftContent() {
-    if (_userData.loggedIn == false) {
+  Widget _buildLeftContent(BuildContext context) {
+    if (!isUserContent) {
+      /// if not logged in, show a login button
       return Container(
-        alignment: Alignment.center,
-        constraints: BoxConstraints(
-          minWidth: Global.device.width / 3,
-        ),
+        margin: const EdgeInsets.fromLTRB(12.0, 8.0, 4.0, 8.0),
         child: RaisedButton(
-          /// if not logged in, show a login button
-          child: Text(
-            localeStr.pageTitleLogin2,
-            style: TextStyle(
-              color: Themes.defaultAccentColor,
-              fontSize: FontSize.NORMAL.value,
-            ),
-          ),
+          visualDensity: VisualDensity(horizontal: 3.0),
+          color: Themes.defaultAppbarColor,
           shape: RoundedRectangleBorder(
             side: BorderSide(color: Themes.defaultAccentColor),
             borderRadius: BorderRadius.circular(4.0),
           ),
-          color: Themes.defaultAppbarColor,
-          visualDensity: VisualDensity(horizontal: 4.0),
+          child: Text(
+            localeStr.pageTitleLogin2,
+            style: TextStyle(
+              color: Themes.defaultAccentColor,
+            ),
+          ),
           onPressed: () => showDialog(
             context: context,
             barrierDismissible: true,
-            builder: (context) => new LoginRoute(
+            builder: (_) => new LoginRoute(
               returnHomeAfterLogin: true,
               isDialog: true,
             ),
@@ -163,64 +194,72 @@ class MemberWidgetState extends State<MemberWidget> {
         ),
       );
     } else {
-      double textSize = (_userData.currentUser.account.length > 10)
-          ? FontSize.NORMAL.value - 1
+      /// if logged in, show member info
+      double textSize = (_userData.currentUser.account.length > 10 ||
+              _userData.currentUser.credit.strToDouble > 10000)
+          ? FontSize.SMALLER.value
           : FontSize.NORMAL.value;
-      double availableWidth = Global.device.width / 3;
-      double textMinWidth = FontSize.NORMAL.value * 6;
-      double textMaxWidth = FontSize.NORMAL.value * 9.5;
-      if (textMinWidth < availableWidth) textMinWidth = availableWidth;
-      if (textMaxWidth < textMinWidth) textMaxWidth = textMinWidth;
       return Container(
-        /// if logged in, show member info
-        padding: EdgeInsets.only(left: 4.0),
-        constraints: BoxConstraints(
-          minWidth: textMinWidth,
-          maxWidth: textMaxWidth,
-        ),
+        margin: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Center(
-              child: RichText(
-                overflow: TextOverflow.visible,
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '${_userData.currentUser.account}\r',
-                      style: TextStyle(
-                        color: Themes.defaultAccentColor,
-                        fontSize: textSize,
-                      ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: RichText(
+                    overflow: TextOverflow.visible,
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '${_userData.currentUser.account}\r',
+                          style: TextStyle(
+                            color: Themes.defaultAccentColor,
+                            fontSize: textSize,
+                          ),
+                        ),
+                        TextSpan(
+                          text: localeStr.homeHintWelcome,
+                          style: TextStyle(fontSize: textSize),
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: localeStr.homeHintWelcome,
-                      style: TextStyle(fontSize: textSize),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-            Center(
-              child: RichText(
-                overflow: TextOverflow.visible,
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(text: localeStr.homeHintMemberCreditLeft),
-                    TextSpan(
-                      text: formatValue(_userData.currentUser.credit,
-                          floorIfInt: true, creditSign: true),
-                      style: TextStyle(
-                        color: Themes.defaultAccentColor,
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RichText(
+                  overflow: TextOverflow.visible,
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '${localeStr.homeHintMemberCreditLeft} ',
+                        style: TextStyle(fontSize: textSize),
                       ),
-                    ),
-                  ],
+                      TextSpan(
+                        text: formatValue(
+                          _userData.currentUser.credit,
+                          floorIfInt: true,
+                          creditSign: true,
+                        ),
+                        style: TextStyle(
+                          color: Themes.defaultAccentColor,
+                          fontSize: textSize,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
@@ -241,7 +280,7 @@ class MemberWidgetState extends State<MemberWidget> {
               Res.homeMemberAreaIconDeposit,
               localeStr.pageTitleDeposit,
               () {
-                (_userData.loggedIn)
+                (isUserContent)
                     ? RouterNavigate.navigateToPage(RoutePage.deposit)
                     : toastLogin();
               },
@@ -250,7 +289,7 @@ class MemberWidgetState extends State<MemberWidget> {
               Res.homeMemberAreaIconWithdraw,
               localeStr.pageTitleMemberWithdraw,
               () {
-                (_userData.loggedIn)
+                (isUserContent)
                     ? RouterNavigate.navigateToPage(
                         RoutePage.withdraw,
                         arg: BankcardRouteArguments(withdraw: true),
@@ -262,7 +301,7 @@ class MemberWidgetState extends State<MemberWidget> {
               Res.homeMemberAreaIconTransfer,
               localeStr.pageTitleMemberTransfer,
               () {
-                (_userData.loggedIn)
+                (isUserContent)
                     ? RouterNavigate.navigateToPage(RoutePage.transfer)
                     : toastLogin();
               },
@@ -282,18 +321,25 @@ class MemberWidgetState extends State<MemberWidget> {
     return GestureDetector(
       onTap: func,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ConstrainedBox(
-            constraints:
-                BoxConstraints.tightFor(height: (_areaHeight > 70) ? 30 : 24),
+            constraints: BoxConstraints.tightFor(
+              height:
+                  (_areaHeight >= widget.sizeCalc.shortcutMaxHeight) ? 28 : 24,
+            ),
             child: networkImageBuilder(urlIconName),
           ),
-          Text(
-            label,
-            style: TextStyle(
-              color: Themes.defaultTextColor,
-              fontSize: FontSize.NORMAL.value,
+          Padding(
+            padding: EdgeInsets.only(top: (label.hasChinese) ? 4.0 : 6.0),
+            child: Text(
+              label,
+              style: TextStyle(
+                color: Themes.defaultTextColor,
+                fontSize: (_areaHeight >= widget.sizeCalc.shortcutMaxHeight)
+                    ? FontSize.SUBTITLE.value
+                    : FontSize.NORMAL.value,
+              ),
             ),
           ),
         ],

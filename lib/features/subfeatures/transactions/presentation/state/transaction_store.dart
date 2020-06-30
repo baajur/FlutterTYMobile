@@ -52,8 +52,7 @@ abstract class _TransactionStore with Store {
     } on Exception {
       waitForPageData = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.TRANSACTIONS))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.TRANSACTIONS)).message;
     }
   }
 }

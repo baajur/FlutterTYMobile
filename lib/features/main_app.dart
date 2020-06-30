@@ -7,6 +7,7 @@ import 'package:flutter/services.dart' show SystemChannels;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_ty_mobile/core/data/hive_adapters_export.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter_ty_mobile/features/home/home_inject.dart';
 import 'package:flutter_ty_mobile/features/router/route_user_streams.dart';
 import 'package:flutter_ty_mobile/generated/l10n.dart';
 import 'package:flutter_ty_mobile/injection_container.dart';
@@ -124,6 +125,7 @@ class _MainAppState extends State<MainApp>
   void dispose() async {
     await Hive.close().then((value) => _hiveInitialized = false);
     sl.get<RouteUserStreams>().dispose();
+    sl.get<HomeStore>().closeStreams();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

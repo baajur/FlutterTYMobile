@@ -1,7 +1,14 @@
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
 
-class WalletType extends GenericEnum<String> {
-  const WalletType._(String value) : super(value);
-  static const WalletType SINGLE = WalletType._('1');
-  static const WalletType MULTI = WalletType._('0');
+@VnumDefinition
+class WalletType extends Vnum<String> {
+  /// Case Definition
+  static const WalletType SINGLE = const WalletType.define('1');
+  static const WalletType MULTI = const WalletType.define('0');
+
+  /// Used for defining cases
+  const WalletType.define(String fromValue) : super.define(fromValue);
+
+  /// Used for loading enum using value
+  factory WalletType(String value) => Vnum.fromValue(value, WalletType);
 }

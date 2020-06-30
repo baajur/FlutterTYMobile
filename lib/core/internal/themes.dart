@@ -10,6 +10,7 @@ class Themes {
   static final defaultBackgroundColor = Color(0xff313131);
   static final defaultAccentColor = Color(0xffe7c080);
   static final defaultAppbarColor = Color(0xff222222);
+  static final defaultMarqueeBarColor = Color(0xA0000000);
   static final defaultWidgetColor = Color(0xffb5b5b5);
   static final defaultWidgetBgColor = Color(0xff383838);
   static final defaultDisabledColor = Color(0xff575757);

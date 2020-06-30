@@ -1,12 +1,12 @@
 import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/entity/payment_enum.dart';
 
-import '../../data/repository/deposit_repository.dart';
-import '../../data/entity/payment_enum.dart';
 import '../../data/form/deposit_form.dart';
 import '../../data/model/deposit_result.dart';
 import '../../data/model/payment_freezed.dart';
 import '../../data/model/payment_promo.dart';
 import '../../data/model/payment_raw.dart';
+import '../../data/repository/deposit_repository.dart';
 
 part 'deposit_store.g.dart';
 
@@ -81,8 +81,7 @@ abstract class _DepositStore with Store {
       });
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.DEPOSIT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.DEPOSIT)).message;
     }
   }
 
@@ -110,8 +109,7 @@ abstract class _DepositStore with Store {
       });
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.DEPOSIT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.DEPOSIT)).message;
     }
   }
 
@@ -151,8 +149,7 @@ abstract class _DepositStore with Store {
     } on Exception {
       waitForDepositResult = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.DEPOSIT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.DEPOSIT)).message;
     }
   }
 }

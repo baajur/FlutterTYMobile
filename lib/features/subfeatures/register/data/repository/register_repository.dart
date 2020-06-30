@@ -23,7 +23,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
   Future<Either<Failure, RequestStatusModel>> postRegister(
     RegisterForm form,
   ) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.post(
         RegisterApi.POST_REGISTER,
         data: form.toJson(),
@@ -31,7 +31,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
       allowJsonString: true,
       tag: 'remote-REGISTER',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (result) {

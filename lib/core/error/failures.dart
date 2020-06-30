@@ -1,5 +1,5 @@
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart'
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart'
     show RequestStatusModel;
 import 'package:super_enum/super_enum.dart';
 
@@ -54,8 +54,7 @@ extension FailureExtension on Failure {
       case _Failure.CachedFile:
         return localeStr.messageErrorCachedFile;
       case _Failure.Internal:
-        return localeStr.messageErrorInternal +
-            '(${this.props.first.errorCode})';
+        return localeStr.messageErrorInternal + '(${this.props.first.code})';
       default:
         return _OTHER_FAILURE_MESSAGE;
     }

@@ -1,12 +1,20 @@
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
 
-class AgentChartTime extends GenericEnum<int> {
-  const AgentChartTime._(int value) : super(value);
+@VnumDefinition
+class AgentChartTime extends Vnum<int> {
+  static const AgentChartTime THIS_MONTH = const AgentChartTime.define(1);
+  static const AgentChartTime LAST_MONTH = const AgentChartTime.define(0);
 
-  static const AgentChartTime THIS_MONTH = AgentChartTime._(1);
+  /// Used for defining cases
+  const AgentChartTime.define(int fromValue) : super.define(fromValue);
 
-  static const AgentChartTime LAST_MONTH = AgentChartTime._(0);
+  /// Used for loading enum using value
+  factory AgentChartTime(int value) => Vnum.fromValue(value, AgentChartTime);
 
+  /// Iterating cases
+  Iterable get listAll => Vnum.allCasesFor(AgentChartTime);
+
+  /// (optional) Extend your Vnums
   static const List<AgentChartTime> LIST = [
     AgentChartTime.LAST_MONTH,
     AgentChartTime.THIS_MONTH,

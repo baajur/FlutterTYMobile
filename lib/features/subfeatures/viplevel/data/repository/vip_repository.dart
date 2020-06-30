@@ -24,7 +24,7 @@ class VipLevelRepositoryImpl implements VipLevelRepository {
       jsonToModel: VipLevelModel.jsonToVipLevelModel,
       tag: 'remote-VIP',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

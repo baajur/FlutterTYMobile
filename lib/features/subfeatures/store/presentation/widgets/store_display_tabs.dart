@@ -2,13 +2,13 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/features/export_internal_file.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/tabs_page_control_widget.dart';
 
 import '../state/point_store.dart';
 import 'point_store_inherit_widget.dart';
 import 'store_display_products.dart';
 import 'store_display_record.dart';
 import 'store_display_rules.dart';
-import 'store_display_view.dart';
 
 /// Display promo category and items
 /// [promos] = data from repository
@@ -133,7 +133,7 @@ class _StoreDisplayTabsState extends State<StoreDisplayTabs>
       child: PointStoreInheritedWidget(
         key: routeKey,
         store: widget.store,
-        child: new StoreDisplayView(
+        child: new TabsPageControlWidget(
           pageController: _pageController,
           tabController: _tabController,
           children: [

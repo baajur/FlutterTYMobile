@@ -1,5 +1,5 @@
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'bet_record_time_enum.freezed.dart';
@@ -12,18 +12,32 @@ abstract class BetRecordTime with _$BetRecordTime {
   }) = _BetRecordTime;
 }
 
-class BetRecordTimeEnum extends GenericEnum<BetRecordTime> {
-  BetRecordTimeEnum._(BetRecordTime value) : super(value);
-  static BetRecordTimeEnum today = BetRecordTimeEnum._(
+@VnumDefinition
+class BetRecordTimeEnum extends Vnum<BetRecordTime> {
+  /// Case Definition
+  static BetRecordTimeEnum today = BetRecordTimeEnum.define(
       BetRecordTime(index: 0, label: localeStr.spinnerDateToday));
-  static BetRecordTimeEnum yesterday = BetRecordTimeEnum._(
+  static BetRecordTimeEnum yesterday = BetRecordTimeEnum.define(
       BetRecordTime(index: 1, label: localeStr.spinnerDateYesterday));
-  static BetRecordTimeEnum month = BetRecordTimeEnum._(
+  static BetRecordTimeEnum month = BetRecordTimeEnum.define(
       BetRecordTime(index: 2, label: localeStr.spinnerDateMonth));
-  static BetRecordTimeEnum all = BetRecordTimeEnum._(
+  static BetRecordTimeEnum all = BetRecordTimeEnum.define(
       BetRecordTime(index: 3, label: localeStr.spinnerDateAll));
-  static BetRecordTimeEnum custom = BetRecordTimeEnum._(
+  static BetRecordTimeEnum custom = BetRecordTimeEnum.define(
       BetRecordTime(index: 4, label: localeStr.spinnerDateCustom));
+
+  /// Used for defining cases
+  const BetRecordTimeEnum.define(BetRecordTime fromValue)
+      : super.define(fromValue);
+
+  /// Used for loading enum using value
+  factory BetRecordTimeEnum(BetRecordTime value) =>
+      Vnum.fromValue(value, BetRecordTimeEnum);
+
+  /// Iterating cases
+  Iterable get listAll => Vnum.allCasesFor(BetRecordTimeEnum);
+
+  /// (optional) Extend your Vnums
   static List<BetRecordTimeEnum> list = [
     BetRecordTimeEnum.today,
     BetRecordTimeEnum.yesterday,

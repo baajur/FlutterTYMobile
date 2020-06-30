@@ -43,7 +43,7 @@ class PromoRepositoryImpl implements PromoRepository {
         trim: false,
         tag: 'remote-PROMO',
       );
-      print('test response type: ${result.runtimeType}, data: $result');
+//      print('test response type: ${result.runtimeType}, data: $result');
       return result.fold(
         (failure) {
           if (failure.typeIndex == 0)

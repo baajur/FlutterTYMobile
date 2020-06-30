@@ -6,47 +6,23 @@ part of 'web_game_screen_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
-  final _$_streamRotateAtom = Atom(name: '_WebGameScreenStore._streamRotate');
+  final _$_deviceOrientationAtom =
+      Atom(name: '_WebGameScreenStore._deviceOrientation');
 
   @override
-  ObservableStream<DeviceOrientation> get _streamRotate {
-    _$_streamRotateAtom.reportRead();
-    return super._streamRotate;
+  DeviceOrientation get _deviceOrientation {
+    _$_deviceOrientationAtom.reportRead();
+    return super._deviceOrientation;
   }
 
   @override
-  set _streamRotate(ObservableStream<DeviceOrientation> value) {
-    _$_streamRotateAtom.reportWrite(value, super._streamRotate, () {
-      super._streamRotate = value;
+  set _deviceOrientation(DeviceOrientation value) {
+    _$_deviceOrientationAtom.reportWrite(value, super._deviceOrientation, () {
+      super._deviceOrientation = value;
     });
-  }
-
-  final _$deviceOrientationAtom =
-      Atom(name: '_WebGameScreenStore.deviceOrientation');
-
-  @override
-  DeviceOrientation get deviceOrientation {
-    _$deviceOrientationAtom.reportRead();
-    return super.deviceOrientation;
-  }
-
-  @override
-  set deviceOrientation(DeviceOrientation value) {
-    _$deviceOrientationAtom.reportWrite(value, super.deviceOrientation, () {
-      super.deviceOrientation = value;
-    });
-  }
-
-  final _$rotateScreenAsyncAction =
-      AsyncAction('_WebGameScreenStore.rotateScreen');
-
-  @override
-  Future<void> rotateScreen(DeviceOrientation receivedRotate) {
-    return _$rotateScreenAsyncAction
-        .run(() => super.rotateScreen(receivedRotate));
   }
 
   final _$rotateScreenLeftAsyncAction =
@@ -84,7 +60,7 @@ mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
   @override
   String toString() {
     return '''
-deviceOrientation: $deviceOrientation
+
     ''';
   }
 }

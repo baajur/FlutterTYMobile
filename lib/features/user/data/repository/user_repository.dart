@@ -59,18 +59,25 @@ class UserRepositoryImpl implements UserRepository {
               data.substring(data.indexOf('=') + 1, data.indexOf(';'));
           MyLogger.debug(msg: 'token: \n$token', tag: tag);
           MyLogger.log(msg: 'start validate token...', tag: tag);
-          final validStatus = await jwtInterface.checkJwt(
-            UserApi.JWT_CHECK_HREF,
-            loginAccount: form.account,
-            loginToken: token,
-          );
+          final validStatus =
+              await Future.delayed(Duration(milliseconds: 200), () {
+            return jwtInterface.checkJwt(
+              UserApi.JWT_CHECK_HREF,
+              loginAccount: form.account,
+              loginToken: token,
+            );
+          });
           if (validStatus.isSuccess) {
             MyLogger.log(
-                msg: 'token is valid, requesting account info...', tag: tag);
+              msg: 'id ${validStatus.msg} token is valid, '
+                  'requesting account info...',
+              tag: tag,
+            );
+            jwtInterface.accountId = validStatus.msg;
             return await getAccount(token);
           } else {
             MyLogger.warn(msg: 'token is not valid: $validStatus', tag: tag);
-            return Right(UserModel(status: 'failed', vip: 0));
+            return Left(Failure.token());
           }
         } else {
           /// return login failure status
@@ -100,7 +107,7 @@ class UserRepositoryImpl implements UserRepository {
       jsonToModel: UserModel.jsonToUserModel,
       tag: 'remote-USER',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

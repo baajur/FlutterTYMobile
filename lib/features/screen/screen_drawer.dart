@@ -14,7 +14,7 @@ class ScreenDrawer extends StatelessWidget {
     ScreenDrawerItem.notice,
     ScreenDrawerItem.wallet,
     ScreenDrawerItem.vip,
-    ScreenDrawerItem.event,
+    ScreenDrawerItem.sign,
     ScreenDrawerItem.store,
     ScreenDrawerItem.logout,
     ScreenDrawerItem.testUI,
@@ -30,7 +30,7 @@ class ScreenDrawer extends StatelessWidget {
       ScreenNavigate.switchScreen(screen: ScreenEnum.Test);
       return true;
     }
-    if (item == ScreenDrawerItem.event) {
+    if (item == ScreenDrawerItem.sign) {
       store.setForceShowEvent = true;
       return true;
     }
@@ -130,12 +130,13 @@ class ScreenDrawer extends StatelessWidget {
                   if (item.value.isUserOnly &&
                       getRouteUserStreams.hasUser == false)
                     return SizedBox.shrink();
-                  if (item == ScreenDrawerItem.event &&
-                      viewState.store.event.hasData == false)
+                  if (item == ScreenDrawerItem.sign &&
+                      (viewState.store.event == null ||
+                          viewState.store.event.hasData == false))
                     return SizedBox.shrink();
                   return GestureDetector(
                     onTap: () {
-                      if ((item == ScreenDrawerItem.event)
+                      if ((item == ScreenDrawerItem.sign)
                           ? _itemTapped(item, store: viewState.store)
                           : _itemTapped(item)) {
                         // close the drawer
