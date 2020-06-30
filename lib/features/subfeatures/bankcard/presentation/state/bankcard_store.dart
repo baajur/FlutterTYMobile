@@ -189,6 +189,7 @@ abstract class _BankcardStore with Store {
         );
       });
     } on Exception {
+      waitForNewCardResult = false;
       errorMessage =
           Failure.internal(FailureCode(typeCode: FailureTypeCode.BANKCARD))
               .message;

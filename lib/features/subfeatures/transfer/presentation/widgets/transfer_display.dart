@@ -4,7 +4,7 @@ import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_input_chip_container.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/form/transfer_form.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/models/transfer_platform_model.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transfer/presentation/state/transfer_store.dart';
@@ -58,7 +58,7 @@ class _TransferDisplayState extends State<TransferDisplay> {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
-      String amountText = _amountFieldKey.currentState.inputText;
+      String amountText = _amountFieldKey.currentState.getInput;
       int amount = amountText.strToInt;
       if (!rangeCheck(
         value: amount,
@@ -93,6 +93,13 @@ class _TransferDisplayState extends State<TransferDisplay> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             InkWell(
+              // to dismiss the keyboard when the user tabs out of the TextField
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
               child: new Form(
                 key: _formKey,
                 child: ListView(
@@ -101,13 +108,13 @@ class _TransferDisplayState extends State<TransferDisplay> {
                     /* From Site Option */
                     CustomizeDropdownWidget(
                       key: _site1Key,
-                      prefixTitle: localeStr.transferViewTitleOut,
+                      prefixText: localeStr.transferViewTitleOut,
                       optionValues:
                           widget.store.platforms.map((e) => e.site).toList(),
                       optionStrings:
                           widget.store.platforms.map((e) => e.name).toList(),
-                      postfixInitText: localeStr.transferViewSiteHint,
-                      postfixTextStream: widget.store.site1ValueStream,
+                      suffixInitText: localeStr.transferViewSiteHint,
+                      suffixTextStream: widget.store.site1ValueStream,
                       clearValueOnMenuChanged: true,
                       changeNotify: (data) {
                         if (data == null) return;
@@ -144,11 +151,11 @@ class _TransferDisplayState extends State<TransferDisplay> {
                     /* To Site Option */
                     CustomizeDropdownWidget(
                       key: _site2Key,
-                      prefixTitle: localeStr.transferViewTitleIn,
+                      prefixText: localeStr.transferViewTitleIn,
                       optionValues: _site2List.map((e) => e.site).toList(),
                       optionStrings: _site2List.map((e) => e.name).toList(),
-                      postfixInitText: localeStr.transferViewSiteHint,
-                      postfixTextStream: widget.store.site2ValueStream,
+                      suffixInitText: localeStr.transferViewSiteHint,
+                      suffixTextStream: widget.store.site2ValueStream,
                       clearValueOnMenuChanged: true,
                       changeNotify: (data) {
                         if (data == null) return;
@@ -165,14 +172,12 @@ class _TransferDisplayState extends State<TransferDisplay> {
                       fieldType: FieldType.Numbers,
                       persistHint: false,
                       prefixText: localeStr.transferViewTitleAmount,
-                      parentWidth: MediaQuery.of(context).size.width,
                       maxInputLength: 6,
-                      minusHeight: 8,
                     ),
                     /* Amount Chip */
                     new CustomizeInputChipContainer(
                       prefixTitle: localeStr.transferViewTitleOption,
-                      titleLetterSpacing: 4,
+                      titleLetterSpacing: 0,
                       labels: chipLabels,
                       values: chipValues,
                       heightFactor: 1.75,
@@ -191,10 +196,13 @@ class _TransferDisplayState extends State<TransferDisplay> {
             /* Confirm Button */
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
-              child: RaisedButton(
-                child: Text(localeStr.btnConfirm),
-                textColor: Themes.defaultTextColorBlack,
-                onPressed: () => _validateForm(),
+              child: SizedBox(
+                height: Global.device.comfortButtonHeight,
+                child: RaisedButton(
+                  child: Text(localeStr.btnConfirm),
+                  textColor: Themes.defaultTextColorBlack,
+                  onPressed: () => _validateForm(),
+                ),
               ),
             ),
             RichText(

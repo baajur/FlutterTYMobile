@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/loading_widget.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/warning_display.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/wallet/presentation/widgets/wallet_display.dart';
-import 'package:flutter_ty_mobile/temp/blank_widget.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
-import '../../../../injection_container.dart' show sl;
-import '../../../route_page_export.dart' show RouterNavigate, localeStr;
 import 'state/wallet_store.dart';
+import 'widgets/wallet_display.dart';
 
 class WalletRoute extends StatefulWidget {
   @override
@@ -94,7 +87,7 @@ class _WalletRouteState extends State<WalletRoute> {
           builder: (_) {
             switch (_store.state) {
               case WalletStoreState.initial:
-                return BlankWidget();
+                return SizedBox.shrink();
               case WalletStoreState.loading:
                 return LoadingWidget();
               case WalletStoreState.loaded:

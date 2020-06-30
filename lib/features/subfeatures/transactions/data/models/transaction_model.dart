@@ -36,8 +36,8 @@ List<TransactionData> decodeTransactionData(dynamic str) =>
     JsonUtil.decodeMapToModelList(
       str,
       (jsonMap) => TransactionData.jsonToTransactionData(jsonMap),
-      false,
-      'TransactionData',
+      trim: false,
+      tag: 'TransactionData',
     );
 
 @freezed

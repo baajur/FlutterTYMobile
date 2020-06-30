@@ -10,14 +10,19 @@ import 'features/promo/promo_inject.dart';
 import 'features/router/route_user_streams.dart';
 import 'features/screen/web_game_screen_store.dart';
 import 'features/subfeatures/bankcard/bankcard_inject.dart';
+import 'features/subfeatures/betrecord/bet_record_inject.dart';
 import 'features/subfeatures/deposit/deposit_inject.dart';
+import 'features/subfeatures/register/register_inject.dart';
 import 'features/subfeatures/transfer/transfer_inject.dart';
 import 'features/subfeatures/balance/balance_inject.dart';
 import 'features/subfeatures/wallet/wallet_inject.dart';
 import 'features/subfeatures/message/message_inject.dart';
 import 'features/subfeatures/accountcenter/center_inject.dart';
 import 'features/subfeatures/transactions/transaction_inject.dart';
+import 'features/subfeatures/deals/deals_inject.dart';
 import 'features/subfeatures/notice/notice_inject.dart';
+import 'features/subfeatures/flows/flows_inject.dart';
+import 'features/subfeatures/agent/agent_inject.dart';
 import 'features/users/user_inject.dart';
 import 'template/template_inject.dart';
 
@@ -49,10 +54,13 @@ Future<void> init() async {
     () => UserLoginBloc(userData: sl()),
   );
   sl.registerFactory(
+    () => RegisterStore(sl<RegisterRepository>(), sl<UserRepository>()),
+  );
+  sl.registerFactory(
     () => PromoStore(sl<PromoRepository>()),
   );
   sl.registerFactory(
-    () => MemberCreditStore(sl.get<MemberRepository>()),
+    () => MemberCreditStore(sl<MemberRepository>()),
   );
   sl.registerFactory(
     () => DepositStore(sl<DepositRepository>()),
@@ -80,6 +88,18 @@ Future<void> init() async {
   );
   sl.registerFactory(
     () => TransactionStore(sl<TransactionRepository>()),
+  );
+  sl.registerFactory(
+    () => BetRecordStore(sl<BetRecordRepository>()),
+  );
+  sl.registerFactory(
+    () => DealsStore(sl<DealsRepository>()),
+  );
+  sl.registerFactory(
+    () => FlowsStore(sl<FlowsRepository>()),
+  );
+  sl.registerFactory(
+    () => AgentStore(sl<AgentRepository>()),
   );
   sl.registerFactory(
     () => NoticeStore(sl<NoticeRepository>()),
@@ -168,6 +188,9 @@ Future<void> init() async {
   sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(dioApiService: sl()),
   );
+  sl.registerLazySingleton<RegisterRepository>(
+    () => RegisterRepositoryImpl(dioApiService: sl()),
+  );
   sl.registerLazySingleton<PromoRemoteDataSource>(
     () => PromoRemoteDataSourceImpl(dioApiService: sl()),
   );
@@ -206,6 +229,18 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<TransactionRepository>(
     () => TransactionRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<BetRecordRepository>(
+    () => BetRecordRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<DealsRepository>(
+    () => DealsRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<FlowsRepository>(
+    () => FlowsRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
+  );
+  sl.registerLazySingleton<AgentRepository>(
+    () => AgentRepositoryImpl(dioApiService: sl(), jwtInterface: sl()),
   );
   sl.registerLazySingleton<NoticeRepository>(
     () => NoticeRepositoryImpl(dioApiService: sl()),

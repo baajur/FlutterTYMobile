@@ -7,7 +7,7 @@ import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart'
 import 'package:flutter_ty_mobile/features/users/presentation/login_dialog.dart';
 import 'package:flutter_ty_mobile/res.dart';
 
-import '../../../route_page_export.dart';
+import '../../../general_route_widget_export.dart';
 
 /// Creates a widget to show member info under Marquee
 ///@author H.C.CHIANG
@@ -131,7 +131,11 @@ class MemberWidgetState extends State<MemberWidget> {
 
   Widget _buildLeftContent() {
     if (_userData.loggedIn == false) {
-      return Center(
+      return Container(
+        alignment: Alignment.center,
+        constraints: BoxConstraints(
+          minWidth: Global.device.width / 3,
+        ),
         child: RaisedButton(
           /// if not logged in, show a login button
           child: Text(
@@ -158,12 +162,17 @@ class MemberWidgetState extends State<MemberWidget> {
       double textSize = (_userData.currentUser.account.length > 10)
           ? FontSize.NORMAL.value - 1
           : FontSize.NORMAL.value;
+      double availableWidth = Global.device.width / 3;
+      double textMinWidth = FontSize.NORMAL.value * 6;
+      double textMaxWidth = FontSize.NORMAL.value * 9.5;
+      if (textMinWidth < availableWidth) textMinWidth = availableWidth;
+      if (textMaxWidth < textMinWidth) textMaxWidth = textMinWidth;
       return Container(
         /// if logged in, show member info
         padding: EdgeInsets.only(left: 4.0),
         constraints: BoxConstraints(
-          minWidth: FontSize.NORMAL.value * 6,
-          maxWidth: FontSize.NORMAL.value * 9.5,
+          minWidth: textMinWidth,
+          maxWidth: textMaxWidth,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/loading_widget.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/widgets/center_store_inherit_widget.dart';
-import 'package:flutter_ty_mobile/temp/blank_widget.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
-import '../../../../injection_container.dart' show sl;
-import '../../../route_page_export.dart' show RouterNavigate, localeStr;
 import 'state/center_store.dart';
+import 'widgets/center_store_inherit_widget.dart';
 import 'widgets/center_display.dart';
 
 class CenterRoute extends StatefulWidget {
@@ -135,9 +129,11 @@ class _CenterRouteState extends State<CenterRoute> {
   }
 
   @override
-  void dispose() async {
-    await _store.closeStreams();
-    _disposers.forEach((d) => d());
+  void dispose() {
+    try {
+      _store.closeStreams();
+      _disposers.forEach((d) => d());
+    } on Exception {}
     super.dispose();
   }
 
@@ -159,7 +155,7 @@ class _CenterRouteState extends State<CenterRoute> {
             builder: (_) {
               switch (_store.state) {
                 case CenterStoreState.initial:
-                  return BlankWidget();
+                  return SizedBox.shrink();
                 case CenterStoreState.loading:
                   return LoadingWidget();
                 case CenterStoreState.loaded:

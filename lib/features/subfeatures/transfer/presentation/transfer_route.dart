@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/loading_widget.dart';
-import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transfer/presentation/widgets/transfer_display.dart';
-import 'package:flutter_ty_mobile/temp/blank_widget.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
-import '../../../../injection_container.dart' show sl;
 import 'state/transfer_store.dart';
+import 'widgets/transfer_display.dart';
 
 class TransferRoute extends StatefulWidget {
   @override
@@ -114,7 +107,7 @@ class _TransferRouteState extends State<TransferRoute> {
           builder: (_) {
             switch (_store.state) {
               case TransferStoreState.initial:
-                return BlankWidget();
+                return SizedBox.shrink();
               case TransferStoreState.loading:
                 return LoadingWidget();
               case TransferStoreState.loaded:

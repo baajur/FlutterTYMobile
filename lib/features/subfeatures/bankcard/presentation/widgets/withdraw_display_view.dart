@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/customize_titled_container.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';
 
@@ -48,8 +48,8 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
     if (form.validate()) {
       form.save();
       WithdrawForm dataForm = WithdrawForm(
-        amount: _amountFieldKey.currentState.inputText,
-        password: _passwordFieldKey.currentState.inputText,
+        amount: _amountFieldKey.currentState.getInput,
+        password: _passwordFieldKey.currentState.getInput,
         type: _typeSelected.toString(),
       );
       if (dataForm.isValid) {
@@ -73,6 +73,13 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           InkWell(
+            // to dismiss the keyboard when the user tabs out of the TextField
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
             child: new Form(
               key: _formKey,
               child: ListView(
@@ -87,7 +94,6 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
                     prefixText: localeStr.withdrawViewTitleAmount,
                     titleLetterSpacing: 4,
                     maxInputLength: 8,
-                    minusHeight: 8,
                     errorMsg: localeStr.messageInvalidDepositAmount,
                     validCondition: (value) => rangeCheck(
                       value: (value.isNotEmpty) ? int.parse(value) : 0,
@@ -102,7 +108,6 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
                     prefixText: localeStr.withdrawViewTitlePwd,
                     titleLetterSpacing: 4,
                     maxInputLength: 8,
-                    minusHeight: 8,
                     errorMsg: localeStr.messageInvalidWithdrawPassword,
                     validCondition: (value) =>
                         rangeCheck(value: value.length, min: 4, max: 8),
@@ -113,8 +118,8 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
           ),
           CustomizeTitledContainer(
             childAlignment: Alignment.topLeft,
-            heightFactor: 3.5,
-            prefixTitle: localeStr.withdrawViewTitleNote,
+            heightFactor: 3.6,
+            prefixText: localeStr.withdrawViewTitleNote,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -211,17 +216,20 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Expanded(
-                  child: RaisedButton(
-                    child: Text(localeStr.btnSubmit),
-                    textColor: Themes.defaultTextColorBlack,
-                    onPressed: () {
-                      try {
-                        _validateForm();
-                      } catch (e) {
-                        MyLogger.error(
-                            msg: 'form error: $e', error: e, tag: tag);
-                      }
-                    },
+                  child: SizedBox(
+                    height: Global.device.comfortButtonHeight,
+                    child: RaisedButton(
+                      child: Text(localeStr.btnSubmit),
+                      textColor: Themes.defaultTextColorBlack,
+                      onPressed: () {
+                        try {
+                          _validateForm();
+                        } catch (e) {
+                          MyLogger.error(
+                              msg: 'form error: $e', error: e, tag: tag);
+                        }
+                      },
+                    ),
                   ),
                 ),
               ],

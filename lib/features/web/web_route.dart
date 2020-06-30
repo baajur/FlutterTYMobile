@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../utils/regex_util.dart';
@@ -28,16 +24,8 @@ class _WebRouteState extends State<WebRoute> {
 
   @override
   void initState() {
-//    _store ??= WebRouteStore(sl.get<MemberRepository>());
     _store ??= WebRouteStore();
-    // to hide only bottom bar:
-//    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
-    // to hide only status bar:
-//    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.bottom]);
-    // to hide both:
-//    SystemChrome.setEnabledSystemUIOverlays([]);
     super.initState();
-//    _store.getCredit('');
   }
 
   @override

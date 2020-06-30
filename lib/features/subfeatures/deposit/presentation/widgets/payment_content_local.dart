@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/error/failures.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';
 import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
@@ -48,9 +49,9 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
       DepositDataForm dataForm = DepositDataForm(
         bankIndex: _bankSelectedIndex,
         methodId: _methodSelected,
-        name: _nameFieldKey.currentState.inputText,
+        name: _nameFieldKey.currentState.getInput,
         bankId: _bankSelectedId,
-        amount: _amountFieldKey.currentState.inputText,
+        amount: _amountFieldKey.currentState.getInput,
         promoId: _promoSelected,
       );
       print('deposit form: ${dataForm.toJson()}');
@@ -90,6 +91,8 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
       return InkWell(
         // to dismiss the keyboard when the user tabs out of the TextField
         splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        focusColor: Colors.transparent,
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
@@ -105,7 +108,7 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                 children: <Widget>[
                   /* Promo Option */
                   CustomizeDropdownWidget(
-                    prefixTitle: localeStr.depositPaymentSpinnerTitlePromo,
+                    prefixText: localeStr.depositPaymentSpinnerTitlePromo,
                     titleLetterSpacing: 4,
                     optionValues: promos.map((item) => item.promoId).toList(),
                     optionStrings:
@@ -120,7 +123,7 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                   ),
                   /* Bank Option */
                   CustomizeDropdownWidget(
-                    prefixTitle: localeStr.depositPaymentSpinnerTitleBank,
+                    prefixText: localeStr.depositPaymentSpinnerTitleBank,
                     titleLetterSpacing: 4,
                     optionValues: widget.dataList
                         .map((item) => item.bankAccountId)
@@ -152,7 +155,7 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                   ),
                   /* Method Option */
                   CustomizeDropdownWidget(
-                    prefixTitle: localeStr.depositPaymentSpinnerTitleMethod,
+                    prefixText: localeStr.depositPaymentSpinnerTitleMethod,
                     titleLetterSpacing: 4,
                     optionStrings: methods,
                     optionValues: [1, 2],
@@ -173,7 +176,6 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                     errorMsg: localeStr.messageInvalidDepositName,
                     validCondition: (value) =>
                         rangeCheck(value: value.length, min: 2, max: 12),
-                    parentWidth: MediaQuery.of(context).size.width,
                     titleLetterSpacing: 0.5,
                     maxInputLength: 12,
                     debug: true,
@@ -196,7 +198,6 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
                           min: _localData.min?.strToInt ?? 1,
                           max: _localData.max.strToInt,
                         ),
-                    parentWidth: MediaQuery.of(context).size.width,
                     titleLetterSpacing: 4,
                     maxInputLength: _localData.max.length,
                   ),
@@ -218,20 +219,23 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Expanded(
-                  child: RaisedButton(
-                    child: Text(localeStr.btnConfirm),
-                    textColor: Themes.defaultTextColorBlack,
-                    onPressed: () {
-                      try {
-                        // clear text field focus
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        // validate and send request
-                        _validateForm();
-                      } catch (e) {
-                        MyLogger.error(
-                            msg: 'form error: $e', error: e, tag: tag);
-                      }
-                    },
+                  child: SizedBox(
+                    height: Global.device.comfortButtonHeight,
+                    child: RaisedButton(
+                      child: Text(localeStr.btnConfirm),
+                      textColor: Themes.defaultTextColorBlack,
+                      onPressed: () {
+                        try {
+                          // clear text field focus
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          // validate and send request
+                          _validateForm();
+                        } catch (e) {
+                          MyLogger.error(
+                              msg: 'form error: $e', error: e, tag: tag);
+                        }
+                      },
+                    ),
                   ),
                 ),
               ],

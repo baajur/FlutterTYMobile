@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/notice/presentation/widgets/notice_display.dart';
-import 'package:flutter_ty_mobile/temp/blank_widget.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
-import '../../../../injection_container.dart' show sl;
 import 'state/notice_store.dart';
+import 'widgets/notice_display.dart';
 
 class NoticeRoute extends StatefulWidget {
   @override
@@ -66,7 +61,7 @@ class _NoticeRouteState extends State<NoticeRoute> {
         builder: (_) {
           switch (_store.state) {
             case NoticeStoreState.initial:
-              return BlankWidget();
+              return SizedBox.shrink();
             case NoticeStoreState.loading:
               return LoadingWidget();
             case NoticeStoreState.loaded:

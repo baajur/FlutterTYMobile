@@ -37,7 +37,7 @@ abstract class _WithdrawStore with Store {
 
   @computed
   WithdrawStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if ((_cgpFuture == null || _cgpFuture.status == FutureStatus.rejected) &&
         (_cpwFuture == null || _cpwFuture.status == FutureStatus.rejected)) {
       return WithdrawStoreState.initial;
@@ -131,6 +131,7 @@ abstract class _WithdrawStore with Store {
         );
       });
     } on Exception {
+      waitForWithdrawResult = false;
       errorMessage =
           Failure.internal(FailureCode(typeCode: FailureTypeCode.WITHDRAW))
               .message;

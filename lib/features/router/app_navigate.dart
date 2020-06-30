@@ -72,7 +72,7 @@ class ScreenNavigate {
             // to hide only status bar:
             //        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
             // to hide both:
-            OrientationHelper.setDisabledSystemUIOverlays();
+            OrientationHelper.disabledSystemUIOverlays();
             screenIndex = 1;
             break;
           case ScreenEnum.Test:
@@ -173,6 +173,24 @@ class RouterNavigate {
               'navigate to page has exception!! Router current: $_currentRoute, previous: $_previousRoute',
           error: e,
           tag: _tag);
+    }
+    _routeInfo.sink.add(page.value);
+  }
+
+  static replacePage(RoutePage page, {Object arg}) {
+    try {
+      navigator.pushReplacementNamed(page.page, arguments: arg);
+      _setPath(page.page,
+          parentRoute:
+              (current != Routes.memberRoute) ? page.pageRoot : current);
+    } catch (e) {
+      MyLogger.warn(
+          msg:
+              'replace page has exception!! Router current: $_currentRoute, previous: $_previousRoute',
+          error: e,
+          tag: _tag);
+      navigateClean();
+      navigateToPage(page, arg: arg);
     }
     _routeInfo.sink.add(page.value);
   }

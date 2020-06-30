@@ -127,6 +127,18 @@
   "@pageTitleMemberAgent": {
     "type": "text"
   },
+  "pageTitleMemberAgentAbout": "Agent?",
+  "@pageTitleMemberAgentAbout": {
+    "type": "text"
+  },
+  "pageTitleTask": "Task",
+  "@pageTitleTask": {
+    "type": "text"
+  },
+  "pageTitleMore": "More",
+  "@pageTitleMore": {
+    "type": "text"
+  },
   "toolBarMemberCredit": "￥ {value}",
   "@toolBarMemberCredit": {
     "type": "text",
@@ -216,33 +228,60 @@
   "@btnQueryNow": {
     "type": "text"
   },
-  "btnSignUpTv": "Accumulated sign-in {value} days",
-  "@btnSignUpTv": {
-    "type": "text",
-    "placeholders": {
-      "value": {
-        "example": "3"
-      }
-    }
-  },
-  "btnSignUpAlready": "Signed in",
-  "@btnSignUpAlready": {
+  "btnShow": "Show",
+  "@btnShow": {
     "type": "text"
   },
-  "btnSignUpSuccess": "Sign in successfully !!",
-  "@btnSignUpSuccess": {
+  "spinnerDateAll": "All",
+  "@spinnerDateAll": {
     "type": "text"
   },
-  "btnSignUpFailed": "Sign in failed !!",
-  "@btnSignUpFailed": {
+  "spinnerDateToday": "Today",
+  "@spinnerDateToday": {
     "type": "text"
   },
-  "btnNoticeGeneral": "General Message",
-  "@btnNoticeGeneral": {
+  "spinnerDateYesterday": "Yesterday",
+  "@spinnerDateYesterday": {
     "type": "text"
   },
-  "btnNoticeMaintenance": "Maintenance Notification",
-  "@btnNoticeMaintenance": {
+  "spinnerDateMonth": "Month",
+  "@spinnerDateMonth": {
+    "type": "text"
+  },
+  "spinnerDateCustom": "Custom",
+  "@spinnerDateCustom": {
+    "type": "text"
+  },
+  "alertTitleError": "Error",
+  "@alertTitleError": {
+    "type": "text"
+  },
+  "alertTitleWarning": "Warning",
+  "@alertTitleWarning": {
+    "type": "text"
+  },
+  "alertTitleHint": "Hint",
+  "@alertTitleHint": {
+    "type": "text"
+  },
+  "alertButtonYes": "Yes",
+  "@alertButtonYes": {
+    "type": "text"
+  },
+  "alertButtonNo": "No",
+  "@alertButtonNo": {
+    "type": "text"
+  },
+  "alertButtonOk": "Confirm",
+  "@alertButtonOk": {
+    "type": "text"
+  },
+  "alertButtonCancel": "Cancel",
+  "@alertButtonCancel": {
+    "type": "text"
+  },
+  "alertButtonClose": "Close",
+  "@alertButtonClose": {
     "type": "text"
   },
   "hintActionSelect": "Please select",
@@ -300,38 +339,6 @@
   },
   "homeHintMemberCreditLeft": "Credit",
   "@homeHintMemberCreditLeft": {
-    "type": "text"
-  },
-  "alertTitleError": "Error",
-  "@alertTitleError": {
-    "type": "text"
-  },
-  "alertTitleWarning": "Warning",
-  "@alertTitleWarning": {
-    "type": "text"
-  },
-  "alertTitleHint": "Hint",
-  "@alertTitleHint": {
-    "type": "text"
-  },
-  "alertButtonYes": "Yes",
-  "@alertButtonYes": {
-    "type": "text"
-  },
-  "alertButtonNo": "No",
-  "@alertButtonNo": {
-    "type": "text"
-  },
-  "alertButtonOk": "Confirm",
-  "@alertButtonOk": {
-    "type": "text"
-  },
-  "alertButtonCancel": "Cancel",
-  "@alertButtonCancel": {
-    "type": "text"
-  },
-  "alertButtonClose": "Close",
-  "@alertButtonClose": {
     "type": "text"
   },
   "messageClearDataRestart": "Language changed, clearing data, restarting later",
@@ -744,6 +751,10 @@
   "@registerButtonTitleRegister": {
     "type": "text"
   },
+  "registerHintAutoLogin": "Logging in，please wait...",
+  "@registerHintAutoLogin": {
+    "type": "text"
+  },
   "promoDetailText": ">>Detail",
   "@promoDetailText": {
     "type": "text"
@@ -1092,22 +1103,6 @@
   "@transactionViewSpinnerTitle": {
     "type": "text"
   },
-  "transactionViewSpinnerDate0": "All time",
-  "@ transactionViewSpinnerDate0": {
-    "type": "text"
-  },
-  "transactionViewSpinnerDate1": "today",
-  "@ transactionViewSpinnerDate1": {
-    "type": "text"
-  },
-  "transactionViewSpinnerDate2": "Yesterday",
-  "@ transactionViewSpinnerDate2": {
-    "type": "text"
-  },
-  "transactionViewSpinnerDate3": "within one month",
-  "@ transactionViewSpinnerDate3": {
-    "type": "text"
-  },
   "transactionHeaderSerial": "Serial Number",
   "@transactionHeaderSerial": {
     "type": "text"
@@ -1132,8 +1127,24 @@
   "@betsSpinnerTitlePlatform": {
     "type": "text"
   },
-  "betsSpinnerTitleTime": "betsSpinnerTitleTime",
+  "betsSpinnerOptionAllPlatform": "All Platform",
+  "@betsSpinnerOptionAllPlatform": {
+    "type": "text"
+  },
+  "betsSpinnerTitleTime": "Bet Time",
   "@betsSpinnerTitleTime": {
+    "type": "text"
+  },
+  "betsFieldTitleStartTime": "Start",
+  "@betsFieldTitleStartTime": {
+    "type": "text"
+  },
+  "betsFieldTitleEndTime": "End",
+  "@betsFieldTitleEndTime": {
+    "type": "text"
+  },
+  "betsFieldDateError": "Date Range Error",
+  "@betsFieldDateError": {
     "type": "text"
   },
   "betsTextTotal": "Total: $ {value}",
@@ -1227,70 +1238,6 @@
   },
   "dealsHeaderAmount": "Amount",
   "@dealsHeaderAmount": {
-    "type": "text"
-  },
-  "agentTextTitleData": "Agent Text",
-  "@agentTextTitleData": {
-    "type": "text"
-  },
-  "agentTextTitleChart": "Agent Report",
-  "@agentTextTitleChart": {
-    "type": "text"
-  },
-  "agentTextTitleCommission": "Agent Commission Report",
-  "@agentTextTitleCommission": {
-    "type": "text"
-  },
-  "agentTextDataCode": "Recommended code:",
-  "@agentTextDataCode": {
-    "type": "text"
-  },
-  "agentTextDataUrl": "Agent Link:",
-  "@agentTextDataUrl": {
-    "type": "text"
-  },
-  "agentTextDataUpper": "Upper account:",
-  "@agentTextDataUpper": {
-    "type": "text"
-  },
-  "agentTextDataLower": "Subordinate account:",
-  "@agentTextDataLower": {
-    "type": "text"
-  },
-  "agentButtonTextRequest": "Get Agent Code",
-  "@agentButtonTextRequest": {
-    "type": "text"
-  },
-  "agentButtonTextCopy": "Copy",
-  "@agentButtonTextCopy": {
-    "type": "text"
-  },
-  "agentTextChartDate": "Time:",
-  "@agentTextChartDate": {
-    "type": "text"
-  },
-  "agentTextChartMonth": "This month",
-  "@agentTextChartMonth": {
-    "type": "text"
-  },
-  "agentTextChartMonthPrev": "Last month",
-  "@agentTextChartMonthPrev": {
-    "type": "text"
-  },
-  "agentTextChartOption": "Select",
-  "@agentTextChartOption": {
-    "type": "text"
-  },
-  "agentTextChartPlatform": "Platform",
-  "@agentTextChartPlatform": {
-    "type": "text"
-  },
-  "agentTextChartCategory": "Category",
-  "@agentTextChartCategory": {
-    "type": "text"
-  },
-  "agentTextChartQuery": "Query",
-  "@agentTextChartQuery": {
     "type": "text"
   },
   "depositPaymentTitleBank": "Bank Deposit",
@@ -1730,6 +1677,90 @@
   "@flowHeaderTextNeed": {
     "type": "text"
   },
+  "flowHeaderTextTotal": "Total",
+  "@flowHeaderTextTotal": {
+    "type": "text"
+  },
+  "agentTabTitleInfo": "Info",
+  "@agentTabTitleInfo": {
+    "type": "text"
+  },
+  "agentTabTitleChart": "Chart",
+  "@agentTabTitleChart": {
+    "type": "text"
+  },
+  "agentTabTitleCommission": "Commission",
+  "@agentTabTitleCommission": {
+    "type": "text"
+  },
+  "agentTabTitleLedger": "Ledger",
+  "@agentTabTitleLedger": {
+    "type": "text"
+  },
+  "agentTabTitleAds": "Ads",
+  "@agentTabTitleAds": {
+    "type": "text"
+  },
+  "agentInfoFieldCode": "Recommend Code",
+  "@agentInfoTitleCode": {
+    "type": "text"
+  },
+  "agentInfoFieldLink": "Agent Link",
+  "@agentInfoFieldLink": {
+    "type": "text"
+  },
+  "agentInfoFieldAgents": "Agents",
+  "@agentInfoFieldAgents": {
+    "type": "text"
+  },
+  "agentInfoFieldButtonGetCode": "Get Code",
+  "@agentInfoFieldButtonGetCode": {
+    "type": "text"
+  },
+  "agentButtonTextShare": "Share",
+  "@agentButtonTextShare": {
+    "type": "text"
+  },
+  "agentButtonTextLink": "Link",
+  "@agentButtonTextLink": {
+    "type": "text"
+  },
+  "agentButtonTextCopy": "Copy",
+  "@agentButtonTextCopy": {
+    "type": "text"
+  },
+  "agentTextChartDate": "Time:",
+  "@agentTextChartDate": {
+    "type": "text"
+  },
+  "agentTextChartMonth": "This month",
+  "@agentTextChartMonth": {
+    "type": "text"
+  },
+  "agentTextChartMonthPrev": "Last month",
+  "@agentTextChartMonthPrev": {
+    "type": "text"
+  },
+  "agentTextChartOption": "Select",
+  "@agentTextChartOption": {
+    "type": "text"
+  },
+  "agentTextChartPlatform": "Platform",
+  "@agentTextChartPlatform": {
+    "type": "text"
+  },
+  "agentTextChartCategory": "Category",
+  "@agentTextChartCategory": {
+    "type": "text"
+  },
+  "agentTextChartQuery": "Query",
+  "@agentTextChartQuery": {
+    "type": "text"
+  },
+  "agentTextChartCheckFull": "show full data",
+  "@agentTextChartCheckFull": {
+    "type": "text"
+  },
   "agentChartTableSpinner": "form",
   "@agentChartTableSpinner": {
     "type": "text"
@@ -1792,6 +1823,50 @@
   },
   "agentCommissionHeaderReceive": "Actual Commission",
   "@agentCommissionHeaderReceive": {
+    "type": "text"
+  },
+  "agentLedgerFieldTitleAccount": "please enter agent name",
+  "@agentLedgerFieldTitleAccount": {
+    "type": "text"
+  },
+  "agentLedgerHeaderAccount": "Account",
+  "@agentLedgerHeaderAccount": {
+    "type": "text"
+  },
+  "agentLedgerHeaderDeposit": "Deposit",
+  "@agentLedgerHeaderDeposit": {
+    "type": "text"
+  },
+  "agentLedgerHeaderWithdraw": "Withdraw",
+  "@agentLedgerHeaderWithdraw": {
+    "type": "text"
+  },
+  "agentLedgerHeaderPromo": "Promo",
+  "@agentLedgerHeaderPromo": {
+    "type": "text"
+  },
+  "agentLedgerHeaderRefund": "Refund",
+  "@agentLedgerHeaderRefund": {
+    "type": "text"
+  },
+  "agentAdTabAvailable": "Available",
+  "@agentAdTabAvailable": {
+    "type": "text"
+  },
+  "agentAdTabGenerated": "Generated",
+  "@agentAdTabGenerated": {
+    "type": "text"
+  },
+  "agentAdButtonGenerate": "Generate Ad",
+  "@agentAdButtonGenerate": {
+    "type": "text"
+  },
+  "noticeTabGeneral": "General Message",
+  "@noticeTabGeneral": {
+    "type": "text"
+  },
+  "noticeTabMaintenance": "Maintenance Notification",
+  "@noticeTabMaintenance": {
     "type": "text"
   },
   "wheelTextTitleCount": "Cumulative Lucky Draw: {num} times",
@@ -2020,6 +2095,27 @@
   },
   "storeRequestWindowSpinnerHint": "Please select",
   "@storeRequestWindowSpinnerHint": {
+    "type": "text"
+  },
+  "eventButtonSignUpTv": "Accumulated sign-in {value} days",
+  "@eventButtonSignUpTv": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "3"
+      }
+    }
+  },
+  "eventButtonSignUpAlready": "Signed in",
+  "@eventButtonSignUpAlready": {
+    "type": "text"
+  },
+  "eventButtonSignUpSuccess": "Sign in successfully!!",
+  "@eventButtonSignUpSuccess": {
+    "type": "text"
+  },
+  "eventButtonSignUpFailed": "Sign in failed!!",
+  "@eventButtonSignUpFailed": {
     "type": "text"
   }
 }

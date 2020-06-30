@@ -60,8 +60,11 @@ class _FeatureScreenState extends State<FeatureScreen> {
 
   @override
   void dispose() {
-    MyLogger.warn(msg: 'feature screen disposed', tag: tag);
-    super.dispose();
+    MyLogger.warn(msg: 'disposing feature screen', tag: tag);
+    try {
+      _store.closeStreams();
+    } on Exception {}
     Future.delayed(Duration(milliseconds: 200), () => PlatformUtil.restart());
+    super.dispose();
   }
 }

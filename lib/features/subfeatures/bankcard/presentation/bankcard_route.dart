@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
 import 'state/bankcard_store.dart';
 import 'widgets/bankcard_display.dart';
@@ -57,7 +57,7 @@ class _BankcardRouteState extends State<BankcardRoute> {
         (_) => _store.waitForNewCardResult,
         // Run some logic with the content of the observed field
         (bool wait) {
-          print('new bankcard wait: $wait');
+          print('reaction on wait bankcard: $wait');
           if (wait) {
             toastDismiss = FLToast.showLoading(
               text: localeStr.messageWait,

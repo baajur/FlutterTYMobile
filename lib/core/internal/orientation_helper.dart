@@ -8,19 +8,23 @@ class OrientationHelper {
       // Rotate to normal
       forceOrientationEasy();
       // restore the screen to normal SystemUiOverlay
-      setEnabledSystemUIOverlays();
+      enabledSystemUIOverlays();
     } on Exception catch (e) {
       print('Orientation Helper has exception: $e');
     }
   }
 
-  static Future<void> setEnabledSystemUIOverlays() {
+  static Future<void> enabledSystemUIOverlays() {
     print('Restore System UI');
     return OrientationPlugin.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
-  static Future<void> setDisabledSystemUIOverlays() {
+  static Future<void> disabledSystemUIOverlays() {
     print('Hide System UI');
+    // to hide only bottom bar:
+//    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
+    // to hide only status bar:
+//    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.bottom]);
     return OrientationPlugin.setEnabledSystemUIOverlays([]);
   }
 

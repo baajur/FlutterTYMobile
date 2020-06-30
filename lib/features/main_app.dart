@@ -5,7 +5,7 @@ import 'package:flui/flui.dart' show FLToastDefaults, FLToastProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemChannels;
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';

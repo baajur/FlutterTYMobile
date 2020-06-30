@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
@@ -33,13 +35,15 @@ class CustomizeDropdownWidget extends StatefulWidget {
   /// Text space between letters and words
   final double titleLetterSpacing;
 
-  final String prefixTitle;
+  final String prefixText;
   final IconData prefixIconData;
   final double titleWidthFactor;
   final double iconWidthFactor;
-  final String postfixInitText;
-  final Stream postfixTextStream;
-  final double postfixWidthFactor;
+  final String suffixInitText;
+  final Stream suffixTextStream;
+  final double suffixWidthFactor;
+  final double minusHeight;
+  final double minusPrefixWidth;
   final bool clearValueOnMenuChanged;
   final bool debug;
 
@@ -52,15 +56,17 @@ class CustomizeDropdownWidget extends StatefulWidget {
     this.expandWidget = true,
     this.parentWidth,
     this.padding,
-    this.horizontalInset = 32.0,
-    this.prefixTitle,
+    this.horizontalInset = Themes.horizontalInset,
+    this.prefixText,
     this.titleWidthFactor = Themes.prefixTextWidthFactor,
     this.titleLetterSpacing = Themes.prefixTextSpacing,
     this.prefixIconData,
     this.iconWidthFactor = Themes.prefixIconWidthFactor,
-    this.postfixInitText,
-    this.postfixTextStream,
-    this.postfixWidthFactor = 0.314,
+    this.suffixInitText,
+    this.suffixTextStream,
+    this.suffixWidthFactor = Themes.suffixWidthFactor,
+    this.minusHeight = Themes.minusSize,
+    this.minusPrefixWidth = Themes.minusSize,
     this.clearValueOnMenuChanged = false,
     this.debug = false,
   }) : super(key: key);
@@ -94,14 +100,18 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
     _viewWidth = (widget.parentWidth ?? Global.device.width).roundToDouble() -
         widget.horizontalInset;
 
-    _prefixWidth = ((widget.prefixTitle != null)
+    _prefixWidth = ((widget.prefixText != null)
             ? _viewWidth * widget.titleWidthFactor
             : _viewWidth * widget.iconWidthFactor) -
-        8;
+        widget.minusPrefixWidth;
+    if (_prefixWidth < 56.0) _prefixWidth = 56.0;
 
-    _postfixWidth = _viewWidth * widget.postfixWidthFactor;
+    _postfixWidth = _viewWidth * widget.suffixWidthFactor;
 
-    _smallWidgetHeight = Themes.fieldHeight;
+    _smallWidgetHeight =
+        ((Platform.isAndroid) ? Themes.fieldHeight : Themes.fieldHeight + 8) -
+            widget.minusHeight;
+    if (widget.prefixIconData != null) _smallWidgetHeight += 8.0;
 
     if (widget.debug) {
       print(
@@ -133,7 +143,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
   @override
   Widget build(BuildContext context) {
     if (_prefixWidget == null &&
-        (widget.prefixTitle != null || widget.prefixIconData != null)) {
+        (widget.prefixText != null || widget.prefixIconData != null)) {
       _prefixConstraints ??= BoxConstraints(
         minWidth: _prefixWidth,
         maxWidth: _prefixWidth,
@@ -143,8 +153,8 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
     }
 
     if (_postfixWidget == null &&
-        widget.postfixInitText != null &&
-        widget.postfixTextStream != null) {
+        widget.suffixInitText != null &&
+        widget.suffixTextStream != null) {
       _postfixConstraints ??= BoxConstraints(
         minWidth: _postfixWidth,
         maxWidth: _postfixWidth,
@@ -255,7 +265,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
   }
 
   void _buildPrefix() {
-    if (widget.prefixTitle != null && widget.prefixIconData != null) {
+    if (widget.prefixText != null && widget.prefixIconData != null) {
       _prefixWidget = Container(
         constraints: _prefixConstraints,
         decoration: BoxDecoration(
@@ -280,7 +290,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
             Padding(
               padding: const EdgeInsets.only(right: 6.0),
               child: Text(
-                widget.prefixTitle,
+                widget.prefixText,
                 style: TextStyle(
 //              fontSize: FontSize.SUBTITLE.value,
                   wordSpacing: widget.titleLetterSpacing / 2,
@@ -292,7 +302,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
           ],
         ),
       );
-    } else if (widget.prefixTitle != null) {
+    } else if (widget.prefixText != null) {
       _prefixWidget = Container(
         constraints: _prefixConstraints,
         decoration: BoxDecoration(
@@ -302,10 +312,10 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
             bottomLeft: Radius.circular(4.0),
           ),
         ),
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(right: 4.0),
         child: Text(
-          widget.prefixTitle,
+          widget.prefixText,
           style: TextStyle(
 //              fontSize: FontSize.SUBTITLE.value,
             wordSpacing: widget.titleLetterSpacing,
@@ -348,11 +358,11 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
       ),
       alignment: Alignment.centerLeft,
       child: StreamBuilder<String>(
-          stream: widget.postfixTextStream,
+          stream: widget.suffixTextStream,
           builder: (context, snapshot) {
             bool reset = snapshot.data == null || snapshot.data.isEmpty;
-            String text = (reset) ? widget.postfixInitText : snapshot.data;
-            if (widget.debug) print('${widget.prefixTitle} postText: $text');
+            String text = (reset) ? widget.suffixInitText : snapshot.data;
+            if (widget.debug) print('${widget.prefixText} postText: $text');
             return Text(
               text,
               style: TextStyle(

@@ -68,6 +68,7 @@ FutureBuilder networkImageBuilder(
   double imgScale = 1.0,
   Color imgColor,
   bool roundCorner = false,
+  double roundParam = 6.0,
   bool debug = false,
 }) {
   return FutureBuilder(
@@ -83,7 +84,9 @@ FutureBuilder networkImageBuilder(
           !snapshot.hasError) {
         if (roundCorner)
           return ClipRRect(
-              borderRadius: BorderRadius.circular(6.0), child: snapshot.data);
+            borderRadius: BorderRadius.circular(roundParam),
+            child: snapshot.data,
+          );
         else
           return snapshot.data;
       } else if (snapshot.hasError) {

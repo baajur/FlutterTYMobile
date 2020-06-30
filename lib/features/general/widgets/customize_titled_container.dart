@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
@@ -24,10 +26,13 @@ class CustomizeTitledContainer extends StatefulWidget {
   /// Text space between letters and words
   final double titleLetterSpacing;
 
-  final String prefixTitle;
+  final String prefixText;
   final IconData prefixIconData;
   final double titleWidthFactor;
   final double iconWidthFactor;
+  final double minusHeight;
+  final double minusPrefixWidth;
+  final bool debug;
 
   final Widget child;
 
@@ -37,13 +42,16 @@ class CustomizeTitledContainer extends StatefulWidget {
     this.childAlignment = Alignment.centerLeft,
     this.parentWidth,
     this.padding,
-    this.horizontalInset = 32.0,
+    this.horizontalInset = Themes.horizontalInset,
     this.heightFactor = 1,
-    this.prefixTitle,
+    this.prefixText,
+    this.prefixIconData,
     this.titleWidthFactor = Themes.prefixTextWidthFactor,
     this.titleLetterSpacing = Themes.prefixTextSpacing,
-    this.prefixIconData,
     this.iconWidthFactor = Themes.prefixIconWidthFactor,
+    this.minusHeight = Themes.minusSize,
+    this.minusPrefixWidth = Themes.minusSize,
+    this.debug = false,
   }) : super(key: key);
 
   @override
@@ -63,19 +71,29 @@ class _CustomizeTitledContainerState extends State<CustomizeTitledContainer> {
     _viewWidth = (widget.parentWidth ?? Global.device.width).roundToDouble() -
         widget.horizontalInset;
 
-    _prefixWidth = ((widget.prefixTitle != null)
+    _prefixWidth = ((widget.prefixText != null)
             ? _viewWidth * widget.titleWidthFactor
             : _viewWidth * widget.iconWidthFactor) -
-        8;
+        widget.minusPrefixWidth;
+    if (_prefixWidth < 56.0) _prefixWidth = 56.0;
 
-    _smallWidgetHeight = Themes.fieldHeight * widget.heightFactor;
+    _smallWidgetHeight =
+        ((Platform.isAndroid) ? Themes.fieldHeight : Themes.fieldHeight + 8) *
+                widget.heightFactor -
+            widget.minusHeight;
+    if (widget.prefixIconData != null) _smallWidgetHeight += 8.0;
+
+    if (widget.debug) {
+      print('screen width: ${Global.device.width}');
+      print('field prefix width: $_prefixWidth');
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     if (_prefixWidget == null &&
-        (widget.prefixTitle != null || widget.prefixIconData != null)) {
+        (widget.prefixText != null || widget.prefixIconData != null)) {
       _prefixConstraints ??= BoxConstraints(
         minWidth: _prefixWidth,
         maxWidth: _prefixWidth,
@@ -116,7 +134,7 @@ class _CustomizeTitledContainerState extends State<CustomizeTitledContainer> {
   }
 
   void _buildPrefix() {
-    if (widget.prefixTitle != null && widget.prefixIconData != null) {
+    if (widget.prefixText != null && widget.prefixIconData != null) {
       _prefixWidget = Container(
         constraints: _prefixConstraints,
         decoration: BoxDecoration(
@@ -141,7 +159,7 @@ class _CustomizeTitledContainerState extends State<CustomizeTitledContainer> {
             Padding(
               padding: const EdgeInsets.only(right: 6.0),
               child: Text(
-                widget.prefixTitle,
+                widget.prefixText,
                 style: TextStyle(
 //              fontSize: FontSize.SUBTITLE.value,
                   wordSpacing: widget.titleLetterSpacing / 2,
@@ -153,7 +171,7 @@ class _CustomizeTitledContainerState extends State<CustomizeTitledContainer> {
           ],
         ),
       );
-    } else if (widget.prefixTitle != null) {
+    } else if (widget.prefixText != null) {
       _prefixWidget = Container(
         constraints: _prefixConstraints,
         decoration: BoxDecoration(
@@ -163,10 +181,10 @@ class _CustomizeTitledContainerState extends State<CustomizeTitledContainer> {
             bottomLeft: Radius.circular(4.0),
           ),
         ),
-        alignment: Alignment.centerLeft,
-        padding: EdgeInsets.only(left: 6.0 - widget.titleLetterSpacing / 2),
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(right: 4.0),
         child: Text(
-          widget.prefixTitle,
+          widget.prefixText,
           style: TextStyle(
 //              fontSize: FontSize.SUBTITLE.value,
             wordSpacing: widget.titleLetterSpacing,

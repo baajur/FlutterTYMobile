@@ -6,9 +6,6 @@ import 'package:flutter_ty_mobile/core/internal/themes.dart';
 class DialogWidget extends StatefulWidget {
   final Key key;
 
-  /// The amount of space by which to inset the child.
-  final EdgeInsetsGeometry padding;
-
   final BoxConstraints constraints;
 
   /// List of widgets that's inside a dialog.
@@ -30,12 +27,13 @@ class DialogWidget extends StatefulWidget {
 
   final bool transparentBg;
 
+  final bool darkBg;
+
   final bool debug;
 
   DialogWidget({
     this.key,
     @required this.children,
-    this.padding,
     this.constraints,
     this.canClose = true,
     this.onClose,
@@ -44,6 +42,7 @@ class DialogWidget extends StatefulWidget {
     this.maxHeight,
     this.widthShrink = 32.0,
     this.transparentBg = false,
+    this.darkBg = false,
     this.debug = false,
   }) : super(key: key);
 
@@ -83,7 +82,9 @@ class DialogWidgetState extends State<DialogWidget> {
     return AnimatedPadding(
       padding: MediaQuery.of(context).viewInsets +
           EdgeInsets.symmetric(
-              horizontal: widget.widthShrink / 2, vertical: 16.0),
+            horizontal: widget.widthShrink / 2,
+            vertical: 16.0,
+          ),
       duration: insetAnimationDuration,
       curve: insetAnimationCurve,
       child: MediaQuery.removeViewInsets(
@@ -100,9 +101,13 @@ class DialogWidgetState extends State<DialogWidget> {
             ),
             color: (widget.transparentBg)
                 ? Themes.dialogBgTransparent
-                : Themes.dialogBgColor,
+                : (widget.darkBg)
+                    ? Themes.dialogBgColorDark
+                    : Themes.dialogBgColor,
             child: InkWell(
               splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              focusColor: Colors.transparent,
               onTap: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },

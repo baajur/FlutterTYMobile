@@ -50,6 +50,7 @@ abstract class _TransactionStore with Store {
           )
           .whenComplete(() => waitForPageData = false);
     } on Exception {
+      waitForPageData = false;
       errorMessage =
           Failure.internal(FailureCode(typeCode: FailureTypeCode.TRANSACTIONS))
               .message;

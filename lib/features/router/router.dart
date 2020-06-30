@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route_annotations.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transactions/presentation/transaction_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/betrecord/presentation/bet_record_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/register/presentation/register_route.dart';
 import 'package:flutter_ty_mobile/template/mobx/presentation/template_route.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dart';
 
@@ -16,6 +17,10 @@ import '../subfeatures/accountcenter/presentation/widgets/center_display_account
 import '../subfeatures/balance/presentation/balance_route.dart';
 import '../subfeatures/message/presentation/message_route.dart';
 import '../subfeatures/notice/presentation/notice_route.dart';
+import '../subfeatures/flows/presentation/flows_route.dart';
+import '../subfeatures/agent/presentation/agent_route.dart';
+import '../subfeatures/deals/presentation/deals_route.dart';
+import '../subfeatures/transactions/presentation/transaction_route.dart';
 import '../test_area_route.dart';
 import '../users/presentation/login_route.dart';
 import '../web/web_route.dart';
@@ -25,6 +30,7 @@ class $Router {
   @initial
   HomeRoute homeRoute;
   LoginRoute loginRoute;
+  RegisterRoute registerRoute;
   WebRoute serviceRoute;
   MemberRoute memberRoute;
   PromoRoute promoRoute;
@@ -38,7 +44,12 @@ class $Router {
   CenterRoute centerRoute;
   CenterDisplayAccountPassword centerPasswordPage;
   TransactionRoute transactionRoute;
+  BetRecordRoute betRecordRoute;
+  DealsRoute dealsRoute;
+  FlowsRoute flowsRoute;
+  AgentRoute agentRoute;
   WebRoute centerWebPage;
+  WebRoute moreWebPage;
 
   /// side menu route
   DownloadAreaRoute downloadAreaRoute;

@@ -3,7 +3,7 @@ import 'package:flutter_ty_mobile/core/error/failures.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 
-import '../../../../route_page_export.dart';
+import '../../../../general_route_widget_export.dart';
 import '../state/center_store.dart';
 import '../../data/form/center_password_form.dart';
 
@@ -50,6 +50,8 @@ class _CenterDisplayAccountPasswordState
       body: InkWell(
         // to dismiss the keyboard when the user tabs out of the TextField
         splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        focusColor: Colors.transparent,
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
@@ -92,8 +94,8 @@ class _CenterDisplayAccountPasswordState
                   maxInputLength: 20,
                   errorMsg: localeStr.messageInvalidConfirmPassword,
                   validCondition: (value) =>
-                      _conPwdFieldKey.currentState.inputText ==
-                      _newPwdFieldKey.currentState.inputText,
+                      _conPwdFieldKey.currentState.getInput ==
+                      _newPwdFieldKey.currentState.getInput,
                 ),
                 /* Change Buttons */
                 Container(
@@ -130,9 +132,9 @@ class _CenterDisplayAccountPasswordState
       form.save();
 //      print('The user wants to login with $_username and $_password');
       CenterPasswordForm pwdForm = CenterPasswordForm(
-        oldPwd: _oldPwdFieldKey.currentState.inputText,
-        newPwd: _newPwdFieldKey.currentState.inputText,
-        confirmPwd: _conPwdFieldKey.currentState.inputText,
+        oldPwd: _oldPwdFieldKey.currentState.getInput,
+        newPwd: _newPwdFieldKey.currentState.getInput,
+        confirmPwd: _conPwdFieldKey.currentState.getInput,
       );
       if (pwdForm.isValid)
         widget.store.postPassword(pwdForm);

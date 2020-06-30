@@ -152,6 +152,7 @@ abstract class _DepositStore with Store {
         );
       });
     } on Exception {
+      waitForDepositResult = false;
       errorMessage =
           Failure.internal(FailureCode(typeCode: FailureTypeCode.DEPOSIT))
               .message;

@@ -62,7 +62,7 @@ class _CustomizeInputChipContainerState
       padding: widget.padding,
       horizontalInset: widget.horizontalInset,
       heightFactor: widget.heightFactor,
-      prefixTitle: widget.prefixTitle,
+      prefixText: widget.prefixTitle,
       titleWidthFactor: widget.titleWidthFactor,
       titleLetterSpacing: widget.titleLetterSpacing,
       prefixIconData: widget.prefixIconData,

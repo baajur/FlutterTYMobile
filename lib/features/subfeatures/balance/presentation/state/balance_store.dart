@@ -45,11 +45,13 @@ abstract class _BalanceStore with Store {
   @observable
   bool waitForTransferResult = false;
 
+  bool _cancelRequest = false;
+
   double creditLimit;
 
   @computed
   BalanceStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if (_promiseFuture == null ||
         _promiseFuture.status == FutureStatus.rejected) {
       return BalanceStoreState.initial;
@@ -105,11 +107,13 @@ abstract class _BalanceStore with Store {
   Future<void> getBalances() async {
     try {
       // Reset the possible previous error message.
+      _cancelRequest = false;
       balanceMap = new Map();
       sinkProgress(reset: true);
       // Fetch from the repository and wrap the regular Future into an observable.
       // TODO change this to stream might run faster??
       await Future.forEach(promises, (platform) async {
+        if (_cancelRequest) return;
         await getBalance(platform, showProgress: true);
       }).whenComplete(() {
         print('balance map: $balanceMap');
@@ -198,6 +202,7 @@ abstract class _BalanceStore with Store {
         );
       });
     } on Exception {
+      waitForTransferResult = false;
       errorMessage =
           Failure.internal(FailureCode(typeCode: FailureTypeCode.TRANSFER))
               .message;
@@ -255,6 +260,7 @@ abstract class _BalanceStore with Store {
 
   Future<void> closeStreams() {
     try {
+      _cancelRequest = true;
       return Future.wait([
         _loadingController.close(),
       ]);

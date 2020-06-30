@@ -1,7 +1,11 @@
 import 'dart:async' show StreamController, Stream;
 
+import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
+import 'package:flutter_ty_mobile/features/general/data/user/user_token_storage.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart'
     show LoginStatus;
+import 'package:flutter_ty_mobile/features/users/data/source/user_api.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 
 import '../../injection_container.dart' show sl;
@@ -17,6 +21,8 @@ class RouteUserStreams {
 
   final StreamController<bool> _recheckControl =
       StreamController<bool>.broadcast();
+
+  DioApiService _dioApiService;
 
   Stream<LoginStatus> get userStream => _userControl.stream;
 
@@ -41,6 +47,28 @@ class RouteUserStreams {
 
   setCheck(bool recheck) {
     _recheckControl.sink.add(recheck);
+  }
+
+  logout() async {
+    if (!hasUser) return;
+    String userName = _user.currentUser.account;
+    MyLogger.info(msg: 'logging out user $userName', tag: 'RouteUserStreams');
+    try {
+      _dioApiService ??= sl.get<DioApiService>();
+      await Future.value(UserTokenStorage.load(userName)).then((value) {
+        _dioApiService.post(UserApi.LOGOUT, userToken: value.cookie.value);
+      });
+    } catch (e, s) {
+      MyLogger.error(
+        msg: 'logout $userName has error: $e',
+        stackTrace: s,
+        tag: 'RouteUserStreams',
+      );
+    }
+    Future.delayed(Duration(milliseconds: 500),
+        () => RouterNavigate.navigateClean(force: true));
+    _userControl.sink.add(LoginStatus(loggedIn: false));
+    _recheckControl.sink.add(true);
   }
 
   dispose() {

@@ -42,10 +42,11 @@ class JsonUtil {
       return decoded;
     } catch (e, s) {
       if (returnNullOnError) {
-        print('decode json array error:\n$e');
+        MyLogger.error(msg: 'decode json array error!!', tag: tag);
         return null;
       } else {
-        print('decode json array error:\n$s');
+        MyLogger.error(
+            msg: 'decode json array error!!', stackTrace: s, tag: tag);
         throw JsonFormatException(trimmed);
       }
     }
@@ -60,12 +61,14 @@ class JsonUtil {
   ///
   static List<T> decodeArrayToModel<T>(
     dynamic data,
-    Function(Map<String, dynamic> jsonMap) jsonToModel,
-    bool trim,
-    String tag,
-  ) {
+    Function(Map<String, dynamic> jsonMap) jsonToModel, {
+    bool trim = true,
+    String tag = debugTag,
+  }) {
     MyLogger.debug(msg: 'start decoding array data to $T...', tag: tag);
-    print('data type: ${data.runtimeType}, data is List: ${data is List}');
+    MyLogger.debug(
+        msg: 'data type: ${data.runtimeType}, data is List: ${data is List}',
+        tag: tag);
     List<dynamic> list;
     if (data is List)
       list = data;
@@ -74,8 +77,10 @@ class JsonUtil {
     else
       throw UnknownConditionException();
     // mapped decoded data to model data list
-    final dataList = list.map((model) => jsonToModel(model) as T).toList();
-    if (dataList.isEmpty) {
+    final dataList = (list.isEmpty)
+        ? new List<T>()
+        : list.map((model) => jsonToModel(model) as T).toList();
+    if (dataList.isEmpty && list.isNotEmpty) {
       MyLogger.error(
           msg: 'mapped model list error!! data: $data\nmapped json: $list',
           tag: tag);
@@ -97,16 +102,19 @@ class JsonUtil {
   ///
   static List<T> decodeMapToModelList<T>(
     dynamic map,
-    Function(Map<String, dynamic> jsonMap) jsonToModel,
-    bool trim,
-    String tag,
-  ) {
-    print('decodeMapToModelList: $map, type: ${map.runtimeType}');
+    Function(Map<String, dynamic> jsonMap) jsonToModel, {
+    bool trim = true,
+    bool addKey = true,
+    String tag = debugTag,
+  }) {
+//    print('decodeMapToModelList: $map, type: ${map.runtimeType}');
     if (map == null || map is Map == false) return [];
     MyLogger.debug(msg: 'start decoding map to $T list...', tag: tag);
     List<T> dataList = new List();
     map.forEach((key, value) {
-      dataList.add(jsonToModel(value).copyWith(key: key));
+      dataList.add((addKey)
+          ? jsonToModel(value).copyWith(key: key)
+          : jsonToModel(value));
     });
     if (dataList.isEmpty) {
       MyLogger.error(
@@ -129,10 +137,10 @@ class JsonUtil {
   ///
   static T decodeToModel<T>(
     dynamic str,
-    Function(Map<String, dynamic> jsonMap) jsonToModel,
-    bool trim,
-    String tag,
-  ) {
+    Function(Map<String, dynamic> jsonMap) jsonToModel, {
+    bool trim = true,
+    String tag = debugTag,
+  }) {
     var trimmed = (trim) ? trimJson(str) : str;
     MyLogger.debug(msg: 'start decoding data to $T...', tag: tag);
     Map<String, dynamic> map = jsonDecode(trimmed);
@@ -140,9 +148,9 @@ class JsonUtil {
     try {
       return jsonToModel(map) as T;
     } catch (e, s) {
-      print(s);
       MyLogger.error(
           msg: 'mapped model error!! data: $trimmed\nmapped json: $map',
+          stackTrace: s,
           tag: tag);
       throw MapJsonDataException();
     }

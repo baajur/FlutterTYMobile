@@ -5,7 +5,7 @@ import 'package:flutter_ty_mobile/core/internal/font_size.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/balance/balance_inject.dart';
 
-import '../../../../route_page_export.dart';
+import '../../../../general_route_widget_export.dart';
 import 'balance_grid_item.dart';
 
 class BalanceDisplay extends StatefulWidget {
@@ -48,9 +48,11 @@ class _BalanceDisplayState extends State<BalanceDisplay> {
   }
 
   @override
-  void dispose() async {
-    await widget.store.closeStreams();
-    _disposers.forEach((d) => d());
+  void dispose() {
+    try {
+      widget.store.closeStreams();
+      _disposers.forEach((d) => d());
+    } on Exception {}
     super.dispose();
   }
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/deposit_result.dart';
 import 'package:mobx/mobx.dart';
 

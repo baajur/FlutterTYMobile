@@ -24,7 +24,7 @@ abstract class _MessageStore with Store {
 
   @computed
   MessageStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if (_dataFuture == null || _dataFuture.status == FutureStatus.rejected) {
       return MessageStoreState.initial;
     }

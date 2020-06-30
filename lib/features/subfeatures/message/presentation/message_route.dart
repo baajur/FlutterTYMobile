@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/temp/blank_widget.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
-import '../../../../injection_container.dart' show sl;
 import 'state/message_store.dart';
 import 'widgets/message_display.dart';
 
@@ -66,7 +61,7 @@ class _MessageRouteState extends State<MessageRoute> {
         builder: (_) {
           switch (_store.state) {
             case MessageStoreState.initial:
-              return BlankWidget();
+              return SizedBox.shrink();
             case MessageStoreState.loading:
               return LoadingWidget();
             case MessageStoreState.loaded:

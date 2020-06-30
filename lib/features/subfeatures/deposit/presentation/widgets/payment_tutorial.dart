@@ -121,26 +121,29 @@ class PaymentTutorial extends StatelessWidget {
           list.add(Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: RaisedButton(
-              child: Text(item.value),
-              textColor: Themes.defaultTextColorBlack,
-              visualDensity: VisualDensity.standard,
-              onPressed: () async {
-                switch (item.sortId) {
-                  case 81:
-                    await launch(
-                        'https://www.gamewallet.asia/version.php?fn=gp_a&latest');
+            child: SizedBox(
+              height: Global.device.comfortButtonHeight,
+              child: RaisedButton(
+                child: Text(item.value),
+                textColor: Themes.defaultTextColorBlack,
+                visualDensity: VisualDensity.standard,
+                onPressed: () async {
+                  switch (item.sortId) {
+                    case 81:
+                      await launch(
+                          'https://www.gamewallet.asia/version.php?fn=gp_a&latest');
 //                RouterNavigate.navigateToPage(
 //                  RoutePage.depositWeb,
 //                  arg: 'https://www.gamewallet.asia/version.php?fn=gp_a&latest',
 //                );
 //                Navigator.pop(context);
-                    break;
-                  case 82:
-                    await launch('https://www.vip66729.com/pdf/cpw.pdf');
-                    break;
-                }
-              },
+                      break;
+                    case 82:
+                      await launch('https://www.vip66729.com/pdf/cpw.pdf');
+                      break;
+                  }
+                },
+              ),
             ),
           ));
           break;

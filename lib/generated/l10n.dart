@@ -343,6 +343,36 @@ class S {
     );
   }
 
+  /// `Agent?`
+  String get pageTitleMemberAgentAbout {
+    return Intl.message(
+      'Agent?',
+      name: 'pageTitleMemberAgentAbout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Task`
+  String get pageTitleTask {
+    return Intl.message(
+      'Task',
+      name: 'pageTitleTask',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get pageTitleMore {
+    return Intl.message(
+      'More',
+      name: 'pageTitleMore',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `￥ {value}`
   String toolBarMemberCredit(Object value) {
     return Intl.message(
@@ -553,61 +583,141 @@ class S {
     );
   }
 
-  /// `Accumulated sign-in {value} days`
-  String btnSignUpTv(Object value) {
+  /// `Show`
+  String get btnShow {
     return Intl.message(
-      'Accumulated sign-in $value days',
-      name: 'btnSignUpTv',
-      desc: '',
-      args: [value],
-    );
-  }
-
-  /// `Signed in`
-  String get btnSignUpAlready {
-    return Intl.message(
-      'Signed in',
-      name: 'btnSignUpAlready',
+      'Show',
+      name: 'btnShow',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign in successfully !!`
-  String get btnSignUpSuccess {
+  /// `All`
+  String get spinnerDateAll {
     return Intl.message(
-      'Sign in successfully !!',
-      name: 'btnSignUpSuccess',
+      'All',
+      name: 'spinnerDateAll',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign in failed !!`
-  String get btnSignUpFailed {
+  /// `Today`
+  String get spinnerDateToday {
     return Intl.message(
-      'Sign in failed !!',
-      name: 'btnSignUpFailed',
+      'Today',
+      name: 'spinnerDateToday',
       desc: '',
       args: [],
     );
   }
 
-  /// `General Message`
-  String get btnNoticeGeneral {
+  /// `Yesterday`
+  String get spinnerDateYesterday {
     return Intl.message(
-      'General Message',
-      name: 'btnNoticeGeneral',
+      'Yesterday',
+      name: 'spinnerDateYesterday',
       desc: '',
       args: [],
     );
   }
 
-  /// `Maintenance Notification`
-  String get btnNoticeMaintenance {
+  /// `Month`
+  String get spinnerDateMonth {
     return Intl.message(
-      'Maintenance Notification',
-      name: 'btnNoticeMaintenance',
+      'Month',
+      name: 'spinnerDateMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom`
+  String get spinnerDateCustom {
+    return Intl.message(
+      'Custom',
+      name: 'spinnerDateCustom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get alertTitleError {
+    return Intl.message(
+      'Error',
+      name: 'alertTitleError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warning`
+  String get alertTitleWarning {
+    return Intl.message(
+      'Warning',
+      name: 'alertTitleWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hint`
+  String get alertTitleHint {
+    return Intl.message(
+      'Hint',
+      name: 'alertTitleHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get alertButtonYes {
+    return Intl.message(
+      'Yes',
+      name: 'alertButtonYes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get alertButtonNo {
+    return Intl.message(
+      'No',
+      name: 'alertButtonNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get alertButtonOk {
+    return Intl.message(
+      'Confirm',
+      name: 'alertButtonOk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get alertButtonCancel {
+    return Intl.message(
+      'Cancel',
+      name: 'alertButtonCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close`
+  String get alertButtonClose {
+    return Intl.message(
+      'Close',
+      name: 'alertButtonClose',
       desc: '',
       args: [],
     );
@@ -738,86 +848,6 @@ class S {
     return Intl.message(
       'Credit',
       name: 'homeHintMemberCreditLeft',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error`
-  String get alertTitleError {
-    return Intl.message(
-      'Error',
-      name: 'alertTitleError',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Warning`
-  String get alertTitleWarning {
-    return Intl.message(
-      'Warning',
-      name: 'alertTitleWarning',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Hint`
-  String get alertTitleHint {
-    return Intl.message(
-      'Hint',
-      name: 'alertTitleHint',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yes`
-  String get alertButtonYes {
-    return Intl.message(
-      'Yes',
-      name: 'alertButtonYes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No`
-  String get alertButtonNo {
-    return Intl.message(
-      'No',
-      name: 'alertButtonNo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Confirm`
-  String get alertButtonOk {
-    return Intl.message(
-      'Confirm',
-      name: 'alertButtonOk',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Cancel`
-  String get alertButtonCancel {
-    return Intl.message(
-      'Cancel',
-      name: 'alertButtonCancel',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Close`
-  String get alertButtonClose {
-    return Intl.message(
-      'Close',
-      name: 'alertButtonClose',
       desc: '',
       args: [],
     );
@@ -1658,6 +1688,16 @@ class S {
     return Intl.message(
       'Register',
       name: 'registerButtonTitleRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logging in，please wait...`
+  String get registerHintAutoLogin {
+    return Intl.message(
+      'Logging in，please wait...',
+      name: 'registerHintAutoLogin',
       desc: '',
       args: [],
     );
@@ -2533,46 +2573,6 @@ class S {
     );
   }
 
-  /// `All time`
-  String get transactionViewSpinnerDate0 {
-    return Intl.message(
-      'All time',
-      name: 'transactionViewSpinnerDate0',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `today`
-  String get transactionViewSpinnerDate1 {
-    return Intl.message(
-      'today',
-      name: 'transactionViewSpinnerDate1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yesterday`
-  String get transactionViewSpinnerDate2 {
-    return Intl.message(
-      'Yesterday',
-      name: 'transactionViewSpinnerDate2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `within one month`
-  String get transactionViewSpinnerDate3 {
-    return Intl.message(
-      'within one month',
-      name: 'transactionViewSpinnerDate3',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Serial Number`
   String get transactionHeaderSerial {
     return Intl.message(
@@ -2633,11 +2633,51 @@ class S {
     );
   }
 
-  /// `betsSpinnerTitleTime`
+  /// `All Platform`
+  String get betsSpinnerOptionAllPlatform {
+    return Intl.message(
+      'All Platform',
+      name: 'betsSpinnerOptionAllPlatform',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bet Time`
   String get betsSpinnerTitleTime {
     return Intl.message(
-      'betsSpinnerTitleTime',
+      'Bet Time',
       name: 'betsSpinnerTitleTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get betsFieldTitleStartTime {
+    return Intl.message(
+      'Start',
+      name: 'betsFieldTitleStartTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get betsFieldTitleEndTime {
+    return Intl.message(
+      'End',
+      name: 'betsFieldTitleEndTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date Range Error`
+  String get betsFieldDateError {
+    return Intl.message(
+      'Date Range Error',
+      name: 'betsFieldDateError',
       desc: '',
       args: [],
     );
@@ -2858,166 +2898,6 @@ class S {
     return Intl.message(
       'Amount',
       name: 'dealsHeaderAmount',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Agent Text`
-  String get agentTextTitleData {
-    return Intl.message(
-      'Agent Text',
-      name: 'agentTextTitleData',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Agent Report`
-  String get agentTextTitleChart {
-    return Intl.message(
-      'Agent Report',
-      name: 'agentTextTitleChart',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Agent Commission Report`
-  String get agentTextTitleCommission {
-    return Intl.message(
-      'Agent Commission Report',
-      name: 'agentTextTitleCommission',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Recommended code:`
-  String get agentTextDataCode {
-    return Intl.message(
-      'Recommended code:',
-      name: 'agentTextDataCode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Agent Link:`
-  String get agentTextDataUrl {
-    return Intl.message(
-      'Agent Link:',
-      name: 'agentTextDataUrl',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Upper account:`
-  String get agentTextDataUpper {
-    return Intl.message(
-      'Upper account:',
-      name: 'agentTextDataUpper',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Subordinate account:`
-  String get agentTextDataLower {
-    return Intl.message(
-      'Subordinate account:',
-      name: 'agentTextDataLower',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Get Agent Code`
-  String get agentButtonTextRequest {
-    return Intl.message(
-      'Get Agent Code',
-      name: 'agentButtonTextRequest',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Copy`
-  String get agentButtonTextCopy {
-    return Intl.message(
-      'Copy',
-      name: 'agentButtonTextCopy',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Time:`
-  String get agentTextChartDate {
-    return Intl.message(
-      'Time:',
-      name: 'agentTextChartDate',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `This month`
-  String get agentTextChartMonth {
-    return Intl.message(
-      'This month',
-      name: 'agentTextChartMonth',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Last month`
-  String get agentTextChartMonthPrev {
-    return Intl.message(
-      'Last month',
-      name: 'agentTextChartMonthPrev',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select`
-  String get agentTextChartOption {
-    return Intl.message(
-      'Select',
-      name: 'agentTextChartOption',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Platform`
-  String get agentTextChartPlatform {
-    return Intl.message(
-      'Platform',
-      name: 'agentTextChartPlatform',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Category`
-  String get agentTextChartCategory {
-    return Intl.message(
-      'Category',
-      name: 'agentTextChartCategory',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Query`
-  String get agentTextChartQuery {
-    return Intl.message(
-      'Query',
-      name: 'agentTextChartQuery',
       desc: '',
       args: [],
     );
@@ -3873,6 +3753,216 @@ class S {
     );
   }
 
+  /// `Total`
+  String get flowHeaderTextTotal {
+    return Intl.message(
+      'Total',
+      name: 'flowHeaderTextTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Info`
+  String get agentTabTitleInfo {
+    return Intl.message(
+      'Info',
+      name: 'agentTabTitleInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chart`
+  String get agentTabTitleChart {
+    return Intl.message(
+      'Chart',
+      name: 'agentTabTitleChart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Commission`
+  String get agentTabTitleCommission {
+    return Intl.message(
+      'Commission',
+      name: 'agentTabTitleCommission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ledger`
+  String get agentTabTitleLedger {
+    return Intl.message(
+      'Ledger',
+      name: 'agentTabTitleLedger',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ads`
+  String get agentTabTitleAds {
+    return Intl.message(
+      'Ads',
+      name: 'agentTabTitleAds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommend Code`
+  String get agentInfoFieldCode {
+    return Intl.message(
+      'Recommend Code',
+      name: 'agentInfoFieldCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agent Link`
+  String get agentInfoFieldLink {
+    return Intl.message(
+      'Agent Link',
+      name: 'agentInfoFieldLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agents`
+  String get agentInfoFieldAgents {
+    return Intl.message(
+      'Agents',
+      name: 'agentInfoFieldAgents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Code`
+  String get agentInfoFieldButtonGetCode {
+    return Intl.message(
+      'Get Code',
+      name: 'agentInfoFieldButtonGetCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get agentButtonTextShare {
+    return Intl.message(
+      'Share',
+      name: 'agentButtonTextShare',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Link`
+  String get agentButtonTextLink {
+    return Intl.message(
+      'Link',
+      name: 'agentButtonTextLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy`
+  String get agentButtonTextCopy {
+    return Intl.message(
+      'Copy',
+      name: 'agentButtonTextCopy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time:`
+  String get agentTextChartDate {
+    return Intl.message(
+      'Time:',
+      name: 'agentTextChartDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This month`
+  String get agentTextChartMonth {
+    return Intl.message(
+      'This month',
+      name: 'agentTextChartMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last month`
+  String get agentTextChartMonthPrev {
+    return Intl.message(
+      'Last month',
+      name: 'agentTextChartMonthPrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select`
+  String get agentTextChartOption {
+    return Intl.message(
+      'Select',
+      name: 'agentTextChartOption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Platform`
+  String get agentTextChartPlatform {
+    return Intl.message(
+      'Platform',
+      name: 'agentTextChartPlatform',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Category`
+  String get agentTextChartCategory {
+    return Intl.message(
+      'Category',
+      name: 'agentTextChartCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Query`
+  String get agentTextChartQuery {
+    return Intl.message(
+      'Query',
+      name: 'agentTextChartQuery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `show full data`
+  String get agentTextChartCheckFull {
+    return Intl.message(
+      'show full data',
+      name: 'agentTextChartCheckFull',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `form`
   String get agentChartTableSpinner {
     return Intl.message(
@@ -4028,6 +4118,116 @@ class S {
     return Intl.message(
       'Actual Commission',
       name: 'agentCommissionHeaderReceive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please enter agent name`
+  String get agentLedgerFieldTitleAccount {
+    return Intl.message(
+      'please enter agent name',
+      name: 'agentLedgerFieldTitleAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get agentLedgerHeaderAccount {
+    return Intl.message(
+      'Account',
+      name: 'agentLedgerHeaderAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deposit`
+  String get agentLedgerHeaderDeposit {
+    return Intl.message(
+      'Deposit',
+      name: 'agentLedgerHeaderDeposit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Withdraw`
+  String get agentLedgerHeaderWithdraw {
+    return Intl.message(
+      'Withdraw',
+      name: 'agentLedgerHeaderWithdraw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Promo`
+  String get agentLedgerHeaderPromo {
+    return Intl.message(
+      'Promo',
+      name: 'agentLedgerHeaderPromo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refund`
+  String get agentLedgerHeaderRefund {
+    return Intl.message(
+      'Refund',
+      name: 'agentLedgerHeaderRefund',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available`
+  String get agentAdTabAvailable {
+    return Intl.message(
+      'Available',
+      name: 'agentAdTabAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generated`
+  String get agentAdTabGenerated {
+    return Intl.message(
+      'Generated',
+      name: 'agentAdTabGenerated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate Ad`
+  String get agentAdButtonGenerate {
+    return Intl.message(
+      'Generate Ad',
+      name: 'agentAdButtonGenerate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General Message`
+  String get noticeTabGeneral {
+    return Intl.message(
+      'General Message',
+      name: 'noticeTabGeneral',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maintenance Notification`
+  String get noticeTabMaintenance {
+    return Intl.message(
+      'Maintenance Notification',
+      name: 'noticeTabMaintenance',
       desc: '',
       args: [],
     );
@@ -4548,6 +4748,46 @@ class S {
     return Intl.message(
       'Please select',
       name: 'storeRequestWindowSpinnerHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accumulated sign-in {value} days`
+  String eventButtonSignUpTv(Object value) {
+    return Intl.message(
+      'Accumulated sign-in $value days',
+      name: 'eventButtonSignUpTv',
+      desc: '',
+      args: [value],
+    );
+  }
+
+  /// `Signed in`
+  String get eventButtonSignUpAlready {
+    return Intl.message(
+      'Signed in',
+      name: 'eventButtonSignUpAlready',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in successfully!!`
+  String get eventButtonSignUpSuccess {
+    return Intl.message(
+      'Sign in successfully!!',
+      name: 'eventButtonSignUpSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in failed!!`
+  String get eventButtonSignUpFailed {
+    return Intl.message(
+      'Sign in failed!!',
+      name: 'eventButtonSignUpFailed',
       desc: '',
       args: [],
     );

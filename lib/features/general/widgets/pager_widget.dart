@@ -7,8 +7,10 @@ typedef PagerAction = void Function(int);
 class PagerWidget extends StatefulWidget {
   final bool hasActionButton;
   final PagerAction onAction;
+  final double horizontalInset;
 
-  PagerWidget(Key key, {this.hasActionButton = true, this.onAction})
+  PagerWidget(Key key,
+      {this.hasActionButton = true, this.onAction, this.horizontalInset = 12.0})
       : super(key: key);
 
   @override
@@ -17,7 +19,7 @@ class PagerWidget extends StatefulWidget {
 
 class PagerWidgetState extends State<PagerWidget> {
   int totalPage;
-  int currentPage = 2;
+  int currentPage = 1;
 
   double maxListWidth;
   double maxScreenWidth;
@@ -33,6 +35,7 @@ class PagerWidgetState extends State<PagerWidget> {
   set updateTotalPage(int pages) {
     if (totalPage != pages) {
       totalPage = pages;
+      if (totalPage <= 0) currentPage = 0;
       _updateWidgetWidth();
       setState(() {});
     }
@@ -40,8 +43,10 @@ class PagerWidgetState extends State<PagerWidget> {
 
   void _updateWidgetWidth() {
     maxListWidth = (btnSize + 4) * totalPage;
-    maxScreenWidth =
-        Global.device.width - 24 - 2 * (totalPage + 2) - (btnSize + 10);
+    maxScreenWidth = Global.device.width -
+        widget.horizontalInset -
+        2 * (totalPage + 2) -
+        (btnSize + 8);
     print('pager max width: $maxListWidth, max screen width: $maxScreenWidth');
     if (maxListWidth > maxScreenWidth) maxListWidth = maxScreenWidth;
   }
@@ -57,7 +62,7 @@ class PagerWidgetState extends State<PagerWidget> {
         (widget.hasActionButton == false || currentPage == 1)
             ? SizedBox.shrink()
             : Padding(
-                padding: const EdgeInsets.only(left: 2.0, right: 6.0),
+                padding: const EdgeInsets.only(left: 4.0, right: 6.0),
                 child: ButtonTheme(
                   minWidth: btnSize,
                   height: btnSize,
@@ -127,7 +132,7 @@ class PagerWidgetState extends State<PagerWidget> {
         (widget.hasActionButton == false || currentPage == totalPage)
             ? SizedBox.shrink()
             : Padding(
-                padding: const EdgeInsets.only(left: 6.0, right: 2.0),
+                padding: const EdgeInsets.only(left: 6.0, right: 4.0),
                 child: ButtonTheme(
                   minWidth: btnSize,
                   height: btnSize,

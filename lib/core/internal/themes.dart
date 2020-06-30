@@ -14,6 +14,7 @@ class Themes {
   static final defaultWidgetBgColor = Color(0xff383838);
   static final defaultDisabledColor = Color(0xff575757);
   static final defaultErrorColor = Color(0xffe53935);
+  static final defaultBorderColor = Color(0xff6a6a6a);
 
   static final stackBackgroundColor = Color(0xff3a3a3a);
   static final stackBackgroundColorDark = Color(0xff272727);
@@ -21,9 +22,11 @@ class Themes {
 
   static final accentLightColor = Color(0xffeace98);
   static final dialogBgColor = Color(0xff424242);
+  static final dialogBgColorDark = Color(0xff2a2a2a);
   static final dialogBgTransparent = Color(0xD0383838);
   static final dialogTextColor = Color(0xffe6e6e6);
   static final dialogTitleColor = Color(0xffe7c080);
+  static final dialogTitleBgColor = Color(0xff5b5b5b);
 
   static final defaultTextColor = Color(0xffb5b5b5);
   static final defaultTextColorWhite = Color(0xffffffff);
@@ -55,8 +58,11 @@ class Themes {
   static final fieldInputHintColor = Color(0xffececec);
 
   static const double prefixTextWidthFactor = 0.3;
-  static const double prefixTextSpacing = 12.0;
+  static const double prefixTextSpacing = 13.0;
   static const double prefixIconWidthFactor = 0.166;
+  static const double suffixWidthFactor = 0.314;
+  static const double horizontalInset = 32.0;
+  static const double minusSize = 8.0;
 
   static final hintHighlight = Color(0xffff7eb8);
   static final hintHighlightDarkRed = Color(0xffe63f3f);
@@ -69,6 +75,11 @@ class Themes {
   static final linearAccentColor1 = Color(0xffbb904d);
   static final linearAccentColor2 = Color(0xffe3b977);
   static final linearAccentColor3 = Color(0xffca9a51);
+
+  static final chartBorderColor = Color(0xff6a6a6a);
+  static final chartHeaderColorBlue = Color(0xff2a8fbd);
+  static final chartHeaderColorGrey = Color(0xff4e4e4e);
+  static final chartContentColor = Color(0xff3a3a3a);
 
   final defaultTheme = ThemeData.dark().copyWith(
     primaryColor: defaultAppbarColor,
