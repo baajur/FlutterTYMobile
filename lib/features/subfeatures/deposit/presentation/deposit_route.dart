@@ -57,26 +57,19 @@ class _DepositRouteState extends State<DepositRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        print('pop deposit route');
-        RouterNavigate.navigateBack();
-        return Future(() => true);
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.0),
-        child: Observer(
-          builder: (_) {
-            switch (_store.state) {
-              case DepositStoreState.loading:
-                return LoadingWidget();
-              case DepositStoreState.loaded:
-                return DepositDisplay(store: _store);
-              default:
-                return SizedBox.shrink();
-            }
-          },
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.0),
+      child: Observer(
+        builder: (_) {
+          switch (_store.state) {
+            case DepositStoreState.loading:
+              return LoadingWidget();
+            case DepositStoreState.loaded:
+              return DepositDisplay(store: _store);
+            default:
+              return SizedBox.shrink();
+          }
+        },
       ),
     );
   }

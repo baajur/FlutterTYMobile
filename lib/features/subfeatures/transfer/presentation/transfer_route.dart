@@ -99,29 +99,22 @@ class _TransferRouteState extends State<TransferRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        print('pop transfer route');
-        RouterNavigate.navigateToPage(RoutePage.member);
-        return Future(() => true);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
-        child: Observer(
-          // Observe using specific widget
-          builder: (_) {
-            switch (_store.state) {
-              case TransferStoreState.initial:
-                return SizedBox.shrink();
-              case TransferStoreState.loading:
-                return LoadingWidget();
-              case TransferStoreState.loaded:
-                return TransferDisplay(store: _store);
-              default:
-                return SizedBox.shrink();
-            }
-          },
-        ),
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: Observer(
+        // Observe using specific widget
+        builder: (_) {
+          switch (_store.state) {
+            case TransferStoreState.initial:
+              return SizedBox.shrink();
+            case TransferStoreState.loading:
+              return LoadingWidget();
+            case TransferStoreState.loaded:
+              return TransferDisplay(store: _store);
+            default:
+              return SizedBox.shrink();
+          }
+        },
       ),
     );
   }

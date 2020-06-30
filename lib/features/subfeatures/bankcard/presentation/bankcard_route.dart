@@ -106,54 +106,47 @@ class _BankcardRouteState extends State<BankcardRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        print('pop bankcard/withdraw route');
-        RouterNavigate.navigateToPage(RoutePage.member);
-        return Future(() => true);
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.0),
-        child: Observer(
-          key: observerKey,
-          builder: (_) {
-            switch (_store.state) {
-              case BankcardStoreState.loading:
-                return LoadingWidget();
-              case BankcardStoreState.loaded:
-                bool validCard =
-                    _store.bankcard != null && _store.bankcard.hasCard;
-                if (!validCard && widget.withdraw) {
-                  Future.delayed(Duration(milliseconds: 300), () {
-                    FLToast.showText(
-                      text: localeStr.messageErrorBindBankcard,
-                      position: FLToastPosition.top,
-                      showDuration: ToastDuration.DEFAULT.value,
-                    );
-                  });
-                }
-                if (validCard && widget.withdraw) {
-                  return WithdrawDisplay(
-                    bankcardStore: _store,
-                    bankcard: _store.bankcard,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4.0),
+      child: Observer(
+        key: observerKey,
+        builder: (_) {
+          switch (_store.state) {
+            case BankcardStoreState.loading:
+              return LoadingWidget();
+            case BankcardStoreState.loaded:
+              bool validCard =
+                  _store.bankcard != null && _store.bankcard.hasCard;
+              if (!validCard && widget.withdraw) {
+                Future.delayed(Duration(milliseconds: 300), () {
+                  FLToast.showText(
+                    text: localeStr.messageErrorBindBankcard,
+                    position: FLToastPosition.top,
+                    showDuration: ToastDuration.DEFAULT.value,
                   );
-                } else if (validCard) {
-                  return BankcardDisplayCard(
-                    store: _store,
-                    bankcard: _store.bankcard,
-                  );
-                } else {
-                  return BankcardDisplay(
-                    store: _store,
-                    bankcard: _store.bankcard,
-                  );
-                }
-                break;
-              default:
-                return SizedBox.shrink();
-            }
-          },
-        ),
+                });
+              }
+              if (validCard && widget.withdraw) {
+                return WithdrawDisplay(
+                  bankcardStore: _store,
+                  bankcard: _store.bankcard,
+                );
+              } else if (validCard) {
+                return BankcardDisplayCard(
+                  store: _store,
+                  bankcard: _store.bankcard,
+                );
+              } else {
+                return BankcardDisplay(
+                  store: _store,
+                  bankcard: _store.bankcard,
+                );
+              }
+              break;
+            default:
+              return SizedBox.shrink();
+          }
+        },
       ),
     );
   }

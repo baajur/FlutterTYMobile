@@ -140,32 +140,25 @@ class _CenterRouteState extends State<CenterRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        print('pop center route');
-        RouterNavigate.navigateBack();
-        return Future(() => true);
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
-        child: CenterStoreInheritedWidget(
-          key: routeKey,
-          store: _store,
-          child: Observer(
-            // Observe using specific widget
-            builder: (_) {
-              switch (_store.state) {
-                case CenterStoreState.initial:
-                  return SizedBox.shrink();
-                case CenterStoreState.loading:
-                  return LoadingWidget();
-                case CenterStoreState.loaded:
-                  return CenterDisplay();
-                default:
-                  return SizedBox.shrink();
-              }
-            },
-          ),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: CenterStoreInheritedWidget(
+        key: routeKey,
+        store: _store,
+        child: Observer(
+          // Observe using specific widget
+          builder: (_) {
+            switch (_store.state) {
+              case CenterStoreState.initial:
+                return SizedBox.shrink();
+              case CenterStoreState.loading:
+                return LoadingWidget();
+              case CenterStoreState.loaded:
+                return CenterDisplay();
+              default:
+                return SizedBox.shrink();
+            }
+          },
         ),
       ),
     );

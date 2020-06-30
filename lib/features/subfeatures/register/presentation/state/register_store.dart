@@ -1,6 +1,7 @@
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/user/data/form/login_form.dart';
+import 'package:flutter_ty_mobile/features/user/data/models/user_model.dart';
 import 'package:flutter_ty_mobile/features/user/data/repository/user_repository.dart';
 
 import '../../data/form/register_form.dart';
@@ -77,9 +78,9 @@ abstract class _RegisterStore with Store {
                 print('auto login failed: $failure');
                 _loginController.sink.add('');
               },
-              (model) {
+              (UserModel model) {
                 print('login result: $model');
-                _loginController.sink.add(model);
+                _loginController.sink.add(model.entity);
               },
             ),
           );

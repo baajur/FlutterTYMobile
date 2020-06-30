@@ -1,6 +1,6 @@
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
 
 import '../form/login_form.dart';
@@ -43,12 +43,18 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, UserModel>> login(LoginForm form) async {
     final result = await _getToken(form);
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (data) async {
         // get user account info when token was successfully retrieved
         if (data is String && data.isNotEmpty) {
+          // return login failed message
+          if (data.contains('status')) {
+            Map<String, dynamic> map = jsonDecode(data);
+            return Left(
+                Failure.login(RequestStatusModel.jsonToStatusModel(map)));
+          }
           final token =
               data.substring(data.indexOf('=') + 1, data.indexOf(';'));
           MyLogger.debug(msg: 'token: \n$token', tag: tag);

@@ -31,7 +31,7 @@ class _WalletDialogState extends State<WalletDialog> {
   Widget build(BuildContext context) {
     return DialogWidget(
       key: _dialogKey,
-      heightFactor: 0.4,
+      maxHeight: 180,
       widthShrink: 64.0,
       transparentBg: true,
       onClose: () {
@@ -47,7 +47,7 @@ class _WalletDialogState extends State<WalletDialog> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 18.0),
                     child: Text(
                       localeStr.walletViewHintOneClickWait,
                       style: TextStyle(
@@ -89,7 +89,7 @@ class _WalletDialogState extends State<WalletDialog> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 18.0),
                     child: Text(
                       localeStr.messageTaskSuccess(
                           localeStr.walletViewButtonOneClick),

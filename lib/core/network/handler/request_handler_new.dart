@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode;
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -59,7 +59,7 @@ Future _requestDataTest({
       throw RequestTypeErrorException();
     return response.data;
   }, tag);
-//  MyLogger.debug(msg: 'remote data result: $result', tag: tag);
+  MyLogger.debug(msg: 'remote data result: $result', tag: tag);
   return result;
 }
 
@@ -86,7 +86,7 @@ Future _requestResponseHeader({
 Future<Either<Failure, String>> requestRawData({
   @required Future<Response<dynamic>> request,
   bool allowJsonString = false,
-  String tag = 'remote-RAW',
+  String tag = 'remote-STRING',
 }) async {
   return await runTask(_requestDataTest(request: request)).then((result) {
     return result.fold(
@@ -96,6 +96,18 @@ Future<Either<Failure, String>> requestRawData({
           return Left(Failure.jsonFormat());
         return Right('$data');
       },
+    );
+  });
+}
+
+Future<Either<Failure, dynamic>> requestData({
+  @required Future<Response<dynamic>> request,
+  String tag = 'remote-DATA',
+}) async {
+  return await runTask(_requestDataTest(request: request)).then((result) {
+    return result.fold(
+      (failure) => Left(failure),
+      (data) => Right(data),
     );
   });
 }

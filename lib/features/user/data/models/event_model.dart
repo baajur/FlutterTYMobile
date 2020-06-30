@@ -99,5 +99,5 @@ abstract class EventSignData with _$EventSignData {
 }
 
 extension EventSignDataExtension on EventSignData {
-  bool get hasSigned => isSameDay(lastSignDate);
+  bool get hasSigned => isSameDay(currentDate);
 }

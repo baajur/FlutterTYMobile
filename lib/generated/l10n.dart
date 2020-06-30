@@ -1123,6 +1123,16 @@ class S {
     );
   }
 
+  /// `Password should be 8 ~ 20 words`
+  String get messageInvalidPasswordNew {
+    return Intl.message(
+      'Password should be 8 ~ 20 words',
+      name: 'messageInvalidPasswordNew',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password does not match`
   String get messageInvalidConfirmPassword {
     return Intl.message(

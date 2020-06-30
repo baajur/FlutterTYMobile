@@ -39,6 +39,21 @@ mixin _$MemberCreditStore on _MemberCreditStore, Store {
     });
   }
 
+  final _$hasNewMessageAtom = Atom(name: '_MemberCreditStore.hasNewMessage');
+
+  @override
+  bool get hasNewMessage {
+    _$hasNewMessageAtom.reportRead();
+    return super.hasNewMessage;
+  }
+
+  @override
+  set hasNewMessage(bool value) {
+    _$hasNewMessageAtom.reportWrite(value, super.hasNewMessage, () {
+      super.hasNewMessage = value;
+    });
+  }
+
   final _$_creditFutureAtom = Atom(name: '_MemberCreditStore._creditFuture');
 
   @override
@@ -84,6 +99,15 @@ mixin _$MemberCreditStore on _MemberCreditStore, Store {
     });
   }
 
+  final _$getNewMessageCountAsyncAction =
+      AsyncAction('_MemberCreditStore.getNewMessageCount');
+
+  @override
+  Future<void> getNewMessageCount() {
+    return _$getNewMessageCountAsyncAction
+        .run(() => super.getNewMessageCount());
+  }
+
   final _$getCreditAsyncAction = AsyncAction('_MemberCreditStore.getCredit');
 
   @override
@@ -94,9 +118,10 @@ mixin _$MemberCreditStore on _MemberCreditStore, Store {
   @override
   String toString() {
     return '''
-user: $user,
-credit: $credit,
-errorMessage: $errorMessage
+user: ${user},
+hasNewMessage: ${hasNewMessage},
+credit: ${credit},
+errorMessage: ${errorMessage}
     ''';
   }
 }

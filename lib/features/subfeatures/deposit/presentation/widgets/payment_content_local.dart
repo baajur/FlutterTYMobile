@@ -88,22 +88,22 @@ class _PaymentContentLocalState extends State<PaymentContentLocal> {
       ];
       promos.addAll(widget.promoList);
       return InkWell(
-        // to dismiss the keyboard when the user tabs out of the TextField
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         focusColor: Colors.transparent,
         onTap: () {
+          // to dismiss the keyboard when the user tabs out of the TextField
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Column(
-          children: <Widget>[
-//            Text(widget.dataList.toString()),
-//            SizedBox(height: 8.0),
-//            Text(widget.promoList.toString()),
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
             new Form(
               key: _formKey,
               child: ListView(
                 shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
                 children: <Widget>[
                   /* Promo Option */
                   CustomizeDropdownWidget(

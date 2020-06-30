@@ -405,6 +405,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "messageInvalidName" : MessageLookupByLibrary.simpleMessage("名称格式错误"),
     "messageInvalidPassword" : MessageLookupByLibrary.simpleMessage("密码为6~20个字"),
     "messageInvalidPasswordArg" : m27,
+    "messageInvalidPasswordNew" : MessageLookupByLibrary.simpleMessage("密码为8~20个字"),
     "messageInvalidPhone" : MessageLookupByLibrary.simpleMessage("电话格式错误"),
     "messageInvalidVerify" : MessageLookupByLibrary.simpleMessage("请输入验证码"),
     "messageInvalidWechat" : MessageLookupByLibrary.simpleMessage("微信号格式错误"),

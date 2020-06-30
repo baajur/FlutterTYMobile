@@ -17,13 +17,15 @@ class _$RouteInfoTearOff {
       @required String title,
       String parentRoute = Routes.homeRoute,
       bool isFeature = false,
-      bool hideAppbarActions = false,
+      bool showDrawer = false,
+      bool hideAppbarActions = true,
       int bottomNavIndex = -1}) {
     return _RouteInfo(
       route: route,
       title: title,
       parentRoute: parentRoute,
       isFeature: isFeature,
+      showDrawer: showDrawer,
       hideAppbarActions: hideAppbarActions,
       bottomNavIndex: bottomNavIndex,
     );
@@ -38,6 +40,7 @@ mixin _$RouteInfo {
   String get title;
   String get parentRoute;
   bool get isFeature;
+  bool get showDrawer;
   bool get hideAppbarActions;
   int get bottomNavIndex;
 
@@ -52,6 +55,7 @@ abstract class $RouteInfoCopyWith<$Res> {
       String title,
       String parentRoute,
       bool isFeature,
+      bool showDrawer,
       bool hideAppbarActions,
       int bottomNavIndex});
 }
@@ -69,6 +73,7 @@ class _$RouteInfoCopyWithImpl<$Res> implements $RouteInfoCopyWith<$Res> {
     Object title = freezed,
     Object parentRoute = freezed,
     Object isFeature = freezed,
+    Object showDrawer = freezed,
     Object hideAppbarActions = freezed,
     Object bottomNavIndex = freezed,
   }) {
@@ -78,6 +83,8 @@ class _$RouteInfoCopyWithImpl<$Res> implements $RouteInfoCopyWith<$Res> {
       parentRoute:
           parentRoute == freezed ? _value.parentRoute : parentRoute as String,
       isFeature: isFeature == freezed ? _value.isFeature : isFeature as bool,
+      showDrawer:
+          showDrawer == freezed ? _value.showDrawer : showDrawer as bool,
       hideAppbarActions: hideAppbarActions == freezed
           ? _value.hideAppbarActions
           : hideAppbarActions as bool,
@@ -98,6 +105,7 @@ abstract class _$RouteInfoCopyWith<$Res> implements $RouteInfoCopyWith<$Res> {
       String title,
       String parentRoute,
       bool isFeature,
+      bool showDrawer,
       bool hideAppbarActions,
       int bottomNavIndex});
 }
@@ -116,6 +124,7 @@ class __$RouteInfoCopyWithImpl<$Res> extends _$RouteInfoCopyWithImpl<$Res>
     Object title = freezed,
     Object parentRoute = freezed,
     Object isFeature = freezed,
+    Object showDrawer = freezed,
     Object hideAppbarActions = freezed,
     Object bottomNavIndex = freezed,
   }) {
@@ -125,6 +134,8 @@ class __$RouteInfoCopyWithImpl<$Res> extends _$RouteInfoCopyWithImpl<$Res>
       parentRoute:
           parentRoute == freezed ? _value.parentRoute : parentRoute as String,
       isFeature: isFeature == freezed ? _value.isFeature : isFeature as bool,
+      showDrawer:
+          showDrawer == freezed ? _value.showDrawer : showDrawer as bool,
       hideAppbarActions: hideAppbarActions == freezed
           ? _value.hideAppbarActions
           : hideAppbarActions as bool,
@@ -141,12 +152,14 @@ class _$_RouteInfo implements _RouteInfo {
       @required this.title,
       this.parentRoute = Routes.homeRoute,
       this.isFeature = false,
-      this.hideAppbarActions = false,
+      this.showDrawer = false,
+      this.hideAppbarActions = true,
       this.bottomNavIndex = -1})
       : assert(route != null),
         assert(title != null),
         assert(parentRoute != null),
         assert(isFeature != null),
+        assert(showDrawer != null),
         assert(hideAppbarActions != null),
         assert(bottomNavIndex != null);
 
@@ -162,6 +175,9 @@ class _$_RouteInfo implements _RouteInfo {
   final bool isFeature;
   @JsonKey(defaultValue: false)
   @override
+  final bool showDrawer;
+  @JsonKey(defaultValue: true)
+  @override
   final bool hideAppbarActions;
   @JsonKey(defaultValue: -1)
   @override
@@ -169,7 +185,7 @@ class _$_RouteInfo implements _RouteInfo {
 
   @override
   String toString() {
-    return 'RouteInfo(route: $route, title: $title, parentRoute: $parentRoute, isFeature: $isFeature, hideAppbarActions: $hideAppbarActions, bottomNavIndex: $bottomNavIndex)';
+    return 'RouteInfo(route: $route, title: $title, parentRoute: $parentRoute, isFeature: $isFeature, showDrawer: $showDrawer, hideAppbarActions: $hideAppbarActions, bottomNavIndex: $bottomNavIndex)';
   }
 
   @override
@@ -186,6 +202,9 @@ class _$_RouteInfo implements _RouteInfo {
             (identical(other.isFeature, isFeature) ||
                 const DeepCollectionEquality()
                     .equals(other.isFeature, isFeature)) &&
+            (identical(other.showDrawer, showDrawer) ||
+                const DeepCollectionEquality()
+                    .equals(other.showDrawer, showDrawer)) &&
             (identical(other.hideAppbarActions, hideAppbarActions) ||
                 const DeepCollectionEquality()
                     .equals(other.hideAppbarActions, hideAppbarActions)) &&
@@ -201,6 +220,7 @@ class _$_RouteInfo implements _RouteInfo {
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(parentRoute) ^
       const DeepCollectionEquality().hash(isFeature) ^
+      const DeepCollectionEquality().hash(showDrawer) ^
       const DeepCollectionEquality().hash(hideAppbarActions) ^
       const DeepCollectionEquality().hash(bottomNavIndex);
 
@@ -215,6 +235,7 @@ abstract class _RouteInfo implements RouteInfo {
       @required String title,
       String parentRoute,
       bool isFeature,
+      bool showDrawer,
       bool hideAppbarActions,
       int bottomNavIndex}) = _$_RouteInfo;
 
@@ -226,6 +247,8 @@ abstract class _RouteInfo implements RouteInfo {
   String get parentRoute;
   @override
   bool get isFeature;
+  @override
+  bool get showDrawer;
   @override
   bool get hideAppbarActions;
   @override

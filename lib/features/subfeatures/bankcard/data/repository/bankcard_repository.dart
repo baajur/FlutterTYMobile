@@ -1,103 +1,183 @@
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/form/bankcard_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/models/bankcard_model.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/source/bankcard_data_source.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
+
+import '../form/bankcard_form.dart';
+import '../models/bankcard_model.dart';
+
+class BankcardApi {
+  static const String GET_CARD = "api/bankcard";
+  static const String POST_PROVINCES = "api/getProvince";
+  static const String POST_BANKS = "api/getBankid";
+  static const String POST_CITY = "api/getCity";
+  static const String POST_NEW_CARD = "api/addbankcard";
+}
 
 abstract class BankcardRepository {
   Future<Either<Failure, BankcardModel>> getBankcard();
   Future<Either<Failure, Map<String, String>>> getBanks();
   Future<Either<Failure, Map<String, String>>> getProvinces();
   Future<Either<Failure, Map<String, String>>> getMapByCode(String code);
-
   Future<Either<Failure, RequestStatusModel>> postBankcard(BankcardForm form);
 }
 
 class BankcardRepositoryImpl implements BankcardRepository {
+  final DioApiService dioApiService;
+  final MemberJwtInterface jwtInterface;
   final tag = 'BankcardRepository';
-  final BankcardRemoteDataSource remoteDataSource;
-  final NetworkInfo networkInfo;
+  bool jwtChecked = false;
 
-  BankcardRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.networkInfo,
-  });
+  BankcardRepositoryImpl(
+      {@required this.dioApiService, @required this.jwtInterface}) {
+    Future.value(jwtInterface.checkJwt('/'))
+        .then((value) => jwtChecked = value.isSuccess);
+  }
 
   @override
   Future<Either<Failure, BankcardModel>> getBankcard() async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result =
-          await handleResponse<BankcardModel>(remoteDataSource.getBankcard());
-      return result.fold(
-        (failure) => Left(failure),
-        (model) =>
-            (model.hasCard != null) ? Right(model) : Left(Failure.token()),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestData(
+      request: dioApiService.get(
+        BankcardApi.GET_CARD,
+        userToken: jwtInterface.token,
+      ),
+      tag: 'remote-BANKCARD',
+    );
+//    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (data) {
+        if ((data is bool && !data) || (data is String && data == 'false')) {
+          return Right(BankcardModel(hasCard: false));
+        } else if (data is Map) {
+          data.putIfAbsent('hasCard', () => true);
+          MyLogger.print(msg: 'bankcard map: $data', tag: tag);
+          return Right(BankcardModel.jsonToBankcardModel(data));
+        } else if (data is String &&
+            data.startsWith('{') &&
+            data.endsWith('}')) {
+          Map map = jsonDecode(data);
+          map.putIfAbsent('hasCard', () => true);
+          MyLogger.print(msg: 'bankcard map: $map', tag: tag);
+          return Right(BankcardModel.jsonToBankcardModel(map));
+        } else {
+          MyLogger.error(msg: 'bankcard data error: $data', tag: tag);
+          return Left(Failure.token());
+        }
+      },
+    );
   }
 
   @override
   Future<Either<Failure, Map<String, String>>> getBanks() async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result = await handleResponse<Map<String, String>>(
-          remoteDataSource.getBanks());
-      return result.fold(
-        (failure) => Left(failure),
-        (model) => (model != null) ? Right(model) : Left(Failure.jsonFormat()),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestData(
+      request: dioApiService.post(
+        BankcardApi.POST_BANKS,
+        userToken: jwtInterface.token,
+      ),
+      tag: 'remote-BANK_ID',
+    );
+//    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (data) {
+        if (data is Map) {
+          try {
+//            MyLogger.print(msg: 'banks map: $data', tag: tag);
+            return Right(data.map<String, String>((key, value) =>
+                MapEntry<String, String>(key, value.toString())));
+          } catch (e) {
+            MyLogger.error(
+                msg: 'banks data is not a map!!', error: e, tag: tag);
+            return Left(Failure.internal(
+                FailureCode(typeCode: FailureTypeCode.BANKCARD)));
+          }
+        } else {
+          return Left(Failure.jsonFormat());
+        }
+      },
+    );
   }
 
   @override
   Future<Either<Failure, Map<String, String>>> getProvinces() async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result = await handleResponse<Map<String, String>>(
-          remoteDataSource.getProvinces());
-      return result.fold(
-        (failure) => Left(failure),
-        (model) => (model != null)
-            ? Right(model)
-            : Left(Failure.internal(
-                FailureCode(typeCode: FailureTypeCode.BANKCARD))),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestData(
+      request: dioApiService.post(
+        BankcardApi.POST_PROVINCES,
+        userToken: jwtInterface.token,
+      ),
+      tag: 'remote-BANK_PROVINCE',
+    );
+//    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (data) {
+        if ('$data'.isEmpty || '$data' == '[]') return Right(null);
+        if (data is Map) {
+          try {
+//            MyLogger.print(msg: 'provinces map: $data', tag: tag);
+            return Right(data.map<String, String>((key, value) =>
+                MapEntry<String, String>(key, value.toString())));
+          } catch (e) {
+            MyLogger.error(
+                msg: 'province data is not a map!!', error: e, tag: tag);
+            return Left(Failure.internal(
+                FailureCode(typeCode: FailureTypeCode.BANKCARD)));
+          }
+        } else {
+          return Left(Failure.jsonFormat());
+        }
+      },
+    );
   }
 
   @override
   Future<Either<Failure, Map<String, String>>> getMapByCode(String code) async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result = await handleResponse<Map<String, String>>(
-          remoteDataSource.getMapByCode(code));
-      return result.fold(
-        (failure) => Left(failure),
-        (model) => (model != null)
-            ? Right(model)
-            : Left(Failure.internal(
-                FailureCode(typeCode: FailureTypeCode.BANKCARD))),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestData(
+      request: dioApiService.post(
+        BankcardApi.POST_CITY,
+        data: {"code": code},
+        userToken: jwtInterface.token,
+      ),
+      tag: 'remote-BANK_AREA',
+    );
+//    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (data) {
+        if (data.toString().isEmpty || data.toString() == '[]')
+          return Right(null);
+        if (data is Map) {
+          try {
+//            MyLogger.print(msg: 'area map: $data', tag: tag);
+            return Right(data.map<String, String>((key, value) =>
+                MapEntry<String, String>(key, value.toString())));
+          } catch (e) {
+            MyLogger.error(msg: 'area data is not a map!!', error: e, tag: tag);
+            return Left(Failure.internal(
+                FailureCode(typeCode: FailureTypeCode.BANKCARD)));
+          }
+        } else {
+          return Left(Failure.jsonFormat());
+        }
+      },
+    );
   }
 
   @override
   Future<Either<Failure, RequestStatusModel>> postBankcard(
       BankcardForm form) async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result = await handleResponse<RequestStatusModel>(
-          remoteDataSource.postBankcard(form));
-      return result.fold(
-        (failure) => Left(failure),
-        (model) => Right(model),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestModel<RequestStatusModel>(
+      request: dioApiService.post(
+        BankcardApi.POST_NEW_CARD,
+        data: form.toJson(),
+        userToken: jwtInterface.token,
+      ),
+      jsonToModel: RequestStatusModel.jsonToStatusModel,
+      tag: 'remote-BANKCARD_NEW',
+    );
+    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (model) => Right(model),
+    );
   }
 }

@@ -111,7 +111,7 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
                   /* Password Input Field */
                   new CustomizeFieldWidget(
                     key: _passwordFieldKey,
-                    fieldType: FieldType.Numbers,
+                    fieldType: FieldType.NoChinese,
                     persistHint: false,
                     prefixText: localeStr.withdrawViewTitlePwd,
                     titleLetterSpacing: 4,

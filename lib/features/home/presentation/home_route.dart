@@ -59,6 +59,14 @@ class _HomeRouteState extends State<HomeRoute> {
       child: Scaffold(
         backgroundColor: Themes.defaultBackgroundColor,
 
+//        SingleChildScrollView(
+//        physics: NeverScrollableScrollPhysics(), // user can't scroll
+//    child: ConstrainedBox(
+//    constraints: BoxConstraints.tight(Size(
+//    Global.device.width,
+//    Global.device.featureContentHeight,
+//    )),
+//    child: IntrinsicHeight(
         /// TODO change this to scroll because keyboard will shrink the view
         body: Column(
           children: <Widget>[

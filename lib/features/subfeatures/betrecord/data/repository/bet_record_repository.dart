@@ -2,7 +2,7 @@ import 'dart:convert' show jsonDecode;
 
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/betrecord/data/form/bet_record_form.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/betrecord/data/models/bet_record_model.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/betrecord/data/models/bet_record_type_model.dart';

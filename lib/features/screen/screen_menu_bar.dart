@@ -49,8 +49,7 @@ class _ScreenMenuBarState extends State<ScreenMenuBar> {
       /* App bar Left Actions */
       leading: Observer(
         builder: (_) {
-          final showMenu = viewState.store.pageInfo.isFeature ?? true;
-          if (showMenu) {
+          if (viewState.store.showMenuDrawer) {
             return IconButton(
               icon: Icon(Icons.menu, color: Themes.defaultAccentColor),
               tooltip: localeStr.btnMenu,

@@ -141,7 +141,8 @@ class Router extends RouterBase {
         }
         final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
+          builder: (context) => WebRoute(
+              startUrl: typedArgs.startUrl, hideBars: typedArgs.hideBars),
           settings: settings,
         );
       case Routes.memberRoute:
@@ -174,7 +175,8 @@ class Router extends RouterBase {
         }
         final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
+          builder: (context) => WebRoute(
+              startUrl: typedArgs.startUrl, hideBars: typedArgs.hideBars),
           settings: settings,
         );
       case Routes.transferRoute:
@@ -229,7 +231,8 @@ class Router extends RouterBase {
         }
         final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
+          builder: (context) => WebRoute(
+              startUrl: typedArgs.startUrl, hideBars: typedArgs.hideBars),
           settings: settings,
         );
       case Routes.transactionRoute:
@@ -263,7 +266,8 @@ class Router extends RouterBase {
         }
         final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
+          builder: (context) => WebRoute(
+              startUrl: typedArgs.startUrl, hideBars: typedArgs.hideBars),
           settings: settings,
         );
       case Routes.downloadAreaRoute:
@@ -330,7 +334,8 @@ class LoginRouteArguments {
 //WebRoute arguments holder class
 class WebRouteArguments {
   final String startUrl;
-  WebRouteArguments({@required this.startUrl});
+  final bool hideBars;
+  WebRouteArguments({@required this.startUrl, this.hideBars = false});
 }
 
 //MemberRoute arguments holder class

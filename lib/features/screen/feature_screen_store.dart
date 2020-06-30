@@ -32,6 +32,7 @@ abstract class _FeatureScreenStore with Store {
         await getEvent();
       } else {
         showEvent = false;
+        forceShowEvent = false;
         hasSignedEvent = false;
         hasNewMessage = false;
         signedTimes = null;
@@ -57,6 +58,9 @@ abstract class _FeatureScreenStore with Store {
   int get navIndex => (pageInfo != null && pageInfo.bottomNavIndex != null)
       ? pageInfo.bottomNavIndex
       : -1;
+
+  bool get showMenuDrawer =>
+      (pageInfo != null) ? pageInfo.isFeature || pageInfo.showDrawer : true;
 
   /// User
   /* observe user change */
@@ -86,7 +90,16 @@ abstract class _FeatureScreenStore with Store {
   @observable
   bool showEvent = false;
 
-  set forceShowEvent(bool show) => showEvent = show;
+  bool forceShowEvent = false;
+
+  set setShowEvent(bool show) {
+    showEvent = show;
+  }
+
+  set setForceShowEvent(bool show) {
+    showEvent = (!show) ? showEvent : true;
+    forceShowEvent = show;
+  }
 
   @observable
   bool hasSignedEvent = false;
@@ -127,6 +140,7 @@ abstract class _FeatureScreenStore with Store {
           _event = model;
           showEvent =
               _event.hasData && _event.showDialog(user.vip) && _event.canSign;
+          forceShowEvent = false;
           hasSignedEvent = _event.canSign == false;
           signedTimes = _event.signData?.times ?? 0;
           print('event show: $showEvent, has signed: $hasSignedEvent');
@@ -155,6 +169,7 @@ abstract class _FeatureScreenStore with Store {
             errorMessage = localeStr.eventButtonSignUpFailed;
           } else if (model.data is bool) {
             showEvent = false;
+            forceShowEvent = false;
             hasSignedEvent = true;
             signedTimes = (_event.signData?.times ?? 0) + 1;
             getEvent();

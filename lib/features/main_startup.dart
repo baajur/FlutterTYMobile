@@ -51,44 +51,47 @@ class _MainStartupState extends State<MainStartup> {
   Widget build(BuildContext context) {
     if (Global.device == null) getDeviceInfo(context);
     if (Global.regLocale == false) registerLocale(context);
-    return WillPopScope(
-      child: Scaffold(
-        body: ExtendedNavigator<ScreenRouter>(
-          initialRoute: ScreenRoutes.featureScreen,
-          router: ScreenRouter(),
-        ),
+    return SafeArea(
+      child: WillPopScope(
+        onWillPop: () async {
+          MyLogger.debug(
+              msg: 'pop screen ${ScreenNavigate.screenIndex}',
+              tag: 'MainStartup');
+          if (ScreenNavigate.screenIndex == 1) {
+            // Stop rotate sensor and clear web view cache
+            sl.get<WebGameScreenStore>()?.stopSensor();
+            ScreenNavigate.switchScreen(screen: ScreenEnum.Feature);
+          } else if (ScreenNavigate.screenIndex == 2) {
+            ScreenNavigate.switchScreen();
+          } else if (RouterNavigate.current == Routes.homeRoute) {
+            closeAppCount += 1;
+            Future.delayed(
+                Duration(milliseconds: 500), () => closeAppCount = 0);
+            if (closeAppCount > 1)
+              return Future(() => true); // exit app
+            else if (closeAppCount == 1)
+              FLToast.showText(
+                text: localeStr.exitAppHint,
+                position: FLToastPosition.bottom,
+                showDuration: ToastDuration.SHORT.value,
+              );
+          } else {
+            RouterNavigate.navigateBack();
+          }
+          return Future(() => false);
+        },
+        child: Scaffold(
+          body: ExtendedNavigator<ScreenRouter>(
+            initialRoute: ScreenRoutes.featureScreen,
+            router: ScreenRouter(),
+          ),
 //        body: Navigator(
 //          key: ScreenRouter.navigator.key,
 //          onGenerateRoute: ScreenRouter.onGenerateRoute,
 //          initialRoute: ScreenRouter.featureScreen,
 //        ),
+        ),
       ),
-      onWillPop: () async {
-        MyLogger.debug(
-            msg: 'pop screen ${ScreenNavigate.screenIndex}',
-            tag: 'MainStartup');
-        if (ScreenNavigate.screenIndex == 1) {
-          // Stop rotate sensor and clear web view cache
-          sl.get<WebGameScreenStore>()?.stopSensor();
-          ScreenNavigate.switchScreen(screen: ScreenEnum.Feature);
-        } else if (ScreenNavigate.screenIndex == 2) {
-          ScreenNavigate.switchScreen();
-        } else if (RouterNavigate.current == Routes.homeRoute) {
-          closeAppCount += 1;
-          Future.delayed(Duration(milliseconds: 500), () => closeAppCount = 0);
-          if (closeAppCount > 1)
-            return Future(() => true); // exit app
-          else if (closeAppCount == 1)
-            FLToast.showText(
-              text: localeStr.exitAppHint,
-              position: FLToastPosition.bottom,
-              showDuration: ToastDuration.SHORT.value,
-            );
-        } else {
-          RouterNavigate.navigateBack();
-        }
-        return Future(() => false);
-      },
     );
   }
 }

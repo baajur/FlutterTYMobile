@@ -1,10 +1,15 @@
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 
-import '../source/transfer_data_source.dart';
 import '../models/transfer_platform_model.dart';
 import '../models/transfer_balance_model.dart';
 import '../form/transfer_form.dart';
+
+class TransferApi {
+  static const String GET_PLATFORM = "api/getPlatform";
+  static const String GET_BALANCE = "api/balance/";
+  static const String POST_TRANSFER = "api/transfer";
+}
 
 abstract class TransferRepository {
   Future<Either<Failure, TransferPlatformList>> getPlatform();
@@ -13,56 +18,68 @@ abstract class TransferRepository {
 }
 
 class TransferRepositoryImpl implements TransferRepository {
+  final DioApiService dioApiService;
+  final MemberJwtInterface jwtInterface;
   final tag = 'TransferRepository';
-  final TransferRemoteDataSource remoteDataSource;
-  final NetworkInfo networkInfo;
+  bool jwtChecked = false;
 
-  TransferRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.networkInfo,
-  });
+  TransferRepositoryImpl(
+      {@required this.dioApiService, @required this.jwtInterface}) {
+    Future.value(jwtInterface.checkJwt('/'))
+        .then((value) => jwtChecked = value.isSuccess);
+  }
 
   @override
   Future<Either<Failure, TransferPlatformList>> getPlatform() async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result = await handleResponse<List<TransferPlatformModel>>(
-          remoteDataSource.getPlatform());
-      return result.fold(
-        (failure) => Left(failure),
-        (models) => Right(TransferPlatformList(list: models)),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestModelList<TransferPlatformModel>(
+      request: dioApiService.get(
+        TransferApi.GET_PLATFORM,
+        userToken: jwtInterface.token,
+      ),
+      jsonToModel: TransferPlatformModel.jsonToTransferPlatformModel,
+      tag: 'remote-TRANSFORM',
+    );
+    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (models) => Right(TransferPlatformList(list: models)),
+    );
   }
 
   @override
   Future<Either<Failure, TransferBalanceModel>> getBalance(
       String platform) async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result = await handleResponse<TransferBalanceModel>(
-          remoteDataSource.getBalance(platform));
-      return result.fold(
-        (failure) => Left(failure),
-        (model) => Right(model),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestModel<TransferBalanceModel>(
+      request: dioApiService.get(
+        '${TransferApi.GET_BALANCE}$platform',
+        userToken: jwtInterface.token,
+      ),
+      jsonToModel: TransferBalanceModel.jsonToTransferBalanceModel,
+      tag: 'remote-TRANSFORM',
+    );
+    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (model) => Right(model),
+    );
   }
 
   @override
   Future<Either<Failure, RequestStatusModel>> postTransfer(
       TransferForm form) async {
-    final connected = await networkInfo.isConnected;
-    if (connected) {
-      final result = await handleResponse<RequestStatusModel>(
-          remoteDataSource.postTransfer(form));
-      return result.fold(
-        (failure) => Left(failure),
-        (model) => Right(model),
-      );
-    }
-    return Left(Failure.network());
+    final result = await requestModel<RequestStatusModel>(
+      request: dioApiService.post(
+        TransferApi.POST_TRANSFER,
+        userToken: jwtInterface.token,
+        data: form.toJson(),
+      ),
+      jsonToModel: RequestStatusModel.jsonToStatusModel,
+      tag: 'remote-TRANSFER',
+    );
+    print('test response type: ${result.runtimeType}, data: $result');
+    return result.fold(
+      (failure) => Left(failure),
+      (model) => Right(model),
+    );
   }
 }

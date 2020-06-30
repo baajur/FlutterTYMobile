@@ -111,9 +111,9 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Column(
-          children: <Widget>[
-//            Text(widget.dataList.toString()),
-//            SizedBox(height: 8.0),
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
             new Form(
               key: _formKey,
               child: ListView(

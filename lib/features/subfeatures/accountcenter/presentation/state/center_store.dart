@@ -3,15 +3,15 @@ import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/data/form/center_password_form.dart';
 import 'package:flutter_ty_mobile/features/user/data/form/login_form.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
 import 'package:hive/hive.dart';
 
+import '../../data/repository/center_repository.dart';
 import '../../data/entity/center_account_entity.dart';
 import '../../data/entity/center_vip_entity.dart';
 import '../../data/models/center_model.dart';
-import '../../data/repository/center_repository.dart';
+import '../../data/form/center_password_form.dart';
 
 part 'center_store.g.dart';
 

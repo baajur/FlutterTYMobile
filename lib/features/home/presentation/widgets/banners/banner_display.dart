@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/features/export_internal_file.dart';
 import 'package:flutter_ty_mobile/features/router/app_navigate.dart'
-    show RouterNavigate, RoutePage;
+    show PromoRouteArguments, RoutePage, RouterNavigate;
 
 /// Create a [Carousel] widget to display banner images
 /// @author H.C.CHIANG
@@ -48,7 +48,9 @@ class BannerDisplay extends StatelessWidget {
       onImageTap: (index) {
         var id = promoIds[index];
         print('clicked image $index, promoId: $id');
-        if (id != -1) RouterNavigate.navigateToPage(RoutePage.promo, arg: id);
+        if (id != -1)
+          RouterNavigate.navigateToPage(RoutePage.promo,
+              arg: PromoRouteArguments(openPromoId: id));
       },
     );
   }

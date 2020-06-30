@@ -39,7 +39,7 @@ class _GameWebControlState extends State<GameWebControl> with AfterLayoutMixin {
               dismiss();
             } catch (e) {}
             Future.delayed(Duration(milliseconds: 500), () {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
               ScreenNavigate.switchScreen(
                   screen: ScreenEnum.Game, webUrl: target);
             });
@@ -53,7 +53,7 @@ class _GameWebControlState extends State<GameWebControl> with AfterLayoutMixin {
               dismiss();
             } catch (e) {}
             Future.delayed(Duration(milliseconds: 3100), () {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
             });
             return ToastErrorWidget(message: localeStr.messageErrorLoadingGame);
           } else {

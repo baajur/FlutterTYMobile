@@ -76,33 +76,26 @@ class _WalletRouteState extends State<WalletRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        print('pop wallet route');
-        RouterNavigate.navigateBack();
-        return Future(() => true);
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
-        child: Observer(
-          // Observe using specific widget
-          builder: (_) {
-            switch (_store.state) {
-              case WalletStoreState.initial:
-                return SizedBox.shrink();
-              case WalletStoreState.loading:
-                return LoadingWidget();
-              case WalletStoreState.loaded:
-                if (_store.wallet != null)
-                  return WalletDisplay(store: _store);
-                else
-                  return WarningDisplay(message: _store.errorMessage);
-                break;
-              default:
-                return SizedBox.shrink();
-            }
-          },
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: Observer(
+        // Observe using specific widget
+        builder: (_) {
+          switch (_store.state) {
+            case WalletStoreState.initial:
+              return SizedBox.shrink();
+            case WalletStoreState.loading:
+              return LoadingWidget();
+            case WalletStoreState.loaded:
+              if (_store.wallet != null)
+                return WalletDisplay(store: _store);
+              else
+                return WarningDisplay(message: _store.errorMessage);
+              break;
+            default:
+              return SizedBox.shrink();
+          }
+        },
       ),
     );
   }

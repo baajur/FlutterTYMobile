@@ -9,7 +9,7 @@ part 'route_list_item.freezed.dart';
 abstract class RouteListItem with _$RouteListItem {
   const factory RouteListItem({
     String replaceTitle,
-    IconData iconData,
+    IconData iconData, // IconData need to be constant
     String imageName,
     RoutePage route,
     String webUrl,

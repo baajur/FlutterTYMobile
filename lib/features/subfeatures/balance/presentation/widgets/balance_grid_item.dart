@@ -33,14 +33,21 @@ class BalanceGridItemState extends State<BalanceGridItem>
     stopAnim();
     if (_credit == credit) return;
     _credit = credit;
-    var dCredit = _credit.strToDouble;
-    canTransferOut = dCredit > 0.0;
-    if (credit == 'x' || dCredit < 0) canTransferIn = false;
+    isMaintaining = credit == '￥-1.00';
+    if (isMaintaining) {
+      canTransferIn = false;
+      canTransferOut = false;
+    } else {
+      var dCredit = _credit.strToDouble;
+      canTransferOut = dCredit > 0.0;
+      if (credit == 'x' || dCredit < 0) canTransferIn = false;
+    }
     setState(() {});
     print('${widget.platform} credit updated');
   }
 
   String _credit = '---';
+  bool isMaintaining = false;
   bool canTransferOut = true;
   bool canTransferIn = true;
   bool canRefresh = true;
@@ -192,7 +199,9 @@ class BalanceGridItemState extends State<BalanceGridItem>
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      _credit,
+                      (isMaintaining)
+                          ? localeStr.balanceStatusMaintenance
+                          : _credit,
                       style: TextStyle(
                         color: Themes.defaultHintColorDark,
                         fontWeight: FontWeight.bold,

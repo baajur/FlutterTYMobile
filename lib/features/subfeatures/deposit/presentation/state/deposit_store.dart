@@ -1,11 +1,12 @@
 import 'package:flutter_ty_mobile/core/store_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/entity/payment_enum.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/form/deposit_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/deposit_result.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/payment_freezed.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/payment_promo.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/payment_raw.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/repository/deposit_repository.dart';
+
+import '../../data/repository/deposit_repository.dart';
+import '../../data/entity/payment_enum.dart';
+import '../../data/form/deposit_form.dart';
+import '../../data/model/deposit_result.dart';
+import '../../data/model/payment_freezed.dart';
+import '../../data/model/payment_promo.dart';
+import '../../data/model/payment_raw.dart';
 
 part 'deposit_store.g.dart';
 

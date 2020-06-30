@@ -80,7 +80,7 @@ class _CenterDisplayAccountPasswordState
                   prefixText: localeStr.userPwdFieldTitleNew,
                   titleLetterSpacing: 8,
                   maxInputLength: 20,
-                  errorMsg: localeStr.messageInvalidPassword,
+                  errorMsg: localeStr.messageInvalidPasswordNew,
                   validCondition: (value) =>
                       rangeCheck(value: value.length, min: 8, max: 20),
                 ),

@@ -15,18 +15,17 @@ class RoutePage extends GenericEnum<RouteInfo> {
     title: localeStr.pageTitleHome,
     isFeature: true,
     bottomNavIndex: 0,
+    hideAppbarActions: false,
   ));
 
   static RoutePage login = RoutePage._(RouteInfo(
     route: Routes.loginRoute,
     title: localeStr.pageTitleLogin,
-    hideAppbarActions: true,
   ));
 
   static RoutePage register = RoutePage._(RouteInfo(
     route: Routes.registerRoute,
     title: localeStr.pageTitleRegister,
-    hideAppbarActions: true,
   ));
 
   static RoutePage promo = RoutePage._(RouteInfo(
@@ -34,12 +33,14 @@ class RoutePage extends GenericEnum<RouteInfo> {
     title: localeStr.pageTitlePromo,
     isFeature: true,
     bottomNavIndex: 2,
+    hideAppbarActions: false,
   ));
 
   static RoutePage service = RoutePage._(RouteInfo(
     route: Routes.serviceRoute,
     title: localeStr.pageTitleService,
     bottomNavIndex: 3,
+    hideAppbarActions: false,
   ));
 
   static RoutePage member = RoutePage._(RouteInfo(
@@ -107,14 +108,12 @@ class RoutePage extends GenericEnum<RouteInfo> {
     route: Routes.centerPasswordPage,
     title: localeStr.pageTitleMemberPassword,
     parentRoute: Routes.centerRoute,
-    hideAppbarActions: true,
   ));
 
   static RoutePage centerWeb = RoutePage._(RouteInfo(
     route: Routes.centerWebPage,
     title: localeStr.pageTitleMemberCenter,
     parentRoute: Routes.centerRoute,
-    hideAppbarActions: true,
   ));
 
   static RoutePage transaction = RoutePage._(RouteInfo(
@@ -152,49 +151,55 @@ class RoutePage extends GenericEnum<RouteInfo> {
     route: Routes.moreWebPage,
     title: '',
     parentRoute: Routes.homeRoute,
-    hideAppbarActions: true,
+    showDrawer: true,
   ));
 
   /// side menu route
   static RoutePage downloadArea = RoutePage._(RouteInfo(
     route: Routes.downloadAreaRoute,
     title: localeStr.pageTitleDownload,
-    hideAppbarActions: true,
+    showDrawer: true,
   ));
 
   static RoutePage noticeBoard = RoutePage._(RouteInfo(
     route: Routes.noticeRoute,
     title: localeStr.pageTitleNotice,
-    hideAppbarActions: true,
+    showDrawer: true,
+  ));
+
+  static RoutePage sideWallet = RoutePage._(RouteInfo(
+    route: Routes.walletRoute,
+    title: localeStr.pageTitleMemberWallet,
+    showDrawer: true,
   ));
 
   static RoutePage vipLevel = RoutePage._(RouteInfo(
     route: Routes.levelRoute,
     title: localeStr.pageTitleRank,
-    hideAppbarActions: true,
+    showDrawer: true,
   ));
 
   static RoutePage pointStore = RoutePage._(RouteInfo(
     route: Routes.storeRoute,
     title: localeStr.pageTitleStore,
-    hideAppbarActions: true,
+    showDrawer: true,
   ));
 
   /// test route
   static RoutePage template = RoutePage._(RouteInfo(
-      route: Routes.templateRoute,
-      title: 'Test Mobx',
-      hideAppbarActions: true));
+    route: Routes.templateRoute,
+    title: 'Test Mobx',
+  ));
 
   static RoutePage template2 = RoutePage._(RouteInfo(
-      route: Routes.template2Route,
-      title: 'Test Bloc',
-      hideAppbarActions: true));
+    route: Routes.template2Route,
+    title: 'Test Bloc',
+  ));
 
   static RoutePage testArea = RoutePage._(RouteInfo(
-      route: Routes.testAreaRoute,
-      title: 'Test Widget',
-      hideAppbarActions: true));
+    route: Routes.testAreaRoute,
+    title: 'Test Widget',
+  ));
 }
 
 extension RouterPageInfoExtension on RoutePage {
@@ -216,6 +221,8 @@ extension PagesNameExtension on String {
         return RoutePage.home;
       case Routes.loginRoute:
         return RoutePage.login;
+      case Routes.agentRoute:
+        return RoutePage.agent;
       case Routes.depositRoute:
         return RoutePage.deposit;
       case Routes.promoRoute:

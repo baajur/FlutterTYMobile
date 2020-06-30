@@ -1,9 +1,9 @@
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/form/bankcard_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/models/bankcard_model.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/repository/bankcard_repository.dart';
-import 'package:mobx/mobx.dart';
+
+import '../../data/repository/bankcard_repository.dart';
+import '../../data/form/bankcard_form.dart';
+import '../../data/models/bankcard_model.dart';
 
 part 'bankcard_store.g.dart';
 

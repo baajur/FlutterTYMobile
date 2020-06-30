@@ -6,6 +6,7 @@ import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/dialog_widget.dart';
 import 'package:flutter_ty_mobile/features/user/data/models/event_model.dart';
+import 'package:flutter_ty_mobile/res.dart';
 
 class EventDialogSigned extends StatelessWidget {
   final EventData event;
@@ -17,13 +18,13 @@ class EventDialogSigned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double dialogWidth =
-        (Global.device.width >= 352) ? 320 : Global.device.width - 32;
+        (Global.device.width >= 320) ? 228 : Global.device.width - 92;
     return DialogWidget(
       noBackground: true,
       canClose: false,
       constraints: BoxConstraints(
-        maxHeight: 364,
-        maxWidth: dialogWidth,
+        maxHeight: 316,
+        maxWidth: dialogWidth + 60,
       ),
       children: [
         Container(
@@ -31,7 +32,7 @@ class EventDialogSigned extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(16.0),
           ),
-          margin: const EdgeInsets.only(bottom: 64.0),
+          margin: const EdgeInsets.only(bottom: 64.0, left: 30.0, right: 30.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -104,9 +105,16 @@ class EventDialogSigned extends StatelessWidget {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, bottom: 6.0),
+          child: Image.asset(
+            Res.eventMoneyForeground,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
         Positioned(
           bottom: 0,
-          left: dialogWidth / 2 - 25,
+          left: (dialogWidth + 60) / 2 - 25,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,

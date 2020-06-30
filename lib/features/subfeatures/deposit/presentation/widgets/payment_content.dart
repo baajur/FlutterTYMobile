@@ -55,10 +55,12 @@ class PaymentContentState extends State<PaymentContent> {
         child: CircularProgressIndicator(),
       );
     else
-      return SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 6.0),
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 6.0),
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               typeContent,
               SizedBox(height: 8.0),
