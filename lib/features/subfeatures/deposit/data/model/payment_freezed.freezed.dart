@@ -55,7 +55,7 @@ class _$PaymentFreezedTearOff {
       @JsonKey(name: 'bankaccountno') String bankAccountNo,
       @JsonKey(name: 'bankindex') int bankIndex,
       @JsonKey(fromJson: _strFromJson) String max,
-      String min,
+      @JsonKey(fromJson: _strFromJson) String min,
       String payment,
       String type}) {
     return PaymentDataLocal(
@@ -99,7 +99,7 @@ mixin _$PaymentFreezed {
             @JsonKey(name: 'bankaccountno') String bankAccountNo,
             @JsonKey(name: 'bankindex') int bankIndex,
             @JsonKey(fromJson: _strFromJson) String max,
-            String min,
+            @JsonKey(fromJson: _strFromJson) String min,
             String payment,
             String type),
   });
@@ -122,7 +122,7 @@ mixin _$PaymentFreezed {
         @JsonKey(name: 'bankaccountno') String bankAccountNo,
         @JsonKey(name: 'bankindex') int bankIndex,
         @JsonKey(fromJson: _strFromJson) String max,
-        String min,
+        @JsonKey(fromJson: _strFromJson) String min,
         String payment,
         String type),
     @required Result orElse(),
@@ -361,7 +361,7 @@ class _$PaymentDataOther implements PaymentDataOther {
             @JsonKey(name: 'bankaccountno') String bankAccountNo,
             @JsonKey(name: 'bankindex') int bankIndex,
             @JsonKey(fromJson: _strFromJson) String max,
-            String min,
+            @JsonKey(fromJson: _strFromJson) String min,
             String payment,
             String type),
   }) {
@@ -391,7 +391,7 @@ class _$PaymentDataOther implements PaymentDataOther {
         @JsonKey(name: 'bankaccountno') String bankAccountNo,
         @JsonKey(name: 'bankindex') int bankIndex,
         @JsonKey(fromJson: _strFromJson) String max,
-        String min,
+        @JsonKey(fromJson: _strFromJson) String min,
         String payment,
         String type),
     @required Result orElse(),
@@ -484,7 +484,7 @@ abstract class $PaymentDataLocalCopyWith<$Res>
       @JsonKey(name: 'bankaccountno') String bankAccountNo,
       @JsonKey(name: 'bankindex') int bankIndex,
       @JsonKey(fromJson: _strFromJson) String max,
-      String min,
+      @JsonKey(fromJson: _strFromJson) String min,
       String payment,
       String type});
 }
@@ -532,7 +532,7 @@ class _$PaymentDataLocal implements PaymentDataLocal {
       @JsonKey(name: 'bankaccountno') this.bankAccountNo,
       @JsonKey(name: 'bankindex') this.bankIndex,
       @JsonKey(fromJson: _strFromJson) this.max,
-      this.min,
+      @JsonKey(fromJson: _strFromJson) this.min,
       this.payment,
       this.type});
 
@@ -552,6 +552,7 @@ class _$PaymentDataLocal implements PaymentDataLocal {
   @JsonKey(fromJson: _strFromJson)
   final String max;
   @override
+  @JsonKey(fromJson: _strFromJson)
   final String min;
   @override
   final String payment;
@@ -624,7 +625,7 @@ class _$PaymentDataLocal implements PaymentDataLocal {
             @JsonKey(name: 'bankaccountno') String bankAccountNo,
             @JsonKey(name: 'bankindex') int bankIndex,
             @JsonKey(fromJson: _strFromJson) String max,
-            String min,
+            @JsonKey(fromJson: _strFromJson) String min,
             String payment,
             String type),
   }) {
@@ -654,7 +655,7 @@ class _$PaymentDataLocal implements PaymentDataLocal {
         @JsonKey(name: 'bankaccountno') String bankAccountNo,
         @JsonKey(name: 'bankindex') int bankIndex,
         @JsonKey(fromJson: _strFromJson) String max,
-        String min,
+        @JsonKey(fromJson: _strFromJson) String min,
         String payment,
         String type),
     @required Result orElse(),
@@ -704,7 +705,7 @@ abstract class PaymentDataLocal implements PaymentFreezed {
       @JsonKey(name: 'bankaccountno') String bankAccountNo,
       @JsonKey(name: 'bankindex') int bankIndex,
       @JsonKey(fromJson: _strFromJson) String max,
-      String min,
+      @JsonKey(fromJson: _strFromJson) String min,
       String payment,
       String type}) = _$PaymentDataLocal;
 
@@ -720,6 +721,7 @@ abstract class PaymentDataLocal implements PaymentFreezed {
   int get bankIndex;
   @JsonKey(fromJson: _strFromJson)
   String get max;
+  @JsonKey(fromJson: _strFromJson)
   String get min;
   String get payment;
   @override

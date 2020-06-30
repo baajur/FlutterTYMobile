@@ -383,6 +383,16 @@ class S {
     );
   }
 
+  /// `Press again to exit APP`
+  String get exitAppHint {
+    return Intl.message(
+      'Press again to exit APP',
+      name: 'exitAppHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Menu`
   String get btnMenu {
     return Intl.message(

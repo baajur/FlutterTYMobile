@@ -16,7 +16,7 @@ import 'package:flutter_ty_mobile/features/subfeatures/deposit/presentation/depo
 import 'package:flutter_ty_mobile/template/mobx/presentation/template_route.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dart';
 
-class Router {
+abstract class Routes {
   static const homeRoute = '/';
   static const loginRoute = '/login-route';
   static const serviceRoute = '/service-route';
@@ -26,72 +26,81 @@ class Router {
   static const depositWebRoute = '/deposit-web-route';
   static const templateRoute = '/template-route';
   static const template2Route = '/template2-route';
-  static final navigator = ExtendedNavigator();
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+}
+
+class Router extends RouterBase {
+  //This will probably be removed in future versions
+  //you should call ExtendedNavigator.ofRouter<Router>() directly
+  static ExtendedNavigatorState get navigator =>
+      ExtendedNavigator.ofRouter<Router>();
+
+  @override
+  Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
-      case Router.homeRoute:
-        if (hasInvalidArgs<Key>(args)) {
-          return misTypedArgsRoute<Key>(args);
+      case Routes.homeRoute:
+        if (hasInvalidArgs<HomeRouteArguments>(args)) {
+          return misTypedArgsRoute<HomeRouteArguments>(args);
         }
-        final typedArgs = args as Key;
+        final typedArgs = args as HomeRouteArguments ?? HomeRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => HomeRoute(key: typedArgs),
+          builder: (_) => HomeRoute(key: typedArgs.key),
           settings: settings,
         );
-      case Router.loginRoute:
+      case Routes.loginRoute:
         return MaterialPageRoute<dynamic>(
           builder: (_) => LoginRoute(),
           settings: settings,
         );
-      case Router.serviceRoute:
-        if (hasInvalidArgs<String>(args, isRequired: true)) {
-          return misTypedArgsRoute<String>(args);
+      case Routes.serviceRoute:
+        if (hasInvalidArgs<WebRouteArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<WebRouteArguments>(args);
         }
-        final typedArgs = args as String;
+        final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => WebRoute(startUrl: typedArgs),
+          builder: (_) => WebRoute(startUrl: typedArgs.startUrl),
           settings: settings,
         );
-      case Router.memberRoute:
-        if (hasInvalidArgs<Key>(args)) {
-          return misTypedArgsRoute<Key>(args);
+      case Routes.memberRoute:
+        if (hasInvalidArgs<MemberRouteArguments>(args)) {
+          return misTypedArgsRoute<MemberRouteArguments>(args);
         }
-        final typedArgs = args as Key;
+        final typedArgs =
+            args as MemberRouteArguments ?? MemberRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => MemberRoute(key: typedArgs),
+          builder: (_) => MemberRoute(key: typedArgs.key),
           settings: settings,
         );
-      case Router.promoRoute:
-        if (hasInvalidArgs<int>(args)) {
-          return misTypedArgsRoute<int>(args);
+      case Routes.promoRoute:
+        if (hasInvalidArgs<PromoRouteArguments>(args)) {
+          return misTypedArgsRoute<PromoRouteArguments>(args);
         }
-        final typedArgs = args as int ?? -1;
+        final typedArgs = args as PromoRouteArguments ?? PromoRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => PromoRoute(openPromoId: typedArgs),
+          builder: (_) => PromoRoute(openPromoId: typedArgs.openPromoId),
           settings: settings,
         );
-      case Router.depositRoute:
+      case Routes.depositRoute:
         return MaterialPageRoute<dynamic>(
           builder: (_) => DepositRoute(),
           settings: settings,
         );
-      case Router.depositWebRoute:
-        if (hasInvalidArgs<String>(args, isRequired: true)) {
-          return misTypedArgsRoute<String>(args);
+      case Routes.depositWebRoute:
+        if (hasInvalidArgs<WebRouteArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<WebRouteArguments>(args);
         }
-        final typedArgs = args as String;
+        final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => WebRoute(startUrl: typedArgs),
+          builder: (_) => WebRoute(startUrl: typedArgs.startUrl),
           settings: settings,
         );
-      case Router.templateRoute:
+      case Routes.templateRoute:
         return MaterialPageRoute<dynamic>(
           builder: (_) => TemplateRoute(),
           settings: settings,
           fullscreenDialog: true,
         );
-      case Router.template2Route:
+      case Routes.template2Route:
         return MaterialPageRoute<dynamic>(
           builder: (_) => Template2Route(),
           settings: settings,
@@ -101,4 +110,32 @@ class Router {
         return unknownRoutePage(settings.name);
     }
   }
+}
+
+//**************************************************************************
+// Arguments holder classes
+//***************************************************************************
+
+//HomeRoute arguments holder class
+class HomeRouteArguments {
+  final Key key;
+  HomeRouteArguments({this.key});
+}
+
+//WebRoute arguments holder class
+class WebRouteArguments {
+  final String startUrl;
+  WebRouteArguments({@required this.startUrl});
+}
+
+//MemberRoute arguments holder class
+class MemberRouteArguments {
+  final Key key;
+  MemberRouteArguments({this.key});
+}
+
+//PromoRoute arguments holder class
+class PromoRouteArguments {
+  final int openPromoId;
+  PromoRouteArguments({this.openPromoId = -1});
 }

@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart' show BuildContext;
 import 'package:flutter_ty_mobile/generated/l10n.dart';
+import 'package:flutter_ty_mobile/mylogger.dart';
 
 import '../../injection_container.dart' show sl;
 
-S get localeStr => sl.get<LocalStrings>().res;
+S get localeStr {
+  try {
+    return sl.get<LocalStrings>()?.res;
+  } catch (e) {
+    MyLogger.error(msg: 'Localize File not initialized', tag: 'LocalStrings');
+    return null;
+  }
+}
 
 /// Class for access I10n Localize String without context
 /// Using flutter_intl plugin to auto generate I10n.dart file, which will generate a [S] class.

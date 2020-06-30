@@ -281,6 +281,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "depositPaymentTitleTutorial" : MessageLookupByLibrary.simpleMessage("Tutorial"),
     "depositPaymentTitleUnion" : MessageLookupByLibrary.simpleMessage("UnionPay"),
     "depositPaymentTitleWechat" : MessageLookupByLibrary.simpleMessage("WeChat Pay"),
+    "exitAppHint" : MessageLookupByLibrary.simpleMessage("Press again to exit APP"),
     "flowHeaderTextAmount" : MessageLookupByLibrary.simpleMessage("Amount"),
     "flowHeaderTextCode" : MessageLookupByLibrary.simpleMessage("Transaction Code"),
     "flowHeaderTextCurrent" : MessageLookupByLibrary.simpleMessage("Current Stake"),

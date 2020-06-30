@@ -11,7 +11,6 @@
   "@pageTitleHome": {
     "type": "text"
   },
-
   "pageTitleTutorial": "新手教学",
   "@pageTitleTutorial": {
     "type": "text"
@@ -147,6 +146,10 @@
   },
   "workInProgress": "功能即将上线!",
   "@workInProgress": {
+    "type": "text"
+  },
+  "exitAppHint": "再按一次关闭APP",
+  "@exitAppHint": {
     "type": "text"
   },
   "btnMenu": "选单",

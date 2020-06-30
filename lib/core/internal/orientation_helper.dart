@@ -4,7 +4,13 @@ import 'package:rxdart/rxdart.dart';
 
 class OrientationHelper {
   static Future<void> setEnabledSystemUIOverlays() {
+    print('Restore System UI');
     return OrientationPlugin.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  }
+
+  static Future<void> setDisabledSystemUIOverlays() {
+    print('Hide System UI');
+    return OrientationPlugin.setEnabledSystemUIOverlays([]);
   }
 
   static Future<void> setPreferredOrientations() {

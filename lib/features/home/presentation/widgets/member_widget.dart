@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
 import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart'
     show LoginStatus;
+import 'package:flutter_ty_mobile/features/users/presentation/login_dialog.dart';
 
 import '../../../resource_export.dart';
 import '../../../route_page_export.dart';
@@ -33,6 +34,7 @@ class MemberWidgetState extends State<MemberWidget> {
   void initState() {
     _areaHeight = Global.device.height / 10.5;
     _userData = getRouteUserStreams.lastUser;
+    print('updating member area height: $_areaHeight');
     super.initState();
   }
 
@@ -105,7 +107,10 @@ class MemberWidgetState extends State<MemberWidget> {
   Widget _buildMemberArea() {
     return Row(
       children: <Widget>[
-        _buildLeftContent(),
+        Padding(
+          padding: const EdgeInsets.only(left: 6.0),
+          child: _buildLeftContent(),
+        ),
         VerticalDivider(
           thickness: 2.0,
           color: Themes.defaultAccentColor,
@@ -116,114 +121,127 @@ class MemberWidgetState extends State<MemberWidget> {
   }
 
   Widget _buildLeftContent() {
-    return Container(
-      padding: EdgeInsets.only(left: 10.0, right: 4.0),
-      child: (_userData.loggedIn)
-          ? Padding(
-              /// if logged in, show member info
-              padding: EdgeInsets.only(left: 4.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minWidth: _areaHeight * 0.9,
-                          maxWidth: _areaHeight * 1.5,
-                        ),
-                        child: Text(
-                          _userData.currentUser.account,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: FontSize.NORMAL.value,
-                            color: Themes.defaultAccentColor,
-                          ),
-                        ),
+    if (_userData.loggedIn == false) {
+      return Center(
+        child: RaisedButton(
+          /// if not logged in, show a login button
+          child: Text(
+            localeStr.pageTitleLogin2,
+            style: TextStyle(
+              color: Themes.defaultAccentColor,
+              fontSize: FontSize.NORMAL.value,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Themes.defaultAccentColor),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          color: Themes.defaultAppbarColor,
+          onPressed: () => showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (context) => new LoginDialog(),
+          ),
+        ),
+      );
+    } else {
+      double textSize = (_userData.currentUser.account.length > 10)
+          ? FontSize.NORMAL.value - 1
+          : FontSize.NORMAL.value;
+      return Container(
+        /// if logged in, show member info
+        padding: EdgeInsets.only(left: 4.0),
+        constraints: BoxConstraints(
+          minWidth: FontSize.NORMAL.value * 6,
+          maxWidth: FontSize.NORMAL.value * 9.5,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Center(
+              child: RichText(
+                overflow: TextOverflow.visible,
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '${_userData.currentUser.account}\r',
+                      style: TextStyle(
+                        color: Themes.defaultAccentColor,
+                        fontSize: textSize,
                       ),
-                      Text(localeStr.homeHintWelcome,
-                          style: TextStyle(fontSize: FontSize.NORMAL.value)),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        localeStr.homeHintMemberCreditLeft,
-                        style: TextStyle(fontSize: FontSize.NORMAL.value),
-                      ),
-                      Text(
-                        _userData.currentUser.credit
-                            .trimValue(floorIfInt: true, creditSign: true),
-                        overflow: TextOverflow.visible,
-                        style: TextStyle(
-                          fontSize: FontSize.NORMAL.value,
-                          color: Themes.defaultAccentColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          : RaisedButton(
-              /// if not logged in, show a login button
-              child: Text(
-                localeStr.pageTitleLogin2,
-                style: TextStyle(
-                  color: Themes.defaultAccentColor,
-                  fontSize: FontSize.NORMAL.value,
+                    ),
+                    TextSpan(
+                      text: localeStr.homeHintWelcome,
+                      style: TextStyle(fontSize: textSize),
+                    ),
+                  ],
                 ),
               ),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Themes.defaultAccentColor),
-                borderRadius: BorderRadius.circular(4.0),
-              ),
-              color: Themes.defaultAppbarColor,
-              onPressed: () => RouterNavigate.navigateToPage(RoutePage.login),
             ),
-    );
+            Center(
+              child: RichText(
+                overflow: TextOverflow.visible,
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(text: localeStr.homeHintMemberCreditLeft),
+                    TextSpan(
+                      text: _userData.currentUser.credit
+                          .trimValue(floorIfInt: true, creditSign: true),
+                      style: TextStyle(
+                        color: Themes.defaultAccentColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   Widget _buildRightContent() {
     return Expanded(
       child: Container(
         alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 6.0, bottom: 2.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              _createIconButton(
-                Res.homeMemberAreaIconDeposit,
-                localeStr.pageTitleDeposit,
-                () {
-                  (_userData.loggedIn)
-                      ? RouterNavigate.navigateToPage(RoutePage.deposit)
-                      : RouterNavigate.navigateToPage(RoutePage.login);
-                },
-              ),
-              _createIconButton(
-                Res.homeMemberAreaIconWithdraw,
-                localeStr.pageTitleMemberWithdraw,
-                () => FLToast.showInfo(text: localeStr.workInProgress),
-              ),
-              _createIconButton(
-                Res.homeMemberAreaIconTransfer,
-                localeStr.pageTitleMemberTransfer,
-                () => FLToast.showInfo(text: localeStr.workInProgress),
-              ),
-              _createIconButton(
-                Res.homeMemberAreaIconVip,
-                'VIP',
-                () => FLToast.showInfo(text: localeStr.workInProgress),
-              ),
-            ],
-          ),
+        padding: const EdgeInsets.only(top: 6.0, bottom: 2.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            _createIconButton(
+              Res.homeMemberAreaIconDeposit,
+              localeStr.pageTitleDeposit,
+              () {
+                (_userData.loggedIn)
+                    ? RouterNavigate.navigateToPage(RoutePage.deposit)
+                    : FLToast.showInfo(
+                        text: localeStr.messageErrorNotLogin,
+                        position: FLToastPosition.center,
+                        showDuration: ToastDuration.DEFAULT.value);
+              },
+            ),
+            _createIconButton(
+              Res.homeMemberAreaIconWithdraw,
+              localeStr.pageTitleMemberWithdraw,
+              () => FLToast.showInfo(text: localeStr.workInProgress),
+            ),
+            _createIconButton(
+              Res.homeMemberAreaIconTransfer,
+              localeStr.pageTitleMemberTransfer,
+              () => FLToast.showInfo(text: localeStr.workInProgress),
+            ),
+            _createIconButton(
+              Res.homeMemberAreaIconVip,
+              'VIP',
+              () => FLToast.showInfo(text: localeStr.workInProgress),
+            ),
+          ],
         ),
       ),
     );
@@ -237,14 +255,15 @@ class MemberWidgetState extends State<MemberWidget> {
         children: <Widget>[
           ConstrainedBox(
             constraints:
-                BoxConstraints.tightFor(height: (_areaHeight > 70) ? 30 : 24),
+                BoxConstraints.tightFor(height: (_areaHeight > 70) ? 28 : 24),
             child: networkImageBuilder(urlIconName),
           ),
           Text(
             label,
             style: TextStyle(
-                color: Themes.defaultTextColor,
-                fontSize: FontSize.NORMAL.value),
+              color: Themes.defaultTextColor,
+              fontSize: FontSize.NORMAL.value,
+            ),
           ),
         ],
       ),

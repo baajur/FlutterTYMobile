@@ -15,7 +15,7 @@ class _$RouteInfoTearOff {
   _RouteInfo call(
       {@required String route,
       @required String title,
-      String parentRoute = Router.homeRoute,
+      String parentRoute = Routes.homeRoute,
       bool isFeature = false,
       bool hideAppbarActions = false,
       int bottomNavIndex = -1}) {
@@ -139,7 +139,7 @@ class _$_RouteInfo implements _RouteInfo {
   const _$_RouteInfo(
       {@required this.route,
       @required this.title,
-      this.parentRoute = Router.homeRoute,
+      this.parentRoute = Routes.homeRoute,
       this.isFeature = false,
       this.hideAppbarActions = false,
       this.bottomNavIndex = -1})
@@ -154,7 +154,7 @@ class _$_RouteInfo implements _RouteInfo {
   final String route;
   @override
   final String title;
-  @JsonKey(defaultValue: Router.homeRoute)
+  @JsonKey(defaultValue: Routes.homeRoute)
   @override
   final String parentRoute;
   @JsonKey(defaultValue: false)

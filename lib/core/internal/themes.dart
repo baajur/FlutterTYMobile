@@ -32,7 +32,7 @@ class Themes {
   static final buttonDisabledColor = Color(0xffc9c9c9);
   static final buttonDisabledTextColor = Color(0xff575757);
 
-  static final fieldHeight = 51.6;
+  static final fieldHeight = 53.6;
   static final fieldIconSize = 24.0;
   static final fieldInputBgColor = Color(0xff4e4e4e);
   static final fieldInputHintColor = Color(0xffececec);

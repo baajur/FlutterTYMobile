@@ -44,7 +44,7 @@ _$PaymentDataLocal _$_$PaymentDataLocalFromJson(Map<String, dynamic> json) {
     bankAccountNo: json['bankaccountno'] as String,
     bankIndex: json['bankindex'] as int,
     max: _strFromJson(json['max']),
-    min: json['min'] as String,
+    min: _strFromJson(json['min']),
     payment: json['payment'] as String,
     type: json['type'] as String,
   );

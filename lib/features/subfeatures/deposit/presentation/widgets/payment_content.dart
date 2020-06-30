@@ -31,20 +31,19 @@ class PaymentContentState extends State<PaymentContent> {
     List<PaymentPromoData> promos,
   }) {
     if (paymentType != type) {
-      setState(() {
-        typeContent = (type == PaymentEnum.bank)
-            ? PaymentContentLocal(
-                dataList: data,
-                promoList: promos,
-                depositFuncCall: widget.depositCall,
-              )
-            : PaymentContentOnline(
-                dataList: data,
-                depositFuncCall: widget.depositCall,
-                tutorial: type.tutorial,
-              );
-        noticeContent = PaymentContentNotice(type.typeKey);
-      });
+      typeContent = (type == PaymentEnum.bank)
+          ? new PaymentContentLocal(
+              dataList: data,
+              promoList: promos,
+              depositFuncCall: widget.depositCall,
+            )
+          : new PaymentContentOnline(
+              dataList: data,
+              depositFuncCall: widget.depositCall,
+              tutorial: type.tutorial,
+            );
+      noticeContent = PaymentContentNotice(type.typeKey);
+      setState(() {});
       paymentType = type;
     }
   }
