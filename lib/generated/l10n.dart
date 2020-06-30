@@ -8,18 +8,24 @@ import 'intl/messages_all.dart';
 // Made by Localizely
 // **************************************************************************
 
+// ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
+
 class S {
-  S(this.localeName);
+  S();
+  
+  static S current;
   
   static const AppLocalizationDelegate delegate =
     AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final String name = locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
-    final String localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      return S(localeName);
+      S.current = S();
+      
+      return S.current;
     });
   } 
 
@@ -27,8 +33,7 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  final String localeName;
-
+  /// `TY International V1`
   String get title {
     return Intl.message(
       'TY International V1',
@@ -38,6 +43,7 @@ class S {
     );
   }
 
+  /// `Home`
   String get pageTitleHome {
     return Intl.message(
       'Home',
@@ -47,6 +53,7 @@ class S {
     );
   }
 
+  /// `Tutorial`
   String get pageTitleTutorial {
     return Intl.message(
       'Tutorial',
@@ -56,6 +63,7 @@ class S {
     );
   }
 
+  /// `Announcement`
   String get pageTitleMarquee {
     return Intl.message(
       'Announcement',
@@ -65,6 +73,7 @@ class S {
     );
   }
 
+  /// `Line Navigation`
   String get pageTitleRouter {
     return Intl.message(
       'Line Navigation',
@@ -74,6 +83,7 @@ class S {
     );
   }
 
+  /// `Vip Tier`
   String get pageTitleRank {
     return Intl.message(
       'Vip Tier',
@@ -83,6 +93,7 @@ class S {
     );
   }
 
+  /// `Store`
   String get pageTitleStore {
     return Intl.message(
       'Store',
@@ -92,6 +103,7 @@ class S {
     );
   }
 
+  /// `Sign in`
   String get pageTitleSign {
     return Intl.message(
       'Sign in',
@@ -101,6 +113,7 @@ class S {
     );
   }
 
+  /// `Lucky Roulette`
   String get pageTitleRoller {
     return Intl.message(
       'Lucky Roulette',
@@ -110,6 +123,7 @@ class S {
     );
   }
 
+  /// `Recharge`
   String get pageTitleDeposit {
     return Intl.message(
       'Recharge',
@@ -119,6 +133,7 @@ class S {
     );
   }
 
+  /// `Offer`
   String get pageTitlePromo {
     return Intl.message(
       'Offer',
@@ -128,6 +143,7 @@ class S {
     );
   }
 
+  /// `Support`
   String get pageTitleService {
     return Intl.message(
       'Support',
@@ -137,6 +153,7 @@ class S {
     );
   }
 
+  /// `My`
   String get pageTitleMember {
     return Intl.message(
       'My',
@@ -146,6 +163,7 @@ class S {
     );
   }
 
+  /// `Login`
   String get pageTitleLogin {
     return Intl.message(
       'Login',
@@ -155,6 +173,7 @@ class S {
     );
   }
 
+  /// `Member Login`
   String get pageTitleLogin2 {
     return Intl.message(
       'Member Login',
@@ -164,6 +183,7 @@ class S {
     );
   }
 
+  /// `Register`
   String get pageTitleRegister {
     return Intl.message(
       'Register',
@@ -173,6 +193,7 @@ class S {
     );
   }
 
+  /// `Register Free`
   String get pageTitleRegister2 {
     return Intl.message(
       'Register Free',
@@ -182,6 +203,7 @@ class S {
     );
   }
 
+  /// `Transfer`
   String get pageTitleMemberTransfer {
     return Intl.message(
       'Transfer',
@@ -191,6 +213,7 @@ class S {
     );
   }
 
+  /// `Bank Card`
   String get pageTitleMemberCard {
     return Intl.message(
       'Bank Card',
@@ -200,6 +223,7 @@ class S {
     );
   }
 
+  /// `Withdraw`
   String get pageTitleMemberWithdraw {
     return Intl.message(
       'Withdraw',
@@ -209,6 +233,7 @@ class S {
     );
   }
 
+  /// `Platform Balance`
   String get pageTitleMemberBalance {
     return Intl.message(
       'Platform Balance',
@@ -218,6 +243,7 @@ class S {
     );
   }
 
+  /// `No Wallet`
   String get pageTitleMemberWallet {
     return Intl.message(
       'No Wallet',
@@ -227,6 +253,7 @@ class S {
     );
   }
 
+  /// `Site Message`
   String get pageTitleMemberMessage {
     return Intl.message(
       'Site Message',
@@ -236,6 +263,7 @@ class S {
     );
   }
 
+  /// `Account Center`
   String get pageTitleMemberAccount {
     return Intl.message(
       'Account Center',
@@ -245,6 +273,7 @@ class S {
     );
   }
 
+  /// `Change Password`
   String get pageTitleMemberPassword {
     return Intl.message(
       'Change Password',
@@ -254,6 +283,7 @@ class S {
     );
   }
 
+  /// `Transfer Record`
   String get pageTitleMemberTransaction {
     return Intl.message(
       'Transfer Record',
@@ -263,6 +293,7 @@ class S {
     );
   }
 
+  /// `Bet History`
   String get pageTitleMemberBets {
     return Intl.message(
       'Bet History',
@@ -272,6 +303,7 @@ class S {
     );
   }
 
+  /// `Transaction History`
   String get pageTitleMemberDeals {
     return Intl.message(
       'Transaction History',
@@ -281,6 +313,7 @@ class S {
     );
   }
 
+  /// `Flowing Record`
   String get pageTitleMemberFlow {
     return Intl.message(
       'Flowing Record',
@@ -290,6 +323,7 @@ class S {
     );
   }
 
+  /// `Agent`
   String get pageTitleMemberAgent {
     return Intl.message(
       'Agent',
@@ -299,7 +333,8 @@ class S {
     );
   }
 
-  String toolBarMemberCredit(dynamic value) {
+  /// `￥ {value}`
+  String toolBarMemberCredit(Object value) {
     return Intl.message(
       '￥ $value',
       name: 'toolBarMemberCredit',
@@ -308,6 +343,7 @@ class S {
     );
   }
 
+  /// `Change Skin:`
   String get sideMenuThemeSwitch {
     return Intl.message(
       'Change Skin:',
@@ -317,6 +353,7 @@ class S {
     );
   }
 
+  /// `deep`
   String get sideMenuThemeSwitchDark {
     return Intl.message(
       'deep',
@@ -326,6 +363,7 @@ class S {
     );
   }
 
+  /// `浅`
   String get sideMenuThemeSwitchLight {
     return Intl.message(
       '浅',
@@ -335,6 +373,7 @@ class S {
     );
   }
 
+  /// `Features coming soon!`
   String get workInProgress {
     return Intl.message(
       'Features coming soon!',
@@ -344,6 +383,7 @@ class S {
     );
   }
 
+  /// `Menu`
   String get btnMenu {
     return Intl.message(
       'Menu',
@@ -353,6 +393,7 @@ class S {
     );
   }
 
+  /// `Back`
   String get btnBack {
     return Intl.message(
       'Back',
@@ -362,6 +403,7 @@ class S {
     );
   }
 
+  /// `Refresh`
   String get btnRefresh {
     return Intl.message(
       'Refresh',
@@ -371,6 +413,17 @@ class S {
     );
   }
 
+  /// `Confirm`
+  String get btnConfirm {
+    return Intl.message(
+      'Confirm',
+      name: 'btnConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
   String get btnLogin {
     return Intl.message(
       'Login',
@@ -380,6 +433,7 @@ class S {
     );
   }
 
+  /// `Register`
   String get btnRegister {
     return Intl.message(
       'Register',
@@ -389,6 +443,7 @@ class S {
     );
   }
 
+  /// `Forgot Password`
   String get btnResetPassword {
     return Intl.message(
       'Forgot Password',
@@ -398,6 +453,17 @@ class S {
     );
   }
 
+  /// `Save Login Info`
+  String get btnFastLogin {
+    return Intl.message(
+      'Save Login Info',
+      name: 'btnFastLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
   String get btnSignUp {
     return Intl.message(
       'Sign in',
@@ -407,7 +473,8 @@ class S {
     );
   }
 
-  String btnSignUpTv(dynamic value) {
+  /// `Accumulated sign-in {value} days`
+  String btnSignUpTv(Object value) {
     return Intl.message(
       'Accumulated sign-in $value days',
       name: 'btnSignUpTv',
@@ -416,6 +483,7 @@ class S {
     );
   }
 
+  /// `Signed in`
   String get btnSignUpAlready {
     return Intl.message(
       'Signed in',
@@ -425,6 +493,7 @@ class S {
     );
   }
 
+  /// `Sign in successfully !!`
   String get btnSignUpSuccess {
     return Intl.message(
       'Sign in successfully !!',
@@ -434,6 +503,7 @@ class S {
     );
   }
 
+  /// `Sign in failed !!`
   String get btnSignUpFailed {
     return Intl.message(
       'Sign in failed !!',
@@ -443,6 +513,7 @@ class S {
     );
   }
 
+  /// `General Message`
   String get btnNoticeGeneral {
     return Intl.message(
       'General Message',
@@ -452,6 +523,7 @@ class S {
     );
   }
 
+  /// `Maintenance Notification`
   String get btnNoticeMaintenance {
     return Intl.message(
       'Maintenance Notification',
@@ -461,6 +533,7 @@ class S {
     );
   }
 
+  /// `Please login first`
   String get hintActionLogin {
     return Intl.message(
       'Please login first',
@@ -470,6 +543,7 @@ class S {
     );
   }
 
+  /// `Please enter your member info`
   String get hintTitleLogin {
     return Intl.message(
       'Please enter your member info',
@@ -479,6 +553,7 @@ class S {
     );
   }
 
+  /// `Welcome！ Please login first`
   String get homeHintWelcomeLogin {
     return Intl.message(
       'Welcome！ Please login first',
@@ -488,6 +563,7 @@ class S {
     );
   }
 
+  /// `Welcome！`
   String get homeHintWelcome {
     return Intl.message(
       'Welcome！',
@@ -497,7 +573,8 @@ class S {
     );
   }
 
-  String homeHintWelcomeMember(dynamic name) {
+  /// `Hello, {name}！`
+  String homeHintWelcomeMember(Object name) {
     return Intl.message(
       'Hello, $name！',
       name: 'homeHintWelcomeMember',
@@ -506,6 +583,7 @@ class S {
     );
   }
 
+  /// `Credit`
   String get homeHintMemberCreditLeft {
     return Intl.message(
       'Credit',
@@ -515,6 +593,7 @@ class S {
     );
   }
 
+  /// `UserName *`
   String get hintAccount {
     return Intl.message(
       'UserName *',
@@ -524,6 +603,7 @@ class S {
     );
   }
 
+  /// `Password *`
   String get hintAccountPassword {
     return Intl.message(
       'Password *',
@@ -533,6 +613,7 @@ class S {
     );
   }
 
+  /// `Enter username`
   String get hintName {
     return Intl.message(
       'Enter username',
@@ -542,6 +623,7 @@ class S {
     );
   }
 
+  /// `Enter Email`
   String get hintEmail {
     return Intl.message(
       'Enter Email',
@@ -551,6 +633,7 @@ class S {
     );
   }
 
+  /// `Enter password`
   String get hintPassword {
     return Intl.message(
       'Enter password',
@@ -560,6 +643,7 @@ class S {
     );
   }
 
+  /// `Enter the password again`
   String get hintConfirmed {
     return Intl.message(
       'Enter the password again',
@@ -569,6 +653,7 @@ class S {
     );
   }
 
+  /// `Error`
   String get alertTitleError {
     return Intl.message(
       'Error',
@@ -578,6 +663,7 @@ class S {
     );
   }
 
+  /// `Warning`
   String get alertTitleWarning {
     return Intl.message(
       'Warning',
@@ -587,6 +673,7 @@ class S {
     );
   }
 
+  /// `Hint`
   String get alertTitleHint {
     return Intl.message(
       'Hint',
@@ -596,6 +683,7 @@ class S {
     );
   }
 
+  /// `Yes`
   String get alertButtonYes {
     return Intl.message(
       'Yes',
@@ -605,6 +693,7 @@ class S {
     );
   }
 
+  /// `No`
   String get alertButtonNo {
     return Intl.message(
       'No',
@@ -614,6 +703,7 @@ class S {
     );
   }
 
+  /// `Confirm`
   String get alertButtonOk {
     return Intl.message(
       'Confirm',
@@ -623,6 +713,7 @@ class S {
     );
   }
 
+  /// `Cancel`
   String get alertButtonCancel {
     return Intl.message(
       'Cancel',
@@ -632,6 +723,7 @@ class S {
     );
   }
 
+  /// `Close`
   String get alertButtonClose {
     return Intl.message(
       'Close',
@@ -641,6 +733,7 @@ class S {
     );
   }
 
+  /// `Language changed, clearing data, restarting later`
   String get messageClearDataRestart {
     return Intl.message(
       'Language changed, clearing data, restarting later',
@@ -650,7 +743,8 @@ class S {
     );
   }
 
-  String messageWelcomeUser(dynamic name) {
+  /// `Welcome, {name}`
+  String messageWelcomeUser(Object name) {
     return Intl.message(
       'Welcome, $name',
       name: 'messageWelcomeUser',
@@ -659,6 +753,7 @@ class S {
     );
   }
 
+  /// `Welcome, please login / register`
   String get messageWelcome {
     return Intl.message(
       'Welcome, please login / register',
@@ -668,6 +763,7 @@ class S {
     );
   }
 
+  /// `Registration failed`
   String get messageRegisterFailed {
     return Intl.message(
       'Registration failed',
@@ -677,6 +773,7 @@ class S {
     );
   }
 
+  /// `Login Failed`
   String get messageLoginFailed {
     return Intl.message(
       'Login Failed',
@@ -686,7 +783,18 @@ class S {
     );
   }
 
-  String messageLogout(dynamic name) {
+  /// `Invalid Action`
+  String get messageActionFailed {
+    return Intl.message(
+      'Invalid Action',
+      name: 'messageActionFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name}, please log in again`
+  String messageLogout(Object name) {
     return Intl.message(
       '$name, please log in again',
       name: 'messageLogout',
@@ -695,6 +803,7 @@ class S {
     );
   }
 
+  /// `No activity currently`
   String get messageNoEvent {
     return Intl.message(
       'No activity currently',
@@ -704,7 +813,8 @@ class S {
     );
   }
 
-  String messageTaskSuccess(dynamic msg) {
+  /// `Success: {msg}`
+  String messageTaskSuccess(Object msg) {
     return Intl.message(
       'Success: $msg',
       name: 'messageTaskSuccess',
@@ -713,7 +823,8 @@ class S {
     );
   }
 
-  String messageTaskCanceled(dynamic msg) {
+  /// `Cancel: {msg}`
+  String messageTaskCanceled(Object msg) {
     return Intl.message(
       'Cancel: $msg',
       name: 'messageTaskCanceled',
@@ -722,6 +833,7 @@ class S {
     );
   }
 
+  /// `Malformed name`
   String get messageInvalidName {
     return Intl.message(
       'Malformed name',
@@ -731,6 +843,7 @@ class S {
     );
   }
 
+  /// `Mailbox is malformed`
   String get messageInvalidEmail {
     return Intl.message(
       'Mailbox is malformed',
@@ -740,6 +853,7 @@ class S {
     );
   }
 
+  /// `Wrong phone format`
   String get messageInvalidPhone {
     return Intl.message(
       'Wrong phone format',
@@ -749,6 +863,7 @@ class S {
     );
   }
 
+  /// `Please enter a verification code`
   String get messageInvalidVerify {
     return Intl.message(
       'Please enter a verification code',
@@ -758,7 +873,8 @@ class S {
     );
   }
 
-  String messageInvalidPasswordArg(dynamic num) {
+  /// `Password must be at least {num} words`
+  String messageInvalidPasswordArg(Object num) {
     return Intl.message(
       'Password must be at least $num words',
       name: 'messageInvalidPasswordArg',
@@ -767,6 +883,7 @@ class S {
     );
   }
 
+  /// `Username should be 6 ~ 12 words`
   String get messageInvalidAccount {
     return Intl.message(
       'Username should be 6 ~ 12 words',
@@ -776,6 +893,7 @@ class S {
     );
   }
 
+  /// `Password should be 6 ~ 20 words`
   String get messageInvalidPassword {
     return Intl.message(
       'Password should be 6 ~ 20 words',
@@ -785,6 +903,7 @@ class S {
     );
   }
 
+  /// `Password does not match`
   String get messageInvalidConfirmPassword {
     return Intl.message(
       'Password does not match',
@@ -794,33 +913,27 @@ class S {
     );
   }
 
-  String messageInvalidDepositAmount(dynamic num) {
+  /// `Amount Error`
+  String get messageInvalidDepositAmount {
     return Intl.message(
-      'The minimum value is $num',
+      'Amount Error',
       name: 'messageInvalidDepositAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The minimum amount is {num}`
+  String messageInvalidDepositAmountMin(Object num) {
+    return Intl.message(
+      'The minimum amount is $num',
+      name: 'messageInvalidDepositAmountMin',
       desc: '',
       args: [num],
     );
   }
 
-  String messageInvalidDepositAmountRange(dynamic num, dynamic num2) {
-    return Intl.message(
-      'Input range: $num ~ $num2',
-      name: 'messageInvalidDepositAmountRange',
-      desc: '',
-      args: [num, num2],
-    );
-  }
-
-  String messageInvalidDepositAmountRangeStep(dynamic num, dynamic num2, dynamic num3) {
-    return Intl.message(
-      'Input range: $num ~ $num2 (amount is a multiple of $num3)',
-      name: 'messageInvalidDepositAmountRangeStep',
-      desc: '',
-      args: [num, num2, num3],
-    );
-  }
-
+  /// `Incorrect account name`
   String get messageInvalidDepositName {
     return Intl.message(
       'Incorrect account name',
@@ -830,6 +943,7 @@ class S {
     );
   }
 
+  /// `Wrong cardholder name`
   String get messageInvalidCardOwner {
     return Intl.message(
       'Wrong cardholder name',
@@ -839,6 +953,7 @@ class S {
     );
   }
 
+  /// `The card number is 16 ~ 19 characters`
   String get messageInvalidCardNumber {
     return Intl.message(
       'The card number is 16 ~ 19 characters',
@@ -848,6 +963,7 @@ class S {
     );
   }
 
+  /// `The name must be greater than 3 characters`
   String get messageInvalidCardBankPoint {
     return Intl.message(
       'The name must be greater than 3 characters',
@@ -857,6 +973,7 @@ class S {
     );
   }
 
+  /// `Password is 4 ~ 8 words`
   String get messageInvalidWithdrawPassword {
     return Intl.message(
       'Password is 4 ~ 8 words',
@@ -866,6 +983,7 @@ class S {
     );
   }
 
+  /// `You are using a mobile network`
   String get messageWarnUsingCellular {
     return Intl.message(
       'You are using a mobile network',
@@ -875,6 +993,7 @@ class S {
     );
   }
 
+  /// `This service is not available in your network area`
   String get messageWarnNetworkLocation {
     return Intl.message(
       'This service is not available in your network area',
@@ -884,6 +1003,7 @@ class S {
     );
   }
 
+  /// `Please wait while loading the game ...`
   String get messageWarnLoadingGame {
     return Intl.message(
       'Please wait while loading the game ...',
@@ -893,6 +1013,7 @@ class S {
     );
   }
 
+  /// `No data found`
   String get messageWarnNoHistoryData {
     return Intl.message(
       'No data found',
@@ -902,6 +1023,7 @@ class S {
     );
   }
 
+  /// `No offer found`
   String get messageWarnNoPromoData {
     return Intl.message(
       'No offer found',
@@ -911,6 +1033,7 @@ class S {
     );
   }
 
+  /// `No offer information found`
   String get messageWarnNoPromoInfo {
     return Intl.message(
       'No offer information found',
@@ -920,7 +1043,8 @@ class S {
     );
   }
 
-  String messageError(dynamic msg, dynamic msg2) {
+  /// `Error: {msg} ({msg2})`
+  String messageError(Object msg, Object msg2) {
     return Intl.message(
       'Error: $msg ($msg2)',
       name: 'messageError',
@@ -929,7 +1053,8 @@ class S {
     );
   }
 
-  String messageErrorStatus(dynamic msg) {
+  /// `Error: {msg}`
+  String messageErrorStatus(Object msg) {
     return Intl.message(
       'Error: $msg',
       name: 'messageErrorStatus',
@@ -938,6 +1063,7 @@ class S {
     );
   }
 
+  /// `Internal error, please try again later or contact customer service`
   String get messageErrorInternal {
     return Intl.message(
       'Internal error, please try again later or contact customer service',
@@ -947,6 +1073,7 @@ class S {
     );
   }
 
+  /// `Cached file error, please try again later or contact customer service`
   String get messageErrorCachedFile {
     return Intl.message(
       'Cached file error, please try again later or contact customer service',
@@ -956,6 +1083,7 @@ class S {
     );
   }
 
+  /// `User data error`
   String get messageErrorData {
     return Intl.message(
       'User data error',
@@ -965,6 +1093,7 @@ class S {
     );
   }
 
+  /// `Data error, please log in manually`
   String get messageErrorAutoLogin {
     return Intl.message(
       'Data error, please log in manually',
@@ -974,6 +1103,7 @@ class S {
     );
   }
 
+  /// `Please login first`
   String get messageErrorNotLogin {
     return Intl.message(
       'Please login first',
@@ -983,6 +1113,7 @@ class S {
     );
   }
 
+  /// `Please check the network status`
   String get messageErrorNoNetwork {
     return Intl.message(
       'Please check the network status',
@@ -992,6 +1123,7 @@ class S {
     );
   }
 
+  /// `Unable to connect to the server !!`
   String get messageErrorNoServerConnection {
     return Intl.message(
       'Unable to connect to the server !!',
@@ -1001,6 +1133,7 @@ class S {
     );
   }
 
+  /// `Network timed out, please try again later`
   String get messageErrorTimeoutError {
     return Intl.message(
       'Network timed out, please try again later',
@@ -1010,6 +1143,7 @@ class S {
     );
   }
 
+  /// `Server error, please try again later or contact customer service`
   String get messageErrorServerError {
     return Intl.message(
       'Server error, please try again later or contact customer service',
@@ -1019,6 +1153,7 @@ class S {
     );
   }
 
+  /// `An error occurred while loading the game, please try again later`
   String get messageErrorLoadingGame {
     return Intl.message(
       'An error occurred while loading the game, please try again later',
@@ -1028,6 +1163,7 @@ class S {
     );
   }
 
+  /// `Page loading error, please try again later`
   String get messageErrorLoadingPay {
     return Intl.message(
       'Page loading error, please try again later',
@@ -1037,6 +1173,7 @@ class S {
     );
   }
 
+  /// `Please turn on "Save" permissions`
   String get messageErrorNoStoragePermission {
     return Intl.message(
       'Please turn on "Save" permissions',
@@ -1046,6 +1183,7 @@ class S {
     );
   }
 
+  /// `A bank card has been bound`
   String get messageErrorHasCardData {
     return Intl.message(
       'A bank card has been bound',
@@ -1055,7 +1193,8 @@ class S {
     );
   }
 
-  String messageErrorFieldError(dynamic msg) {
+  /// `Please enter {msg}`
+  String messageErrorFieldError(Object msg) {
     return Intl.message(
       'Please enter $msg',
       name: 'messageErrorFieldError',
@@ -1064,6 +1203,7 @@ class S {
     );
   }
 
+  /// `Please bind Cgp wallet first`
   String get messageErrorBindCgp {
     return Intl.message(
       'Please bind Cgp wallet first',
@@ -1073,6 +1213,7 @@ class S {
     );
   }
 
+  /// `Please bind the wallet for buying treasure`
   String get messageErrorBindCpw {
     return Intl.message(
       'Please bind the wallet for buying treasure',
@@ -1082,6 +1223,7 @@ class S {
     );
   }
 
+  /// `Please bind your bank card first!`
   String get messageErrorBindBankcard {
     return Intl.message(
       'Please bind your bank card first!',
@@ -1091,6 +1233,7 @@ class S {
     );
   }
 
+  /// `Copy to clipboard`
   String get messageCopy {
     return Intl.message(
       'Copy to clipboard',
@@ -1100,6 +1243,7 @@ class S {
     );
   }
 
+  /// `Copy failed`
   String get messageCopyError {
     return Intl.message(
       'Copy failed',
@@ -1109,6 +1253,7 @@ class S {
     );
   }
 
+  /// `Please wait while processing the request ...`
   String get messageWait {
     return Intl.message(
       'Please wait while processing the request ...',
@@ -1118,6 +1263,7 @@ class S {
     );
   }
 
+  /// `Don't exit while processing a request`
   String get messageWaitComplete {
     return Intl.message(
       'Don\'t exit while processing a request',
@@ -1127,6 +1273,7 @@ class S {
     );
   }
 
+  /// `Success`
   String get messageSuccess {
     return Intl.message(
       'Success',
@@ -1136,6 +1283,7 @@ class S {
     );
   }
 
+  /// `Change failed, please try again later`
   String get messageFailed {
     return Intl.message(
       'Change failed, please try again later',
@@ -1145,6 +1293,7 @@ class S {
     );
   }
 
+  /// `Old Password:`
   String get userPwdFieldTitleOld {
     return Intl.message(
       'Old Password:',
@@ -1154,6 +1303,7 @@ class S {
     );
   }
 
+  /// `New Password:`
   String get userPwdFieldTitleNew {
     return Intl.message(
       'New Password:',
@@ -1163,6 +1313,7 @@ class S {
     );
   }
 
+  /// `Password Confirmation:`
   String get userPwdFieldTitleConfirm {
     return Intl.message(
       'Password Confirmation:',
@@ -1172,6 +1323,7 @@ class S {
     );
   }
 
+  /// `Enter old password`
   String get userPwdFieldHintOld {
     return Intl.message(
       'Enter old password',
@@ -1181,6 +1333,7 @@ class S {
     );
   }
 
+  /// `Enter new password`
   String get userPwdFieldHintNew {
     return Intl.message(
       'Enter new password',
@@ -1190,6 +1343,7 @@ class S {
     );
   }
 
+  /// `Enter the new password again`
   String get userPwdFieldHintConfirm {
     return Intl.message(
       'Enter the new password again',
@@ -1199,6 +1353,7 @@ class S {
     );
   }
 
+  /// `Change Password`
   String get userPwdButtonTitle {
     return Intl.message(
       'Change Password',
@@ -1208,6 +1363,7 @@ class S {
     );
   }
 
+  /// `Account:`
   String get registerFieldTitleAccount {
     return Intl.message(
       'Account:',
@@ -1217,6 +1373,7 @@ class S {
     );
   }
 
+  /// `Password:`
   String get registerFieldTitlePassword {
     return Intl.message(
       'Password:',
@@ -1226,6 +1383,7 @@ class S {
     );
   }
 
+  /// `Confirm Password:`
   String get registerFieldTitleConfirm {
     return Intl.message(
       'Confirm Password:',
@@ -1235,6 +1393,7 @@ class S {
     );
   }
 
+  /// `Mobile number:`
   String get registerFieldTitlePhone {
     return Intl.message(
       'Mobile number:',
@@ -1244,6 +1403,7 @@ class S {
     );
   }
 
+  /// `Recommended Code:`
   String get registerFieldTitleRecommend {
     return Intl.message(
       'Recommended Code:',
@@ -1253,6 +1413,7 @@ class S {
     );
   }
 
+  /// `Verification Code:`
   String get registerFieldTitleVerify {
     return Intl.message(
       'Verification Code:',
@@ -1262,6 +1423,7 @@ class S {
     );
   }
 
+  /// `Please enter a verification code`
   String get registerFieldHintVerify {
     return Intl.message(
       'Please enter a verification code',
@@ -1271,6 +1433,7 @@ class S {
     );
   }
 
+  /// `Dotmap Refresh`
   String get registerButtonTitleRefresh {
     return Intl.message(
       'Dotmap Refresh',
@@ -1280,6 +1443,7 @@ class S {
     );
   }
 
+  /// `Register`
   String get registerButtonTitleRegister {
     return Intl.message(
       'Register',
@@ -1289,6 +1453,17 @@ class S {
     );
   }
 
+  /// `>>Detail`
+  String get promoDetailText {
+    return Intl.message(
+      '>>Detail',
+      name: 'promoDetailText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
   String get promoCategoryAll {
     return Intl.message(
       'All',
@@ -1298,6 +1473,7 @@ class S {
     );
   }
 
+  /// `Other`
   String get promoCategoryOther {
     return Intl.message(
       'Other',
@@ -1307,6 +1483,7 @@ class S {
     );
   }
 
+  /// `Applicable Platform`
   String get promoDetailPlatform {
     return Intl.message(
       'Applicable Platform',
@@ -1316,6 +1493,7 @@ class S {
     );
   }
 
+  /// `Event Content`
   String get promoDetailContent {
     return Intl.message(
       'Event Content',
@@ -1325,6 +1503,7 @@ class S {
     );
   }
 
+  /// `Application Method`
   String get promoDetailApply {
     return Intl.message(
       'Application Method',
@@ -1334,6 +1513,7 @@ class S {
     );
   }
 
+  /// `Event Details`
   String get promoDetailRules {
     return Intl.message(
       'Event Details',
@@ -1343,6 +1523,7 @@ class S {
     );
   }
 
+  /// `Recharge`
   String get memberGridTitleDeposit {
     return Intl.message(
       'Recharge',
@@ -1352,6 +1533,7 @@ class S {
     );
   }
 
+  /// `Transfer`
   String get memberGridTitleTransfer {
     return Intl.message(
       'Transfer',
@@ -1361,6 +1543,7 @@ class S {
     );
   }
 
+  /// `Bank Card`
   String get memberGridTitleCard {
     return Intl.message(
       'Bank Card',
@@ -1370,6 +1553,7 @@ class S {
     );
   }
 
+  /// `Withdraw`
   String get memberGridTitleWithdraw {
     return Intl.message(
       'Withdraw',
@@ -1379,6 +1563,7 @@ class S {
     );
   }
 
+  /// `Platform balance`
   String get memberGridTitleBalance {
     return Intl.message(
       'Platform balance',
@@ -1388,6 +1573,7 @@ class S {
     );
   }
 
+  /// `Transfer Wallet`
   String get memberGridTitleWallet {
     return Intl.message(
       'Transfer Wallet',
@@ -1397,6 +1583,7 @@ class S {
     );
   }
 
+  /// `Site Message`
   String get memberGridTitleMessage {
     return Intl.message(
       'Site Message',
@@ -1406,6 +1593,7 @@ class S {
     );
   }
 
+  /// `Account Center`
   String get memberGridTitleAccount {
     return Intl.message(
       'Account Center',
@@ -1415,6 +1603,7 @@ class S {
     );
   }
 
+  /// `Transfer Record`
   String get memberGridTitleTransaction {
     return Intl.message(
       'Transfer Record',
@@ -1424,6 +1613,7 @@ class S {
     );
   }
 
+  /// `Bet History`
   String get memberGridTitleBet {
     return Intl.message(
       'Bet History',
@@ -1433,6 +1623,7 @@ class S {
     );
   }
 
+  /// `Transaction History`
   String get memberGridTitleDeal {
     return Intl.message(
       'Transaction History',
@@ -1442,6 +1633,7 @@ class S {
     );
   }
 
+  /// `Flowing Record`
   String get memberGridTitleFlow {
     return Intl.message(
       'Flowing Record',
@@ -1451,6 +1643,7 @@ class S {
     );
   }
 
+  /// `Agent`
   String get memberGridTitleAgent {
     return Intl.message(
       'Agent',
@@ -1460,6 +1653,7 @@ class S {
     );
   }
 
+  /// `Sign Out`
   String get memberGridTitleLogout {
     return Intl.message(
       'Sign Out',
@@ -1469,6 +1663,7 @@ class S {
     );
   }
 
+  /// `Transfer In`
   String get transferViewTitleIn {
     return Intl.message(
       'Transfer In',
@@ -1478,6 +1673,7 @@ class S {
     );
   }
 
+  /// `Amount`
   String get transferViewTitleAmount {
     return Intl.message(
       'Amount',
@@ -1487,6 +1683,7 @@ class S {
     );
   }
 
+  /// `Select Amount`
   String get transferViewTitleOption {
     return Intl.message(
       'Select Amount',
@@ -1496,6 +1693,7 @@ class S {
     );
   }
 
+  /// `All credits`
   String get transferViewTextOptionAll {
     return Intl.message(
       'All credits',
@@ -1505,6 +1703,7 @@ class S {
     );
   }
 
+  /// `Confirm Transfer`
   String get transferViewButtonConfirm {
     return Intl.message(
       'Confirm Transfer',
@@ -1514,6 +1713,7 @@ class S {
     );
   }
 
+  /// `Data error, please select again`
   String get transferDataError {
     return Intl.message(
       'Data error, please select again',
@@ -1523,6 +1723,7 @@ class S {
     );
   }
 
+  /// `Transfer failed`
   String get transferResultAlertTitle {
     return Intl.message(
       'Transfer failed',
@@ -1532,6 +1733,7 @@ class S {
     );
   }
 
+  /// `Account Name`
   String get bankcardViewTitleOwner {
     return Intl.message(
       'Account Name',
@@ -1541,6 +1743,7 @@ class S {
     );
   }
 
+  /// `Bank Name`
   String get bankcardViewTitleBankName {
     return Intl.message(
       'Bank Name',
@@ -1550,6 +1753,7 @@ class S {
     );
   }
 
+  /// `Account (Card) Number`
   String get bankcardViewTitleCardNumber {
     return Intl.message(
       'Account (Card) Number',
@@ -1559,6 +1763,7 @@ class S {
     );
   }
 
+  /// `Bank Branch`
   String get bankcardViewTitleBankPoint {
     return Intl.message(
       'Bank Branch',
@@ -1568,6 +1773,7 @@ class S {
     );
   }
 
+  /// `Open an Account`
   String get bankcardViewTitleBankProvince {
     return Intl.message(
       'Open an Account',
@@ -1577,6 +1783,7 @@ class S {
     );
   }
 
+  /// `Area`
   String get bankcardViewTitleBankArea {
     return Intl.message(
       'Area',
@@ -1586,6 +1793,7 @@ class S {
     );
   }
 
+  /// `Send`
   String get bankcardViewTitleSend {
     return Intl.message(
       'Send',
@@ -1595,6 +1803,7 @@ class S {
     );
   }
 
+  /// `Withdrawal Amount`
   String get withdrawViewTitleAmount {
     return Intl.message(
       'Withdrawal Amount',
@@ -1604,6 +1813,7 @@ class S {
     );
   }
 
+  /// `Withdrawal Password`
   String get withdrawViewTitlePwd {
     return Intl.message(
       'Withdrawal Password',
@@ -1613,6 +1823,7 @@ class S {
     );
   }
 
+  /// `Note`
   String get withdrawViewTitleNote {
     return Intl.message(
       'Note',
@@ -1622,6 +1833,7 @@ class S {
     );
   }
 
+  /// `Submit`
   String get withdrawViewTitleSend {
     return Intl.message(
       'Submit',
@@ -1631,6 +1843,7 @@ class S {
     );
   }
 
+  /// `Do not use virtual currency`
   String get withdrawViewOptionVirtual {
     return Intl.message(
       'Do not use virtual currency',
@@ -1640,6 +1853,7 @@ class S {
     );
   }
 
+  /// `If you want to withdraw virtual currency, please select it after binding`
   String get withdrawViewOptionHint {
     return Intl.message(
       'If you want to withdraw virtual currency, please select it after binding',
@@ -1649,6 +1863,7 @@ class S {
     );
   }
 
+  /// `My Wallet`
   String get walletViewTitleMy {
     return Intl.message(
       'My Wallet',
@@ -1658,6 +1873,7 @@ class S {
     );
   }
 
+  /// `Total balance`
   String get walletViewTitleRemain {
     return Intl.message(
       'Total balance',
@@ -1667,6 +1883,7 @@ class S {
     );
   }
 
+  /// `Single Wallet`
   String get walletViewTitleWalletSingle {
     return Intl.message(
       'Single Wallet',
@@ -1676,6 +1893,7 @@ class S {
     );
   }
 
+  /// `Multi-Wallet`
   String get walletViewTitleWalletMulti {
     return Intl.message(
       'Multi-Wallet',
@@ -1685,6 +1903,7 @@ class S {
     );
   }
 
+  /// `One Click Home`
   String get walletViewButtonOneclick {
     return Intl.message(
       'One Click Home',
@@ -1694,15 +1913,7 @@ class S {
     );
   }
 
-  String get walletViewButtonConfrim {
-    return Intl.message(
-      'OK',
-      name: 'walletViewButtonConfrim',
-      desc: '',
-      args: [],
-    );
-  }
-
+  /// `All platform credits are transferred to the main wallet`
   String get walletViewHintOneclick {
     return Intl.message(
       'All platform credits are transferred to the main wallet',
@@ -1712,6 +1923,7 @@ class S {
     );
   }
 
+  /// `* System presets automatically transfer credits to open game platforms`
   String get walletViewHintWalletSingle {
     return Intl.message(
       '* System presets automatically transfer credits to open game platforms',
@@ -1721,6 +1933,7 @@ class S {
     );
   }
 
+  /// `* Manually transfer credits to this game platform`
   String get walletViewHintWalletMulti {
     return Intl.message(
       '* Manually transfer credits to this game platform',
@@ -1730,6 +1943,7 @@ class S {
     );
   }
 
+  /// `Profile`
   String get centerViewTitleData {
     return Intl.message(
       'Profile',
@@ -1739,6 +1953,7 @@ class S {
     );
   }
 
+  /// `Liuhe Lucky Code`
   String get centerViewTitleLotto {
     return Intl.message(
       'Liuhe Lucky Code',
@@ -1748,6 +1963,7 @@ class S {
     );
   }
 
+  /// `Vip Tier`
   String get centerViewTitleVip {
     return Intl.message(
       'Vip Tier',
@@ -1757,6 +1973,7 @@ class S {
     );
   }
 
+  /// `Username:`
   String get centerTextTitleAccount {
     return Intl.message(
       'Username:',
@@ -1766,6 +1983,7 @@ class S {
     );
   }
 
+  /// `Name:`
   String get centerTextTitleName {
     return Intl.message(
       'Name:',
@@ -1775,6 +1993,7 @@ class S {
     );
   }
 
+  /// `Birthday:`
   String get centerTextTitleBirth {
     return Intl.message(
       'Birthday:',
@@ -1784,6 +2003,7 @@ class S {
     );
   }
 
+  /// `Format is: Yyyy–Mm–Dd`
   String get centerTextTitleDateHint {
     return Intl.message(
       'Format is: Yyyy–Mm–Dd',
@@ -1793,6 +2013,7 @@ class S {
     );
   }
 
+  /// `Please enter the correct date (format: Yyyy–Mm–Dd)`
   String get centerTextTitleDateError {
     return Intl.message(
       'Please enter the correct date (format: Yyyy–Mm–Dd)',
@@ -1802,6 +2023,7 @@ class S {
     );
   }
 
+  /// `Please enter the correct email`
   String get centerTextTitleMailError {
     return Intl.message(
       'Please enter the correct email',
@@ -1811,6 +2033,7 @@ class S {
     );
   }
 
+  /// `Mobile number:`
   String get centerTextTitlePhone {
     return Intl.message(
       'Mobile number:',
@@ -1820,6 +2043,7 @@ class S {
     );
   }
 
+  /// `Mailbox:`
   String get centerTextTitleMail {
     return Intl.message(
       'Mailbox:',
@@ -1829,6 +2053,7 @@ class S {
     );
   }
 
+  /// `WeChat:`
   String get centerTextTitleWechat {
     return Intl.message(
       'WeChat:',
@@ -1838,6 +2063,7 @@ class S {
     );
   }
 
+  /// `Cgp Wallet`
   String get centerTextTitleCgp {
     return Intl.message(
       'Cgp Wallet',
@@ -1847,6 +2073,7 @@ class S {
     );
   }
 
+  /// `Shop treasure wallet`
   String get centerTextTitleCpw {
     return Intl.message(
       'Shop treasure wallet',
@@ -1856,6 +2083,7 @@ class S {
     );
   }
 
+  /// `Change Password`
   String get centerTextButtonChangePwd {
     return Intl.message(
       'Change Password',
@@ -1865,6 +2093,7 @@ class S {
     );
   }
 
+  /// `Bind`
   String get centerTextButtonBind {
     return Intl.message(
       'Bind',
@@ -1874,6 +2103,7 @@ class S {
     );
   }
 
+  /// `Modify`
   String get centerTextButtonEdit {
     return Intl.message(
       'Modify',
@@ -1883,6 +2113,7 @@ class S {
     );
   }
 
+  /// `Send`
   String get centerTextButtonSend {
     return Intl.message(
       'Send',
@@ -1892,6 +2123,7 @@ class S {
     );
   }
 
+  /// `Please go to the binding bank card to make related settings`
   String get centerHintNoName {
     return Intl.message(
       'Please go to the binding bank card to make related settings',
@@ -1901,6 +2133,7 @@ class S {
     );
   }
 
+  /// `Please fill in the numbers from 01 to 49 in the following 7 spaces`
   String get centerLuckyTitle {
     return Intl.message(
       'Please fill in the numbers from 01 to 49 in the following 7 spaces',
@@ -1910,6 +2143,7 @@ class S {
     );
   }
 
+  /// `Number range: 01 ~ 49`
   String get centerLuckyNumberError {
     return Intl.message(
       'Number range: 01 ~ 49',
@@ -1919,6 +2153,7 @@ class S {
     );
   }
 
+  /// `Bind the Liuhe Lucky Code, you can participate in the Liuhe Lottery Match Code, wonderful gift for you !!!`
   String get centerLuckyHint {
     return Intl.message(
       'Bind the Liuhe Lucky Code, you can participate in the Liuhe Lottery Match Code, wonderful gift for you !!!',
@@ -1928,6 +2163,7 @@ class S {
     );
   }
 
+  /// `Auto Generated`
   String get centerLuckyButtonGenerate {
     return Intl.message(
       'Auto Generated',
@@ -1937,6 +2173,7 @@ class S {
     );
   }
 
+  /// `Confirm Bind`
   String get centerLuckyButtonBind {
     return Intl.message(
       'Confirm Bind',
@@ -1946,6 +2183,7 @@ class S {
     );
   }
 
+  /// `Valid bets:`
   String get centerVipTextValidAmount {
     return Intl.message(
       'Valid bets:',
@@ -1955,6 +2193,7 @@ class S {
     );
   }
 
+  /// `Slot Machine Betting:`
   String get centerVipTextBetAmount {
     return Intl.message(
       'Slot Machine Betting:',
@@ -1964,6 +2203,7 @@ class S {
     );
   }
 
+  /// `Normal`
   String get centerVipTextVip0 {
     return Intl.message(
       'Normal',
@@ -1973,6 +2213,7 @@ class S {
     );
   }
 
+  /// `Gold`
   String get centerVipTextVip1 {
     return Intl.message(
       'Gold',
@@ -1982,6 +2223,7 @@ class S {
     );
   }
 
+  /// `Ruby`
   String get centerVipTextVip2 {
     return Intl.message(
       'Ruby',
@@ -1991,6 +2233,7 @@ class S {
     );
   }
 
+  /// `Emerald`
   String get centerVipTextVip3 {
     return Intl.message(
       'Emerald',
@@ -2000,6 +2243,7 @@ class S {
     );
   }
 
+  /// `Diamond`
   String get centerVipTextVip4 {
     return Intl.message(
       'Diamond',
@@ -2009,7 +2253,8 @@ class S {
     );
   }
 
-  String centerVipTextVipCondition(dynamic num) {
+  /// `{num} 万`
+  String centerVipTextVipCondition(Object num) {
     return Intl.message(
       '$num 万',
       name: 'centerVipTextVipCondition',
@@ -2018,6 +2263,7 @@ class S {
     );
   }
 
+  /// `Transfer time`
   String get transactionViewSpinnerTitle {
     return Intl.message(
       'Transfer time',
@@ -2027,6 +2273,7 @@ class S {
     );
   }
 
+  /// `All time`
   String get transactionViewSpinnerDate0 {
     return Intl.message(
       'All time',
@@ -2036,6 +2283,7 @@ class S {
     );
   }
 
+  /// `today`
   String get transactionViewSpinnerDate1 {
     return Intl.message(
       'today',
@@ -2045,6 +2293,7 @@ class S {
     );
   }
 
+  /// `Yesterday`
   String get transactionViewSpinnerDate2 {
     return Intl.message(
       'Yesterday',
@@ -2054,6 +2303,7 @@ class S {
     );
   }
 
+  /// `within one month`
   String get transactionViewSpinnerDate3 {
     return Intl.message(
       'within one month',
@@ -2063,6 +2313,7 @@ class S {
     );
   }
 
+  /// `Serial Number`
   String get transactionHeaderSerial {
     return Intl.message(
       'Serial Number',
@@ -2072,6 +2323,7 @@ class S {
     );
   }
 
+  /// `Date`
   String get transactionHeaderDate {
     return Intl.message(
       'Date',
@@ -2081,6 +2333,7 @@ class S {
     );
   }
 
+  /// `Category`
   String get transactionHeaderType {
     return Intl.message(
       'Category',
@@ -2090,6 +2343,7 @@ class S {
     );
   }
 
+  /// `Description`
   String get transactionHeaderDesc {
     return Intl.message(
       'Description',
@@ -2099,6 +2353,7 @@ class S {
     );
   }
 
+  /// `Amount`
   String get transactionHeaderAmount {
     return Intl.message(
       'Amount',
@@ -2108,6 +2363,7 @@ class S {
     );
   }
 
+  /// `Game Platform`
   String get betsSpinnerTitlePlatform {
     return Intl.message(
       'Game Platform',
@@ -2117,6 +2373,7 @@ class S {
     );
   }
 
+  /// `betsSpinnerTitleTime`
   String get betsSpinnerTitleTime {
     return Intl.message(
       'betsSpinnerTitleTime',
@@ -2126,7 +2383,8 @@ class S {
     );
   }
 
-  String betsTextTotal(dynamic value) {
+  /// `Total: $ {value}`
+  String betsTextTotal(Object value) {
     return Intl.message(
       'Total: \$ $value',
       name: 'betsTextTotal',
@@ -2135,6 +2393,7 @@ class S {
     );
   }
 
+  /// `Time`
   String get betsHeaderDate {
     return Intl.message(
       'Time',
@@ -2144,6 +2403,7 @@ class S {
     );
   }
 
+  /// `bet slip number`
   String get betsHeaderId {
     return Intl.message(
       'bet slip number',
@@ -2153,6 +2413,7 @@ class S {
     );
   }
 
+  /// `Platform`
   String get betsHeaderPlatform {
     return Intl.message(
       'Platform',
@@ -2162,6 +2423,7 @@ class S {
     );
   }
 
+  /// `Game Name`
   String get betsHeaderGame {
     return Intl.message(
       'Game Name',
@@ -2171,6 +2433,7 @@ class S {
     );
   }
 
+  /// `Bet Amount`
   String get betsHeaderAmount {
     return Intl.message(
       'Bet Amount',
@@ -2180,6 +2443,7 @@ class S {
     );
   }
 
+  /// `Payout Amount`
   String get betsHeaderBonus {
     return Intl.message(
       'Payout Amount',
@@ -2189,6 +2453,7 @@ class S {
     );
   }
 
+  /// `All`
   String get dealsViewSpinnerType0 {
     return Intl.message(
       'All',
@@ -2198,6 +2463,7 @@ class S {
     );
   }
 
+  /// `Recharge`
   String get dealsViewSpinnerType1 {
     return Intl.message(
       'Recharge',
@@ -2207,6 +2473,7 @@ class S {
     );
   }
 
+  /// `Withdrawal`
   String get dealsViewSpinnerType2 {
     return Intl.message(
       'Withdrawal',
@@ -2216,6 +2483,7 @@ class S {
     );
   }
 
+  /// `Bonus`
   String get dealsViewSpinnerType3 {
     return Intl.message(
       'Bonus',
@@ -2225,6 +2493,7 @@ class S {
     );
   }
 
+  /// `All`
   String get dealsViewSpinnerStatus0 {
     return Intl.message(
       'All',
@@ -2234,6 +2503,7 @@ class S {
     );
   }
 
+  /// `Success`
   String get dealsViewSpinnerStatus1 {
     return Intl.message(
       'Success',
@@ -2243,6 +2513,7 @@ class S {
     );
   }
 
+  /// `Failed`
   String get dealsViewSpinnerStatus2 {
     return Intl.message(
       'Failed',
@@ -2252,6 +2523,7 @@ class S {
     );
   }
 
+  /// `Processing`
   String get dealsViewSpinnerStatus3 {
     return Intl.message(
       'Processing',
@@ -2261,6 +2533,7 @@ class S {
     );
   }
 
+  /// `New Deal`
   String get dealsViewSpinnerStatus4 {
     return Intl.message(
       'New Deal',
@@ -2270,6 +2543,7 @@ class S {
     );
   }
 
+  /// `Single Number`
   String get dealsHeaderSerial {
     return Intl.message(
       'Single Number',
@@ -2279,6 +2553,7 @@ class S {
     );
   }
 
+  /// `items`
   String get dealsHeaderType {
     return Intl.message(
       'items',
@@ -2288,6 +2563,7 @@ class S {
     );
   }
 
+  /// `Details`
   String get dealsHeaderDetail {
     return Intl.message(
       'Details',
@@ -2297,6 +2573,7 @@ class S {
     );
   }
 
+  /// `Order Status`
   String get dealsHeaderStatus {
     return Intl.message(
       'Order Status',
@@ -2306,6 +2583,7 @@ class S {
     );
   }
 
+  /// `Date`
   String get dealsHeaderDate {
     return Intl.message(
       'Date',
@@ -2315,6 +2593,7 @@ class S {
     );
   }
 
+  /// `Amount`
   String get dealsHeaderAmount {
     return Intl.message(
       'Amount',
@@ -2324,6 +2603,7 @@ class S {
     );
   }
 
+  /// `Agent Text`
   String get agentTextTitleData {
     return Intl.message(
       'Agent Text',
@@ -2333,6 +2613,7 @@ class S {
     );
   }
 
+  /// `Agent Report`
   String get agentTextTitleChart {
     return Intl.message(
       'Agent Report',
@@ -2342,6 +2623,7 @@ class S {
     );
   }
 
+  /// `Agent Commission Report`
   String get agentTextTitleCommission {
     return Intl.message(
       'Agent Commission Report',
@@ -2351,6 +2633,7 @@ class S {
     );
   }
 
+  /// `Recommended code:`
   String get agentTextDataCode {
     return Intl.message(
       'Recommended code:',
@@ -2360,6 +2643,7 @@ class S {
     );
   }
 
+  /// `Agent Link:`
   String get agentTextDataUrl {
     return Intl.message(
       'Agent Link:',
@@ -2369,6 +2653,7 @@ class S {
     );
   }
 
+  /// `Upper account:`
   String get agentTextDataUpper {
     return Intl.message(
       'Upper account:',
@@ -2378,6 +2663,7 @@ class S {
     );
   }
 
+  /// `Subordinate account:`
   String get agentTextDataLower {
     return Intl.message(
       'Subordinate account:',
@@ -2387,6 +2673,7 @@ class S {
     );
   }
 
+  /// `Get Agent Code`
   String get agentButtonTextRequest {
     return Intl.message(
       'Get Agent Code',
@@ -2396,6 +2683,7 @@ class S {
     );
   }
 
+  /// `Copy`
   String get agentButtonTextCopy {
     return Intl.message(
       'Copy',
@@ -2405,6 +2693,7 @@ class S {
     );
   }
 
+  /// `Time:`
   String get agentTextChartDate {
     return Intl.message(
       'Time:',
@@ -2414,6 +2703,7 @@ class S {
     );
   }
 
+  /// `This month`
   String get agentTextChartMonth {
     return Intl.message(
       'This month',
@@ -2423,6 +2713,7 @@ class S {
     );
   }
 
+  /// `Last month`
   String get agentTextChartMonthPrev {
     return Intl.message(
       'Last month',
@@ -2432,6 +2723,7 @@ class S {
     );
   }
 
+  /// `Select`
   String get agentTextChartOption {
     return Intl.message(
       'Select',
@@ -2441,6 +2733,7 @@ class S {
     );
   }
 
+  /// `Platform`
   String get agentTextChartPlatform {
     return Intl.message(
       'Platform',
@@ -2450,6 +2743,7 @@ class S {
     );
   }
 
+  /// `Category`
   String get agentTextChartCategory {
     return Intl.message(
       'Category',
@@ -2459,6 +2753,7 @@ class S {
     );
   }
 
+  /// `Query`
   String get agentTextChartQuery {
     return Intl.message(
       'Query',
@@ -2468,6 +2763,7 @@ class S {
     );
   }
 
+  /// `Bank Deposit`
   String get depositPaymentTitleBank {
     return Intl.message(
       'Bank Deposit',
@@ -2477,6 +2773,7 @@ class S {
     );
   }
 
+  /// `Quick Pay (Recommended)`
   String get depositPaymentTitleQuick {
     return Intl.message(
       'Quick Pay (Recommended)',
@@ -2486,6 +2783,7 @@ class S {
     );
   }
 
+  /// `UnionPay`
   String get depositPaymentTitleUnion {
     return Intl.message(
       'UnionPay',
@@ -2495,24 +2793,37 @@ class S {
     );
   }
 
-  String get depositPaymentTitleVirtual {
+  /// `CGPay`
+  String get depositPaymentTitleCgp {
     return Intl.message(
-      'Virtual Currency',
-      name: 'depositPaymentTitleVirtual',
+      'CGPay',
+      name: 'depositPaymentTitleCgp',
       desc: '',
       args: [],
     );
   }
 
+  /// `AliPay`
   String get depositPaymentTitleAli {
     return Intl.message(
-      'Alipay Pay',
+      'AliPay',
       name: 'depositPaymentTitleAli',
       desc: '',
       args: [],
     );
   }
 
+  /// `JD Pay`
+  String get depositPaymentTitleJd {
+    return Intl.message(
+      'JD Pay',
+      name: 'depositPaymentTitleJd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Online Payment`
   String get depositPaymentTitleOnline {
     return Intl.message(
       'Online Payment',
@@ -2522,6 +2833,7 @@ class S {
     );
   }
 
+  /// `WeChat Pay`
   String get depositPaymentTitleWechat {
     return Intl.message(
       'WeChat Pay',
@@ -2531,6 +2843,17 @@ class S {
     );
   }
 
+  /// `WEB ATM`
+  String get depositPaymentTitleAtm {
+    return Intl.message(
+      'WEB ATM',
+      name: 'depositPaymentTitleAtm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Offer`
   String get depositPaymentSpinnerTitlePromo {
     return Intl.message(
       'Choose Offer',
@@ -2540,6 +2863,7 @@ class S {
     );
   }
 
+  /// `Payment Bank`
   String get depositPaymentSpinnerTitleBank {
     return Intl.message(
       'Payment Bank',
@@ -2549,6 +2873,7 @@ class S {
     );
   }
 
+  /// `Recharge Method`
   String get depositPaymentSpinnerTitleMethod {
     return Intl.message(
       'Recharge Method',
@@ -2558,6 +2883,7 @@ class S {
     );
   }
 
+  /// `Payee Name`
   String get depositPaymentEditTitleName {
     return Intl.message(
       'Payee Name',
@@ -2567,6 +2893,7 @@ class S {
     );
   }
 
+  /// `Please fill in your payer name`
   String get depositPaymentEditTitleNameHint {
     return Intl.message(
       'Please fill in your payer name',
@@ -2576,6 +2903,7 @@ class S {
     );
   }
 
+  /// `Deposit Amount`
   String get depositPaymentEditTitleAmount {
     return Intl.message(
       'Deposit Amount',
@@ -2585,42 +2913,67 @@ class S {
     );
   }
 
+  /// `Input range: {num} ~ {num2}`
+  String depositPaymentEditTitleAmountHintRange(Object num, Object num2) {
+    return Intl.message(
+      'Input range: $num ~ $num2',
+      name: 'depositPaymentEditTitleAmountHintRange',
+      desc: '',
+      args: [num, num2],
+    );
+  }
+
+  /// `Input range: {num} ~ {num2} (amount is a multiple of {num3})`
+  String depositPaymentEditTitleAmountHintRangeStep(Object num, Object num2, Object num3) {
+    return Intl.message(
+      'Input range: $num ~ $num2 (amount is a multiple of $num3)',
+      name: 'depositPaymentEditTitleAmountHintRangeStep',
+      desc: '',
+      args: [num, num2, num3],
+    );
+  }
+
+  /// `Tutorial`
   String get depositPaymentButtonTitleTutorial {
     return Intl.message(
-      'Click to see teaching',
+      'Tutorial',
       name: 'depositPaymentButtonTitleTutorial',
       desc: '',
       args: [],
     );
   }
 
-  String get depositPaymentButtonTitleConfirm {
+  /// `Tutorial`
+  String get depositPaymentTitleTutorial {
     return Intl.message(
-      'OK',
-      name: 'depositPaymentButtonTitleConfirm',
+      'Tutorial',
+      name: 'depositPaymentTitleTutorial',
       desc: '',
       args: [],
     );
   }
 
+  /// `Local Transfer`
   String get depositPaymentMethodLocal1 {
     return Intl.message(
-      'Transfer Funding',
+      'Local Transfer',
       name: 'depositPaymentMethodLocal1',
       desc: '',
       args: [],
     );
   }
 
+  /// `ATM Deposit`
   String get depositPaymentMethodLocal2 {
     return Intl.message(
-      'Atm Deposit',
+      'ATM Deposit',
       name: 'depositPaymentMethodLocal2',
       desc: '',
       args: [],
     );
   }
 
+  /// `Abandon Application Offer`
   String get depositPaymentNoPromo {
     return Intl.message(
       'Abandon Application Offer',
@@ -2630,6 +2983,7 @@ class S {
     );
   }
 
+  /// `Please contact customer service for recharge account information`
   String get depositHintTextAccount {
     return Intl.message(
       'Please contact customer service for recharge account information',
@@ -2639,15 +2993,17 @@ class S {
     );
   }
 
-  String depositHintTextMax(dynamic no) {
+  /// `Single Deposit Limit: ￥{value}`
+  String depositHintTextAmount(Object value) {
     return Intl.message(
-      '$no single maximum limit',
-      name: 'depositHintTextMax',
+      'Single Deposit Limit: ￥$value',
+      name: 'depositHintTextAmount',
       desc: '',
-      args: [no],
+      args: [value],
     );
   }
 
+  /// `Online customer service`
   String get depositHintTextService {
     return Intl.message(
       'Online customer service',
@@ -2657,6 +3013,7 @@ class S {
     );
   }
 
+  /// `Notes`
   String get depositHintTextTitle {
     return Intl.message(
       'Notes',
@@ -2666,34 +3023,48 @@ class S {
     );
   }
 
-  String depositHintTextClearInfo(dynamic no) {
+  /// `{no} single maximum limit\n`
+  String depositHintTextMax(Object no) {
     return Intl.message(
-      '$no [Important reminder] Do not keep your bank account, please re-acquire the latest collection account before each recharge. If you deposit to a disabled collection account, the company cannot check the collection and will not be responsible!',
+      '$no single maximum limit\n',
+      name: 'depositHintTextMax',
+      desc: '',
+      args: [no],
+    );
+  }
+
+  /// `{no} [Important reminder] Do not keep your bank account, please re-acquire the latest collection account before each recharge. If you deposit to a disabled collection account, the company cannot check the collection and will not be responsible!\n`
+  String depositHintTextClearInfo(Object no) {
+    return Intl.message(
+      '$no [Important reminder] Do not keep your bank account, please re-acquire the latest collection account before each recharge. If you deposit to a disabled collection account, the company cannot check the collection and will not be responsible!\n',
       name: 'depositHintTextClearInfo',
       desc: '',
       args: [no],
     );
   }
 
-  String depositHintTextMaxExceed(dynamic no) {
+  /// `{no} exceeds the online payment limit for a single day or a single large deposit, other deposit methods can be used\n`
+  String depositHintTextMaxExceed(Object no) {
     return Intl.message(
-      '$no exceeds the online payment limit for a single day or a single large deposit, other deposit methods can be used',
+      '$no exceeds the online payment limit for a single day or a single large deposit, other deposit methods can be used\n',
       name: 'depositHintTextMaxExceed',
       desc: '',
       args: [no],
     );
   }
 
-  String depositHintTextFailure(dynamic no) {
+  /// `{no} If you encounter failures such as failed deposit scanning, please try to refresh and try again, and contact customer service to use another replacement channel\n`
+  String depositHintTextFailure(Object no) {
     return Intl.message(
-      '$no If you encounter failures such as failed deposit scanning, please try to refresh and try again, and contact customer service to use another replacement channel',
+      '$no If you encounter failures such as failed deposit scanning, please try to refresh and try again, and contact customer service to use another replacement channel\n',
       name: 'depositHintTextFailure',
       desc: '',
       args: [no],
     );
   }
 
-  String depositHintTextInfo(dynamic no) {
+  /// `{no} payment bank and account name, please contact`
+  String depositHintTextInfo(Object no) {
     return Intl.message(
       '$no payment bank and account name, please contact',
       name: 'depositHintTextInfo',
@@ -2702,87 +3073,97 @@ class S {
     );
   }
 
-  String depositHintTextUnionShortcut(dynamic no) {
+  /// `{no} opens a quick function to China UnionPay to make your payment more convenient\n`
+  String depositHintTextUnionShortcut(Object no) {
     return Intl.message(
-      '$no opens a quick function to China UnionPay to make your payment more convenient',
+      '$no opens a quick function to China UnionPay to make your payment more convenient\n',
       name: 'depositHintTextUnionShortcut',
       desc: '',
       args: [no],
     );
   }
 
-  String depositHintTextQuickpay(dynamic no) {
+  /// `{no} Warm reminder: you need to pay two decimal places for quick payment, and the system will automatically bring in (if you submit 00 for two decimal places, it will not be successful)\n`
+  String depositHintTextQuickpay(Object no) {
     return Intl.message(
-      '$no Warm reminder: you need to pay two decimal places for quick payment, and the system will automatically bring in (if you submit 00 for two decimal places, it will not be successful)',
+      '$no Warm reminder: you need to pay two decimal places for quick payment, and the system will automatically bring in (if you submit 00 for two decimal places, it will not be successful)\n',
       name: 'depositHintTextQuickpay',
       desc: '',
       args: [no],
     );
   }
 
-  String depositHintTextUnion(dynamic no) {
+  /// `{no} want to use UnionPay scan code to pay, as long as you have a UnionPay card starting with card number 62, credit card debit cards can be used.\n`
+  String depositHintTextUnion(Object no) {
     return Intl.message(
-      '$no want to use UnionPay scan code to pay, as long as you have a UnionPay card starting with card number 62, credit card debit cards can be used.',
+      '$no want to use UnionPay scan code to pay, as long as you have a UnionPay card starting with card number 62, credit card debit cards can be used.\n',
       name: 'depositHintTextUnion',
       desc: '',
       args: [no],
     );
   }
 
+  /// `A. Download the Bank of China App or UnionPay Wallet App on your phone;\n`
   String get depositHintTextUnionA {
     return Intl.message(
-      'A. Download the Bank of China App or UnionPay Wallet App on your phone;',
+      'A. Download the Bank of China App or UnionPay Wallet App on your phone;\n',
       name: 'depositHintTextUnionA',
       desc: '',
       args: [],
     );
   }
 
+  /// `B. Log in to the Bank of China Mobile App and use the payment function in the upper right corner or the payment function in the mobile payment module;\n`
   String get depositHintTextUnionB {
     return Intl.message(
-      'B. Log in to the Bank of China Mobile App and use the payment function in the upper right corner or the payment function in the mobile payment module;',
+      'B. Log in to the Bank of China Mobile App and use the payment function in the upper right corner or the payment function in the mobile payment module;\n',
       name: 'depositHintTextUnionB',
       desc: '',
       args: [],
     );
   }
 
+  /// `C. Enter the QR code page for payment to the merchant, just scan the code with the machine.\n`
   String get depositHintTextUnionC {
     return Intl.message(
-      'C. Enter the QR code page for payment to the merchant, just scan the code with the machine.',
+      'C. Enter the QR code page for payment to the merchant, just scan the code with the machine.\n',
       name: 'depositHintTextUnionC',
       desc: '',
       args: [],
     );
   }
 
-  String depositHintTextAli(dynamic no) {
+  /// `{no} Restricted Debit Card and Alipay Balance Payment!\n`
+  String depositHintTextAli(Object no) {
     return Intl.message(
-      '$no Restricted Debit Card and Alipay Balance Payment!',
+      '$no Restricted Debit Card and Alipay Balance Payment!\n',
       name: 'depositHintTextAli',
       desc: '',
       args: [no],
     );
   }
 
-  String depositHintTextLastNum(dynamic no) {
+  /// `{no} If the end of the single transaction amount is not 0 (such as: 1000 yuan), it will result in unsuccessful deposit\n`
+  String depositHintTextLastNum(Object no) {
     return Intl.message(
-      '$no If the end of the single transaction amount is not 0 (such as: 1000 yuan), it will result in unsuccessful deposit',
+      '$no If the end of the single transaction amount is not 0 (such as: 1000 yuan), it will result in unsuccessful deposit\n',
       name: 'depositHintTextLastNum',
       desc: '',
       args: [no],
     );
   }
 
-  String depositHintTextLimit(dynamic no) {
+  /// `{no} Issuer Limit Solution: Requires the user to call the issuer's customer service to request an increase in online transaction limit\n`
+  String depositHintTextLimit(Object no) {
     return Intl.message(
-      '$no Issuer Limit Solution: Requires the user to call the issuer\'s customer service to request an increase in online transaction limit',
+      '$no Issuer Limit Solution: Requires the user to call the issuer\'s customer service to request an increase in online transaction limit\n',
       name: 'depositHintTextLimit',
       desc: '',
       args: [no],
     );
   }
 
+  /// `Recharge failed, please try again later or contact customer service`
   String get depositMessageFailed {
     return Intl.message(
       'Recharge failed, please try again later or contact customer service',
@@ -2792,15 +3173,17 @@ class S {
     );
   }
 
-  String get depositMessageSuccess {
+  /// `Request Success, Order No.{value}`
+  String depositMessageSuccessLocal(Object value) {
     return Intl.message(
-      'Successful Deposit',
-      name: 'depositMessageSuccess',
+      'Request Success, Order No.$value',
+      name: 'depositMessageSuccessLocal',
       desc: '',
-      args: [],
+      args: [value],
     );
   }
 
+  /// `Debit Card Teaching`
   String get depositNewbieQuick0 {
     return Intl.message(
       'Debit Card Teaching',
@@ -2810,24 +3193,7 @@ class S {
     );
   }
 
-  String get depositNewbieVirtual0 {
-    return Intl.message(
-      'Download Link',
-      name: 'depositNewbieVirtual0',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get depositNewbieVirtualButton1 {
-    return Intl.message(
-      'Download the Baobao Payment App',
-      name: 'depositNewbieVirtualButton1',
-      desc: '',
-      args: [],
-    );
-  }
-
+  /// `Alipay to Bank Card Teaching`
   String get depositNewbieAli0 {
     return Intl.message(
       'Alipay to Bank Card Teaching',
@@ -2837,6 +3203,7 @@ class S {
     );
   }
 
+  /// `First open Alipay on your mobile phone and log in, click the [Transfer] function on the motherboard.`
   String get depositNewbieAli1 {
     return Intl.message(
       'First open Alipay on your mobile phone and log in, click the [Transfer] function on the motherboard.',
@@ -2846,6 +3213,7 @@ class S {
     );
   }
 
+  /// `Select the [Go to Bank Card] button at the bottom of the transfer page`
   String get depositNewbieAli2 {
     return Intl.message(
       'Select the [Go to Bank Card] button at the bottom of the transfer page',
@@ -2855,6 +3223,7 @@ class S {
     );
   }
 
+  /// `It is also necessary to fill in [Payee Card Number] == [Banking] == [Payee Name] == [Payment Amount]`
   String get depositNewbieAli3 {
     return Intl.message(
       'It is also necessary to fill in [Payee Card Number] == [Banking] == [Payee Name] == [Payment Amount]',
@@ -2864,6 +3233,7 @@ class S {
     );
   }
 
+  /// `After submission, enter Alipay [Payment Password].`
   String get depositNewbieAli4 {
     return Intl.message(
       'After submission, enter Alipay [Payment Password].',
@@ -2873,6 +3243,7 @@ class S {
     );
   }
 
+  /// `After the transfer is successful, you can view it in the Alipay bill details, and change the transfer details and arrival time.`
   String get depositNewbieAli5 {
     return Intl.message(
       'After the transfer is successful, you can view it in the Alipay bill details, and change the transfer details and arrival time.',
@@ -2882,6 +3253,57 @@ class S {
     );
   }
 
+  /// `JD.COM Tutorial`
+  String get depositNewbieJd0 {
+    return Intl.message(
+      'JD.COM Tutorial',
+      name: 'depositNewbieJd0',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1、Download JD.COM App`
+  String get depositNewbieJd1 {
+    return Intl.message(
+      '1、Download JD.COM App',
+      name: 'depositNewbieJd1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2、Enter the App and press 'My' tab`
+  String get depositNewbieJd2 {
+    return Intl.message(
+      '2、Enter the App and press \'My\' tab',
+      name: 'depositNewbieJd2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `3、Register or Login a account`
+  String get depositNewbieJd3 {
+    return Intl.message(
+      '3、Register or Login a account',
+      name: 'depositNewbieJd3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `4、Press 'Scanner' to pay or bind bank card`
+  String get depositNewbieJd4 {
+    return Intl.message(
+      '4、Press \'Scanner\' to pay or bind bank card',
+      name: 'depositNewbieJd4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `UnionPay Payment Tutorial`
   String get depositNewbieUnion0 {
     return Intl.message(
       'UnionPay Payment Tutorial',
@@ -2891,6 +3313,7 @@ class S {
     );
   }
 
+  /// `1. Download UnionPay Wallet App`
   String get depositNewbieUnion1 {
     return Intl.message(
       '1. Download UnionPay Wallet App',
@@ -2900,6 +3323,7 @@ class S {
     );
   }
 
+  /// `2. Register and log in.`
   String get depositNewbieUnion2 {
     return Intl.message(
       '2. Register and log in.',
@@ -2909,6 +3333,7 @@ class S {
     );
   }
 
+  /// `3. Bind a bank card, select Card Manager → Card List → Add Bank Card → Add a New Card.`
   String get depositNewbieUnion3 {
     return Intl.message(
       '3. Bind a bank card, select Card Manager → Card List → Add Bank Card → Add a New Card.',
@@ -2918,6 +3343,7 @@ class S {
     );
   }
 
+  /// `You can add both credit and debit cards`
   String get depositNewbieUnion4 {
     return Intl.message(
       'You can add both credit and debit cards',
@@ -2927,6 +3353,7 @@ class S {
     );
   }
 
+  /// `Code Scan Teaching`
   String get depositNewbieWechat0 {
     return Intl.message(
       'Code Scan Teaching',
@@ -2936,6 +3363,7 @@ class S {
     );
   }
 
+  /// `1. Take a payment QR code with a mobile phone.`
   String get depositNewbieWechat1 {
     return Intl.message(
       '1. Take a payment QR code with a mobile phone.',
@@ -2945,6 +3373,7 @@ class S {
     );
   }
 
+  /// `2. Then use another mobile phone WeChat to scan the code.`
   String get depositNewbieWechat2 {
     return Intl.message(
       '2. Then use another mobile phone WeChat to scan the code.',
@@ -2954,6 +3383,37 @@ class S {
     );
   }
 
+  /// `Download Link`
+  String get depositNewbieCgp0 {
+    return Intl.message(
+      'Download Link',
+      name: 'depositNewbieCgp0',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `APP`
+  String get depositNewbieButtonCgp1 {
+    return Intl.message(
+      'APP',
+      name: 'depositNewbieButtonCgp1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manual`
+  String get depositNewbieButtonCgp2 {
+    return Intl.message(
+      'Manual',
+      name: 'depositNewbieButtonCgp2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maintenance`
   String get balanceStatusMaintenance {
     return Intl.message(
       'Maintenance',
@@ -2963,6 +3423,7 @@ class S {
     );
   }
 
+  /// `Transfer In`
   String get balanceTransferInText {
     return Intl.message(
       'Transfer In',
@@ -2972,6 +3433,7 @@ class S {
     );
   }
 
+  /// `Transfer Out`
   String get balanceTransferOutText {
     return Intl.message(
       'Transfer Out',
@@ -2981,7 +3443,8 @@ class S {
     );
   }
 
-  String balanceTransferAlertMsg(dynamic value, dynamic value2) {
+  /// `Are you sure of the {value} {value2} platform?`
+  String balanceTransferAlertMsg(Object value, Object value2) {
     return Intl.message(
       'Are you sure of the $value $value2 platform?',
       name: 'balanceTransferAlertMsg',
@@ -2990,6 +3453,7 @@ class S {
     );
   }
 
+  /// `Reminder:`
   String get balanceHintTextTitle {
     return Intl.message(
       'Reminder:',
@@ -2999,6 +3463,7 @@ class S {
     );
   }
 
+  /// `1 Please exit the game or game betting interface before transferring money.`
   String get balanceHintText1 {
     return Intl.message(
       '1 Please exit the game or game betting interface before transferring money.',
@@ -3008,6 +3473,7 @@ class S {
     );
   }
 
+  /// `2 When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.`
   String get balanceHintText2 {
     return Intl.message(
       '2 When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.',
@@ -3017,6 +3483,7 @@ class S {
     );
   }
 
+  /// `3 If you have a slow internet connection, please wait for a while and don't repeat the submission multiple times.`
   String get balanceHintText3 {
     return Intl.message(
       '3 If you have a slow internet connection, please wait for a while and don\'t repeat the submission multiple times.',
@@ -3026,6 +3493,7 @@ class S {
     );
   }
 
+  /// `If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service`
   String get balanceHintText4 {
     return Intl.message(
       'If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service',
@@ -3035,6 +3503,7 @@ class S {
     );
   }
 
+  /// `Time Interval`
   String get flowHeaderTextTime {
     return Intl.message(
       'Time Interval',
@@ -3044,6 +3513,7 @@ class S {
     );
   }
 
+  /// `Transaction Code`
   String get flowHeaderTextCode {
     return Intl.message(
       'Transaction Code',
@@ -3053,6 +3523,7 @@ class S {
     );
   }
 
+  /// `Type`
   String get flowHeaderTextType {
     return Intl.message(
       'Type',
@@ -3062,6 +3533,7 @@ class S {
     );
   }
 
+  /// `Amount`
   String get flowHeaderTextAmount {
     return Intl.message(
       'Amount',
@@ -3071,6 +3543,7 @@ class S {
     );
   }
 
+  /// `Multiple`
   String get flowHeaderTextMultiple {
     return Intl.message(
       'Multiple',
@@ -3080,6 +3553,7 @@ class S {
     );
   }
 
+  /// `Cash Offer`
   String get flowHeaderTextPromo {
     return Intl.message(
       'Cash Offer',
@@ -3089,6 +3563,7 @@ class S {
     );
   }
 
+  /// `Requirement for bet amount`
   String get flowHeaderTextRequire {
     return Intl.message(
       'Requirement for bet amount',
@@ -3098,6 +3573,7 @@ class S {
     );
   }
 
+  /// `Current Stake`
   String get flowHeaderTextCurrent {
     return Intl.message(
       'Current Stake',
@@ -3107,6 +3583,7 @@ class S {
     );
   }
 
+  /// `Remaining capital required`
   String get flowHeaderTextNeed {
     return Intl.message(
       'Remaining capital required',
@@ -3116,6 +3593,7 @@ class S {
     );
   }
 
+  /// `form`
   String get agentChartTableSpinner {
     return Intl.message(
       'form',
@@ -3125,6 +3603,7 @@ class S {
     );
   }
 
+  /// `Account`
   String get agentChartHeaderAccount {
     return Intl.message(
       'Account',
@@ -3134,6 +3613,7 @@ class S {
     );
   }
 
+  /// `Bet Amount`
   String get agentChartHeaderWager {
     return Intl.message(
       'Bet Amount',
@@ -3143,6 +3623,7 @@ class S {
     );
   }
 
+  /// `Bet Amount`
   String get agentChartHeaderBet {
     return Intl.message(
       'Bet Amount',
@@ -3152,6 +3633,7 @@ class S {
     );
   }
 
+  /// `Valid bet amount`
   String get agentChartHeaderValid {
     return Intl.message(
       'Valid bet amount',
@@ -3161,6 +3643,7 @@ class S {
     );
   }
 
+  /// `Pay`
   String get agentChartHeaderPayout {
     return Intl.message(
       'Pay',
@@ -3170,6 +3653,7 @@ class S {
     );
   }
 
+  /// `Total Bet Volume`
   String get agentChartHeaderTotalWager {
     return Intl.message(
       'Total Bet Volume',
@@ -3179,6 +3663,7 @@ class S {
     );
   }
 
+  /// `Total Bet`
   String get agentChartHeaderTotalBet {
     return Intl.message(
       'Total Bet',
@@ -3188,6 +3673,7 @@ class S {
     );
   }
 
+  /// `Total Valid Amount`
   String get agentChartHeaderTotalValid {
     return Intl.message(
       'Total Valid Amount',
@@ -3197,6 +3683,7 @@ class S {
     );
   }
 
+  /// `Total Payout`
   String get agentChartHeaderTotalPayout {
     return Intl.message(
       'Total Payout',
@@ -3206,6 +3693,7 @@ class S {
     );
   }
 
+  /// `Month`
   String get agentCommissionHeaderMonth {
     return Intl.message(
       'Month',
@@ -3215,6 +3703,7 @@ class S {
     );
   }
 
+  /// `Offline Commission`
   String get agentCommissionHeaderLowLine {
     return Intl.message(
       'Offline Commission',
@@ -3224,6 +3713,7 @@ class S {
     );
   }
 
+  /// `Group Commission`
   String get agentCommissionHeaderGroup {
     return Intl.message(
       'Group Commission',
@@ -3233,6 +3723,7 @@ class S {
     );
   }
 
+  /// `Administration Fee`
   String get agentCommissionHeaderAdmin {
     return Intl.message(
       'Administration Fee',
@@ -3242,6 +3733,7 @@ class S {
     );
   }
 
+  /// `Platform fee`
   String get agentCommissionHeaderPlatform {
     return Intl.message(
       'Platform fee',
@@ -3251,6 +3743,7 @@ class S {
     );
   }
 
+  /// `Actual Commission`
   String get agentCommissionHeaderReceive {
     return Intl.message(
       'Actual Commission',
@@ -3260,7 +3753,8 @@ class S {
     );
   }
 
-  String wheelTextTitleCount(dynamic num) {
+  /// `Cumulative Lucky Draw: {num} times`
+  String wheelTextTitleCount(Object num) {
     return Intl.message(
       'Cumulative Lucky Draw: $num times',
       name: 'wheelTextTitleCount',
@@ -3269,6 +3763,7 @@ class S {
     );
   }
 
+  /// `Winning History`
   String get wheelTextTitlePrize {
     return Intl.message(
       'Winning History',
@@ -3278,6 +3773,7 @@ class S {
     );
   }
 
+  /// `Operation Record`
   String get wheelTextTitleRecord {
     return Intl.message(
       'Operation Record',
@@ -3287,6 +3783,7 @@ class S {
     );
   }
 
+  /// `Get spins`
   String get wheelTextTitleGet {
     return Intl.message(
       'Get spins',
@@ -3296,6 +3793,7 @@ class S {
     );
   }
 
+  /// `Event Rules`
   String get wheelTextTitleRules {
     return Intl.message(
       'Event Rules',
@@ -3305,6 +3803,7 @@ class S {
     );
   }
 
+  /// `Time`
   String get wheelOrderTableTextTime {
     return Intl.message(
       'Time',
@@ -3314,6 +3813,7 @@ class S {
     );
   }
 
+  /// `Awards`
   String get wheelOrderTableTextPrize {
     return Intl.message(
       'Awards',
@@ -3323,6 +3823,7 @@ class S {
     );
   }
 
+  /// `Dispatch Status`
   String get wheelOrderTableTextStatus {
     return Intl.message(
       'Dispatch Status',
@@ -3332,6 +3833,7 @@ class S {
     );
   }
 
+  /// `Time`
   String get wheelRecordTableTextTime {
     return Intl.message(
       'Time',
@@ -3341,6 +3843,7 @@ class S {
     );
   }
 
+  /// `Operation`
   String get wheelRecordTableTextOperate {
     return Intl.message(
       'Operation',
@@ -3350,6 +3853,7 @@ class S {
     );
   }
 
+  /// `Number of times`
   String get wheelRecordTableTextCount {
     return Intl.message(
       'Number of times',
@@ -3359,6 +3863,7 @@ class S {
     );
   }
 
+  /// `Content`
   String get wheelRecordTableTextContent {
     return Intl.message(
       'Content',
@@ -3368,6 +3873,7 @@ class S {
     );
   }
 
+  /// `Content`
   String get wheelApplyTableTextContent {
     return Intl.message(
       'Content',
@@ -3377,6 +3883,7 @@ class S {
     );
   }
 
+  /// `Progress`
   String get wheelApplyTableTextProgress {
     return Intl.message(
       'Progress',
@@ -3386,6 +3893,7 @@ class S {
     );
   }
 
+  /// `Number of rotations`
   String get wheelApplyTableTextCount {
     return Intl.message(
       'Number of rotations',
@@ -3395,6 +3903,7 @@ class S {
     );
   }
 
+  /// `Status`
   String get wheelApplyTableTextStatus {
     return Intl.message(
       'Status',
@@ -3404,7 +3913,8 @@ class S {
     );
   }
 
-  String wheelTableMessageEmpty(dynamic msg) {
+  /// `No records found for {msg}`
+  String wheelTableMessageEmpty(Object msg) {
     return Intl.message(
       'No records found for $msg',
       name: 'wheelTableMessageEmpty',
@@ -3413,6 +3923,7 @@ class S {
     );
   }
 
+  /// `Not dispatched`
   String get wheelOrderTableTextStatus0 {
     return Intl.message(
       'Not dispatched',
@@ -3422,6 +3933,7 @@ class S {
     );
   }
 
+  /// `Dispatched`
   String get wheelOrderTableTextStatus1 {
     return Intl.message(
       'Dispatched',
@@ -3431,6 +3943,7 @@ class S {
     );
   }
 
+  /// `Not reached`
   String get wheelApplyTableTextStatus0 {
     return Intl.message(
       'Not reached',
@@ -3440,6 +3953,7 @@ class S {
     );
   }
 
+  /// `Achieved`
   String get wheelApplyTableTextStatus1 {
     return Intl.message(
       'Achieved',
@@ -3449,6 +3963,7 @@ class S {
     );
   }
 
+  /// `Redeem Product`
   String get storeTextTitleProduct {
     return Intl.message(
       'Redeem Product',
@@ -3458,6 +3973,7 @@ class S {
     );
   }
 
+  /// `Exchange Rules`
   String get storeTextTitleRule {
     return Intl.message(
       'Exchange Rules',
@@ -3467,6 +3983,7 @@ class S {
     );
   }
 
+  /// `Point Record`
   String get storeTextTitleRecord {
     return Intl.message(
       'Point Record',
@@ -3476,6 +3993,7 @@ class S {
     );
   }
 
+  /// `Mallpoints:`
   String get storeTextTitlePoint {
     return Intl.message(
       'Mallpoints:',
@@ -3485,6 +4003,7 @@ class S {
     );
   }
 
+  /// `Limited to a limited number`
   String get storeTextItemHint {
     return Intl.message(
       'Limited to a limited number',
@@ -3494,7 +4013,8 @@ class S {
     );
   }
 
-  String storeTextItemPoint(dynamic value) {
+  /// `{value} points`
+  String storeTextItemPoint(Object value) {
     return Intl.message(
       '$value points',
       name: 'storeTextItemPoint',
@@ -3503,6 +4023,7 @@ class S {
     );
   }
 
+  /// `Redeem Now`
   String get storeTextItemButton {
     return Intl.message(
       'Redeem Now',
@@ -3512,6 +4033,7 @@ class S {
     );
   }
 
+  /// `You can get a points table for every 100 yuan of valid bets`
   String get storeRuleTableHeader {
     return Intl.message(
       'You can get a points table for every 100 yuan of valid bets',
@@ -3521,7 +4043,8 @@ class S {
     );
   }
 
-  String storeRuleTableTitle(dynamic value) {
+  /// `Each platform {value}`
+  String storeRuleTableTitle(Object value) {
     return Intl.message(
       'Each platform $value',
       name: 'storeRuleTableTitle',
@@ -3530,6 +4053,7 @@ class S {
     );
   }
 
+  /// `Show`
   String get storeRecordSpinnerTitle1 {
     return Intl.message(
       'Show',
@@ -3539,6 +4063,7 @@ class S {
     );
   }
 
+  /// `item`
   String get storeRecordSpinnerTitle2 {
     return Intl.message(
       'item',
@@ -3548,6 +4073,7 @@ class S {
     );
   }
 
+  /// `Please enter a product name`
   String get storeRecordFieldHint {
     return Intl.message(
       'Please enter a product name',
@@ -3557,6 +4083,7 @@ class S {
     );
   }
 
+  /// `Search`
   String get storeRecordButtonTitle {
     return Intl.message(
       'Search',
@@ -3566,6 +4093,7 @@ class S {
     );
   }
 
+  /// `Order Number`
   String get storeRecordTableTitleNo {
     return Intl.message(
       'Order Number',
@@ -3575,6 +4103,7 @@ class S {
     );
   }
 
+  /// `Product`
   String get storeRecordTableTitleProduct {
     return Intl.message(
       'Product',
@@ -3584,6 +4113,7 @@ class S {
     );
   }
 
+  /// `Integral`
   String get storeRecordTableTitlePoint {
     return Intl.message(
       'Integral',
@@ -3593,6 +4123,7 @@ class S {
     );
   }
 
+  /// `Date`
   String get storeRecordTableTitleDate {
     return Intl.message(
       'Date',
@@ -3602,6 +4133,7 @@ class S {
     );
   }
 
+  /// `State`
   String get storeRecordTableTitleState {
     return Intl.message(
       'State',
@@ -3611,6 +4143,7 @@ class S {
     );
   }
 
+  /// `Member Redemption`
   String get storeProductWindowTitle {
     return Intl.message(
       'Member Redemption',
@@ -3620,6 +4153,7 @@ class S {
     );
   }
 
+  /// `Remaining Quantity`
   String get storeProductWindowTextRemain {
     return Intl.message(
       'Remaining Quantity',
@@ -3629,6 +4163,7 @@ class S {
     );
   }
 
+  /// `Limited number, while stocks last`
   String get storeProductWindowHint1 {
     return Intl.message(
       'Limited number, while stocks last',
@@ -3638,6 +4173,7 @@ class S {
     );
   }
 
+  /// `Use per branch`
   String get storeProductWindowHint2 {
     return Intl.message(
       'Use per branch',
@@ -3647,6 +4183,7 @@ class S {
     );
   }
 
+  /// `Point Exchange`
   String get storeProductWindowHint3 {
     return Intl.message(
       'Point Exchange',
@@ -3656,6 +4193,7 @@ class S {
     );
   }
 
+  /// `Accumulated Points:`
   String get storeRequestWindowTextPoint {
     return Intl.message(
       'Accumulated Points:',
@@ -3665,6 +4203,7 @@ class S {
     );
   }
 
+  /// `Recipient Information`
   String get storeRequestWindowTitle {
     return Intl.message(
       'Recipient Information',
@@ -3674,6 +4213,7 @@ class S {
     );
   }
 
+  /// `Name`
   String get storeRequestWindowFieldTitleName {
     return Intl.message(
       'Name',
@@ -3683,6 +4223,7 @@ class S {
     );
   }
 
+  /// `Phone`
   String get storeRequestWindowFieldTitlePhone {
     return Intl.message(
       'Phone',
@@ -3692,6 +4233,7 @@ class S {
     );
   }
 
+  /// `Postcode`
   String get storeRequestWindowFieldTitlePostno {
     return Intl.message(
       'Postcode',
@@ -3701,6 +4243,7 @@ class S {
     );
   }
 
+  /// `Area`
   String get storeRequestWindowFieldTitleArea {
     return Intl.message(
       'Area',
@@ -3710,6 +4253,7 @@ class S {
     );
   }
 
+  /// `Address`
   String get storeRequestWindowFieldTitleAddress {
     return Intl.message(
       'Address',
@@ -3719,6 +4263,7 @@ class S {
     );
   }
 
+  /// `Please select`
   String get storeRequestWindowSpinnerHint {
     return Intl.message(
       'Please select',
@@ -3728,6 +4273,7 @@ class S {
     );
   }
 
+  /// `OK to send`
   String get storeRequestWindowButton {
     return Intl.message(
       'OK to send',
@@ -3737,6 +4283,7 @@ class S {
     );
   }
 
+  /// `Transfer Out`
   String get transferViewTitleOut {
     return Intl.message(
       'Transfer Out',
@@ -3752,7 +4299,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale('en', ''), Locale('zh', ''),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 
@@ -3765,7 +4313,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   bool _isSupported(Locale locale) {
     if (locale != null) {
-      for (Locale supportedLocale in supportedLocales) {
+      for (var supportedLocale in supportedLocales) {
         if (supportedLocale.languageCode == locale.languageCode) {
           return true;
         }
