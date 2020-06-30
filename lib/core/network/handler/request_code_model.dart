@@ -6,14 +6,14 @@ part 'request_code_model.freezed.dart';
 abstract class RequestCodeModel with _$RequestCodeModel {
   factory RequestCodeModel({
     int code,
-    String data,
+    dynamic data,
     String msg,
   }) = _RequestCodeModel;
 
   static RequestCodeModel jsonToRequestCodeModel(Map<String, dynamic> jsonMap) {
     return _$_RequestCodeModel(
       code: jsonMap['code'] as int,
-      data: '${jsonMap['data']}',
+      data: jsonMap['data'],
       msg: jsonMap['msg'] as String,
     );
   }

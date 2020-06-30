@@ -18,6 +18,7 @@ class FailureTypeCode extends GenericEnum<int> {
   const FailureTypeCode._(int value) : super(value);
 
   static const FailureTypeCode LOGIN = FailureTypeCode._(0100);
+  static const FailureTypeCode REGISTER = FailureTypeCode._(0200);
   static const FailureTypeCode WEB = FailureTypeCode._(0500);
   static const FailureTypeCode WEB_URL = FailureTypeCode._(0600);
 
@@ -49,6 +50,7 @@ class FailureTypeCode extends GenericEnum<int> {
   static const FailureTypeCode NOTICE = FailureTypeCode._(3300);
   static const FailureTypeCode VIP_LEVEL = FailureTypeCode._(3400);
   static const FailureTypeCode STORE = FailureTypeCode._(3500);
+  static const FailureTypeCode AGENT = FailureTypeCode._(3600);
 
   static const FailureTypeCode TASK = FailureTypeCode._(8000);
 

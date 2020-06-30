@@ -79,8 +79,10 @@ abstract class _CenterStore with Store {
   Stream<CenterVipEntity> get vipStream => _vipController.stream;
 
   CenterStoreAction currentRequest;
+
   @observable
   bool waitForResponse = false;
+
   @observable
   dynamic requestResponse;
 
@@ -225,6 +227,7 @@ abstract class _CenterStore with Store {
         );
       }).whenComplete(() => waitForResponse = false);
     } on Exception {
+      waitForResponse = false;
       errorMessage = Failure.internal(
         FailureCode(typeCode: FailureTypeCode.CENTER),
       ).message;
@@ -286,6 +289,7 @@ abstract class _CenterStore with Store {
         );
       }).whenComplete(() => waitForResponse = false);
     } on Exception {
+      waitForResponse = false;
       errorMessage = Failure.internal(
         FailureCode(typeCode: FailureTypeCode.CENTER),
       ).message;
@@ -316,6 +320,7 @@ abstract class _CenterStore with Store {
         );
       }).whenComplete(() => waitForResponse = false);
     } on Exception {
+      waitForResponse = false;
       errorMessage = Failure.internal(
         FailureCode(typeCode: FailureTypeCode.CENTER),
       ).message;
@@ -340,6 +345,7 @@ abstract class _CenterStore with Store {
         );
       }).whenComplete(() => waitForResponse = false);
     } on Exception {
+      waitForResponse = false;
       errorMessage = Failure.internal(
         FailureCode(typeCode: FailureTypeCode.CENTER),
       ).message;
@@ -368,6 +374,7 @@ abstract class _CenterStore with Store {
         );
       }).whenComplete(() => waitForResponse = false);
     } on Exception {
+      waitForResponse = false;
       errorMessage = Failure.internal(
         FailureCode(typeCode: FailureTypeCode.CENTER),
       ).message;

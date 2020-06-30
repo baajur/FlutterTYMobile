@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ty_mobile/features/home/presentation/widgets/home_widgets_export.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/bloc/template2_bloc.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/bloc/template2_event.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/widgets/template2_control.dart';

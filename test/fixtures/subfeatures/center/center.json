@@ -1,21 +1,13 @@
 {
-  "accountcode": "testcard2",
-  "accountid": 10467,
+  "accountcode": "hcchiang92",
+  "accountid": 10144,
   "firstname": "\u6e2c\u8a66",
   "gender": "",
-  "mobileno": "13159721305(\u672a\u9a8c\u8bc1)",
-  "email": "",
+  "mobileno": "13134567892(\u672a\u9a8c\u8bc1)",
+  "email": "abcd1324@yahoo.com",
   "wechat": "",
-  "address": [
-    "4",
-    "12",
-    "22",
-    "34",
-    "35",
-    "43",
-    "47"
-  ],
-  "dob": "",
+  "address": "",
+  "dob": "1990-01-01",
   "auto_transfer": "0",
   "allgame": 0,
   "allgame_level": 0,
@@ -53,13 +45,13 @@
     },
     "2": {
       "setting": {
-        "allgame": "40",
-        "slotgame": "2000",
-        "casinogame": "400",
-        "sportgame": "300",
-        "fishgame": "200",
-        "lotterygame": "50",
-        "cardgame": "100"
+        "allgame": "40000",
+        "slotgame": "20000",
+        "casinogame": "40000",
+        "sportgame": "30000",
+        "fishgame": "20000",
+        "lotterygame": "50000",
+        "cardgame": "10000"
       },
       "title": "\u9ec4\u91d1\u4f1a\u5458"
     },
@@ -67,11 +59,11 @@
       "setting": {
         "allgame": "3000000",
         "slotgame": "2500000",
-        "casinogame": "50",
-        "sportgame": "40",
-        "fishgame": "30",
-        "lotterygame": "20",
-        "cardgame": "10"
+        "casinogame": "50000",
+        "sportgame": "40000",
+        "fishgame": "30000",
+        "lotterygame": "20000",
+        "cardgame": "10000"
       },
       "title": "\u7ea2\u5b9d\u77f3\u4f1a\u5458"
     },
@@ -79,11 +71,11 @@
       "setting": {
         "allgame": "6000000",
         "slotgame": "5000000",
-        "casinogame": "60",
-        "sportgame": "50",
-        "fishgame": "40",
-        "lotterygame": "30",
-        "cardgame": "20"
+        "casinogame": "60000",
+        "sportgame": "50000",
+        "fishgame": "40000",
+        "lotterygame": "30000",
+        "cardgame": "20000"
       },
       "title": "\u7fe1\u7fe0\u4f1a\u5458"
     },
@@ -91,11 +83,11 @@
       "setting": {
         "allgame": "9000000",
         "slotgame": "8000000",
-        "casinogame": "110",
-        "sportgame": "100",
-        "fishgame": "90",
-        "lotterygame": "80",
-        "cardgame": "70"
+        "casinogame": "110000",
+        "sportgame": "100000",
+        "fishgame": "90000",
+        "lotterygame": "80000",
+        "cardgame": "70000"
       },
       "title": "\u94bb\u77f3\u4f1a\u5458"
     },

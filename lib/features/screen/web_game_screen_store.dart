@@ -147,15 +147,17 @@ abstract class _WebGameScreenStore with Store {
       _sensorOn = false;
     }
     if (!isAndroid) _streamRotate = null;
-    if (_viewController != null) {
-      _viewController.loadUrl(Uri.dataFromString(
-        '',
-        mimeType: Global.WEB_MIMETYPE,
-        encoding: Global.webEncoding,
-      ).toString());
-      await _viewController.clearCache();
-      _viewController = null;
-    }
+    try {
+      if (_viewController != null) {
+        _viewController.loadUrl(Uri.dataFromString(
+          '',
+          mimeType: Global.WEB_MIMETYPE,
+          encoding: Global.webEncoding,
+        ).toString());
+        await _viewController.clearCache();
+      }
+    } on Exception {}
+    _viewController = null;
     _reset();
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/pager_widget.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
 import 'state/transaction_store.dart';
 import 'widgets/transaction_display.dart';
@@ -25,10 +25,10 @@ class _TransactionRouteState extends State<TransactionRoute> {
       new GlobalKey(debugLabel: 'pager');
 
   final List<String> _selectorStrings = [
-    localeStr.transactionViewSpinnerDate0,
-    localeStr.transactionViewSpinnerDate1,
-    localeStr.transactionViewSpinnerDate2,
-    localeStr.transactionViewSpinnerDate3,
+    localeStr.spinnerDateAll,
+    localeStr.spinnerDateToday,
+    localeStr.spinnerDateYesterday,
+    localeStr.spinnerDateMonth,
   ];
 
   final List<TransactionDateSelected> _selectorValues = [
@@ -80,7 +80,7 @@ class _TransactionRouteState extends State<TransactionRoute> {
         (_) => _store.waitForPageData,
         // Run some logic with the content of the observed field
         (bool wait) {
-          print('reaction on wait page data: $wait');
+          print('reaction on wait transaction: $wait');
           if (wait) {
             toastDismiss = FLToast.showLoading(
               text: localeStr.messageWait,
@@ -135,7 +135,7 @@ class _TransactionRouteState extends State<TransactionRoute> {
               CustomizeDropdownWidget(
                 key: _selectorKey,
                 horizontalInset: 16.0,
-                prefixTitle: localeStr.transactionViewSpinnerTitle,
+                prefixText: localeStr.transactionViewSpinnerTitle,
                 titleLetterSpacing: 4,
                 optionValues: _selectorValues,
                 optionStrings: _selectorStrings,
@@ -154,9 +154,12 @@ class _TransactionRouteState extends State<TransactionRoute> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  child: RaisedButton(
-                    child: Text(localeStr.btnQueryNow),
-                    onPressed: () => getPageData(1),
+                  child: SizedBox(
+                    height: Global.device.comfortButtonHeight,
+                    child: RaisedButton(
+                      child: Text(localeStr.btnQueryNow),
+                      onPressed: () => getPageData(1),
+                    ),
                   ),
                 ),
               ],

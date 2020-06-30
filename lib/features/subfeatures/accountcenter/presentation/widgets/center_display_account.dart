@@ -1,18 +1,15 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/widgets/center_dialog_cpw.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/widgets/center_dialog_mobile.dart';
-import 'package:flutter_ty_mobile/utils/regex_util.dart';
-import 'package:flutter_ty_mobile/utils/value_util.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
 import '../../data/entity/center_account_entity.dart'
     show CenterAccountEntity, CenterAccountEntityExtension;
 import '../state/center_store.dart';
 import 'center_store_inherit_widget.dart';
+import 'center_dialog_cpw.dart';
+import 'center_dialog_mobile.dart';
 
 class CenterDisplayAccount extends StatefulWidget {
   @override
@@ -45,8 +42,8 @@ class _CenterDisplayAccountState extends State<CenterDisplayAccount>
 
   CenterStore _store;
   CenterAccountEntity _storeData;
-  Widget contentWidget;
   bool layoutReady = false;
+  Widget contentWidget;
 
   void updateField() {
     if (_store == null) return;
@@ -105,163 +102,178 @@ class _CenterDisplayAccountState extends State<CenterDisplayAccount>
       key: _streamKey,
       stream: _store.accountStream,
       builder: (context, snapshot) {
-        print('account stream snapshot: $snapshot');
+//        print('account stream snapshot: $snapshot');
         if (_storeData != _store.accountEntity) {
           _storeData = _store.accountEntity;
           if (layoutReady) updateField();
+          contentWidget = _buildContent();
         }
-        return SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
-            constraints: BoxConstraints(
-              maxWidth: Global.device.width - 12,
+        contentWidget ??= _buildContent();
+        return contentWidget;
+      },
+    );
+  }
+
+  Widget _buildContent() {
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+        constraints: BoxConstraints(
+          maxWidth: Global.device.width - 12,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
+              child: Text(
+                localeStr.centerViewTitleData,
+                style: TextStyle(
+                  color: Themes.defaultTextColorWhite,
+                ),
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
-                  child: Text(
-                    localeStr.centerViewTitleData,
-                    style: TextStyle(
-                      color: Themes.defaultTextColorWhite,
+            InkWell(
+              // to dismiss the keyboard when the user tabs out of the TextField
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: new Form(
+                key: _formKey,
+                child: ListView(
+                  primary: false,
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    /* Account Field */
+                    new CustomizeFieldWidget(
+                      key: _accountFieldKey,
+                      hint: '',
+                      persistHint: false,
+                      prefixText: localeStr.centerTextTitleAccount,
+                      titleLetterSpacing: 4,
+                      suffixText: localeStr.centerTextButtonChangePwd,
+                      suffixAction: (account) {
+                        RouterNavigate.navigateToPage(
+                          RoutePage.centerPassword,
+                          arg: CenterDisplayAccountPasswordArguments(
+                            store: _store,
+                          ),
+                        );
+                      },
+                      readOnly: true,
                     ),
-                  ),
-                ),
-                InkWell(
-                  child: new Form(
-                    key: _formKey,
-                    child: ListView(
-                      primary: false,
-                      shrinkWrap: true,
-                      children: <Widget>[
-                        /* Account Field */
-                        new CustomizeFieldWidget(
-                          key: _accountFieldKey,
-                          hint: '',
-                          persistHint: false,
-                          prefixText: localeStr.centerTextTitleAccount,
-                          titleLetterSpacing: 3,
-                          suffixText: localeStr.centerTextButtonChangePwd,
-                          suffixAction: (account) {
-                            RouterNavigate.navigateToPage(
-                              RoutePage.centerPassword,
-                              arg: CenterDisplayAccountPasswordArguments(
-                                store: _store,
-                              ),
-                            );
-                          },
-                          readOnly: true,
-                        ),
-                        /* Name Field */
-                        new CustomizeFieldWidget(
-                          key: _nameFieldKey,
-                          hint: localeStr.centerHintNoName,
-                          persistHint: false,
-                          coloredHint: true,
-                          prefixText: localeStr.centerTextTitleName,
-                          suffixText: (_storeData.canBindCard)
-                              ? localeStr.centerTextButtonBind
-                              : null,
-                          suffixAction: (_) {
-                            RouterNavigate.navigateToPage(RoutePage.bankcard);
-                          },
-                          readOnly: true,
-                        ),
-                        /* Birth Date Field */
-                        new CustomizeFieldWidget(
-                          key: _birthFieldKey,
-                          fieldType: FieldType.Date,
-                          maxInputLength: 10,
-                          hint: localeStr.centerTextTitleDateHint,
-                          persistHint: false,
-                          prefixText: localeStr.centerTextTitleBirth,
-                          suffixText: (_storeData.canBindBirthDate)
-                              ? localeStr.centerTextButtonBind
-                              : null,
-                          suffixAction: (input) {
-                            print('request bind birth date: $input');
-                            checkAndPost(context, () {
-                              if (input.isValidDate)
-                                _store.bindBirth(input);
-                              else
-                                showFormatError();
-                            });
-                          },
-                          readOnly: _storeData.canBindBirthDate == false,
-                        ),
-                        /* Phone Field */
-                        new CustomizeFieldWidget(
-                          key: _phoneFieldKey,
-                          hint: '',
-                          persistHint: false,
-                          prefixText: localeStr.centerTextTitlePhone,
-                          titleLetterSpacing: 3,
-                          suffixText: (_storeData.canVerifyPhone)
-                              ? localeStr.centerTextButtonSend
-                              : null,
-                          suffixAction: (_) {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) => new CenterDialogMobile(
-                                store: _store,
-                                mobile: _phoneFieldKey.currentState.inputText
-                                    .split('(')[0],
-                              ),
-                            );
-                          },
-                          readOnly: true,
-                        ),
-                        /* E-Mail Field */
-                        new CustomizeFieldWidget(
-                          key: _mailFieldKey,
-                          fieldType: FieldType.Email,
-                          hint: '',
-                          persistHint: false,
-                          prefixText: localeStr.centerTextTitleMail,
-                          suffixText: (_storeData.canBindMail)
-                              ? localeStr.centerTextButtonBind
-                              : null,
-                          suffixAction: (input) {
-                            print('request bind email: $input');
-                            checkAndPost(context, () {
-                              if (input.isEmail)
-                                _store.bindEmail(input);
-                              else
-                                showFormatError();
-                            });
-                          },
-                          readOnly: _storeData.canBindMail == false,
-                          validCondition: (value) => value.isEmail,
-                          errorMsg: localeStr.messageInvalidEmail,
-                          maxInputLength: 50,
-                        ),
-                        /* WeChat Field */
-                        new CustomizeFieldWidget(
-                          key: _wechatFieldKey,
-                          hint: '',
-                          persistHint: false,
-                          prefixText: localeStr.centerTextTitleWechat,
-                          titleLetterSpacing: 3,
-                          suffixText: (_storeData.canBindWechat)
-                              ? localeStr.centerTextButtonBind
-                              : null,
-                          suffixAction: (input) {
-                            print('request bind wechat: $input');
-                            checkAndPost(context, () {
-                              _store.bindWechat(input);
-                            });
-                          },
-                          readOnly: _storeData.canBindWechat == false,
-                          validCondition: (value) =>
-                              rangeCheck(value: value.length, min: 6, max: 20),
-                          errorMsg: localeStr.messageInvalidWechat,
-                        ),
-                      ],
+                    /* Name Field */
+                    new CustomizeFieldWidget(
+                      key: _nameFieldKey,
+                      hint: localeStr.centerHintNoName,
+                      persistHint: false,
+                      coloredHint: true,
+                      prefixText: localeStr.centerTextTitleName,
+                      suffixText: (_storeData.canBindCard)
+                          ? localeStr.centerTextButtonBind
+                          : null,
+                      suffixAction: (_) {
+                        RouterNavigate.navigateToPage(RoutePage.bankcard);
+                      },
+                      readOnly: true,
                     ),
-                  ),
+                    /* Birth Date Field */
+                    new CustomizeFieldWidget(
+                      key: _birthFieldKey,
+                      fieldType: FieldType.Date,
+                      maxInputLength: 10,
+                      hint: localeStr.centerTextTitleDateHint,
+                      persistHint: false,
+                      prefixText: localeStr.centerTextTitleBirth,
+                      suffixText: (_storeData.canBindBirthDate)
+                          ? localeStr.centerTextButtonBind
+                          : null,
+                      suffixAction: (input) {
+                        print('request bind birth date: $input');
+                        checkAndPost(context, () {
+                          if (input.isValidDate)
+                            _store.bindBirth(input);
+                          else
+                            showFormatError();
+                        });
+                      },
+                      readOnly: _storeData.canBindBirthDate == false,
+                    ),
+                    /* Phone Field */
+                    new CustomizeFieldWidget(
+                      key: _phoneFieldKey,
+                      hint: '',
+                      persistHint: false,
+                      prefixText: localeStr.centerTextTitlePhone,
+                      titleLetterSpacing: 4,
+                      suffixText: (_storeData.canVerifyPhone)
+                          ? localeStr.centerTextButtonSend
+                          : null,
+                      suffixAction: (_) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) => new CenterDialogMobile(
+                            store: _store,
+                            mobile: _phoneFieldKey.currentState.getInput
+                                .split('(')[0],
+                          ),
+                        );
+                      },
+                      readOnly: true,
+                    ),
+                    /* E-Mail Field */
+                    new CustomizeFieldWidget(
+                      key: _mailFieldKey,
+                      fieldType: FieldType.Email,
+                      hint: '',
+                      persistHint: false,
+                      prefixText: localeStr.centerTextTitleMail,
+                      suffixText: (_storeData.canBindMail)
+                          ? localeStr.centerTextButtonBind
+                          : null,
+                      suffixAction: (input) {
+                        print('request bind email: $input');
+                        checkAndPost(context, () {
+                          if (input.isEmail)
+                            _store.bindEmail(input);
+                          else
+                            showFormatError();
+                        });
+                      },
+                      readOnly: _storeData.canBindMail == false,
+                      validCondition: (value) => value.isEmail,
+                      errorMsg: localeStr.messageInvalidEmail,
+                      maxInputLength: 50,
+                    ),
+                    /* WeChat Field */
+                    new CustomizeFieldWidget(
+                      key: _wechatFieldKey,
+                      hint: '',
+                      persistHint: false,
+                      prefixText: localeStr.centerTextTitleWechat,
+                      titleLetterSpacing: 4,
+                      suffixText: (_storeData.canBindWechat)
+                          ? localeStr.centerTextButtonBind
+                          : null,
+                      suffixAction: (input) {
+                        print('request bind wechat: $input');
+                        checkAndPost(context, () {
+                          _store.bindWechat(input);
+                        });
+                      },
+                      readOnly: _storeData.canBindWechat == false,
+                      validCondition: (value) =>
+                          rangeCheck(value: value.length, min: 6, max: 20),
+                      errorMsg: localeStr.messageInvalidWechat,
+                    ),
+                  ],
                 ),
+              ),
+            ),
 //                /* CGP Field */
 //                new CustomizeFieldWidget(
 //                  key: _cgpFieldKey,
@@ -283,32 +295,30 @@ class _CenterDisplayAccountState extends State<CenterDisplayAccount>
 //                  useSameBgColor: true,
 //                  readOnly: true,
 //                ),
-                /* CPW Field */
-                new CustomizeFieldWidget(
-                  key: _cpwFieldKey,
-                  hint: '',
-                  persistHint: false,
-                  prefixText: localeStr.centerTextTitleCpw,
-                  titleLetterSpacing: 0,
-                  suffixText: (_storeData.canBindCpw)
-                      ? localeStr.centerTextButtonBind
-                      : null,
-                  suffixAction: (_) {
-                    print('request bind cpw');
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => new CenterDialogCpw(store: _store),
-                    );
-                  },
-                  useSameBgColor: true,
-                  readOnly: true,
-                ),
-              ],
+            /* CPW Field */
+            new CustomizeFieldWidget(
+              key: _cpwFieldKey,
+              hint: '',
+              persistHint: false,
+              prefixText: localeStr.centerTextTitleCpw,
+              titleLetterSpacing: 0,
+              suffixText: (_storeData.canBindCpw)
+                  ? localeStr.centerTextButtonBind
+                  : null,
+              suffixAction: (_) {
+                print('request bind cpw');
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => new CenterDialogCpw(store: _store),
+                );
+              },
+              useSameBgColor: true,
+              readOnly: true,
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 

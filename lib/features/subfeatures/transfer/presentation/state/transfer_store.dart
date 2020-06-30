@@ -54,7 +54,7 @@ abstract class _TransferStore with Store {
 
   @computed
   TransferStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if (_platformFuture == null ||
         _platformFuture.status == FutureStatus.rejected) {
       return TransferStoreState.initial;
@@ -144,6 +144,7 @@ abstract class _TransferStore with Store {
         );
       });
     } on Exception {
+      waitForTransferResult = false;
       errorMessage =
           Failure.internal(FailureCode(typeCode: FailureTypeCode.TRANSFER))
               .message;

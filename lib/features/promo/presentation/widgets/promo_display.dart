@@ -39,6 +39,8 @@ class _PromoDisplayState extends State<PromoDisplay>
     PromoCategoryEnum.other
   ];
 
+  double tabItemWidth;
+
   PromoCategoryEnum _current;
   Widget contentWidget;
   int target = -1;
@@ -83,7 +85,7 @@ class _PromoDisplayState extends State<PromoDisplay>
 
   @override
   Widget build(BuildContext context) {
-    double tabItemWidth =
+    tabItemWidth ??=
         (Global.device.width - 8 * categories.length - 11 - 32) / 5;
     return Column(
       children: <Widget>[
@@ -105,7 +107,7 @@ class _PromoDisplayState extends State<PromoDisplay>
             tabs: categories.map((c) {
               return Container(
                 width: tabItemWidth,
-                height: tabItemWidth * 1.14,
+                height: (tabItemWidth < 72) ? tabItemWidth * 1.14 : 72,
                 decoration: BoxDecoration(
                   color: c == _current
                       ? Themes.defaultAccentColor
@@ -116,34 +118,37 @@ class _PromoDisplayState extends State<PromoDisplay>
                   alignment: AlignmentDirectional.topCenter,
                   children: <Widget>[
                     FittedBox(
-                      child: Tab(
-                        icon: ExtendedImage.network(
-                          '${Global.CURRENT_SERVICE}${c.value.iconUrl}',
-                          scale:
-                              (c.value.id == 0 || c.value.id == 6) ? 6.0 : 3.0,
-                          color: c == _current
-                              ? Themes.iconColorDarkGrey
-                              : Themes.defaultAccentColor,
-                          loadStateChanged: (ExtendedImageState state) {
-                            switch (state.extendedImageLoadState) {
-                              case LoadState.completed:
-                                return state.completedWidget;
-                              case LoadState.failed:
-                                return Icon(
-                                  Icons.broken_image,
-                                  color: Themes.iconColorLightGrey,
-                                );
-                              default:
-                                return null;
-                            }
-                          },
-                        ),
-                        iconMargin: EdgeInsets.only(top: 2.0, bottom: 2.0),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 3.0),
-                          child: Text(
-                            c.value.label,
-                            style: TextStyle(fontSize: FontSize.NORMAL.value),
+                      child: Center(
+                        child: Tab(
+                          icon: ExtendedImage.network(
+                            '${Global.CURRENT_SERVICE}${c.value.iconUrl}',
+                            scale: (c.value.id == 0 || c.value.id == 6)
+                                ? 6.0
+                                : 3.0,
+                            color: c == _current
+                                ? Themes.iconColorDarkGrey
+                                : Themes.defaultAccentColor,
+                            loadStateChanged: (ExtendedImageState state) {
+                              switch (state.extendedImageLoadState) {
+                                case LoadState.completed:
+                                  return state.completedWidget;
+                                case LoadState.failed:
+                                  return Icon(
+                                    Icons.broken_image,
+                                    color: Themes.iconColorLightGrey,
+                                  );
+                                default:
+                                  return null;
+                              }
+                            },
+                          ),
+                          iconMargin: EdgeInsets.only(top: 2.0, bottom: 2.0),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 3.0),
+                            child: Text(
+                              c.value.label,
+                              style: TextStyle(fontSize: FontSize.NORMAL.value),
+                            ),
                           ),
                         ),
                       ),

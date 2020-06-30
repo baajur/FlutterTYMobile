@@ -4,7 +4,7 @@ import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
 import 'package:flutter_ty_mobile/features/home/home_inject.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:flutter_ty_mobile/injection_container.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:super_enum/super_enum.dart';

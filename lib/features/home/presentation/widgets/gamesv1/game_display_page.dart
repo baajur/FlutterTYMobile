@@ -7,8 +7,8 @@ import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/home/data/game_page_data_export.dart';
 
-import '../../../../route_page_export.dart'
-    show MyLogger, getRouteUserStreams, localeStr, sl;
+import '../../../../general_route_widget_export.dart'
+    show Global, MyLogger, getRouteUserStreams, localeStr, sl;
 import '../../bloc/game/bloc_game_export.dart';
 import 'game_control_grid.dart';
 import 'game_web_control.dart';
@@ -34,6 +34,7 @@ class _GameDisplayPageState extends State<GameDisplayPage>
   Widget _content;
   Widget _gamesWidget;
   bool _isGameGrid = false;
+  int plusGrid;
 
   GamePlatformEntity _currentPlatform;
   List<GameEntity> games;
@@ -92,6 +93,12 @@ class _GameDisplayPageState extends State<GameDisplayPage>
   }
 
   @override
+  void initState() {
+    plusGrid = (Global.device.widthScale > 1.5) ? 1 : 0;
+    super.initState();
+  }
+
+  @override
   void didUpdateWidget(GameDisplayPage oldWidget) {
     print("update game-page=${widget.platforms.first.category}");
     super.didUpdateWidget(oldWidget);
@@ -111,9 +118,9 @@ class _GameDisplayPageState extends State<GameDisplayPage>
     _isGameGrid = false;
     return GridView.count(
       physics: ClampingScrollPhysics(),
-      crossAxisCount: 2,
+      crossAxisCount: 2 + plusGrid,
       crossAxisSpacing: 4.0,
-      childAspectRatio: 0.95,
+      childAspectRatio: (plusGrid > 0) ? 1.05 : 0.95,
       shrinkWrap: true,
       children:
           widget.platforms.map((entity) => _createGridItem(entity)).toList(),
@@ -186,8 +193,8 @@ class _GameDisplayPageState extends State<GameDisplayPage>
     games = List.from(list);
     return new GridView.count(
       physics: ClampingScrollPhysics(),
-      crossAxisCount: 3,
-      childAspectRatio: 0.7,
+      crossAxisCount: 3 + plusGrid,
+      childAspectRatio: (plusGrid > 0) ? 0.85 : 0.7,
       shrinkWrap: true,
       children: games.map((entity) => _createGridItem(entity)).toList(),
     );

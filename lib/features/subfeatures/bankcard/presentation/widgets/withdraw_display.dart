@@ -64,7 +64,7 @@ class _WithdrawDisplayState extends State<WithdrawDisplay> {
         (_) => _store.waitForWithdrawResult,
         // Run some logic with the content of the observed field
         (bool wait) {
-          print('withdraw wait: $wait');
+          print('reaction on wait withdraw: $wait');
           if (wait) {
             toastDismiss = FLToast.showLoading(
               text: localeStr.messageWait,

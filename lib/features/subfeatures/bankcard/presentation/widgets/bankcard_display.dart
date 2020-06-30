@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
 import '../state/bankcard_store.dart';
 import '../../data/form/bankcard_form.dart';
@@ -122,10 +122,10 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
     if (form.validate()) {
       form.save();
       BankcardForm dataForm = BankcardForm(
-        owner: _nameFieldKey.currentState.inputText,
+        owner: _nameFieldKey.currentState.getInput,
         bankId: _bankSelected,
-        card: _accountFieldKey.currentState.inputText,
-        branch: _branchFieldKey.currentState.inputText,
+        card: _accountFieldKey.currentState.getInput,
+        branch: _branchFieldKey.currentState.getInput,
         province: _provinceSelected,
         area: (_areaSelected != null) ? _areaSelected : _citySelected,
       );
@@ -154,6 +154,13 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             InkWell(
+              // to dismiss the keyboard when the user tabs out of the TextField
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
               child: new Form(
                 key: _formKey,
                 child: ListView(
@@ -163,7 +170,6 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
                     new CustomizeFieldWidget(
                       key: _nameFieldKey,
                       fieldType: FieldType.ChineseOnly,
-                      minusHeight: 8,
                       hint: '',
                       persistHint: false,
                       prefixText: localeStr.bankcardViewTitleOwner,
@@ -175,7 +181,7 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
                     ),
                     /* Bank Option */
                     CustomizeDropdownWidget(
-                      prefixTitle: localeStr.bankcardViewTitleBankName,
+                      prefixText: localeStr.bankcardViewTitleBankName,
                       titleLetterSpacing: 4,
                       optionValues:
                           (bankMap != null) ? bankMap.keys.toList() : [],
@@ -189,7 +195,6 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
                     new CustomizeFieldWidget(
                       key: _accountFieldKey,
                       fieldType: FieldType.Numbers,
-                      minusHeight: 8,
                       hint: '',
                       persistHint: false,
                       prefixText: localeStr.bankcardViewTitleCardNumber,
@@ -203,7 +208,6 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
                     new CustomizeFieldWidget(
                       key: _branchFieldKey,
                       fieldType: FieldType.ChineseOnly,
-                      minusHeight: 8,
                       hint: '',
                       persistHint: false,
                       prefixText: localeStr.bankcardViewTitleBankPoint,
@@ -219,7 +223,7 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
             ),
             /* Province Option */
             CustomizeDropdownWidget(
-              prefixTitle: localeStr.bankcardViewTitleBankProvince,
+              prefixText: localeStr.bankcardViewTitleBankProvince,
               titleLetterSpacing: 4,
               optionValues:
                   (provinceMap != null) ? provinceMap.keys.toList() : [],
@@ -243,7 +247,7 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
             if (cityMap != null)
               CustomizeDropdownWidget(
                 key: _cityKey,
-                prefixTitle: localeStr.bankcardViewTitleBankArea,
+                prefixText: localeStr.bankcardViewTitleBankArea,
                 titleLetterSpacing: 4,
                 optionValues: cityMap.keys.toList(),
                 optionStrings: cityMap.values.toList(),
@@ -264,7 +268,7 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
             if (areaMap != null)
               CustomizeDropdownWidget(
                 key: _areaKey,
-                prefixTitle: '${localeStr.bankcardViewTitleBankArea}2',
+                prefixText: '${localeStr.bankcardViewTitleBankArea}2',
                 titleLetterSpacing: 4,
                 optionValues: areaMap.keys.toList(),
                 optionStrings: areaMap.values.toList(),
@@ -283,17 +287,20 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Expanded(
-                    child: RaisedButton(
-                      child: Text(localeStr.btnSend),
-                      textColor: Themes.defaultTextColorBlack,
-                      onPressed: () {
-                        try {
-                          _validateForm();
-                        } catch (e) {
-                          MyLogger.error(
-                              msg: 'form error: $e', error: e, tag: tag);
-                        }
-                      },
+                    child: SizedBox(
+                      height: Global.device.comfortButtonHeight,
+                      child: RaisedButton(
+                        child: Text(localeStr.btnSend),
+                        textColor: Themes.defaultTextColorBlack,
+                        onPressed: () {
+                          try {
+                            _validateForm();
+                          } catch (e) {
+                            MyLogger.error(
+                                msg: 'form error: $e', error: e, tag: tag);
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],

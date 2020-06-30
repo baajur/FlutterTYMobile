@@ -37,7 +37,7 @@ int stringToInt(String str) {
     else
       return int.parse(str.replaceAll(RegExp('￥|,'), '').trim());
   } catch (e) {
-    MyLogger.warn(msg: 'parse value has exception', tag: 'strToInt');
+    MyLogger.warn(msg: 'parse value has exception, str: $str', tag: 'strToInt');
     return -1;
   }
 }

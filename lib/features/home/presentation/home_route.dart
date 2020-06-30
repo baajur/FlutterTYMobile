@@ -5,7 +5,7 @@ import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/home/presentation/bloc/bloc_home_export.dart';
 import 'package:flutter_ty_mobile/features/home/presentation/widgets/home_widgets_export.dart';
 
-import '../../route_page_export.dart';
+import '../../general_route_widget_export.dart';
 
 /// Main View of [Router.homeRoute]
 ///@author H.C.CHIANG

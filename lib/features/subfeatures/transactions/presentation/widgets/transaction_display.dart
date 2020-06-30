@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/table_cell_text_widget.dart';
 
 import '../../data/models/transaction_model.dart';
 
@@ -15,8 +16,10 @@ class TransactionDisplay extends StatefulWidget {
 class TransactionDisplayState extends State<TransactionDisplay> {
   double _availableWidth;
   double _tableHeight;
-  List<TransactionData> _dataList;
   Map<int, TableColumnWidth> _tableWidthMap;
+
+  List<TransactionData> _dataList;
+  List<String> _headerRowTexts;
   TableRow _headerRow;
 
   set updateContent(List<TransactionData> list) {
@@ -29,14 +32,14 @@ class TransactionDisplayState extends State<TransactionDisplay> {
 
   @override
   void initState() {
-    double basicHeight = 785.0 - Global.APP_BAR_HEIGHT * 2 - 32;
+    double basicHeight = Global.TEST_DEVICE_CONTENT_HEIGHT - 24;
     double availableHeight =
-        Global.device.height.roundToDouble() - Global.APP_BAR_HEIGHT * 2 - 32;
-    double screenHeightFactor = availableHeight / basicHeight;
-    print('screen height factor: $screenHeightFactor');
+        Global.device.height.roundToDouble() - Global.APP_TOOLS_HEIGHT - 24;
+    double heightFactor = availableHeight / basicHeight;
+//    print('screen height factor: $heightFactor');
     // FontSize.NORMAL.value * 1.8 = font size and line spacing
     // 17 = 8 rows * 2 lines + header line
-    _tableHeight = FontSize.NORMAL.value * 1.8 * 17 * screenHeightFactor;
+    _tableHeight = FontSize.NORMAL.value * 1.8 * 17 * heightFactor;
 
     _availableWidth = Global.device.width - 16;
     double remainWidth = _availableWidth - 72;
@@ -54,14 +57,18 @@ class TransactionDisplayState extends State<TransactionDisplay> {
   @override
   Widget build(BuildContext context) {
     if (_dataList == null) return SizedBox.shrink();
+    _headerRowTexts ??= [
+      localeStr.transactionHeaderSerial,
+      localeStr.transactionHeaderDate,
+      localeStr.transactionHeaderType,
+      localeStr.transactionHeaderDesc,
+      localeStr.transactionHeaderAmount,
+    ];
     _headerRow ??= TableRow(
-      children: <Widget>[
-        Center(child: Text('序号')),
-        Center(child: Text('日期')),
-        Center(child: Text('类别')),
-        Center(child: Text('说明')),
-        Center(child: Text('金额')),
-      ],
+      children: List.generate(
+        _headerRowTexts.length,
+        (index) => TableCellTextWidget(text: _headerRowTexts[index]),
+      ),
     );
     if (_dataList.isEmpty)
       return SizedBox(
@@ -71,17 +78,18 @@ class TransactionDisplayState extends State<TransactionDisplay> {
         ),
       );
     else
-      return ConstrainedBox(
+      return Container(
         constraints: BoxConstraints(
           maxWidth: _availableWidth,
           maxHeight: _tableHeight,
         ),
+        color: Themes.stackBackgroundColor,
         child: SingleChildScrollView(
           child: Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             columnWidths: _tableWidthMap,
             border: TableBorder.all(
-              color: Themes.stackBackgroundColorLight,
+              color: Themes.defaultBorderColor,
               width: 2.0,
               style: BorderStyle.solid,
             ),
@@ -103,13 +111,9 @@ class TransactionDisplayState extends State<TransactionDisplay> {
                   /* generate cell text */
                   return TableRow(
                     children: List.generate(
-                      5,
-                      (index) => Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Text('${dataTexts[index]}'),
-                        ),
-                      ),
+                      dataTexts.length,
+                      (index) =>
+                          TableCellTextWidget(text: '${dataTexts[index]}'),
                     ),
                   );
                 }),

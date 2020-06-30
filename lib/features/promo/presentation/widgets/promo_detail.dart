@@ -3,7 +3,7 @@ import 'package:flutter_ty_mobile/core/error/failures.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/promo/data/models/promo_freezed.dart'
     show PromoEntity;
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 /// Show promo detail in [WebView]

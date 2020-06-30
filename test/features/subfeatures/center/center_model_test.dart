@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/data/models/center_model.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/data/models/center_vip_setting_model.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/data/entity/center_vip_entity.dart';
+import 'package:flutter_ty_mobile/utils/value_util.dart';
 
 import '../../../fixtures/fixture_reader.dart';
 
@@ -63,7 +64,7 @@ void main() {
     print('$levelRequirement\n\n');
   });
 
-  test('simplfy for decoding', () {
+  test('simplify for decoding', () {
     CenterModel model = CenterModel.jsonToCenterModel(map);
 //    String setting = jsonEncode(model.vipSetting);
     List<String> levelTitles = new List();
@@ -119,5 +120,73 @@ void main() {
         entity.getLevelRequirements;
     print('$levelRequirements\n\n');
     expect(levelRequirements, isA<Map<String, CenterVipSettingItem>>());
+  });
+
+  test('test vip level sort', () {
+    CenterModel model = CenterModel.jsonToCenterModel(map);
+    CenterVipEntity entity = model.wrapVipData;
+
+    print('\nLevel Requirements:\n');
+    Map<String, CenterVipSettingItem> levelRequirements =
+        entity.getLevelRequirements;
+    List<String> levelLabels = entity.getLevelLabels;
+    List<String> titles = entity.getBlockTitles;
+    print('$levelRequirements\n\n');
+
+    List<String> sortedLevelKeys = new List();
+    levelRequirements.forEach((key, value) {
+      sortedLevelKeys.add(key);
+      print('vip level $key requirements: $value');
+    });
+    sortedLevelKeys.sort((a, b) => a.compareTo(b));
+
+    print('\n');
+    for (int i = 0; i < titles.length; i++) {
+      /// prepare block data
+      String blockKey = entity.getBlockKeys[i];
+      print('block: $blockKey');
+      List<String> blockLevelLabels = new List.from(levelLabels);
+      List<int> blockLevelRequirements =
+          new List.generate(sortedLevelKeys.length, (index) {
+        CenterVipSettingItem setting =
+            levelRequirements[sortedLevelKeys[index]];
+        int value = '${setting.toJson()[blockKey]}'.strToInt;
+        print('looking for $blockKey in $setting => $value');
+        if (value == -1) blockLevelLabels.removeAt(index);
+        return value;
+      });
+      blockLevelRequirements.removeWhere((value) => value == -1);
+      print('\n');
+
+      /// combine level list
+      List<String> blockLevel = new List();
+      for (int i = 0; i < blockLevelRequirements.length; i++) {
+        blockLevel.add('${blockLevelLabels[i]}=${blockLevelRequirements[i]}');
+      }
+      print('block level: $blockLevel');
+
+      /// sort block data
+      blockLevel.sort((a, b) {
+        int aValue = a.split('=')[1].strToInt;
+        int bValue = b.split('=')[1].strToInt;
+        print('value a: $aValue, b: $bValue');
+        int cp = aValue.compareTo(bValue);
+        return cp;
+      });
+
+      /// split level list
+      blockLevelLabels.clear();
+      blockLevelRequirements.clear();
+      blockLevel.forEach((level) {
+        var split = level.split('=');
+        blockLevelRequirements.add(split[1].strToInt);
+        blockLevelLabels.add(split[0]);
+      });
+      print('----------sorted: ${titles[i]}----------');
+      print('sorted level: $blockLevel');
+      print('sorted level labels: $blockLevelLabels');
+      print('sorted level values: $blockLevelRequirements');
+      print('--------------------------------------\n\n\n');
+    }
   });
 }

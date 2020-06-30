@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart' show Observer;
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart'
     show LoadingWidget, ToastMessage;
 
-import '../../route_page_export.dart' show sl;
+import '../../general_route_widget_export.dart' show sl;
 import 'state/promo_store.dart';
 import 'widgets/promo_display.dart';
 

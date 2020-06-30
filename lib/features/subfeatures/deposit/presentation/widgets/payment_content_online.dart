@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/error/failures.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';
@@ -50,7 +51,7 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
     if (form.validate()) {
       form.save();
       if (_otherData.hasAmountOption == false)
-        _depositAmount = _amountFieldKey?.currentState?.inputText ?? '0';
+        _depositAmount = _amountFieldKey?.currentState?.getInput ?? '0';
 //      print('The user wants to login with $_username and $_password');
       DepositDataForm dataForm = new DepositDataForm(
         bankIndex: _bankSelectedIndex,
@@ -105,6 +106,8 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
       return InkWell(
         // to dismiss the keyboard when the user tabs out of the TextField
         splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        focusColor: Colors.transparent,
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
@@ -120,7 +123,7 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                   /* Bank Option */
                   CustomizeDropdownWidget(
                     key: _bankOptionKey,
-                    prefixTitle: localeStr.depositPaymentSpinnerTitleBank,
+                    prefixText: localeStr.depositPaymentSpinnerTitleBank,
                     titleLetterSpacing: 4,
                     optionValues: widget.dataList
                         .map((item) => item.bankAccountId)
@@ -147,7 +150,7 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                   (_useAmountOption)
                       ? CustomizeDropdownWidget(
                           key: _amountOptionKey,
-                          prefixTitle: localeStr.depositPaymentEditTitleAmount,
+                          prefixText: localeStr.depositPaymentEditTitleAmount,
                           titleLetterSpacing: 4,
                           optionValues: _otherData.amountOption,
                           changeNotify: (data) {
@@ -181,10 +184,8 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                                 min: _otherData.min ?? 1,
                                 max: _otherData.max,
                               ),
-                          parentWidth: MediaQuery.of(context).size.width,
                           titleLetterSpacing: 4,
                           maxInputLength: _otherData.max.toString().length,
-                          minusHeight: 8,
                         ),
                   /* Amount Limit Hint */
                   Row(
@@ -208,20 +209,23 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Expanded(
-                  child: RaisedButton(
-                    child: Text(localeStr.btnConfirm),
-                    textColor: Themes.defaultTextColorBlack,
-                    onPressed: () {
-                      try {
-                        // clear text field focus
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        // validate and send request
-                        _validateForm();
-                      } catch (e) {
-                        MyLogger.error(
-                            msg: 'form error: $e', error: e, tag: tag);
-                      }
-                    },
+                  child: SizedBox(
+                    height: Global.device.comfortButtonHeight,
+                    child: RaisedButton(
+                      child: Text(localeStr.btnConfirm),
+                      textColor: Themes.defaultTextColorBlack,
+                      onPressed: () {
+                        try {
+                          // clear text field focus
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          // validate and send request
+                          _validateForm();
+                        } catch (e) {
+                          MyLogger.error(
+                              msg: 'form error: $e', error: e, tag: tag);
+                        }
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -233,20 +237,23 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
-                          child:
-                              Text(localeStr.depositPaymentButtonTitleTutorial),
-                          color: Themes.buttonSubColor,
-                          textColor: Themes.defaultTextColorBlack,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) => new PaymentTutorial(
-                                tutorialData: widget.tutorial,
-                              ),
-                            );
-                          },
+                        child: SizedBox(
+                          height: Global.device.comfortButtonHeight,
+                          child: RaisedButton(
+                            child: Text(
+                                localeStr.depositPaymentButtonTitleTutorial),
+                            color: Themes.buttonSubColor,
+                            textColor: Themes.defaultTextColorBlack,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) => new PaymentTutorial(
+                                  tutorialData: widget.tutorial,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],

@@ -85,9 +85,18 @@ Future<List<T>> requestList<T>({
         response.statusCode != 200) throw ResponseException();
     if (response.data.toString().startsWith('['))
       return JsonUtil.decodeArrayToModel<T>(
-          response.data, jsonToModel, true, tag);
+        response.data,
+        jsonToModel,
+        tag: tag,
+      );
     else {
-      return [JsonUtil.decodeToModel<T>(response.data, jsonToModel, true, tag)];
+      return [
+        JsonUtil.decodeToModel<T>(
+          response.data,
+          jsonToModel,
+          tag: tag,
+        )
+      ];
     }
   }, tag);
   MyLogger.debug(msg: 'remote list type: ${result.runtimeType}', tag: tag);
@@ -114,7 +123,11 @@ Future<T> requestData<T>({
     if (response.data.toString().startsWith('['))
       throw MapJsonDataException();
     else {
-      return JsonUtil.decodeToModel<T>(response.data, jsonToModel, true, tag);
+      return JsonUtil.decodeToModel<T>(
+        response.data,
+        jsonToModel,
+        tag: tag,
+      );
     }
   }, tag);
   MyLogger.debug(msg: 'remote data type: ${result.runtimeType}', tag: tag);
@@ -141,7 +154,10 @@ Future<DataRequestResult> requestResponseHeader({
     if (headerRequested == null) {
       // request failed
       var model = JsonUtil.decodeToModel(
-          response.data, RequestStatusModel.jsonToStatusModel, true, tag);
+        response.data,
+        RequestStatusModel.jsonToStatusModel,
+        tag: tag,
+      );
 //      print('test failed model: $model');
       return DataRequestResult(failedData: model);
     } else {

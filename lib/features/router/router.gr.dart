@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_ty_mobile/features/home/presentation/home_route.dart';
 import 'package:flutter_ty_mobile/features/users/presentation/login_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/register/presentation/register_route.dart';
 import 'package:flutter_ty_mobile/features/web/web_route.dart';
 import 'package:flutter_ty_mobile/features/member/presentation/member_route.dart';
 import 'package:flutter_ty_mobile/features/promo/presentation/promo_route.dart';
@@ -22,6 +23,10 @@ import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentatio
 import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/widgets/center_display_account_pwd.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/state/center_store.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transactions/presentation/transaction_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/betrecord/presentation/bet_record_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/deals/presentation/deals_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/flows/presentation/flows_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/agent/presentation/agent_route.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/downloadarea/download_area_route.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/notice/presentation/notice_route.dart';
 import 'package:flutter_ty_mobile/features/test_area_route.dart';
@@ -31,6 +36,7 @@ import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dar
 abstract class Routes {
   static const homeRoute = '/';
   static const loginRoute = '/login-route';
+  static const registerRoute = '/register-route';
   static const serviceRoute = '/service-route';
   static const memberRoute = '/member-route';
   static const promoRoute = '/promo-route';
@@ -44,7 +50,12 @@ abstract class Routes {
   static const centerRoute = '/center-route';
   static const centerPasswordPage = '/center-password-page';
   static const transactionRoute = '/transaction-route';
+  static const betRecordRoute = '/bet-record-route';
+  static const dealsRoute = '/deals-route';
+  static const flowsRoute = '/flows-route';
+  static const agentRoute = '/agent-route';
   static const centerWebPage = '/center-web-page';
+  static const moreWebPage = '/more-web-page';
   static const downloadAreaRoute = '/download-area-route';
   static const noticeRoute = '/notice-route';
   static const testAreaRoute = '/test-area-route';
@@ -53,6 +64,7 @@ abstract class Routes {
   static const all = {
     homeRoute,
     loginRoute,
+    registerRoute,
     serviceRoute,
     memberRoute,
     promoRoute,
@@ -66,7 +78,12 @@ abstract class Routes {
     centerRoute,
     centerPasswordPage,
     transactionRoute,
+    betRecordRoute,
+    dealsRoute,
+    flowsRoute,
+    agentRoute,
     centerWebPage,
+    moreWebPage,
     downloadAreaRoute,
     noticeRoute,
     testAreaRoute,
@@ -97,8 +114,19 @@ class Router extends RouterBase {
           settings: settings,
         );
       case Routes.loginRoute:
+        if (hasInvalidArgs<LoginRouteArguments>(args)) {
+          return misTypedArgsRoute<LoginRouteArguments>(args);
+        }
+        final typedArgs = args as LoginRouteArguments ?? LoginRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (context) => LoginRoute(),
+          builder: (context) => LoginRoute(
+              returnHomeAfterLogin: typedArgs.returnHomeAfterLogin,
+              isDialog: typedArgs.isDialog),
+          settings: settings,
+        );
+      case Routes.registerRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => RegisterRoute(),
           settings: settings,
         );
       case Routes.serviceRoute:
@@ -194,7 +222,36 @@ class Router extends RouterBase {
           builder: (context) => TransactionRoute(),
           settings: settings,
         );
+      case Routes.betRecordRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => BetRecordRoute(),
+          settings: settings,
+        );
+      case Routes.dealsRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => DealsRoute(),
+          settings: settings,
+        );
+      case Routes.flowsRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => FlowsRoute(),
+          settings: settings,
+        );
+      case Routes.agentRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => AgentRoute(),
+          settings: settings,
+        );
       case Routes.centerWebPage:
+        if (hasInvalidArgs<WebRouteArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<WebRouteArguments>(args);
+        }
+        final typedArgs = args as WebRouteArguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
+          settings: settings,
+        );
+      case Routes.moreWebPage:
         if (hasInvalidArgs<WebRouteArguments>(args, isRequired: true)) {
           return misTypedArgsRoute<WebRouteArguments>(args);
         }
@@ -244,6 +301,14 @@ class Router extends RouterBase {
 class HomeRouteArguments {
   final Key key;
   HomeRouteArguments({this.key});
+}
+
+//LoginRoute arguments holder class
+class LoginRouteArguments {
+  final bool returnHomeAfterLogin;
+  final bool isDialog;
+  LoginRouteArguments(
+      {this.returnHomeAfterLogin = false, this.isDialog = false});
 }
 
 //WebRoute arguments holder class

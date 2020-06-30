@@ -5,7 +5,7 @@ import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widge
 import 'package:flutter_ty_mobile/features/general/widgets/dialog_widget.dart';
 
 import '../state/center_store.dart';
-import '../../../../route_page_export.dart';
+import '../../../../general_route_widget_export.dart';
 
 class CenterDialogMobile extends StatefulWidget {
   final CenterStore store;
@@ -66,14 +66,13 @@ class _CenterDialogMobileState extends State<CenterDialogMobile>
                       persistHint: false,
                       prefixText: localeStr.centerTextTitlePhone,
                       titleLetterSpacing: 8,
-                      minusHeight: 8,
                       suffixText: localeStr.userVerifyButtonText('\n'),
                       suffixLetterWidth: 3.6,
                       suffixAction: (input) {
                         print('post request: ${widget.store.waitForResponse}');
                         if (widget.store.waitForResponse == false)
                           widget.store.postVerifyRequest(
-                              _phoneFieldKey.currentState.inputText);
+                              _phoneFieldKey.currentState.getInput);
                       },
                       readOnly: true,
                     ),
@@ -84,7 +83,6 @@ class _CenterDialogMobileState extends State<CenterDialogMobile>
                       persistHint: false,
                       prefixText: localeStr.userVerifyFieldTitle,
                       titleLetterSpacing: 3,
-                      minusHeight: 8,
                       maxInputLength: 12,
                     ),
                   ],
@@ -145,7 +143,7 @@ class _CenterDialogMobileState extends State<CenterDialogMobile>
     if (form.validate()) {
       form.save();
 //      print('The user wants to login with $_username and $_password');
-      String verifyCode = _verifyFieldKey?.currentState?.inputText ?? '';
+      String verifyCode = _verifyFieldKey?.currentState?.getInput ?? '';
       if (verifyCode.isNotEmpty)
         widget.store.postVerify(widget.mobile, verifyCode);
       else

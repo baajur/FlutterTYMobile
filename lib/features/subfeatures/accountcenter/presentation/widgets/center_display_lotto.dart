@@ -1,14 +1,10 @@
 import 'dart:math' show Random;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/core/internal/font_size.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
 import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/route_page_export.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
 import '../state/center_store.dart';
 import 'center_store_inherit_widget.dart';
@@ -85,7 +81,7 @@ class _CenterDisplayLottoState extends State<CenterDisplayLotto> {
     if (form.validate()) {
       form.save();
       List<int> numbers =
-          _fieldKeys.map((e) => e.currentState.inputText.strToInt).toList();
+          _fieldKeys.map((e) => e.currentState.getInput.strToInt).toList();
       print('validating lotto numbers: $numbers');
       if (numbers.every((num) => rangeCheck(value: num, min: 1, max: 49)))
         _store.postLucky(numbers); //FIXME response data error
@@ -114,7 +110,7 @@ class _CenterDisplayLottoState extends State<CenterDisplayLotto> {
       key: _streamKey,
       stream: _store.lottoStream,
       builder: (_, snapshot) {
-        print('lotto stream snapshot: $snapshot');
+//        print('lotto stream snapshot: $snapshot');
         if (contentWidget == null || _storeData != _store.accountLotto) {
           _storeData = _store.accountLotto;
           if (_storeData == null || _storeData.isEmpty) {
@@ -161,6 +157,13 @@ class _CenterDisplayLottoState extends State<CenterDisplayLotto> {
             ),
           ),
           InkWell(
+            // to dismiss the keyboard when the user tabs out of the TextField
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
             child: Form(
               key: _formKey,
               child: GridView.builder(

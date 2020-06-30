@@ -23,7 +23,7 @@ Future<void> mainCommon(String env) async {
   _setupLogging();
   // setup orientation
   OrientationHelper.setPreferredOrientations();
-  OrientationHelper.setEnabledSystemUIOverlays();
+  OrientationHelper.enabledSystemUIOverlays();
   // setup injector
   await di.init();
   // run application

@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/balance/presentation/widgets/balance_display.dart';
-import 'package:flutter_ty_mobile/temp/blank_widget.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
 import 'state/balance_store.dart';
-import '../../../../injection_container.dart' show sl;
+import 'widgets/balance_display.dart';
 
 class BalanceRoute extends StatefulWidget {
   @override
@@ -108,7 +102,7 @@ class _BalanceRouteState extends State<BalanceRoute> {
         builder: (_) {
           switch (_store.state) {
             case BalanceStoreState.initial:
-              return BlankWidget();
+              return SizedBox.shrink();
             case BalanceStoreState.loading:
               return LoadingWidget();
             case BalanceStoreState.loaded:

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/hex_color.dart';
 import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart';
 
-import '../../../route_page_export.dart';
+import '../../../general_route_widget_export.dart';
 
 ///@author H.C.CHIANG
 ///@version 2020/1/15
 class UserDisplay extends StatelessWidget {
   final UserEntity user;
-  final bool isDialog;
+  final bool returnHome;
   final Color bgColor = HexColor.fromHex('#e8e8e8');
 
-  UserDisplay({Key key, @required this.user, this.isDialog = false})
+  UserDisplay({Key key, @required this.user, this.returnHome = false})
       : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class UserDisplay extends StatelessWidget {
           dismiss();
           if (ScreenNavigate.screenIndex == 2)
             ScreenNavigate.switchScreen();
-          else if (isDialog) {
+          else if (returnHome) {
             Navigator.pop(context);
             RouterNavigate.navigateClean(force: true);
           } else {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
 
-import '../../../route_page_export.dart' show RouterNavigate, sl;
+import '../../../general_route_widget_export.dart' show RouterNavigate, sl;
 import 'state/deposit_store.dart';
 import 'widgets/deposit_display.dart';
 

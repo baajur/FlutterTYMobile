@@ -11,10 +11,11 @@ void main() {
 
   test('test message model and entity', () {
     var list = JsonUtil.decodeArrayToModel<MessageModel>(
-        map,
-        (jsonMap) => MessageModel.jsonToMessageModel(jsonMap),
-        false,
-        'MessageModel');
+      map,
+      (jsonMap) => MessageModel.jsonToMessageModel(jsonMap),
+      trim: false,
+      tag: 'MessageModel',
+    );
     print(list);
     expect(list.length, equals(5));
     expect(list, isA<List<MessageModel>>());

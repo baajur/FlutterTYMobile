@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/warning_display.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/data/models/center_vip_setting_model.dart';
-import 'package:flutter_ty_mobile/mylogger.dart';
+import 'package:flutter_ty_mobile/features/general_display_widget_export.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';
 import 'package:relative_layout/relative_layout.dart';
 
+import '../../data/models/center_vip_setting_model.dart';
 import '../../data/entity/center_vip_entity.dart';
 import '../state/center_store.dart';
 import 'center_store_inherit_widget.dart';
@@ -30,7 +26,7 @@ class _CenterDisplayVipState extends State<CenterDisplayVip> {
   List<int> blockValue;
 
   Widget contentWidget;
-  Size circleSize = const Size(84.0, 84.0);
+  Size circleSize = const Size(90.0, 90.0);
   double progressBarHeight = 18.0;
   double progressGroupMaxWidth;
   double progressGroupMaxHeight;
@@ -81,7 +77,7 @@ class _CenterDisplayVipState extends State<CenterDisplayVip> {
       key: _streamKey,
       stream: _store.vipStream,
       builder: (_, snapshot) {
-        print('vip stream snapshot: $snapshot');
+//        print('vip stream snapshot: $snapshot');
         if (contentWidget == null || _store.accountVip != vipData) {
           vipData = _store.accountVip;
           updateData();
@@ -109,37 +105,46 @@ class _CenterDisplayVipState extends State<CenterDisplayVip> {
             itemBuilder: (_, index) {
               /// prepare block data
               String blockKey = blockKeys[index];
+              print('sorting block: $blockKey');
               List<String> blockLevelLabels = new List.from(levelLabels);
               List<int> blockLevelRequirements =
                   new List.generate(sortedLevelKeys.length, (index) {
                 CenterVipSettingItem setting =
                     levelRequirements[sortedLevelKeys[index]];
                 int value = '${setting.toJson()[blockKey]}'.strToInt;
-//                print('looking for $blockKey in $setting => $value');
                 if (value == -1) blockLevelLabels.removeAt(index);
                 return value;
-              })
-                    ..removeWhere((value) => value == -1);
-//              print('required values: $blockLevelRequirements');
+              });
+              blockLevelRequirements.removeWhere((value) => value == -1);
+
+              /// combine level list
+              List<String> blockLevel = new List();
+              for (int i = 0; i < blockLevelRequirements.length; i++) {
+                blockLevel
+                    .add('${blockLevelLabels[i]}=${blockLevelRequirements[i]}');
+              }
 
               /// sort block data
-              blockLevelRequirements.sort((a, b) {
-                int cp = a.compareTo(b);
-                if (cp == 1) {
-                  int aIndex = blockLevelRequirements.indexOf(a);
-                  int bIndex = blockLevelRequirements.indexOf(b);
-                  String aLabel = '${blockLevelLabels[aIndex]}';
-                  String bLabel = '${blockLevelLabels[bIndex]}';
-                  blockLevelLabels[aIndex] = bLabel;
-                  blockLevelLabels[bIndex] = aLabel;
-//                  print('switch level label: $aLabel <-> $bLabel');
-                }
+              blockLevel.sort((a, b) {
+                int aValue = a.split('=')[1].strToInt;
+                int bValue = b.split('=')[1].strToInt;
+                int cp = aValue.compareTo(bValue);
                 return cp;
               });
+
+              /// split level list
+              blockLevelLabels.clear();
+              blockLevelRequirements.clear();
+              blockLevel.forEach((level) {
+                var split = level.split('=');
+                blockLevelRequirements.add(split[1].strToInt);
+                blockLevelLabels.add(split[0]);
+              });
+
               print('----------sorted: ${titles[index]}----------');
               print('sorted level labels: $blockLevelLabels');
               print('sorted level values: $blockLevelRequirements');
-              print('--------------------');
+              print('--------------------------------------\n\n\n');
 
               /// generate block
               return _generateBlock(
@@ -157,25 +162,24 @@ class _CenterDisplayVipState extends State<CenterDisplayVip> {
 
   Widget _generateBlock(String title, List<String> labelList,
       List<int> requiredList, int current) {
-//    print('$title block: $labelList \<-\> $requiredList');
+    print('$title block: $labelList \<-\> $requiredList');
     if (labelList.length != requiredList.length)
       MyLogger.warn(msg: '$title block data length not match');
 
     List<Widget> progressWidgets = new List();
-    requiredList.forEach((value) {
-      int index = requiredList.indexOf(value);
+    for (int i = 0; i < labelList.length; i++) {
       progressWidgets.addAll(_generateProgress(
-        label: labelList[index],
+        label: labelList[i],
         current: current,
-        levelValue: requiredList[index],
+        levelValue: requiredList[i],
         nextLevelValue:
-            (index >= requiredList.length - 1) ? null : requiredList[index + 1],
-        isFirst: index == 0,
-        isLast: index == requiredList.length - 1,
-        labelOnRight: index % 2 == 1,
+            (i >= requiredList.length - 1) ? null : requiredList[i + 1],
+        isFirst: i == 0,
+        isLast: i == requiredList.length - 1,
+        labelOnRight: i % 2 == 1,
       ));
 //      print('inner widgets for $title, length: ${progressWidgets.length}, processed: $value');
-    });
+    }
 
     return Padding(
       /// block's padding

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 
@@ -31,14 +32,16 @@ class _CenterDisplayState extends State<CenterDisplay> {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 6,
-              childAspectRatio: 3.5,
+              childAspectRatio: 3.0,
             ),
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount: tabs.length,
             itemBuilder: (_, index) {
               return ConstrainedBox(
-                constraints: const BoxConstraints.tightFor(height: 24),
+                constraints: BoxConstraints.tightFor(
+                  height: Global.device.comfortButtonHeight,
+                ),
                 child: RaisedButton(
                   visualDensity: VisualDensity.compact,
                   color: (_clicked == index)

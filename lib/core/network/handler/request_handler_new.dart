@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_ty_mobile/core/base/task_extension.dart';
@@ -94,7 +96,8 @@ Future<Either<Failure, T>> requestModel<T>({
   return await runTask(_requestDataTest(request: request)).then((result) {
     return result.fold(
       (failure) => Left(failure),
-      (data) => Right(JsonUtil.decodeToModel<T>(data, jsonToModel, trim, tag)),
+      (data) => Right(
+          JsonUtil.decodeToModel<T>(data, jsonToModel, trim: trim, tag: tag)),
     );
   });
 }
@@ -103,16 +106,39 @@ Future<Either<Failure, List<T>>> requestModelList<T>({
   @required Future<Response<dynamic>> request,
   @required Function(Map<String, dynamic> jsonMap) jsonToModel,
   bool trim = true,
+  bool addKey = true,
   String tag = 'remote-MODEL_LIST',
 }) async {
   return await runTask(_requestDataTest(request: request)).then((result) {
     return result.fold(
       (failure) => Left(failure),
       (data) {
-        final model = (data.toString().startsWith('['))
-            ? JsonUtil.decodeArrayToModel<T>(data, jsonToModel, trim, tag)
-            : [JsonUtil.decodeToModel<T>(data, jsonToModel, trim, tag)];
-        return Right(model);
+        if (data.toString() == '[]') return Right([]);
+        try {
+          final model = (data.toString().startsWith('['))
+              ? JsonUtil.decodeArrayToModel<T>(
+                  data,
+                  jsonToModel,
+                  trim: trim,
+                  tag: tag,
+                )
+              : JsonUtil.decodeMapToModelList<T>(
+                  (data is Map) ? data : jsonDecode(data),
+                  jsonToModel,
+                  trim: trim,
+                  addKey: addKey,
+                  tag: tag,
+                );
+          return Right(model);
+        } catch (e, s) {
+          MyLogger.error(
+              msg: 'map data to model list has exception: $e',
+              tag: tag,
+              stackTrace: s);
+          MyLogger.debug(
+              msg: 'type:${data.runtimeType}, data: $data', tag: tag);
+          return Left(Failure.jsonFormat());
+        }
       },
     );
   });

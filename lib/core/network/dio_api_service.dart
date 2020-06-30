@@ -17,7 +17,7 @@ class DioApiService {
 
   Dio _dio;
   BaseOptions _options;
-  CancelToken _downloadToken = new CancelToken();
+  CancelToken _cancelToken = new CancelToken();
   static const TAG = 'DioApiService';
 
   static DioApiService getInstance() {
@@ -230,7 +230,7 @@ class DioApiService {
         urlPath,
         savePath,
         onReceiveProgress: progressCallback,
-        cancelToken: _downloadToken,
+        cancelToken: _cancelToken,
       );
     } on DioError catch (e) {
       throw getErrorType(e);
@@ -238,7 +238,7 @@ class DioApiService {
   }
 
   void cancelDownloads() {
-    cancelRequests(_downloadToken);
+    cancelRequests(_cancelToken);
   }
 
   ServerException getErrorType(DioError e) {

@@ -127,6 +127,18 @@
   "@pageTitleMemberAgent": {
     "type": "text"
   },
+  "pageTitleMemberAgentAbout": "代理说明",
+  "@pageTitleMemberAgentAbout": {
+    "type": "text"
+  },
+  "pageTitleTask": "活跃任务",
+  "@pageTitleTask": {
+    "type": "text"
+  },
+  "pageTitleMore": "更多",
+  "@pageTitleMore": {
+    "type": "text"
+  },
   "toolBarMemberCredit": "￥ {value}",
   "@toolBarMemberCredit": {
     "type": "text",
@@ -216,6 +228,30 @@
   "@btnQueryNow": {
     "type": "text"
   },
+  "btnShow": "显示",
+  "@btnShow": {
+    "type": "text"
+  },
+  "spinnerDateAll": "全部时间",
+  "@spinnerDateAll": {
+    "type": "text"
+  },
+  "spinnerDateToday": "今天",
+  "@spinnerDateToday": {
+    "type": "text"
+  },
+  "spinnerDateYesterday": "昨天",
+  "@spinnerDateYesterday": {
+    "type": "text"
+  },
+  "spinnerDateMonth": "一个月内",
+  "@spinnerDateMonth": {
+    "type": "text"
+  },
+  "spinnerDateCustom": "自订时间",
+  "@spinnerDateCustom": {
+    "type": "text"
+  },
   "alertTitleError": "错误",
   "@alertTitleError": {
     "type": "text"
@@ -246,35 +282,6 @@
   },
   "alertButtonClose": "关闭",
   "@alertButtonClose": {
-    "type": "text"
-  },
-  "btnSignUpTv": "已累积签到{value}天",
-  "@btnSignUpTv": {
-    "type": "text",
-    "placeholders": {
-      "value": {
-        "example": "3"
-      }
-    }
-  },
-  "btnSignUpAlready": "已签到",
-  "@btnSignUpAlready": {
-    "type": "text"
-  },
-  "btnSignUpSuccess": "签到成功!!",
-  "@btnSignUpSuccess": {
-    "type": "text"
-  },
-  "btnSignUpFailed": "签到失败!!",
-  "@btnSignUpFailed": {
-    "type": "text"
-  },
-  "btnNoticeGeneral": "一般讯息",
-  "@btnNoticeGeneral": {
-    "type": "text"
-  },
-  "btnNoticeMaintenance": "维护通知",
-  "@btnNoticeMaintenance": {
     "type": "text"
   },
   "hintActionSelect": "请选择",
@@ -735,6 +742,10 @@
   "@registerButtonTitleRegister": {
     "type": "text"
   },
+  "registerHintAutoLogin": "登入中，请稍候...",
+  "@registerHintAutoLogin": {
+    "type": "text"
+  },
   "promoDetailText": ">>活动细则",
   "@promoDetailText": {
     "type": "text"
@@ -1083,22 +1094,6 @@
   "@transactionViewSpinnerTitle": {
     "type": "text"
   },
-  "transactionViewSpinnerDate0": "全部时间",
-  "@transactionViewSpinnerDate0": {
-    "type": "text"
-  },
-  "transactionViewSpinnerDate1": "今天",
-  "@transactionViewSpinnerDate1": {
-    "type": "text"
-  },
-  "transactionViewSpinnerDate2": "昨天",
-  "@transactionViewSpinnerDate2": {
-    "type": "text"
-  },
-  "transactionViewSpinnerDate3": "一个月内",
-  "@transactionViewSpinnerDate3": {
-    "type": "text"
-  },
   "transactionHeaderSerial": "序号",
   "@transactionHeaderSerial": {
     "type": "text"
@@ -1123,8 +1118,24 @@
   "@betsSpinnerTitlePlatform": {
     "type": "text"
   },
+  "betsSpinnerOptionAllPlatform": "全部平台",
+  "@betsSpinnerOptionAllPlatform": {
+    "type": "text"
+  },
   "betsSpinnerTitleTime": "投注时间",
   "@betsSpinnerTitleTime": {
+    "type": "text"
+  },
+  "betsFieldTitleStartTime": "開始时间",
+  "@betsFieldTitleStartTime": {
+    "type": "text"
+  },
+  "betsFieldTitleEndTime": "結束时间",
+  "@betsFieldTitleEndTime": {
+    "type": "text"
+  },
+  "betsFieldDateError": "时间范围错误",
+  "@betsFieldDateError": {
     "type": "text"
   },
   "betsTextTotal": "总计:￥{value}",
@@ -1218,70 +1229,6 @@
   },
   "dealsHeaderAmount": "金额",
   "@dealsHeaderAmount": {
-    "type": "text"
-  },
-  "agentTextTitleData": "代理资料",
-  "@agentTextTitleData": {
-    "type": "text"
-  },
-  "agentTextTitleChart": "代理报表",
-  "@agentTextTitleChart": {
-    "type": "text"
-  },
-  "agentTextTitleCommission": "代理佣金报表",
-  "@agentTextTitleCommission": {
-    "type": "text"
-  },
-  "agentTextDataCode": "推荐码：",
-  "@agentTextDataCode": {
-    "type": "text"
-  },
-  "agentTextDataUrl": "代理连结:",
-  "@agentTextDataUrl": {
-    "type": "text"
-  },
-  "agentTextDataUpper": "上层帐号:",
-  "@agentTextDataUpper": {
-    "type": "text"
-  },
-  "agentTextDataLower": "下层帐号:",
-  "@agentTextDataLower": {
-    "type": "text"
-  },
-  "agentButtonTextRequest": "取得代理码",
-  "@agentButtonTextRequest": {
-    "type": "text"
-  },
-  "agentButtonTextCopy": "复制",
-  "@agentButtonTextCopy": {
-    "type": "text"
-  },
-  "agentTextChartDate": "时间：",
-  "@agentTextChartDate": {
-    "type": "text"
-  },
-  "agentTextChartMonth": "本月",
-  "@agentTextChartMonth": {
-    "type": "text"
-  },
-  "agentTextChartMonthPrev": "上月",
-  "@agentTextChartMonthPrev": {
-    "type": "text"
-  },
-  "agentTextChartOption": "选择",
-  "@agentTextChartOption": {
-    "type": "text"
-  },
-  "agentTextChartPlatform": "平台",
-  "@agentTextChartPlatform": {
-    "type": "text"
-  },
-  "agentTextChartCategory": "类别",
-  "@agentTextChartCategory": {
-    "type": "text"
-  },
-  "agentTextChartQuery": "查询",
-  "@agentTextChartQuery": {
     "type": "text"
   },
   "depositPaymentTitleBank": "银行充值",
@@ -1721,6 +1668,90 @@
   "@flowHeaderTextNeed": {
     "type": "text"
   },
+  "flowHeaderTextTotal": "合计",
+  "@flowHeaderTextTotal": {
+    "type": "text"
+  },
+  "agentTabTitleInfo": "资讯",
+  "@agentTabTitleInfo": {
+    "type": "text"
+  },
+  "agentTabTitleChart": "报表",
+  "@agentTabTitleChart": {
+    "type": "text"
+  },
+  "agentTabTitleCommission": "佣金",
+  "@agentTabTitleCommission": {
+    "type": "text"
+  },
+  "agentTabTitleLedger": "存/提",
+  "@agentTabTitleLedger": {
+    "type": "text"
+  },
+  "agentTabTitleAds": "广告",
+  "@agentTabTitleAds": {
+    "type": "text"
+  },
+  "agentInfoFieldCode": "推荐码",
+  "@agentInfoTitleCode": {
+    "type": "text"
+  },
+  "agentInfoFieldLink": "代理连结",
+  "@agentInfoFieldLink": {
+    "type": "text"
+  },
+  "agentInfoFieldAgents": "下层帐号",
+  "@agentInfoFieldAgents": {
+    "type": "text"
+  },
+  "agentInfoFieldButtonGetCode": "取得代理码",
+  "@agentInfoFieldButtonGetCode": {
+    "type": "text"
+  },
+  "agentButtonTextShare": "分享",
+  "@agentButtonTextShare": {
+    "type": "text"
+  },
+  "agentButtonTextLink": "连结",
+  "@agentButtonTextLink": {
+    "type": "text"
+  },
+  "agentButtonTextCopy": "复制",
+  "@agentButtonTextCopy": {
+    "type": "text"
+  },
+  "agentTextChartDate": "时间：",
+  "@agentTextChartDate": {
+    "type": "text"
+  },
+  "agentTextChartMonth": "本月",
+  "@agentTextChartMonth": {
+    "type": "text"
+  },
+  "agentTextChartMonthPrev": "上月",
+  "@agentTextChartMonthPrev": {
+    "type": "text"
+  },
+  "agentTextChartOption": "选择",
+  "@agentTextChartOption": {
+    "type": "text"
+  },
+  "agentTextChartPlatform": "平台",
+  "@agentTextChartPlatform": {
+    "type": "text"
+  },
+  "agentTextChartCategory": "类别",
+  "@agentTextChartCategory": {
+    "type": "text"
+  },
+  "agentTextChartQuery": "查询",
+  "@agentTextChartQuery": {
+    "type": "text"
+  },
+  "agentTextChartCheckFull": "显示完整资料",
+  "@agentTextChartCheckFull": {
+    "type": "text"
+  },
   "agentChartTableSpinner": "表单",
   "@agentChartTableSpinner": {
     "type": "text"
@@ -1783,6 +1814,50 @@
   },
   "agentCommissionHeaderReceive": "实发佣金",
   "@agentCommissionHeaderReceive": {
+    "type": "text"
+  },
+  "agentLedgerFieldTitleAccount": "请输入帐号",
+  "@agentLedgerFieldTitleAccount": {
+    "type": "text"
+  },
+  "agentLedgerHeaderAccount": "帐号",
+  "@agentLedgerHeaderAccount": {
+    "type": "text"
+  },
+  "agentLedgerHeaderDeposit": "存款",
+  "@agentLedgerHeaderDeposit": {
+    "type": "text"
+  },
+  "agentLedgerHeaderWithdraw": "提款",
+  "@agentLedgerHeaderWithdraw": {
+    "type": "text"
+  },
+  "agentLedgerHeaderPromo": "优惠",
+  "@agentLedgerHeaderPromo": {
+    "type": "text"
+  },
+  "agentLedgerHeaderRefund": "退水",
+  "@agentLedgerHeaderRefund": {
+    "type": "text"
+  },
+  "agentAdTabAvailable": "可使用广告",
+  "@agentAdTabAvailable": {
+    "type": "text"
+  },
+  "agentAdTabGenerated": "已生成广告",
+  "@agentAdTabGenerated": {
+    "type": "text"
+  },
+  "agentAdButtonGenerate": "产生广告",
+  "@agentAdButtonGenerate": {
+    "type": "text"
+  },
+  "noticeTabGeneral": "一般讯息",
+  "@noticeTabGeneral": {
+    "type": "text"
+  },
+  "noticeTabMaintenance": "维护通知",
+  "@noticeTabMaintenance": {
     "type": "text"
   },
   "wheelTextTitleCount": "累积幸运轮抽奖次数:{num}次数",
@@ -2007,6 +2082,27 @@
   },
   "storeRequestWindowFieldTitleAddress": "地址",
   "@storeRequestWindowFieldTitleAddress": {
+    "type": "text"
+  },
+  "eventButtonSignUpTv": "已累积签到{value}天",
+  "@eventButtonSignUpTv": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "3"
+      }
+    }
+  },
+  "eventButtonSignUpAlready": "已签到",
+  "@eventButtonSignUpAlready": {
+    "type": "text"
+  },
+  "eventButtonSignUpSuccess": "签到成功!!",
+  "@eventButtonSignUpSuccess": {
+    "type": "text"
+  },
+  "eventButtonSignUpFailed": "签到失败!!",
+  "@eventButtonSignUpFailed": {
     "type": "text"
   }
 }

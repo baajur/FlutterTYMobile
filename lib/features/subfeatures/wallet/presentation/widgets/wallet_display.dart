@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/res.dart';
 
-import '../../../../route_page_export.dart';
+import '../../../../general_route_widget_export.dart';
 import '../enum/wallet_type.dart';
 import '../state/wallet_store.dart';
 import 'wallet_dialog.dart';
@@ -22,6 +22,7 @@ class _WalletDisplayState extends State<WalletDisplay> {
   final GlobalKey _optionListKey = new GlobalKey(debugLabel: 'options');
   final GlobalKey _creditBoxKey = new GlobalKey(debugLabel: 'box');
 
+  double _heightFactor;
   double _bgHeight;
   double _bgMaxHeight;
   double _bgWidth;
@@ -89,10 +90,17 @@ class _WalletDisplayState extends State<WalletDisplay> {
 
   @override
   void initState() {
-    _bgHeight = Global.device.height * 0.6;
+    _heightFactor = Global.device.heightScale;
+    if (_heightFactor < 1.0) _heightFactor = 1.0;
+    _bgHeight = Global.device.height * 0.6 * _heightFactor;
+    if (_bgHeight < 420) {
+      var available = Global.device.height - Global.APP_TOOLS_HEIGHT - 16;
+      _bgHeight = (available > 420) ? 420 : available;
+    }
     _bgMaxHeight = (_bgHeight > 480.0)
-        ? 480.0
+        ? 480.0 * _heightFactor
         : _bgHeight; //TODO need to test max height on small screen
+    print('wallet bg height:$_bgHeight, max: $_bgMaxHeight');
     if (_bgHeight > _bgMaxHeight) _bgHeight = _bgMaxHeight;
     _bgWidth = Global.device.width - 28.0;
     _credit = widget.store.wallet.credit;
@@ -280,6 +288,7 @@ class _WalletDisplayState extends State<WalletDisplay> {
           /// Transfer Button
           SizedBox(
             width: _bgWidth / 3,
+            height: Global.device.comfortButtonHeight,
             child: RaisedButton(
               visualDensity: VisualDensity.adaptivePlatformDensity,
               child: Text(
@@ -392,6 +401,7 @@ class _WalletDisplayState extends State<WalletDisplay> {
                   children: <Widget>[
                     SizedBox(
                       width: _bgWidth / 3,
+                      height: Global.device.comfortButtonHeight,
                       child: RaisedButton(
                         visualDensity: VisualDensity.adaptivePlatformDensity,
                         child: Text(localeStr.btnConfirm),

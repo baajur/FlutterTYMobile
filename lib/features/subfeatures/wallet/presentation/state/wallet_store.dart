@@ -49,7 +49,7 @@ abstract class _WalletStore with Store {
 
   @computed
   WalletStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if (_walletFuture == null ||
         _walletFuture.status == FutureStatus.rejected) {
       return WalletStoreState.initial;
@@ -106,6 +106,7 @@ abstract class _WalletStore with Store {
           )
           .whenComplete(() => waitForTypeChange = false);
     } on Exception {
+      bool waitForTypeChange = false;
       errorMessage = "Couldn't fetch wallet. Is the device online?";
     }
   }
@@ -158,6 +159,7 @@ abstract class _WalletStore with Store {
           .whenComplete(() => Future.delayed(
               Duration(milliseconds: 500), () => waitForTransfer = false));
     } on Exception {
+      bool waitForTypeChange = false;
       errorMessage = "Couldn't fetch wallet. Is the device online?";
     }
   }

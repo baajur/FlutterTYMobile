@@ -1,31 +1,26 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Color, IconData;
+import 'package:flutter/material.dart' show IconData, Color;
 import 'package:flutter_ty_mobile/core/internal/hex_color.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/features/router/app_navigate.dart'
-    show RoutePage;
+import 'package:flutter_ty_mobile/features/router/route_page.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:generic_enum/generic_enum.dart';
 
 part 'member_grid_data.freezed.dart';
 
+@Deprecated('old version of grid item data')
 @freezed
-abstract class MemberGridDataFreezed with _$MemberGridDataFreezed {
-  const factory MemberGridDataFreezed({
+abstract class MemberGridData with _$MemberGridData {
+  const factory MemberGridData({
     @required String title,
     @required IconData iconData,
     @required Color iconDecorColorStart,
     @required Color iconDecorColorEnd,
     RoutePage route,
-  }) = MemberGridData;
-
-  const factory MemberGridDataFreezed.v2({
-    @required String title,
-    @required String imageName,
-    RoutePage route,
-  }) = MemberGridDataV2;
+  }) = _MemberGridData;
 }
 
+@Deprecated('old version of grid item enum, use [MemberGridItem] instead')
 class MemberGridItem extends GenericEnum<MemberGridData> {
   const MemberGridItem._(MemberGridData value) : super(value);
 
@@ -97,99 +92,33 @@ class MemberGridItem extends GenericEnum<MemberGridData> {
     iconData: IconData(0xf1cd, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#33c8ff'),
     iconDecorColorEnd: HexColor.fromHex('#185cc3'),
+    route: RoutePage.betRecord,
   ));
   static MemberGridItem dealRecord = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleDeal,
     iconData: IconData(0xf0cb, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#c8de59'),
     iconDecorColorEnd: HexColor.fromHex('#7c9c1f'),
+    route: RoutePage.deals,
   ));
   static MemberGridItem flowRecord = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleFlow,
     iconData: IconData(0xf06d, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#ed6b72'),
     iconDecorColorEnd: HexColor.fromHex('#b72541'),
+    route: RoutePage.flows,
   ));
   static MemberGridItem agent = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleAgent,
     iconData: IconData(0xf2ba, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#e68f63'),
     iconDecorColorEnd: HexColor.fromHex('#a75433'),
+    route: RoutePage.agent,
   ));
   static MemberGridItem logout = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleLogout,
     iconData: IconData(0xf08b, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#cccccc'),
     iconDecorColorEnd: HexColor.fromHex('#929292'),
-  ));
-}
-
-class MemberGridItemV2 extends GenericEnum<MemberGridDataV2> {
-  const MemberGridItemV2._(MemberGridDataV2 value) : super(value);
-
-  static MemberGridItemV2 deposit = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleDeposit,
-    imageName: 'images/user/macico_dsp.png',
-    route: RoutePage.deposit,
-  ));
-  static MemberGridItemV2 transfer = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleTransfer,
-    imageName: 'images/user/macico_tsf.png',
-    route: RoutePage.transfer,
-  ));
-  static MemberGridItemV2 bankcard = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleCard,
-    imageName: 'images/user/macico_bkcard.png',
-    route: RoutePage.bankcard,
-  ));
-  static MemberGridItemV2 withdraw = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleWithdraw,
-    imageName: 'images/user/macico_wdl.png',
-    route: RoutePage.withdraw,
-  ));
-  static MemberGridItemV2 balance = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleBalance,
-    imageName: 'images/user/macico_plaf.png',
-    route: RoutePage.balance,
-  ));
-  static MemberGridItemV2 wallet = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleWallet,
-    imageName: 'images/user/macico_tsfwa.png',
-    route: RoutePage.wallet,
-  ));
-  static MemberGridItemV2 stationMessages = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleMessage,
-    imageName: 'images/user/macico_msg.png',
-    route: RoutePage.message,
-  ));
-  static MemberGridItemV2 accountCenter = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleAccount,
-    imageName: 'images/user/macico_cent.png',
-    route: RoutePage.center,
-  ));
-  static MemberGridItemV2 transferRecord = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleTransaction,
-    imageName: 'images/user/macico_tsfre.png',
-    route: RoutePage.transaction,
-  ));
-  static MemberGridItemV2 betRecord = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleBet,
-    imageName: 'images/user/macico_bthis.png',
-  ));
-  static MemberGridItemV2 dealRecord = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleDeal,
-    imageName: 'images/user/macico_trans.png',
-  ));
-  static MemberGridItemV2 flowRecord = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleFlow,
-    imageName: 'images/user/macico_rolb.png',
-  ));
-  static MemberGridItemV2 agent = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleAgent,
-    imageName: 'images/user/macico_agent.png',
-  ));
-  static MemberGridItemV2 logout = MemberGridItemV2._(MemberGridDataV2(
-    title: localeStr.memberGridTitleLogout,
-    imageName: 'images/user/macico_logout.png',
   ));
 }

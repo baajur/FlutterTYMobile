@@ -12,7 +12,7 @@ T _$identity<T>(T value) => value;
 class _$RequestCodeModelTearOff {
   const _$RequestCodeModelTearOff();
 
-  _RequestCodeModel call({int code, String data, String msg}) {
+  _RequestCodeModel call({int code, dynamic data, String msg}) {
     return _RequestCodeModel(
       code: code,
       data: data,
@@ -26,7 +26,7 @@ const $RequestCodeModel = _$RequestCodeModelTearOff();
 
 mixin _$RequestCodeModel {
   int get code;
-  String get data;
+  dynamic get data;
   String get msg;
 
   $RequestCodeModelCopyWith<RequestCodeModel> get copyWith;
@@ -36,7 +36,7 @@ abstract class $RequestCodeModelCopyWith<$Res> {
   factory $RequestCodeModelCopyWith(
           RequestCodeModel value, $Res Function(RequestCodeModel) then) =
       _$RequestCodeModelCopyWithImpl<$Res>;
-  $Res call({int code, String data, String msg});
+  $Res call({int code, dynamic data, String msg});
 }
 
 class _$RequestCodeModelCopyWithImpl<$Res>
@@ -55,7 +55,7 @@ class _$RequestCodeModelCopyWithImpl<$Res>
   }) {
     return _then(_value.copyWith(
       code: code == freezed ? _value.code : code as int,
-      data: data == freezed ? _value.data : data as String,
+      data: data == freezed ? _value.data : data as dynamic,
       msg: msg == freezed ? _value.msg : msg as String,
     ));
   }
@@ -67,7 +67,7 @@ abstract class _$RequestCodeModelCopyWith<$Res>
           _RequestCodeModel value, $Res Function(_RequestCodeModel) then) =
       __$RequestCodeModelCopyWithImpl<$Res>;
   @override
-  $Res call({int code, String data, String msg});
+  $Res call({int code, dynamic data, String msg});
 }
 
 class __$RequestCodeModelCopyWithImpl<$Res>
@@ -88,7 +88,7 @@ class __$RequestCodeModelCopyWithImpl<$Res>
   }) {
     return _then(_RequestCodeModel(
       code: code == freezed ? _value.code : code as int,
-      data: data == freezed ? _value.data : data as String,
+      data: data == freezed ? _value.data : data as dynamic,
       msg: msg == freezed ? _value.msg : msg as String,
     ));
   }
@@ -100,7 +100,7 @@ class _$_RequestCodeModel implements _RequestCodeModel {
   @override
   final int code;
   @override
-  final String data;
+  final dynamic data;
   @override
   final String msg;
 
@@ -146,13 +146,13 @@ class _$_RequestCodeModel implements _RequestCodeModel {
 }
 
 abstract class _RequestCodeModel implements RequestCodeModel {
-  factory _RequestCodeModel({int code, String data, String msg}) =
+  factory _RequestCodeModel({int code, dynamic data, String msg}) =
       _$_RequestCodeModel;
 
   @override
   int get code;
   @override
-  String get data;
+  dynamic get data;
   @override
   String get msg;
   @override

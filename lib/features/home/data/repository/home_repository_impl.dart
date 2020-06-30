@@ -1,12 +1,14 @@
 import 'package:flutter_ty_mobile/core/error/exceptions.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/home/data/models/entities.dart';
-import 'package:flutter_ty_mobile/features/home/data/models/game_types_freezed.dart';
-import 'package:flutter_ty_mobile/features/home/data/models/models.dart';
-import 'package:flutter_ty_mobile/features/home/data/source/home_local_data_source.dart';
-import 'package:flutter_ty_mobile/features/home/data/source/home_remote_data_source.dart';
-import 'package:flutter_ty_mobile/features/home/domain/entity/platform_game_form.dart';
-import 'package:flutter_ty_mobile/features/home/domain/repository/home_repository.dart';
+import 'package:flutter_ty_mobile/utils/regex_util.dart';
+
+import '../models/entities.dart';
+import '../models/game_types_freezed.dart';
+import '../models/models.dart';
+import '../source/home_local_data_source.dart';
+import '../source/home_remote_data_source.dart';
+import '../../domain/entity/platform_game_form.dart';
+import '../../domain/repository/home_repository.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final tag = 'HomeRepository';
@@ -186,7 +188,12 @@ class HomeRepositoryImpl implements HomeRepository {
           await handleResponse<String>(remoteDataSource.getGameUrl(requestUrl));
       return result.fold(
         (failure) => Left(failure),
-        (data) => Right(data),
+        (data) {
+          if (data.isUrl)
+            return Right(data);
+          else
+            return Left(Failure.server());
+        },
       );
     }
     return Left(Failure.network());

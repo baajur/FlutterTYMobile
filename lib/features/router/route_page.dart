@@ -23,6 +23,12 @@ class RoutePage extends GenericEnum<RouteInfo> {
     hideAppbarActions: true,
   ));
 
+  static RoutePage register = RoutePage._(RouteInfo(
+    route: Routes.registerRoute,
+    title: localeStr.pageTitleRegister,
+    hideAppbarActions: true,
+  ));
+
   static RoutePage promo = RoutePage._(RouteInfo(
     route: Routes.promoRoute,
     title: localeStr.pageTitlePromo,
@@ -34,7 +40,6 @@ class RoutePage extends GenericEnum<RouteInfo> {
     route: Routes.serviceRoute,
     title: localeStr.pageTitleService,
     bottomNavIndex: 3,
-    hideAppbarActions: true,
   ));
 
   static RoutePage member = RoutePage._(RouteInfo(
@@ -47,8 +52,7 @@ class RoutePage extends GenericEnum<RouteInfo> {
   static RoutePage deposit = RoutePage._(RouteInfo(
     route: Routes.depositRoute,
     title: localeStr.pageTitleDeposit,
-    isFeature: true,
-    bottomNavIndex: 1,
+    parentRoute: Routes.memberRoute,
   ));
 
   static RoutePage depositWeb = RoutePage._(RouteInfo(
@@ -117,6 +121,38 @@ class RoutePage extends GenericEnum<RouteInfo> {
     route: Routes.transactionRoute,
     title: localeStr.pageTitleMemberTransaction,
     parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage betRecord = RoutePage._(RouteInfo(
+    route: Routes.betRecordRoute,
+    title: localeStr.pageTitleMemberBets,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage deals = RoutePage._(RouteInfo(
+    route: Routes.dealsRoute,
+    title: localeStr.pageTitleMemberDeals,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage flows = RoutePage._(RouteInfo(
+    route: Routes.flowsRoute,
+    title: localeStr.pageTitleMemberFlow,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage agent = RoutePage._(RouteInfo(
+    route: Routes.agentRoute,
+    title: localeStr.pageTitleMemberAgent,
+    parentRoute: Routes.memberRoute,
+    bottomNavIndex: 1,
+  ));
+
+  static RoutePage moreWeb = RoutePage._(RouteInfo(
+    route: Routes.moreWebPage,
+    title: '',
+    parentRoute: Routes.homeRoute,
+    hideAppbarActions: true,
   ));
 
   /// side menu route

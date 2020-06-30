@@ -59,6 +59,6 @@ List<NoticeData> noticeDataArrayToList(dynamic map) =>
     JsonUtil.decodeArrayToModel(
       map,
       (jsonMap) => NoticeData.jsonToNoticeData(jsonMap),
-      false,
-      'NoticeDataModel',
+      trim: false,
+      tag: 'NoticeDataModel',
     );

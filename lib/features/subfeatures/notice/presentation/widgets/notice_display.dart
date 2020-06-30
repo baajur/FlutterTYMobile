@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
@@ -17,11 +18,21 @@ class NoticeDisplay extends StatefulWidget {
 
 class _NoticeDisplayState extends State<NoticeDisplay> {
   final List<String> tabs = [
-    localeStr.btnNoticeGeneral,
-    localeStr.btnNoticeMaintenance,
+    localeStr.noticeTabGeneral,
+    localeStr.noticeTabMaintenance,
   ];
 
   int _clicked = 0;
+  double gridRatio;
+
+  @override
+  void initState() {
+    double gridItemWidth = (Global.device.width - 6 * 5 - 12) / 3;
+    gridRatio = gridItemWidth / 36;
+    print('grid item width: $gridItemWidth, gridRatio: $gridRatio');
+    if (gridRatio > 4.16) gridRatio = 4.16;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +51,16 @@ class _NoticeDisplayState extends State<NoticeDisplay> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 6,
-                childAspectRatio: 3.5,
+                childAspectRatio: gridRatio,
               ),
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: tabs.length,
               itemBuilder: (_, index) {
                 return ConstrainedBox(
-                  constraints: const BoxConstraints.tightFor(height: 24),
+                  constraints: BoxConstraints.tightFor(
+                    height: Global.device.comfortButtonHeight,
+                  ),
                   child: RaisedButton(
                     visualDensity: VisualDensity.compact,
                     shape: RoundedRectangleBorder(

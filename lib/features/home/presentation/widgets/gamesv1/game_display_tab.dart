@@ -10,7 +10,7 @@ import 'package:flutter_ty_mobile/features/home/data/models/game_platform_freeze
 import 'package:flutter_ty_mobile/features/home/data/models/game_types_freezed.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 
-import '../../../../route_page_export.dart' show Global;
+import '../../../../general_route_widget_export.dart' show Global;
 import 'game_display_page.dart';
 import 'game_display_tab_ctrl.dart';
 
@@ -38,10 +38,12 @@ class _GameDisplayTabState extends State<GameDisplayTab>
   List<GameCategoryModel> _tabs;
   HashMap<String, List<GamePlatformEntity>> _platformMap;
   String _currentType;
+  double _tabWidthFactor;
 
   @override
   void initState() {
 //    print('game tabs data: ${widget.tabsData}');
+    _tabWidthFactor = (Global.device.widthScale > 1.5) ? 1.5 : 1.0;
     _tabs = new List.from(widget.tabsData.categories, growable: true);
     mapPlatforms();
     _currentType = _tabs[0].type;
@@ -115,8 +117,8 @@ class _GameDisplayTabState extends State<GameDisplayTab>
             child: Container(
               /* Tab bar constraints */
               constraints: BoxConstraints(
-                minHeight: Global.device.height / 3,
-                maxHeight: Global.device.height / 1.75,
+                minHeight: Global.device.height / 3 / _tabWidthFactor,
+                maxHeight: Global.device.height / 1.75 / _tabWidthFactor,
                 minWidth: Global.device.width / 3 - 24,
                 maxWidth: Global.device.width / 3 - 18,
               ),

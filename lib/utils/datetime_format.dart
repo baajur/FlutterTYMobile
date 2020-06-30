@@ -8,6 +8,21 @@ final DateFormat _dateEndFormat = DateFormat("yyyy-MM-dd 23:59:59");
 /// Get [DateTime.now] as String
 String getDateTime() => DateTime.now().toDatetimeString;
 
+bool checkDateRange(String start, String end) {
+  if (start == null || start.isEmpty || end == null || end.isEmpty)
+    return false;
+  try {
+    DateTime now = DateTime.now();
+    DateTime startTime = start.toDatetime();
+    DateTime endTime = end.toDatetime();
+    return startTime.isBefore(now) &&
+        endTime.isBefore(now) &&
+        startTime.isBefore(endTime);
+  } on Exception {
+    return false;
+  }
+}
+
 extension DateTimeStringExtensions on String {
   /// Format [date] string back to [DateTime]
   DateTime toDatetime() {
