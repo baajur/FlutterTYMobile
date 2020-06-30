@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Color, IconData;
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/features/resource_export.dart';
-import 'package:flutter_ty_mobile/features/router/router_navigate.dart'
+import 'package:flutter_ty_mobile/features/router/app_navigate.dart'
     show RoutePage;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:generic_enum/generic_enum.dart';

@@ -40,7 +40,8 @@ class _GameWebControlState extends State<GameWebControl> with AfterLayoutMixin {
             } catch (e) {}
             Future.delayed(Duration(milliseconds: 500), () {
               Navigator.pop(context);
-              RouterNavigate.switchScreen(web: true, webArg: target);
+              ScreenNavigate.switchScreen(
+                  screen: ScreenEnum.Game, webUrl: target);
             });
             return SizedBox.shrink();
           } else if (snapshot.hasError) {

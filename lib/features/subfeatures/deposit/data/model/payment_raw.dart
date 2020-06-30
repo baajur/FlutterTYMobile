@@ -59,6 +59,7 @@ extension PaymentRawExtension on PaymentRaw {
     map[5] = this.getOtherDataList(5, this.aliJson);
     map[7] = this.getOtherDataList(7, this.unionJson);
     map[8] = this.getOtherDataList(8, this.virtualJson);
+    print('raw payment map: $map');
     map.removeWhere((key, value) => value.isEmpty);
     return map;
   }

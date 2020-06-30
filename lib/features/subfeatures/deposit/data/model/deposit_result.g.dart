@@ -12,7 +12,7 @@ _$_DepositResult _$_$_DepositResultFromJson(Map<String, dynamic> json) {
     url: json['url'] as String,
     msg: json['msg'] as String ?? '',
     code: json['code'] as int,
-    ledger: json['ledgerindex'] as int,
+    ledger: json['ledgerindex'] as int ?? -1,
   );
 }
 

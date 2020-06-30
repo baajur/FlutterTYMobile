@@ -32,10 +32,15 @@ class FeatureScreenView extends StatelessWidget {
       drawer: new ScreenDrawer(),
       bottomNavigationBar: ScreenNavigationBar(),
       /* Main Content (switch placeholder with Router) */
-      body: Navigator(
-        key: Router.navigator.key,
-        onGenerateRoute: Router.onGenerateRoute,
+      body: ExtendedNavigator<Router>(
+        initialRoute: Routes.homeRoute,
+        router: Router(),
       ),
+//      body: Navigator(
+//        key: Router.navigator.key,
+//        onGenerateRoute: Router.onGenerateRoute,
+//        initialRoute: Router.homeRoute,
+//      ),
 // /* Route Test */
 //      body: Center(
 //        child: Observer(builder: (_) {

@@ -16,6 +16,11 @@ class FastLoginWidget extends StatefulWidget {
 class FastLoginWidgetState extends State<FastLoginWidget> {
   bool fastLogin;
 
+  set setChecked(bool isChecked) {
+    fastLogin = isChecked;
+    setState(() {});
+  }
+
   @override
   void initState() {
     fastLogin = widget.initValue;
@@ -30,11 +35,7 @@ class FastLoginWidgetState extends State<FastLoginWidget> {
           Checkbox(
             visualDensity: VisualDensity.compact,
             value: fastLogin,
-            onChanged: (value) {
-              setState(() {
-                fastLogin = value;
-              });
-            },
+            onChanged: (value) => setChecked = value,
           ),
           Text(localeStr.btnFastLogin),
         ],

@@ -7,10 +7,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_ty_mobile/features/route_page_export.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../core/data/hive_adapters_export.dart';
-import '../core/internal/permission_item.dart';
 import '../core/internal/themes.dart';
 import '../generated/l10n.dart';
 import '../injection_container.dart' as di;
@@ -24,27 +22,27 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   final String tag = 'Main';
-  final List<PermissionItem> permissions = List<PermissionItem>();
+//  final List<PermissionItem> permissions = List<PermissionItem>();
   final FLToastDefaults _toastDefaults = FLToastDefaults();
   var _hiveInitialized = false;
 
-  void _initPermissionList() async {
-    permissions.clear();
-    await Future.forEach(
-        PermissionGroup.values,
-        (value) =>
-            permissions.add(PermissionItem(value, PermissionStatus.unknown)));
-    return _resolvePermissionState();
-  }
-
-  Future<void> _resolvePermissionState() async {
-    await Future.forEach(permissions, (item) async {
-      int index = permissions.indexOf(item);
-      await (PermissionHandler().checkPermissionStatus(item.group))
-          .then((status) => permissions[index].status = status);
-    });
-    if (permissions.isNotEmpty) permissions.requestPermission();
-  }
+//  void _initPermissionList() async {
+//    permissions.clear();
+//    await Future.forEach(
+//        PermissionGroup.values,
+//        (value) =>
+//            permissions.add(PermissionItem(value, PermissionStatus.unknown)));
+//    return _resolvePermissionState();
+//  }
+//
+//  Future<void> _resolvePermissionState() async {
+//    await Future.forEach(permissions, (item) async {
+//      int index = permissions.indexOf(item);
+//      await (PermissionHandler().checkPermissionStatus(item.group))
+//          .then((status) => permissions[index].status = status);
+//    });
+//    if (permissions.isNotEmpty) permissions.requestPermission();
+//  }
 
   Future<void> _initHive() async {
     if (!_hiveInitialized) {
@@ -102,9 +100,15 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   @override
   void initState() {
     MyLogger.info(msg: 'app init', tag: tag);
-    _initPermissionList();
+//    _initPermissionList();
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    MyLogger.info(msg: 'app dependencies', tag: tag);
+    super.didChangeDependencies();
   }
 
   @override
@@ -159,6 +163,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
               },
               theme: appTheme.defaultTheme,
               title: 'TY Mobile',
+              // Tell MaterialApp to use our ExtendedNavigator instead of
+              // the native one by assigning it to it's builder
+//              builder: ExtendedNavigator<ScreenRouter>(router: ScreenRouter()),
               home: new MainStartup(),
             ),
           );

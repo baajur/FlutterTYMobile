@@ -12,17 +12,11 @@ import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dar
 class $Router {
   @initial
   HomeRoute homeRoute;
-
   LoginRoute loginRoute;
-
   WebRoute serviceRoute;
-
   MemberRoute memberRoute;
-
   PromoRoute promoRoute;
-
   DepositRoute depositRoute;
-
   WebRoute depositWebRoute;
 
   /// test route

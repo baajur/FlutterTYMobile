@@ -1,13 +1,13 @@
+import 'package:after_layout/after_layout.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ty_mobile/core/base/usecase_export.dart';
-import 'package:flutter_ty_mobile/core/data/hive_actions.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart'
-    show LoadingWidget, ToastError;
+    show ToastError;
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/text_input_type_freezed.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/text_input_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 import 'package:flutter_ty_mobile/features/route_page_export.dart'
     show localeStr, sl;
 import 'package:flutter_ty_mobile/features/users/data/form/login_form.dart';
@@ -15,306 +15,217 @@ import 'package:flutter_ty_mobile/features/users/presentation/bloc/bloc_user_exp
 import 'package:flutter_ty_mobile/features/users/presentation/widgets/fast_login_widget.dart';
 import 'package:flutter_ty_mobile/features/users/presentation/widgets/user_display.dart';
 import 'package:flutter_ty_mobile/utils/value_range.dart';
-import 'package:hive/hive.dart';
-
-const String _CACHE_LOGIN_FORM = '_CACHE_LOGIN_FORM';
 
 /// Main View of [Router.loginRoute]
 ///@author H.C.CHIANG
-///@version 2020/1/17
+///@version 2020/4/14
 class LoginRoute extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _LoginRouteState();
 }
 
-class _LoginRouteState extends State<LoginRoute> {
+class _LoginRouteState extends State<LoginRoute> with AfterLayoutMixin {
   UserLoginBloc _bloc;
 //  final TextEditingController _passwordController = new TextEditingController();
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _username = "";
-  String _password = "";
-  bool _hidePassword = true;
-  Icon _hidePasswordIcon;
-  bool _autoValidate = false;
-  bool _loginFailed = false;
+  static final GlobalKey<FormState> _formKey =
+      new GlobalKey(debugLabel: 'form');
+  final GlobalKey<CustomizeFieldWidgetState> _nameFieldKey =
+      new GlobalKey(debugLabel: 'name');
+  final GlobalKey<CustomizeFieldWidgetState> _pwdFieldKey =
+      new GlobalKey(debugLabel: 'pwd');
+  final GlobalKey<FastLoginWidgetState> _fastKey =
+      new GlobalKey(debugLabel: 'fast');
 
-  bool _useBoxData = false;
-  Box _userBox;
+  bool _buildComplete = false;
+  bool _useFastLoginData = false;
   UserLoginHiveForm _hiveForm;
-  GlobalKey<FastLoginWidgetState> _fastKey;
 
-  _LoginRouteState() {
-//    _passwordController.addListener(_passwordListener);
-  }
-
-//  void _passwordListener() => _password = _passwordController.text;
-
-  void setIcon() {
-    if (_hidePassword)
-      _hidePasswordIcon = Icon(Icons.visibility, size: Themes.fieldIconSize);
-    else
-      _hidePasswordIcon =
-          Icon(Icons.visibility_off, size: Themes.fieldIconSize);
+  void updateDialog() {
+    if (!_useFastLoginData &&
+        _hiveForm != null &&
+        _nameFieldKey != null &&
+        _pwdFieldKey != null) {
+      _useFastLoginData = true;
+      try {
+        _fastKey.currentState.setChecked = _hiveForm.fastLogin;
+        if (_hiveForm.fastLogin) {
+          Future.delayed(Duration(milliseconds: 150), () {
+            _nameFieldKey.currentState.setInput = _hiveForm.account;
+          });
+          Future.delayed(Duration(milliseconds: 300), () {
+            _pwdFieldKey.currentState.setInput = _hiveForm.password;
+          });
+        }
+      } catch (e) {
+        MyLogger.error(msg: 'update dialog failed!!', error: e);
+      }
+    }
   }
 
   @override
   void initState() {
-    setIcon();
-    _fastKey = GlobalKey<FastLoginWidgetState>();
+    _bloc ??= sl.get<UserLoginBloc>();
+    // Set storage data listener
+    _bloc.fastLoginStream.listen((event) {
+      _hiveForm = event;
+      MyLogger.debug(msg: 'Received Fast Login Data: $event');
+      if (_buildComplete) updateDialog();
+    });
+    // Get user login data from storage
+    _bloc.initBox();
     super.initState();
   }
 
   @override
   void dispose() {
-    closeHiveBox(_CACHE_LOGIN_FORM);
     super.dispose();
+    _bloc.close();
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    _buildComplete = true;
+    updateDialog();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // wrap with scrollview to prevent overflow when keyboard pops up.
-      body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: getHiveBox(_CACHE_LOGIN_FORM),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError == false) {
-                try {
-                  _userBox = (snapshot.data) as Box;
-                  if (_userBox.length > 0) {
-                    print(_userBox.values.toList());
-                    _hiveForm = _userBox.values?.last;
-                    print('box login form: $_hiveForm');
-//                    _passwordController.text = _hiveForm?.password ?? '';
-                    _useBoxData = true;
-                  }
-                } catch (e) {}
-              }
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 8.0),
-                child: Column(
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
+      body: InkWell(
+        // to dismiss the keyboard when the user tabs out of the TextField
+        splashColor: Colors.transparent,
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Stack(
+          children: <Widget>[
+            /* Login State */
+            Positioned(
+              top: 34,
+              right: 16,
+              child: BlocProvider(
+                create: (_) => _bloc,
+                child: BlocBuilder<UserLoginBloc, UserLoginState>(
+                  builder: (context, state) {
+                    return state.when(
+                      uInitial: (_) => SizedBox.shrink(),
+                      uLoading: (_) => Container(
+                        constraints:
+                            BoxConstraints.tightFor(width: 18, height: 18),
+                        child: CircularProgressIndicator(),
+                      ),
+                      uLoaded: (_) {
+                        if (_fastKey.currentState.fastLogin) {
+                          _bloc.saveToBox(_hiveForm);
+                        }
+                        return UserDisplay(user: state.props.first);
+                      },
+                      uError: (_) => ToastError(message: state.props.first),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12.0, 30.0, 16.0, 8.0),
+              child: new Form(
+                key: _formKey,
+                child: ListView(
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          localeStr.hintTitleLogin,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(color: Themes.defaultHintColor),
-                        ),
-                      ],
+                    /* Login Hint Text*/
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        localeStr.hintTitleLogin,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Themes.defaultHintColor),
+                      ),
                     ),
-                    SizedBox(height: 12.0),
-                    _buildTextFields(),
+                    new CustomizeFieldWidget(
+                      key: _nameFieldKey,
+                      fieldType: FieldType.Normal,
+                      hint: localeStr.hintAccount,
+                      prefixIconData:
+                          const IconData(0xf2bd, fontFamily: 'FontAwesome'),
+                      errorMsg: localeStr.messageInvalidAccount,
+                      validCondition: (value) =>
+                          rangeCheck(value: value.length, min: 6, max: 12),
+                      parentWidth: MediaQuery.of(context).size.width,
+                    ),
+                    new CustomizeFieldWidget(
+                      key: _pwdFieldKey,
+                      fieldType: FieldType.Password,
+                      hint: localeStr.hintAccountPassword,
+                      prefixIconData:
+                          const IconData(0xf13e, fontFamily: 'FontAwesome'),
+                      maxInputLength: 20,
+                      errorMsg: localeStr.messageInvalidPassword,
+                      validCondition: (value) =>
+                          rangeCheck(value: value.length, min: 6, max: 20),
+                      parentWidth: MediaQuery.of(context).size.width,
+                    ),
+                    /* Login CheckBox */
                     FastLoginWidget(
                       key: _fastKey,
                       initValue: _hiveForm?.fastLogin ?? false,
                     ),
-                    SizedBox(height: 6.0),
-                    _buildButtons(),
-                    _blocMonitor(context),
+                    /* Login Buttons */
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 6.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Expanded(
+                            child: RaisedButton(
+                              child: Text('Login'),
+                              textColor: Themes.defaultTextColorBlack,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              onPressed: () => _validateForm(),
+                            ),
+                          ),
+                          SizedBox(width: 8.0),
+                          Expanded(
+                            child: RaisedButton(
+                              child: Text(localeStr.btnResetPassword),
+                              color: Themes.buttonDisabledColor,
+                              textColor: Themes.buttonDisabledTextColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              onPressed: () => FLToast.showInfo(
+                                  text: localeStr.workInProgress),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              );
-            } else {
-              return SizedBox.shrink();
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextFields() {
-    return new Form(
-      key: _formKey,
-      autovalidate: _autoValidate,
-      child: new Column(
-        children: <Widget>[
-          TextInputWidget(
-            type: TextInputTypeFreezed.valid(
-              hintText: localeStr.hintAccount,
-              titleIcon: const IconData(0xf2bd, fontFamily: 'FontAwesome'),
-              fieldValidator: (val) =>
-                  rangeCheck(value: val.length, min: 6, max: 12)
-                      ? null
-                      : localeStr.messageInvalidAccount,
-              fieldSave: (val) => _username = val.trim(),
-              initText: _hiveForm?.account ?? '',
-            ),
-          ),
-          //TODO extract widget to new widget class to prevent screen flash
-          TextInputWidget(
-            type: TextInputTypeFreezed.cValid(
-              inputDecoration: InputDecoration(
-                labelText: localeStr.hintAccountPassword,
-                suffixIcon: GestureDetector(
-                  child: _hidePasswordIcon,
-                  onTap: () {
-                    if (_useBoxData) {
-                      FLToast.showText(
-                        text: localeStr.messageActionFailed,
-                        position: FLToastPosition.top,
-                        showDuration: ToastDuration.SHORT.value,
-                      );
-                    } else {
-                      setState(() {
-                        _hidePassword = !_hidePassword;
-                        setIcon();
-                      });
-                    }
-                  },
-                ),
-                contentPadding: const EdgeInsets.all(8.0),
-              ),
-              titleIcon: const IconData(0xf13e, fontFamily: 'FontAwesome'),
-              fieldValidator: (value) =>
-                  value.length < 6 ? localeStr.messageInvalidPassword : null,
-              fieldSave: (value) {
-                if (_useBoxData && value != _hiveForm.password)
-                  _useBoxData = false;
-                return _password = value.trim();
-              },
-              hideText: _hidePassword,
-              initText: _hiveForm?.password ?? '',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildButtons() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                child: RaisedButton(
-                  child: Text(localeStr.btnLogin),
-                  color: Themes.defaultAccentColor,
-                  textColor: Themes.defaultTextColorBlack,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  onPressed: () => _loginPressed(context),
-                ),
-              ),
-              SizedBox(width: 8.0),
-              Expanded(
-                child: RaisedButton(
-                  child: Text(localeStr.btnResetPassword),
-                  color: Themes.buttonDisabledColor,
-                  textColor: Themes.buttonDisabledTextColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  onPressed: _passwordReset,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _loginPressed(BuildContext context) {
-    // TODO not working after login failed once 20200324
-    print('login pressed');
-    if (_formKey.currentState.validate()) {
-      print('field validated');
-      // hide keyboard
-      try {
-        FocusScope.of(context).unfocus();
-      } catch (e) {
-        MyLogger.warn(msg: 'hide keyboard exception:', error: e);
-      }
-      //   If all data are correct then call save() to trigger Form's onSave method
-      _formKey.currentState.save();
-//      print('The user wants to login with $_username and $_password');
-      _hiveForm = UserLoginHiveForm(
-        account: _username,
-        password: _password,
-        fastLogin: _fastKey.currentState.fastLogin,
-      );
-      _bloc.add(GetUserEvent(form: _hiveForm.simple));
-    } else if (_loginFailed) {
-      // TODO need to test event after login failed
-      print('retry login action...');
-      _loginFailed = false;
-      _bloc.add(GetUserEvent(form: _hiveForm.simple));
-    } else {
-      print('field not validate');
-      //    If all data are not valid then start auto validation.
-      setState(() {
-        _autoValidate = true;
-      });
-    }
-//    if (message.isNotEmpty)
-//      showFloatingFlushBar(Scaffold.of(context).context, message);
-  }
-
-  void _passwordReset() {
-    print("User $_username wants to reset password");
-  }
-
-  BlocProvider<UserLoginBloc> _blocMonitor(BuildContext context) {
-    if (_bloc == null) _bloc = sl.get<UserLoginBloc>();
-    return BlocProvider(
-      create: (_) => _bloc,
-      child: Container(
-        padding: const EdgeInsets.only(top: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              child: BlocBuilder<UserLoginBloc, UserLoginState>(
-                builder: (context, state) {
-                  return state.when(
-                    uInitial: (_) => SizedBox.shrink(),
-                    uLoading: (_) => LoadingWidget(heightFactor: 4),
-                    uLoaded: (_) {
-                      if (_fastKey.currentState.fastLogin) {
-                        // stores only one data
-                        if (_userBox.isNotEmpty) {
-                          _userBox
-                              .putAt(0, _hiveForm)
-                              .whenComplete(
-                                  () => print('form saved: $_hiveForm'))
-                              .catchError((e) => print('form save error: $e'));
-                        } else {
-                          _userBox
-                              .add(_hiveForm)
-                              .whenComplete(
-                                  () => print('form saved: $_hiveForm'))
-                              .catchError((e) => print('form save error: $e'));
-                        }
-                      } else {
-                        // clean hive box when turned off
-                        if (_userBox.isNotEmpty) {
-                          _userBox
-                              .clear()
-                              .whenComplete(() => print('hive cleared'))
-                              .catchError((e) => print('hive clear error: $e'));
-                        }
-                      }
-                      return UserDisplay(user: state.props.first);
-                    },
-                    uError: (_) {
-                      _loginFailed = true;
-                      return ToastError(message: state.props.first);
-                    },
-                  );
-                },
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _validateForm() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+//      print('The user wants to login with $_username and $_password');
+      _hiveForm = UserLoginHiveForm(
+        account: _nameFieldKey.currentState.inputText,
+        password: _pwdFieldKey.currentState.inputText,
+        fastLogin: _fastKey.currentState.fastLogin,
+      );
+      _bloc.add(GetUserEvent(form: _hiveForm.simple));
+    }
   }
 }

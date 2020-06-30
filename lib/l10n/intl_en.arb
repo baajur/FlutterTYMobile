@@ -148,6 +148,10 @@
   "@workInProgress": {
     "type": "text"
   },
+  "exitAppHint": "Press again to exit APP",
+  "@exitAppHint": {
+    "type": "text"
+  },
   "btnMenu": "Menu",
   "@btnMenu": {
     "type": "text"

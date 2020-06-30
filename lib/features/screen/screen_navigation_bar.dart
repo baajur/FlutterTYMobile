@@ -64,8 +64,10 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
             else if (index == 3)
               RouterNavigate.navigateToPage(
                 _tabRoute[index],
-                arg: Global.TY_SERVICE_URL,
+                arg: WebRouteArguments(startUrl: Global.TY_SERVICE_URL),
               );
+            else if (index == 5)
+              ScreenNavigate.switchScreen(screen: ScreenEnum.Test);
             else
               RouterNavigate.navigateToPage(_tabRoute[index]);
           },

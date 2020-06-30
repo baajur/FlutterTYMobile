@@ -8,7 +8,7 @@ abstract class RouteInfo with _$RouteInfo {
   const factory RouteInfo({
     @required String route,
     @required String title,
-    @Default(Router.homeRoute) String parentRoute,
+    @Default(Routes.homeRoute) String parentRoute,
     @Default(false) bool isFeature,
     @Default(false) bool hideAppbarActions,
     @Default(-1) int bottomNavIndex,

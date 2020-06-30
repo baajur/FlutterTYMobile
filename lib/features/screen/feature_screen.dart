@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show SystemChrome, SystemUiOverlay;
 import 'package:flutter_ty_mobile/features/screen/feature_screen_inherited_widget.dart';
 import 'package:flutter_ty_mobile/utils/platform_util.dart';
 
@@ -28,8 +27,6 @@ class _FeatureScreenState extends State<FeatureScreen> {
   @override
   void initState() {
     MyLogger.debug(msg: 'init feature screen', tag: tag);
-    // restore the screen to normal SystemUiOverlay
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     super.initState();
   }
 

@@ -24,7 +24,7 @@ abstract class PaymentFreezed with _$PaymentFreezed {
     @JsonKey(name: 'bankaccountno') String bankAccountNo,
     @JsonKey(name: 'bankindex') int bankIndex,
     @JsonKey(fromJson: _strFromJson) String max,
-    String min,
+    @JsonKey(fromJson: _strFromJson) String min,
     String payment,
     String type,
   }) = PaymentDataLocal;

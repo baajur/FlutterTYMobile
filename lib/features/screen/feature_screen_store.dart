@@ -1,7 +1,9 @@
+import 'package:flutter_ty_mobile/features/router/app_navigate.dart'
+    show RouterNavigate, RouteInfo, PagesNameExtension;
+import 'package:flutter_ty_mobile/features/router/route_user_streams.dart'
+    show getRouteUserStreams;
 import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart'
     show LoginStatus, UserEntity;
-import 'package:flutter_ty_mobile/features/router/route_user_streams.dart' show getRouteUserStreams;
-import 'package:flutter_ty_mobile/features/router/router_navigate.dart' show RouterNavigate, RouteInfo, PagesNameExtension;
 import 'package:mobx/mobx.dart';
 
 part 'feature_screen_store.g.dart';

@@ -11,47 +11,47 @@ class RoutePage extends GenericEnum<RouteInfo> {
   const RoutePage._(RouteInfo info) : super(info);
 
   static RoutePage home = RoutePage._(RouteInfo(
-    route: Router.homeRoute,
+    route: Routes.homeRoute,
     title: localeStr.pageTitleHome,
     isFeature: true,
     bottomNavIndex: 0,
   ));
 
   static RoutePage login = RoutePage._(RouteInfo(
-    route: Router.loginRoute,
+    route: Routes.loginRoute,
     title: localeStr.pageTitleLogin,
     hideAppbarActions: true,
   ));
 
   static RoutePage deposit = RoutePage._(RouteInfo(
-    route: Router.depositRoute,
+    route: Routes.depositRoute,
     title: localeStr.pageTitleDeposit,
     isFeature: true,
     bottomNavIndex: 1,
   ));
 
   static RoutePage depositWeb = RoutePage._(RouteInfo(
-    route: Router.depositWebRoute,
+    route: Routes.depositWebRoute,
     title: localeStr.pageTitleDeposit,
-    parentRoute: Router.depositRoute,
+    parentRoute: Routes.depositRoute,
   ));
 
   static RoutePage promo = RoutePage._(RouteInfo(
-    route: Router.promoRoute,
+    route: Routes.promoRoute,
     title: localeStr.pageTitlePromo,
     isFeature: true,
     bottomNavIndex: 2,
   ));
 
   static RoutePage service = RoutePage._(RouteInfo(
-    route: Router.serviceRoute,
+    route: Routes.serviceRoute,
     title: localeStr.pageTitleService,
     bottomNavIndex: 3,
     hideAppbarActions: true,
   ));
 
   static RoutePage member = RoutePage._(RouteInfo(
-    route: Router.memberRoute,
+    route: Routes.memberRoute,
     title: localeStr.pageTitleMember,
     isFeature: true,
     bottomNavIndex: 4,
@@ -59,12 +59,12 @@ class RoutePage extends GenericEnum<RouteInfo> {
 
   /// test route
   static RoutePage template = RoutePage._(RouteInfo(
-      route: Router.templateRoute,
+      route: Routes.templateRoute,
       title: 'Test Mobx',
       hideAppbarActions: true));
 
   static RoutePage template2 = RoutePage._(RouteInfo(
-      route: Router.template2Route,
+      route: Routes.template2Route,
       title: 'Test Bloc',
       hideAppbarActions: true));
 }
@@ -79,24 +79,26 @@ extension RouterPageInfoExtension on RoutePage {
 }
 
 extension PagesNameExtension on String {
-  /// Get route info by router name which generates in Router.gr.dart
+  /// Get route info by router name which generates in [Router.gr.dart]
   RoutePage get toRoutePage {
+    print("asking route by name: $this");
     switch (this) {
-      case Router.homeRoute:
+      case '/':
+      case Routes.homeRoute:
         return RoutePage.home;
-      case Router.loginRoute:
+      case Routes.loginRoute:
         return RoutePage.login;
-      case Router.depositRoute:
+      case Routes.depositRoute:
         return RoutePage.deposit;
-      case Router.promoRoute:
+      case Routes.promoRoute:
         return RoutePage.promo;
-      case Router.serviceRoute:
+      case Routes.serviceRoute:
         return RoutePage.service;
-      case Router.memberRoute:
+      case Routes.memberRoute:
         return RoutePage.member;
-      case Router.templateRoute:
+      case Routes.templateRoute:
         return RoutePage.template;
-      case Router.template2Route:
+      case Routes.template2Route:
         return RoutePage.template2;
       default:
         throw UnknownConditionException();
