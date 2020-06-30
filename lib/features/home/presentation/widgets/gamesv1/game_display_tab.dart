@@ -2,6 +2,7 @@ import 'dart:collection' show HashMap;
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/home/data/models/game_category_freezed.dart'
     show GameCategoryModel, GameCategoryModelExtension;
 import 'package:flutter_ty_mobile/features/home/data/models/game_platform_freezed.dart'
@@ -9,7 +10,6 @@ import 'package:flutter_ty_mobile/features/home/data/models/game_platform_freeze
 import 'package:flutter_ty_mobile/features/home/data/models/game_types_freezed.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 
-import '../../../../resource_export.dart' show FontSize, Themes;
 import '../../../../route_page_export.dart' show Global;
 import 'game_display_page.dart';
 import 'game_display_tab_ctrl.dart';
@@ -160,7 +160,7 @@ class _GameDisplayTabState extends State<GameDisplayTab>
                                       return state.completedWidget;
                                     case LoadState.failed:
                                       return Icon(Icons.broken_image,
-                                          color: Themes.iconColorDark);
+                                          color: Themes.iconColorLightGrey);
                                     default:
                                       return null;
                                   }

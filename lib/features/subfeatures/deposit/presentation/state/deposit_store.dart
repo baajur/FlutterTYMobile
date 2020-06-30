@@ -1,3 +1,4 @@
+import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/entity/payment_enum.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/form/deposit_form.dart';
@@ -59,7 +60,7 @@ abstract class _DepositStore with Store {
   }
 
   @action
-  Future getPaymentType() async {
+  Future<void> getPaymentType() async {
     try {
       // Reset the possible previous error message.
       errorMessage = null;
@@ -79,12 +80,14 @@ abstract class _DepositStore with Store {
         );
       });
     } on Exception {
-      errorMessage = Failure.internal().message;
+      errorMessage =
+          Failure.internal(FailureCode(typeCode: FailureTypeCode.DEPOSIT))
+              .message;
     }
   }
 
   @action
-  Future getPaymentPromo() async {
+  Future<void> getPaymentPromo() async {
     try {
       // Reset the possible previous error message.
       errorMessage = null;
@@ -106,13 +109,15 @@ abstract class _DepositStore with Store {
         );
       });
     } on Exception {
-      errorMessage = Failure.internal().message;
+      errorMessage =
+          Failure.internal(FailureCode(typeCode: FailureTypeCode.DEPOSIT))
+              .message;
     }
   }
 
   void generateEnumList() {
     if (paymentMap.isEmpty) {
-      errorMessage = Failure.dataSource().message;
+      errorMessage = Failure.jsonFormat().message;
     } else {
       List<PaymentEnum> list = new List();
       PaymentEnum.valueMap.forEach((key, value) {
@@ -124,8 +129,12 @@ abstract class _DepositStore with Store {
   }
 
   @action
-  Future sendRequest(DepositDataForm form) async {
+  Future<void> sendRequest(DepositDataForm form) async {
     try {
+      if (waitForDepositResult) {
+        errorMessage = localeStr.messageWait;
+        return;
+      }
       // Reset the possible previous error message.
       errorMessage = null;
       depositResult = null;
@@ -143,7 +152,9 @@ abstract class _DepositStore with Store {
         );
       });
     } on Exception {
-      errorMessage = Failure.internal().message;
+      errorMessage =
+          Failure.internal(FailureCode(typeCode: FailureTypeCode.DEPOSIT))
+              .message;
     }
   }
 }

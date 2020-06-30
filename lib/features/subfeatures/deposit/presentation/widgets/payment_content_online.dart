@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
-import 'package:flutter_ty_mobile/features/general/widgets/message_display.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/form/deposit_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/payment_freezed.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/presentation/widgets/payment_tutorial.dart';
+import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
-import 'package:flutter_ty_mobile/utils/value_range.dart';
+import 'package:flutter_ty_mobile/utils/value_util.dart';
 import 'package:intl/intl.dart' show NumberFormat;
+
+import '../../data/form/deposit_form.dart';
+import '../../data/model/payment_freezed.dart';
+import 'payment_tutorial.dart';
 
 /// Content View for all other types of Payment
 ///@author H.C.CHIANG
@@ -36,23 +33,28 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
       new GlobalKey(debugLabel: 'form');
   final GlobalKey<CustomizeFieldWidgetState> _amountFieldKey =
       new GlobalKey(debugLabel: 'amount');
+  final GlobalKey<CustomizeDropdownWidgetState> _bankOptionKey =
+      new GlobalKey(debugLabel: 'bank');
+  final GlobalKey<CustomizeDropdownWidgetState> _amountOptionKey =
+      new GlobalKey(debugLabel: 'aoption');
 
   PaymentDataOther _otherData;
   int _bankSelectedIndex = -1;
   int _bankSelectedId = -1;
-  int _methodSelected;
+//  int _methodSelected; // Currently all 3
   String _depositAmount = '';
+  bool _useAmountOption = false;
 
   void _validateForm() {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
-      if (_otherData.amountOption != null && _otherData.amountOption.isNotEmpty)
+      if (_otherData.hasAmountOption == false)
         _depositAmount = _amountFieldKey?.currentState?.inputText ?? '0';
 //      print('The user wants to login with $_username and $_password');
-      DepositDataForm dataForm = DepositDataForm(
+      DepositDataForm dataForm = new DepositDataForm(
         bankIndex: _bankSelectedIndex,
-        methodId: _methodSelected,
+        methodId: 3,
         bankId: _bankSelectedId,
         amount: _depositAmount,
       );
@@ -61,25 +63,42 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
     }
   }
 
-  @override
-  void initState() {
+  void setContent() {
     _otherData = widget.dataList[0];
-    _methodSelected = _otherData.amountType;
+//    _methodSelected = _otherData.amountType;
     _bankSelectedId = _otherData.bankAccountId;
     _bankSelectedIndex = _otherData.sb[0];
+    _useAmountOption = _otherData.hasAmountOption;
     _depositAmount =
-        (_otherData.amountOption != null && _otherData.amountOption.isNotEmpty)
-            ? _otherData.amountOption[0].toString()
-            : '0';
+        (_useAmountOption) ? _otherData.amountOption[0].toString() : '0';
+    print('update online payment data: $_otherData');
+//    print('update online payment data: ${_otherData.type}');
+  }
+
+  @override
+  void initState() {
+    setContent();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(PaymentContentOnline oldWidget) {
+    if (oldWidget.dataList != widget.dataList) {
+//      print('old dataList: ${oldWidget.dataList}');
+//      print('new dataList: ${widget.dataList}');
+      if (_useAmountOption) _amountOptionKey.currentState.setSelected = null;
+      setContent();
+      _bankOptionKey.currentState.setSelected = _bankSelectedId;
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.dataList == null || widget.dataList.isEmpty) {
       return Center(
-        child: MessageDisplay(
-          message: Failure.dataSource().message,
+        child: WarningDisplay(
+          message: Failure.jsonFormat().message,
         ),
       );
     } else {
@@ -100,18 +119,22 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                 children: <Widget>[
                   /* Bank Option */
                   CustomizeDropdownWidget(
+                    key: _bankOptionKey,
                     prefixTitle: localeStr.depositPaymentSpinnerTitleBank,
-                    spacing: 4,
+                    titleLetterSpacing: 4,
                     optionValues: widget.dataList
                         .map((item) => item.bankAccountId)
                         .toList(),
                     optionStrings:
                         widget.dataList.map((item) => item.type).toList(),
                     changeNotify: (data) {
+                      // clear text field focus
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      // set selected data
                       if (data is PaymentDataOther) {
                         if (_otherData == data) return;
                         print('change method: $data');
-                        _methodSelected = _otherData.amountType;
+//                        _methodSelected = _otherData.amountType;
                         _bankSelectedId = _otherData.bankAccountId;
                         _bankSelectedIndex = _otherData.sb[0];
                         setState(() {
@@ -121,23 +144,23 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                     },
                   ),
                   /* Amount Input Field */
-                  (_otherData.amountOption != null &&
-                          _otherData.amountOption.isNotEmpty)
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: CustomizeDropdownWidget(
-                            prefixTitle:
-                                localeStr.depositPaymentEditTitleAmount,
-                            spacing: 4,
-                            optionValues: _otherData.amountOption,
-                            changeNotify: (data) {
-                              print('change amount: $data');
-                              if (_depositAmount != data.toString())
-                                setState(() {
-                                  _depositAmount = data.toString();
-                                });
-                            },
-                          ),
+                  (_useAmountOption)
+                      ? CustomizeDropdownWidget(
+                          key: _amountOptionKey,
+                          prefixTitle: localeStr.depositPaymentEditTitleAmount,
+                          titleLetterSpacing: 4,
+                          optionValues: _otherData.amountOption,
+                          changeNotify: (data) {
+                            // clear text field focus
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            // set selected data
+                            print('change amount: $data');
+                            if (_depositAmount != data.toString())
+                              setState(() {
+                                _depositAmount = data.toString();
+                              });
+                          },
                         )
                       : new CustomizeFieldWidget(
                           key: _amountFieldKey,
@@ -148,7 +171,7 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                             _otherData.max,
                           ),
                           persistHint: false,
-                          prefixTitle: localeStr.depositPaymentEditTitleAmount,
+                          prefixText: localeStr.depositPaymentEditTitleAmount,
                           errorMsg: localeStr.messageInvalidDepositAmount,
                           validCondition: (value) =>
                               value.contains('.') == false &&
@@ -159,8 +182,9 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                                 max: _otherData.max,
                               ),
                           parentWidth: MediaQuery.of(context).size.width,
-                          spacing: 4,
+                          titleLetterSpacing: 4,
                           maxInputLength: _otherData.max.toString().length,
+                          minusHeight: 8,
                         ),
                   /* Amount Limit Hint */
                   Row(
@@ -186,13 +210,12 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                 Expanded(
                   child: RaisedButton(
                     child: Text(localeStr.btnConfirm),
-                    color: Themes.defaultAccentColor,
                     textColor: Themes.defaultTextColorBlack,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
                     onPressed: () {
                       try {
+                        // clear text field focus
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        // validate and send request
                         _validateForm();
                       } catch (e) {
                         MyLogger.error(
@@ -215,9 +238,6 @@ class _PaymentContentOnlineState extends State<PaymentContentOnline> {
                               Text(localeStr.depositPaymentButtonTitleTutorial),
                           color: Themes.buttonSubColor,
                           textColor: Themes.defaultTextColorBlack,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
                           onPressed: () {
                             showDialog(
                               context: context,

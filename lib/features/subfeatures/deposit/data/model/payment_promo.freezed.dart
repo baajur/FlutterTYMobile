@@ -156,8 +156,9 @@ class _$PaymentPromoTypeJson implements PaymentPromoTypeJson {
         (other is PaymentPromoTypeJson &&
             (identical(other.local, local) ||
                 const DeepCollectionEquality().equals(other.local, local)) &&
-            (identical(other.other, other) ||
-                const DeepCollectionEquality().equals(other.other, other)));
+            (identical(other.other, this.other) ||
+                const DeepCollectionEquality()
+                    .equals(other.other, this.other)));
   }
 
   @override

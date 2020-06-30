@@ -3,6 +3,17 @@ import 'package:orientation/orientation.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OrientationHelper {
+  static void restoreUI() {
+    try {
+      // Rotate to normal
+      forceOrientationEasy();
+      // restore the screen to normal SystemUiOverlay
+      setEnabledSystemUIOverlays();
+    } on Exception catch (e) {
+      print('Orientation Helper has exception: $e');
+    }
+  }
+
   static Future<void> setEnabledSystemUIOverlays() {
     print('Restore System UI');
     return OrientationPlugin.setEnabledSystemUIOverlays(SystemUiOverlay.values);

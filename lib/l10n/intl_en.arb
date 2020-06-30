@@ -11,12 +11,16 @@
   "@pageTitleHome": {
     "type": "text"
   },
+  "pageTitleDownload": "APP Download",
+  "@pageTitleDownload": {
+    "type": "text"
+  },
   "pageTitleTutorial": "Tutorial",
   "@pageTitleTutorial": {
     "type": "text"
   },
-  "pageTitleMarquee": "Announcement",
-  "@pageTitleMarquee": {
+  "pageTitleNotice": "Announcement",
+  "@pageTitleNotice": {
     "type": "text"
   },
   "pageTitleRouter": "Line Navigation",
@@ -95,8 +99,8 @@
   "@pageTitleMemberMessage": {
     "type": "text"
   },
-  "pageTitleMemberAccount": "Account Center",
-  "@pageTitleMemberAccount": {
+  "pageTitleMemberCenter": "Center",
+  "@pageTitleMemberCenter": {
     "type": "text"
   },
   "pageTitleMemberPassword": "Change Password",
@@ -168,6 +172,18 @@
   "@btnConfirm": {
     "type": "text"
   },
+  "btnSend": "Send",
+  "@btnSend": {
+    "type": "text"
+  },
+  "btnSubmit": "Submit",
+  "@btnSubmit": {
+    "type": "text"
+  },
+  "btnConfirmSend": "Confirm & Send",
+  "@btnConfirmSend": {
+    "type": "text"
+  },
   "btnLogin": "Login",
   "@btnLogin": {
     "type": "text"
@@ -186,6 +202,18 @@
   },
   "btnSignUp": "Sign in",
   "@btnSignUp": {
+    "type": "text"
+  },
+  "btnDownload": "Download",
+  "@btnDownload": {
+    "type": "text"
+  },
+  "btnBind": "Bind",
+  "@btnBind": {
+    "type": "text"
+  },
+  "btnQueryNow": "Search",
+  "@btnQueryNow": {
     "type": "text"
   },
   "btnSignUpTv": "Accumulated sign-in {value} days",
@@ -217,33 +245,16 @@
   "@btnNoticeMaintenance": {
     "type": "text"
   },
+  "hintActionSelect": "Please select",
+  "@hintActionSelect": {
+    "type": "text"
+  },
   "hintActionLogin": "Please login first",
   "@hintActionLogin": {
     "type": "text"
   },
   "hintTitleLogin": "Please enter your member info",
   "@hintTitleLogin": {
-    "type": "text"
-  },
-  "homeHintWelcomeLogin": "Welcome！ Please login first",
-  "@homeHintWelcomeLogin": {
-    "type": "text"
-  },
-  "homeHintWelcome": "Welcome！",
-  "@homeHintWelcome": {
-    "type": "text"
-  },
-  "homeHintWelcomeMember": "Hello, {name}！",
-  "@homeHintWelcomeMember": {
-    "type": "text",
-    "placeholders": {
-      "name": {
-        "example": "user"
-      }
-    }
-  },
-  "homeHintMemberCreditLeft": "Credit",
-  "@homeHintMemberCreditLeft": {
     "type": "text"
   },
   "hintAccount": "UserName *",
@@ -268,6 +279,27 @@
   },
   "hintConfirmed": "Enter the password again",
   "@hintConfirmed": {
+    "type": "text"
+  },
+  "homeHintWelcomeLogin": "Welcome！ Please login first",
+  "@homeHintWelcomeLogin": {
+    "type": "text"
+  },
+  "homeHintWelcome": "Welcome！",
+  "@homeHintWelcome": {
+    "type": "text"
+  },
+  "homeHintWelcomeMember": "Hello, {name}！",
+  "@homeHintWelcomeMember": {
+    "type": "text",
+    "placeholders": {
+      "name": {
+        "example": "user"
+      }
+    }
+  },
+  "homeHintMemberCreditLeft": "Credit",
+  "@homeHintMemberCreditLeft": {
     "type": "text"
   },
   "alertTitleError": "Error",
@@ -331,6 +363,10 @@
   "@messageActionFailed": {
     "type": "text"
   },
+  "messageActionFillForm": "Please fill the form",
+  "@messageActionFillForm": {
+    "type": "text"
+  },
   "messageLogout": "{name}, please log in again",
   "@messageLogout": {
     "type": "text",
@@ -344,7 +380,7 @@
   "@messageNoEvent": {
     "type": "text"
   },
-  "messageTaskSuccess": "Success: {msg}",
+  "messageTaskSuccess": "{msg} success",
   "@messageTaskSuccess": {
     "type": "text",
     "placeholders": {
@@ -353,7 +389,7 @@
       }
     }
   },
-  "messageTaskCanceled": "Cancel: {msg}",
+  "messageTaskCanceled": "{msg} canceled",
   "@messageTaskCanceled": {
     "type": "text",
     "placeholders": {
@@ -361,6 +397,58 @@
         "example": "login canceled"
       }
     }
+  },
+  "messageTaskFailed": "{msg} failed",
+  "@messageTaskFailed": {
+    "type": "text",
+    "placeholders": {
+      "msg": {
+        "example": "login"
+      }
+    }
+  },
+  "messageError": "{msg} error",
+  "@messageError": {
+    "type": "text",
+    "placeholders": {
+      "msg": {
+        "example": "login"
+      }
+    }
+  },
+  "messageErrorCause": "Error:{msg}({msg2})",
+  "@messageErrorCause": {
+    "type": "text",
+    "placeholders": {
+      "msg": {
+        "example": "login error"
+      },
+      "msg2": {
+        "example": "wrong password"
+      }
+    }
+  },
+  "messageErrorStatus": "Error:{msg}",
+  "@messageErrorStatus": {
+    "type": "text",
+    "placeholders": {
+      "msg": {
+        "example": "login error"
+      }
+    }
+  },
+  "messageErrorLink": "Cannot open link：{url}",
+  "@messageErrorLink": {
+    "type": "text",
+    "placeholders": {
+      "url": {
+        "example": "https://"
+      }
+    }
+  },
+  "messageInvalidFormat": "Error Data Format",
+  "@messageInvalidFormat": {
+    "type": "text"
   },
   "messageInvalidName": "Malformed name",
   "@messageInvalidName": {
@@ -372,6 +460,11 @@
   },
   "messageInvalidPhone": "Wrong phone format",
   "@messageInvalidPhone": {
+    "type": "text"
+  },
+
+  "messageInvalidWechat": "Invalid WeChat account",
+  "@messageInvalidWechat": {
     "type": "text"
   },
   "messageInvalidVerify": "Please enter a verification code",
@@ -456,27 +549,6 @@
   "@messageWarnNoPromoInfo": {
     "type": "text"
   },
-  "messageError": "Error: {msg} ({msg2})",
-  "@messageError": {
-    "type": "text",
-    "placeholders": {
-      "msg": {
-        "example": "login error"
-      },
-      "msg2": {
-        "example": "wrong password"
-      }
-    }
-  },
-  "messageErrorStatus": "Error: {msg}",
-  "@messageErrorStatus": {
-    "type": "text",
-    "placeholders": {
-      "msg": {
-        "example": "login error"
-      }
-    }
-  },
   "messageErrorInternal": "Internal error, please try again later or contact customer service",
   "@messageErrorInternal": {
     "type": "text"
@@ -485,8 +557,8 @@
   "@messageErrorCachedFile": {
     "type": "text"
   },
-  "messageErrorData": "User data error",
-  "@messageErrorData": {
+  "messageErrorToken": "User token error, please logout and login again",
+  "@messageErrorToken": {
     "type": "text"
   },
   "messageErrorAutoLogin": "Data error, please log in manually",
@@ -509,8 +581,8 @@
   "@messageErrorTimeoutError": {
     "type": "text"
   },
-  "messageErrorServerError": "Server error, please try again later or contact customer service",
-  "@messageErrorServerError": {
+  "messageErrorServerData": "Server data error, please try again later or contact customer service",
+  "@messageErrorServerData": {
     "type": "text"
   },
   "messageErrorLoadingGame": "An error occurred while loading the game, please try again later",
@@ -535,6 +607,15 @@
     "placeholders": {
       "msg": {
         "example": "input filter"
+      }
+    }
+  },
+  "messageErrorBindUrl": "Cannot retrieve {wallet} wallet url",
+  "@messageErrorBindUrl": {
+    "type": "text",
+    "placeholders": {
+      "wallet": {
+        "example": "CGP"
       }
     }
   },
@@ -574,6 +655,10 @@
   "@messageFailed": {
     "type": "text"
   },
+  "messagePartFailed": "Some of the transfer action has failed",
+  "@messagePartFailed": {
+    "type": "text"
+  },
   "userPwdFieldTitleOld": "Old Password:",
   "@userPwdFieldTitleOld": {
     "type": "text"
@@ -601,6 +686,27 @@
   "userPwdButtonTitle": "Change Password",
   "@userPwdButtonTitle": {
     "type": "text"
+  },
+  "userVerifyFieldTitle": "Verify:",
+  "@userVerifyFieldTitle": {
+    "type": "text"
+  },
+  "userVerifyFieldHint": "enter verify code",
+  "@userVerifyFieldHint": {
+    "type": "text"
+  },
+  "userVerifyFieldInfo": "You can only request once in 24 hrs",
+  "@userVerifyFieldInfo": {
+    "type": "text"
+  },
+  "userVerifyButtonText": "Request{separator}Code",
+  "@userVerifyButtonText": {
+    "type": "text",
+    "placeholders": {
+      "separator": {
+        "example": "\n"
+      }
+    }
   },
   "registerFieldTitleAccount": "Account:",
   "@registerFieldTitleAccount": {
@@ -722,8 +828,16 @@
   "@memberGridTitleLogout": {
     "type": "text"
   },
-  "transferViewTitleIn": "Transfer In",
+  "transferViewTitleIn": "To",
   "@transferViewTitleIn": {
+    "type": "text"
+  },
+  "transferViewTitleOut": "From",
+  "@transferViewTitleOut": {
+    "type": "text"
+  },
+  "transferViewSiteHint": "Select One",
+  "@transferViewSiteHint": {
     "type": "text"
   },
   "transferViewTitleAmount": "Amount",
@@ -790,16 +904,28 @@
   "@withdrawViewTitleNote": {
     "type": "text"
   },
-  "withdrawViewTitleSend": "Submit",
-  "@withdrawViewTitleSend": {
-    "type": "text"
-  },
   "withdrawViewOptionVirtual": "Do not use virtual currency",
   "@withdrawViewOptionVirtual": {
     "type": "text"
   },
-  "withdrawViewOptionHint": "If you want to withdraw virtual currency, please select it after binding",
-  "@withdrawViewOptionHint": {
+  "withdrawViewOptionCgp": "Use CGP",
+  "@withdrawViewOptionCgp": {
+    "type": "text"
+  },
+  "withdrawViewOptionCpw": "Use CPW",
+  "@withdrawViewOptionCpw": {
+    "type": "text"
+  },
+  "withdrawViewOptionHint1": "If you want to withdraw virtual currency, please select it after binding",
+  "@withdrawViewOptionHint1": {
+    "type": "text"
+  },
+  "withdrawViewOptionHint2": "You will need to keep at least: ",
+  "@withdrawViewOptionHint2": {
+    "type": "text"
+  },
+  "withdrawViewOptionHint3": "Data delay will very from game suppliers",
+  "@withdrawViewOptionHint3": {
     "type": "text"
   },
   "walletViewTitleMy": "My Wallet",
@@ -818,12 +944,16 @@
   "@walletViewTitleWalletMulti": {
     "type": "text"
   },
-  "walletViewButtonOneclick": "One Click Home",
-  "@walletViewButtonOneclick": {
+  "walletViewButtonOneClick": "Transfer Here",
+  "@walletViewButtonOneClick": {
     "type": "text"
   },
-  "walletViewHintOneclick": "All platform credits are transferred to the main wallet",
-  "@walletViewHintOneclick": {
+  "walletViewHintOneClick": "All platform credits will transfer to the main wallet",
+  "@walletViewHintOneClick": {
+    "type": "text"
+  },
+  "walletViewHintOneClickWait": "Transferring...",
+  "@walletViewHintOneClickWait": {
     "type": "text"
   },
   "walletViewHintWalletSingle": "* System presets automatically transfer credits to open game platforms",
@@ -834,11 +964,15 @@
   "@walletViewHintWalletMulti": {
     "type": "text"
   },
+  "walletViewMessageSetting": "change wallet settings",
+  "@walletViewMessageSetting": {
+    "type": "text"
+  },
   "centerViewTitleData": "Profile",
   "@centerViewTitleData": {
     "type": "text"
   },
-  "centerViewTitleLotto": "Liuhe Lucky Code",
+  "centerViewTitleLotto": "Lucky Code",
   "@centerViewTitleLotto": {
     "type": "text"
   },
@@ -858,11 +992,11 @@
   "@centerTextTitleBirth": {
     "type": "text"
   },
-  "centerTextTitleDateHint": "Format is: Yyyy–Mm–Dd",
+  "centerTextTitleDateHint": "Format is: 0000–00–00",
   "@centerTextTitleDateHint": {
     "type": "text"
   },
-  "centerTextTitleDateError": "Please enter the correct date (format: Yyyy–Mm–Dd)",
+  "centerTextTitleDateError": "Please enter the correct date (format: YYYY–MM–DD)",
   "@centerTextTitleDateError": {
     "type": "text"
   },
@@ -930,42 +1064,29 @@
   "@centerLuckyButtonBind": {
     "type": "text"
   },
-  "centerVipTextValidAmount": "Valid bets:",
-  "@centerVipTextValidAmount": {
+  "centerDialogCpwLeftTitle": "APP not installed？",
+  "@centerDialogCpwLeftTitle": {
     "type": "text"
   },
-  "centerVipTextBetAmount": "Slot Machine Betting:",
-  "@centerVipTextBetAmount": {
+  "centerDialogCpwLeftHint": "※ Will close APP",
+  "@centerDialogCpwLeftHint": {
     "type": "text"
   },
-  "centerVipTextVip0": "Normal",
-  "@ centerVipTextVip0": {
+  "centerDialogCpwRightTitle": "APP installed",
+  "@centerDialogCpwRightTitle": {
     "type": "text"
   },
-  "centerVipTextVip1": "Gold",
-  "@ centerVipTextVip1": {
+  "centerDialogCpwRightHint": "(please wait for data update after bind wallet)",
+  "@centerDialogCpwRightHint": {
     "type": "text"
   },
-  "centerVipTextVip2": "Ruby",
-  "@ centerVipTextVip2": {
+  "centerDialogCpwRightHint2": "or",
+  "@centerDialogCpwRightHint2": {
     "type": "text"
   },
-  "centerVipTextVip3": "Emerald",
-  "@ centerVipTextVip3": {
+  "centerDialogCpwRightLinkError": "Url Error, please contact service.",
+  "@centerDialogCpwRightLinkError": {
     "type": "text"
-  },
-  "centerVipTextVip4": "Diamond",
-  "@ centerVipTextVip4": {
-    "type": "text"
-  },
-  "centerVipTextVipCondition": "{num} 万",
-  "@centerVipTextVipCondition": {
-    "type": "text",
-    "placeholders": {
-      "num": {
-        "example": "1"
-      }
-    }
   },
   "transactionViewSpinnerTitle": "Transfer time",
   "@transactionViewSpinnerTitle": {
@@ -1528,14 +1649,27 @@
   "@balanceTransferOutText": {
     "type": "text"
   },
-  "balanceTransferAlertMsg": "Are you sure of the {value} {value2} platform?",
-  "@balanceTransferAlertMsg": {
+  "balanceTransferAmountError": "Not enough credit: {value}",
+  "@balanceTransferAmountError": {
     "type": "text",
     "placeholders": {
       "value": {
+        "example": "0.2"
+      }
+    }
+  },
+  "balanceTransferAlertTitle": "Please confirm",
+  "@balanceTransferAlertTitle": {
+    "type": "text"
+  },
+  "balanceTransferAlertMsg": "Are you sure of {action} to {platform} platform?",
+  "@balanceTransferAlertMsg": {
+    "type": "text",
+    "placeholders": {
+      "action": {
         "example": "Slot"
       },
-      "value2": {
+      "platform": {
         "example": "AG"
       }
     }
@@ -1544,19 +1678,19 @@
   "@balanceHintTextTitle": {
     "type": "text"
   },
-  "balanceHintText1": "1 Please exit the game or game betting interface before transferring money.",
+  "balanceHintText1": "1. Please exit the game or game betting interface before transferring money.",
   "@ balanceHintText1": {
     "type": "text"
   },
-  "balanceHintText2": "2 When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.",
+  "balanceHintText2": "2. When not participating in the activity, the amount of the indoor transfer cannot be less than 1 yuan, and there is no handling fee for indoor transfer.",
   "@ balanceHintText2": {
     "type": "text"
   },
-  "balanceHintText3": "3 If you have a slow internet connection, please wait for a while and don't repeat the submission multiple times.",
+  "balanceHintText3": "3. If you have a slow internet connection, please wait for a while and don't repeat the submission multiple times.",
   "@ balanceHintText3": {
     "type": "text"
   },
-  "balanceHintText4": "If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service",
+  "balanceHintText4": "4. If the platform amount has not changed after 4 successful transfers, please refresh the platform manually or contact customer service",
   "@ balanceHintText4": {
     "type": "text"
   },
@@ -1886,14 +2020,6 @@
   },
   "storeRequestWindowSpinnerHint": "Please select",
   "@storeRequestWindowSpinnerHint": {
-    "type": "text"
-  },
-  "storeRequestWindowButton": "OK to send",
-  "@storeRequestWindowButton": {
-    "type": "text"
-  },
-  "transferViewTitleOut": "Transfer Out",
-  "@transferViewTitleOut": {
     "type": "text"
   }
 }

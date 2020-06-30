@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_ty_mobile/core/base/usecase_export.dart';
 import 'package:flutter_ty_mobile/core/data/hive_actions.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart'
     show RequestStatusModel;
 import 'package:flutter_ty_mobile/features/users/data/form/login_form.dart';
@@ -11,8 +12,6 @@ import 'package:super_enum/super_enum.dart';
 import '../usecase/get_user.dart';
 import 'user_login_event.dart';
 import 'user_login_state.dart';
-
-const String _CACHE_LOGIN_FORM = '_CACHE_LOGIN_FORM';
 
 class UserLoginBloc extends Bloc<UserLoginEvent, UserLoginState> {
   final GetUserData getUserData;
@@ -39,7 +38,7 @@ class UserLoginBloc extends Bloc<UserLoginEvent, UserLoginState> {
         _fastController.sink.add(_box.values?.last);
       }
     });
-    Future.value(getHiveBox(_CACHE_LOGIN_FORM))
+    Future.value(getHiveBox(Global.CACHE_LOGIN_FORM))
         .then((value) => _boxControl.sink.add(value));
   }
 
@@ -87,7 +86,7 @@ class UserLoginBloc extends Bloc<UserLoginEvent, UserLoginState> {
     try {
       _fastController.close();
       _boxControl.close();
-      closeHiveBox(_CACHE_LOGIN_FORM);
+      closeHiveBox(Global.CACHE_LOGIN_FORM);
     } catch (e) {
       MyLogger.warn(msg: 'close user bloc error', error: e, tag: tag);
     }

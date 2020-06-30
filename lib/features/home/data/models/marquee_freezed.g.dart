@@ -6,6 +6,7 @@ part of 'marquee_freezed.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_MarqueeModel _$_$_MarqueeModelFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['created_at', 'updated_at']);
   return _$_MarqueeModel(
@@ -18,6 +19,7 @@ _$_MarqueeModel _$_$_MarqueeModelFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_MarqueeModelToJson(_$_MarqueeModel instance) =>
     <String, dynamic>{
       'id': instance.id,
@@ -28,6 +30,7 @@ Map<String, dynamic> _$_$_MarqueeModelToJson(_$_MarqueeModel instance) =>
       'showDate': instance.showDate,
     };
 
+// ignore: non_constant_identifier_names
 _$_MarqueeModelList _$_$_MarqueeModelListFromJson(Map<String, dynamic> json) {
   return _$_MarqueeModelList(
     marquees: (json['marquees'] as List)
@@ -38,6 +41,7 @@ _$_MarqueeModelList _$_$_MarqueeModelListFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_MarqueeModelListToJson(
         _$_MarqueeModelList instance) =>
     <String, dynamic>{

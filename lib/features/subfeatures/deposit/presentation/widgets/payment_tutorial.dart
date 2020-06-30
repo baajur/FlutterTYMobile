@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/resource_export.dart'
-    show FontSize, Themes, networkImageBuilder;
-import 'package:flutter_ty_mobile/features/route_page_export.dart'
-    show Global, localeStr;
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/entity/payment_enum.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
+import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
+import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../data/entity/payment_enum.dart';
 
 class PaymentTutorial extends StatelessWidget {
   final List tutorialData;
@@ -122,11 +123,7 @@ class PaymentTutorial extends StatelessWidget {
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: RaisedButton(
               child: Text(item.value),
-              color: Themes.defaultAccentColor,
               textColor: Themes.defaultTextColorBlack,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.0),
-              ),
               visualDensity: VisualDensity.standard,
               onPressed: () async {
                 switch (item.sortId) {

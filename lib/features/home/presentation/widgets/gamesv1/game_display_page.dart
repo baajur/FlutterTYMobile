@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ty_mobile/core/error/exceptions.dart';
+import 'package:flutter_ty_mobile/core/internal/font_size.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/home/data/game_page_data_export.dart';
-import 'package:flutter_ty_mobile/features/resource_export.dart'
-    show FontSize, networkImageWidget;
 
 import '../../../../route_page_export.dart'
     show MyLogger, getRouteUserStreams, localeStr, sl;
@@ -72,9 +72,9 @@ class _GameDisplayPageState extends State<GameDisplayPage>
   void openGame(String url, BuildContext context) {
     if (getRouteUserStreams.hasUser == false)
       FLToast.showInfo(
-          text: localeStr.messageErrorNotLogin,
-          position: FLToastPosition.center,
-          showDuration: ToastDuration.DEFAULT.value);
+        text: localeStr.messageErrorNotLogin,
+        showDuration: ToastDuration.DEFAULT.value,
+      );
     else
       showDialog(
         context: context,
@@ -173,7 +173,7 @@ class _GameDisplayPageState extends State<GameDisplayPage>
             gInitial: (_) => GameControlGrid(form: _createForm(platform)),
             gLoading: (_) => LoadingWidget(heightFactor: 3),
             gLoaded: (_) => _createGamesGrid(state.props.first),
-            gError: (_) => MessageDisplay(
+            gError: (_) => WarningDisplay(
               message: state.props.first,
             ),
           );

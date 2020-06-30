@@ -77,8 +77,8 @@ class _TestNestedNavScreenViewState extends State<TestNestedNavScreenView> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
-              onPressed: () => TestRouter.navigator
-                  .pushNamed(TestRoutes.testPermissionScreen),
+              onPressed: () =>
+                  testNavigator.pushNamed(TestRoutes.testPermissionScreen),
               child: Text('Permission'),
             ),
             RaisedButton(
@@ -186,7 +186,7 @@ class _TestNestedNavScreenViewState extends State<TestNestedNavScreenView> {
             RaisedButton(
                 child: Text('push'),
                 onPressed: () =>
-                    TestRouter.navigator.pushNamed(TestRoutes.testInputRoute)),
+                    testNavigator.pushNamed(TestRoutes.testInputRoute)),
           ],
         ),
       ],

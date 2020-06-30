@@ -217,10 +217,6 @@ abstract class _GameModel implements GameModel {
   _$GameModelCopyWith<_GameModel> get copyWith;
 }
 
-GameEntity _$GameEntityFromJson(Map<String, dynamic> json) {
-  return _GameEntity.fromJson(json);
-}
-
 class _$GameEntityTearOff {
   const _$GameEntityTearOff();
 
@@ -242,7 +238,6 @@ mixin _$GameEntity {
   String get cname;
   String get gameUrl;
 
-  Map<String, dynamic> toJson();
   $GameEntityCopyWith<GameEntity> get copyWith;
 }
 
@@ -305,16 +300,12 @@ class __$GameEntityCopyWithImpl<$Res> extends _$GameEntityCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
 class _$_GameEntity implements _GameEntity {
   const _$_GameEntity(
       {@required this.id, @required this.cname, @required this.gameUrl})
       : assert(id != null),
         assert(cname != null),
         assert(gameUrl != null);
-
-  factory _$_GameEntity.fromJson(Map<String, dynamic> json) =>
-      _$_$_GameEntityFromJson(json);
 
   @override
   final int id;
@@ -350,11 +341,6 @@ class _$_GameEntity implements _GameEntity {
   @override
   _$GameEntityCopyWith<_GameEntity> get copyWith =>
       __$GameEntityCopyWithImpl<_GameEntity>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_GameEntityToJson(this);
-  }
 }
 
 abstract class _GameEntity implements GameEntity {
@@ -362,9 +348,6 @@ abstract class _GameEntity implements GameEntity {
       {@required int id,
       @required String cname,
       @required String gameUrl}) = _$_GameEntity;
-
-  factory _GameEntity.fromJson(Map<String, dynamic> json) =
-      _$_GameEntity.fromJson;
 
   @override
   int get id;

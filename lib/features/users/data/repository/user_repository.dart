@@ -21,7 +21,6 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, UserEntity>> getAccount(UserLoginForm form) async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     MyLogger.print(msg: 'login form: $form', tag: tag);
     if (connected) {
       final result =

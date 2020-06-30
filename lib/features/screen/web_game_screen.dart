@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
+import 'package:flutter_ty_mobile/core/internal/orientation_helper.dart';
 import 'package:flutter_ty_mobile/features/screen/web_game_screen_store.dart';
 import 'package:flutter_ty_mobile/injection_container.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
-import 'package:flutter_ty_mobile/utils/string_util.dart';
+import 'package:flutter_ty_mobile/temp/test_anim_drawer.dart';
+import 'package:flutter_ty_mobile/utils/regex_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebGameScreen extends StatefulWidget {
@@ -71,6 +73,10 @@ class _WebGameScreenState extends State<WebGameScreen> {
   @override
   void dispose() async {
     MyLogger.debug(msg: 'dispose web game screen', tag: 'WebGameScreen');
+
+    _store.stopSensor();
+    OrientationHelper.restoreUI();
+
     // edit the source code in FlutterWebView
     // (under external lib -> webview_flutter -> android
     // -> src.main -> java.io.flutter.plugins.webviewflutter)
@@ -99,46 +105,49 @@ class _WebGameScreenState extends State<WebGameScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: WillPopScope(
-        child: WebView(
-          initialUrl: widget.startUrl,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController controller) async {
-            _controller = controller;
-            _store.bindController(_controller);
-            if (isForm) {
-              _controller.loadUrl(Uri.dataFromString(
-                parsedHtml,
-                mimeType: Global.WEB_MIMETYPE,
-                encoding: Global.webEncoding,
-              ).toString());
-            } else if (widget.startUrl.isUrl == false) {
-              _controller.loadUrl(Uri.dataFromString(
-                widget.startUrl,
-                mimeType: Global.WEB_MIMETYPE,
-                encoding: Global.webEncoding,
-              ).toString());
-            }
-          },
-          onPageFinished: (String url) async {
-            print('web page loaded: $url');
-            if (url.isUrl == false) return;
-            if (isForm) isForm = false;
-
-            String pageTitle = await _controller.getTitle();
-            print('web page title: $pageTitle');
-            //TODO check the normal page title or 404
-            // Error 500 Title: 500 Internal Server Error
-            if (pageTitle.contains('Error') ||
-                pageTitle.contains('Exception')) {
-              if (pageTitle.startsWith('500')) {
+        child: Scaffold(
+          drawer: TestAnimDrawer(),
+          body: WebView(
+            initialUrl: widget.startUrl,
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController controller) async {
+              _controller = controller;
+              _store.bindController(_controller);
+              if (isForm) {
                 _controller.loadUrl(Uri.dataFromString(
-                  pageTitle,
+                  parsedHtml,
+                  mimeType: Global.WEB_MIMETYPE,
+                  encoding: Global.webEncoding,
+                ).toString());
+              } else if (widget.startUrl.isUrl == false) {
+                _controller.loadUrl(Uri.dataFromString(
+                  widget.startUrl,
                   mimeType: Global.WEB_MIMETYPE,
                   encoding: Global.webEncoding,
                 ).toString());
               }
-            }
-          },
+            },
+            onPageFinished: (String url) async {
+              print('web page loaded: $url');
+              if (url.isUrl == false) return;
+              if (isForm) isForm = false;
+
+              String pageTitle = await _controller.getTitle();
+              print('web page title: $pageTitle');
+              //TODO check the normal page title or 404
+              // Error 500 Title: 500 Internal Server Error
+              if (pageTitle.contains('Error') ||
+                  pageTitle.contains('Exception')) {
+                if (pageTitle.startsWith('500')) {
+                  _controller.loadUrl(Uri.dataFromString(
+                    pageTitle,
+                    mimeType: Global.WEB_MIMETYPE,
+                    encoding: Global.webEncoding,
+                  ).toString());
+                }
+              }
+            },
+          ),
         ),
         onWillPop: () async {
           MyLogger.debug(msg: 'pop web game screen', tag: 'WebGameScreen');

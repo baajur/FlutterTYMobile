@@ -46,6 +46,7 @@ class BannerEntityAdapter extends TypeAdapter<_$_BannerEntity> {
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_BannerModel _$_$_BannerModelFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const [
     'pic_mobile',
@@ -70,6 +71,7 @@ _$_BannerModel _$_$_BannerModelFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_BannerModelToJson(_$_BannerModel instance) =>
     <String, dynamic>{
       'id': instance.id,

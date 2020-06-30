@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/font_size.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
+import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/internal/themes.dart';
 
 import '../../../mylogger.dart';
@@ -24,16 +24,23 @@ class CustomizeDropdownWidget extends StatefulWidget {
   /// Parent widget width, default is Device.width
   final double parentWidth;
 
+  /// Widget's padding, default is vertical 2.0
+  final EdgeInsetsGeometry padding;
+
   /// Total margin between this widget and device screen, default is 32.
-  final double widgetHorInset;
+  final double horizontalInset;
 
   /// Text space between letters and words
-  final double spacing;
+  final double titleLetterSpacing;
 
   final String prefixTitle;
   final IconData prefixIconData;
   final double titleWidthFactor;
   final double iconWidthFactor;
+  final String postfixInitText;
+  final Stream postfixTextStream;
+  final double postfixWidthFactor;
+  final bool clearValueOnMenuChanged;
   final bool debug;
 
   CustomizeDropdownWidget({
@@ -44,12 +51,17 @@ class CustomizeDropdownWidget extends StatefulWidget {
     this.defaultValueIndex = 0,
     this.expandWidget = true,
     this.parentWidth,
-    this.widgetHorInset = 32.0,
+    this.padding,
+    this.horizontalInset = 32.0,
     this.prefixTitle,
-    this.titleWidthFactor = 0.286,
-    this.spacing = 12.0,
+    this.titleWidthFactor = Themes.prefixTextWidthFactor,
+    this.titleLetterSpacing = Themes.prefixTextSpacing,
     this.prefixIconData,
-    this.iconWidthFactor = 0.166,
+    this.iconWidthFactor = Themes.prefixIconWidthFactor,
+    this.postfixInitText,
+    this.postfixTextStream,
+    this.postfixWidthFactor = 0.314,
+    this.clearValueOnMenuChanged = false,
     this.debug = false,
   }) : super(key: key);
 
@@ -58,13 +70,17 @@ class CustomizeDropdownWidget extends StatefulWidget {
 }
 
 class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
-  dynamic _dropdownValue;
-
   double _viewWidth;
   double _smallWidgetHeight;
+  BoxDecoration dropdownDecor;
   double _prefixWidth;
   Widget _prefixWidget;
   BoxConstraints _prefixConstraints;
+  double _postfixWidth;
+  Widget _postfixWidget;
+  BoxConstraints _postfixConstraints;
+
+  dynamic _dropdownValue;
 
   dynamic get selected => _dropdownValue;
 
@@ -76,14 +92,16 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
   @override
   void initState() {
     _viewWidth = (widget.parentWidth ?? Global.device.width).roundToDouble() -
-        widget.widgetHorInset;
+        widget.horizontalInset;
 
     _prefixWidth = ((widget.prefixTitle != null)
             ? _viewWidth * widget.titleWidthFactor
             : _viewWidth * widget.iconWidthFactor) -
         8;
 
-    _smallWidgetHeight = Themes.fieldHeight - 8;
+    _postfixWidth = _viewWidth * widget.postfixWidthFactor;
+
+    _smallWidgetHeight = Themes.fieldHeight;
 
     if (widget.debug) {
       print(
@@ -101,25 +119,54 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
               ' strings: ${widget.optionStrings.length}',
           tag: 'TestDropdown');
     }
-
-    _dropdownValue = widget.optionValues[widget.defaultValueIndex];
+    if (widget.optionValues != null && widget.optionValues.isNotEmpty) {
+      if (widget.clearValueOnMenuChanged)
+        _dropdownValue = null;
+      else if (widget.optionValues.length > widget.defaultValueIndex)
+        _dropdownValue = widget.optionValues[widget.defaultValueIndex];
+      else
+        _dropdownValue = widget.optionValues[0];
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _prefixConstraints ??= BoxConstraints(
-      minWidth: _prefixWidth,
-      maxWidth: _prefixWidth,
-      minHeight: _smallWidgetHeight,
-    );
-
     if (_prefixWidget == null &&
         (widget.prefixTitle != null || widget.prefixIconData != null)) {
+      _prefixConstraints ??= BoxConstraints(
+        minWidth: _prefixWidth,
+        maxWidth: _prefixWidth,
+        minHeight: _smallWidgetHeight,
+      );
       _buildPrefix();
     }
 
+    if (_postfixWidget == null &&
+        widget.postfixInitText != null &&
+        widget.postfixTextStream != null) {
+      _postfixConstraints ??= BoxConstraints(
+        minWidth: _postfixWidth,
+        maxWidth: _postfixWidth,
+        minHeight: _smallWidgetHeight,
+      );
+      _buildPostfix();
+    }
+
+    dropdownDecor = (_postfixWidget == null)
+        ? BoxDecoration(
+            color: Themes.fieldInputBgColor,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(4.0),
+              bottomRight: Radius.circular(4.0),
+            ),
+          )
+        : BoxDecoration(
+            color: Themes.fieldInputBgColor,
+          );
+
     return Container(
+      padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 2.0),
       constraints: BoxConstraints.tightFor(
         width: _viewWidth,
         height: _smallWidgetHeight,
@@ -132,11 +179,14 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
           if (_prefixWidget != null) _prefixWidget,
           Expanded(
             child: Container(
-              color: Themes.fieldInputBgColor,
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              decoration: dropdownDecor,
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-                  value: _dropdownValue,
+                  hint: Text(
+                    localeStr.hintActionSelect,
+                    style: TextStyle(color: Themes.defaultHintColorDark),
+                  ),
                   icon: Icon(Icons.arrow_drop_down),
                   iconSize: 24,
                   elevation: 0,
@@ -146,6 +196,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
                     color: Themes.defaultTextColor,
                     fontSize: FontSize.SUBTITLE.value,
                   ),
+                  value: _dropdownValue,
                   onChanged: (data) {
                     if (widget.changeNotify != null) widget.changeNotify(data);
                     if (widget.debug) print('selected: $data');
@@ -197,6 +248,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
               ),
             ),
           ),
+          if (_postfixWidget != null) _postfixWidget,
         ],
       ),
     );
@@ -205,8 +257,14 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
   void _buildPrefix() {
     if (widget.prefixTitle != null && widget.prefixIconData != null) {
       _prefixWidget = Container(
-        color: Themes.defaultWidgetBgColor,
         constraints: _prefixConstraints,
+        decoration: BoxDecoration(
+          color: Themes.defaultWidgetBgColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(4.0),
+            bottomLeft: Radius.circular(4.0),
+          ),
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -216,7 +274,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
               child: Icon(
                 widget.prefixIconData,
                 size: Themes.fieldIconSize,
-                color: Themes.iconColorDark,
+                color: Themes.iconColorLightGrey,
               ),
             ),
             Padding(
@@ -225,8 +283,8 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
                 widget.prefixTitle,
                 style: TextStyle(
 //              fontSize: FontSize.SUBTITLE.value,
-                  wordSpacing: widget.spacing / 2,
-                  letterSpacing: widget.spacing / 4,
+                  wordSpacing: widget.titleLetterSpacing / 2,
+                  letterSpacing: widget.titleLetterSpacing / 4,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -236,32 +294,74 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
       );
     } else if (widget.prefixTitle != null) {
       _prefixWidget = Container(
-        color: Themes.defaultWidgetBgColor,
         constraints: _prefixConstraints,
+        decoration: BoxDecoration(
+          color: Themes.defaultWidgetBgColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(4.0),
+            bottomLeft: Radius.circular(4.0),
+          ),
+        ),
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.symmetric(horizontal: 6.0),
         child: Text(
           widget.prefixTitle,
           style: TextStyle(
 //              fontSize: FontSize.SUBTITLE.value,
-            wordSpacing: widget.spacing,
-            letterSpacing: widget.spacing,
+            wordSpacing: widget.titleLetterSpacing,
+            letterSpacing: widget.titleLetterSpacing,
           ),
           overflow: TextOverflow.ellipsis,
         ),
       );
     } else if (widget.prefixIconData != null) {
       _prefixWidget = Container(
-        color: Themes.defaultWidgetBgColor,
         constraints: _prefixConstraints,
+        decoration: BoxDecoration(
+          color: Themes.defaultWidgetBgColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(4.0),
+            bottomLeft: Radius.circular(4.0),
+          ),
+        ),
         child: Center(
           child: Icon(
             widget.prefixIconData,
             size: Themes.fieldIconSize,
-            color: Themes.iconColorDark,
+            color: Themes.iconColorLightGrey,
           ),
         ),
       );
     }
+  }
+
+  void _buildPostfix() {
+    _postfixWidget ??= Container(
+      constraints: _postfixConstraints,
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+      decoration: BoxDecoration(
+        color: Themes.fieldInputBgColor,
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(4.0),
+          bottomRight: Radius.circular(4.0),
+        ),
+      ),
+      alignment: Alignment.centerLeft,
+      child: StreamBuilder<String>(
+          stream: widget.postfixTextStream,
+          builder: (context, snapshot) {
+            bool reset = snapshot.data == null || snapshot.data.isEmpty;
+            String text = (reset) ? widget.postfixInitText : snapshot.data;
+            if (widget.debug) print('${widget.prefixTitle} postText: $text');
+            return Text(
+              text,
+              style: TextStyle(
+                color: (reset)
+                    ? Themes.defaultHintColorDark
+                    : Themes.hintHighlightYellow,
+              ),
+            );
+          }),
+    );
   }
 }

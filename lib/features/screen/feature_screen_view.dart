@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
+import 'package:flutter_ty_mobile/res.dart';
 
-import '../resource_export.dart';
 import '../route_page_export.dart';
 import '../router/router.gr.dart';
 import 'feature_screen_inherited_widget.dart';

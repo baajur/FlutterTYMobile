@@ -51,7 +51,7 @@ Future<Widget> networkImageWidget(
             case LoadState.completed:
               return state.completedWidget;
             case LoadState.failed:
-              return Icon(Icons.broken_image, color: Themes.iconColorDark);
+              return Icon(Icons.broken_image, color: Themes.iconColorLightGrey);
             default:
               return null;
           }
@@ -88,7 +88,7 @@ FutureBuilder networkImageBuilder(
           return snapshot.data;
       } else if (snapshot.hasError) {
         MyLogger.warn(msg: 'network image builder error: ${snapshot.error}');
-        return Icon(Icons.broken_image, color: Themes.iconColorDark);
+        return Icon(Icons.broken_image, color: Themes.iconColorLightGrey);
       } else {
         return SizedBox.shrink();
       }

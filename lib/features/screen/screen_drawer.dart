@@ -5,15 +5,20 @@ part of 'feature_screen_view.dart';
 class ScreenDrawer extends StatelessWidget {
   const ScreenDrawer();
 
-  static final List<Widget> _menuIcons = [
-    Icon(
-      IconData(0xf015, fontFamily: 'FontAwesome'),
-      color: Themes.iconColor,
-    ),
+  static final List<IconData> _menuIcons = [
+    IconData(0xf015, fontFamily: 'FontAwesome'),
+    IconData(0xf0ed, fontFamily: 'FontAwesome'),
+    IconData(0xf027, fontFamily: 'FontAwesome'),
+    IconData(0xf155, fontFamily: 'FontAwesome'),
+    Icons.warning,
   ];
 
   static final List<RoutePage> _menuRoute = [
     RoutePage.home,
+    RoutePage.downloadArea,
+    RoutePage.noticeBoard,
+    RoutePage.wallet,
+    RoutePage.testArea,
   ];
 
   @override
@@ -51,7 +56,7 @@ class ScreenDrawer extends StatelessWidget {
                       SizedBox(height: 8),
                       ButtonTheme(
                         child: RaisedButton(
-                          color: HexColor.fromHex('#f4daa3'),
+                          color: Themes.buttonLightAccentColor,
                           textColor: Themes.defaultTextColorBlack,
                           child: Text(localeStr.pageTitleLogin2),
                           onPressed: () {
@@ -81,7 +86,12 @@ class ScreenDrawer extends StatelessWidget {
                             shape: BoxShape.circle,
                             border: Border.all(color: Themes.iconColor)),
                         child: Transform.scale(
-                            scale: 0.75, child: _menuIcons[index]),
+                          scale: 0.75,
+                          child: Icon(
+                            _menuIcons[index],
+                            color: Themes.iconColor,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -92,9 +102,14 @@ class ScreenDrawer extends StatelessWidget {
                   onTap: () {
                     if (RouterNavigate.current == _menuRoute[index].page)
                       return;
+                    // close the drawer
                     if (viewState.scaffoldKey.currentState.isDrawerOpen)
-                      Navigator.pop(context); // close the drawer
-                    RouterNavigate.navigateToPage(_menuRoute[index]);
+                      Navigator.pop(context);
+                    // route navigate
+                    if (index == 3 && viewState.store.hasUser == false)
+                      RouterNavigate.navigateToPage(RoutePage.login);
+                    else
+                      RouterNavigate.navigateToPage(_menuRoute[index]);
                   },
                 );
               },

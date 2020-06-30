@@ -6,6 +6,7 @@ part of 'user_freezed.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_UserModel _$_$_UserModelFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['accountcode', 'creditlimit']);
   return _$_UserModel(
@@ -17,6 +18,7 @@ _$_UserModel _$_$_UserModelFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_UserModelToJson(_$_UserModel instance) =>
     <String, dynamic>{
       'accountcode': instance.account,

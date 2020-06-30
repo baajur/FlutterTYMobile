@@ -33,4 +33,22 @@ void main() {
     expect(imageUrl2.isImageUrl, false);
     expect(imageUrl3.isImageUrl, false);
   });
+
+  test('test date regex', () {
+    String date = '1990-01-01';
+    expect(date.isValidDate, true);
+  });
+
+  test('test chinese regex', () {
+    String testStr1 = '123';
+    expect(testStr1.hasChinese, false);
+    String testStr2 = 'abc';
+    expect(testStr2.hasChinese, false);
+    String testStr3 = '一';
+    expect(testStr3.hasChinese, true);
+    String testStr4 = '一二3';
+    expect(testStr4.hasChinese, true);
+    String testStr5 = '一2三';
+    expect(testStr5.hasChinese, true);
+  });
 }

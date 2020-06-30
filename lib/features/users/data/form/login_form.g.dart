@@ -40,6 +40,7 @@ class UserLoginHiveFormAdapter extends TypeAdapter<_$_UserLoginHiveForm> {
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_UserLoginForm _$_$_UserLoginFormFromJson(Map<String, dynamic> json) {
   return _$_UserLoginForm(
     account: json['accountcode'] as String,
@@ -47,6 +48,7 @@ _$_UserLoginForm _$_$_UserLoginFormFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_UserLoginFormToJson(_$_UserLoginForm instance) =>
     <String, dynamic>{
       'accountcode': instance.account,

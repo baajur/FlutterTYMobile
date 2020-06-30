@@ -54,8 +54,8 @@ class _$PaymentFreezedTearOff {
       {@JsonKey(name: 'bankaccountid') int bankAccountId,
       @JsonKey(name: 'bankaccountno') String bankAccountNo,
       @JsonKey(name: 'bankindex') int bankIndex,
-      @JsonKey(fromJson: _strFromJson) String max,
-      @JsonKey(fromJson: _strFromJson) String min,
+      @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+      @JsonKey(fromJson: JsonUtil.getRawJson) String min,
       String payment,
       String type}) {
     return PaymentDataLocal(
@@ -91,15 +91,15 @@ mixin _$PaymentFreezed {
             int min,
             int payment,
             @JsonKey(name: 'pgindex') int pgIndex,
-            @required List<int> sb,
+            List<int> sb,
             String type),
     @required
         Result local(
             @JsonKey(name: 'bankaccountid') int bankAccountId,
             @JsonKey(name: 'bankaccountno') String bankAccountNo,
             @JsonKey(name: 'bankindex') int bankIndex,
-            @JsonKey(fromJson: _strFromJson) String max,
-            @JsonKey(fromJson: _strFromJson) String min,
+            @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+            @JsonKey(fromJson: JsonUtil.getRawJson) String min,
             String payment,
             String type),
   });
@@ -115,14 +115,14 @@ mixin _$PaymentFreezed {
         int min,
         int payment,
         @JsonKey(name: 'pgindex') int pgIndex,
-        @required List<int> sb,
+        List<int> sb,
         String type),
     Result local(
         @JsonKey(name: 'bankaccountid') int bankAccountId,
         @JsonKey(name: 'bankaccountno') String bankAccountNo,
         @JsonKey(name: 'bankindex') int bankIndex,
-        @JsonKey(fromJson: _strFromJson) String max,
-        @JsonKey(fromJson: _strFromJson) String min,
+        @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+        @JsonKey(fromJson: JsonUtil.getRawJson) String min,
         String payment,
         String type),
     @required Result orElse(),
@@ -353,15 +353,15 @@ class _$PaymentDataOther implements PaymentDataOther {
             int min,
             int payment,
             @JsonKey(name: 'pgindex') int pgIndex,
-            @required List<int> sb,
+            List<int> sb,
             String type),
     @required
         Result local(
             @JsonKey(name: 'bankaccountid') int bankAccountId,
             @JsonKey(name: 'bankaccountno') String bankAccountNo,
             @JsonKey(name: 'bankindex') int bankIndex,
-            @JsonKey(fromJson: _strFromJson) String max,
-            @JsonKey(fromJson: _strFromJson) String min,
+            @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+            @JsonKey(fromJson: JsonUtil.getRawJson) String min,
             String payment,
             String type),
   }) {
@@ -384,14 +384,14 @@ class _$PaymentDataOther implements PaymentDataOther {
         int min,
         int payment,
         @JsonKey(name: 'pgindex') int pgIndex,
-        @required List<int> sb,
+        List<int> sb,
         String type),
     Result local(
         @JsonKey(name: 'bankaccountid') int bankAccountId,
         @JsonKey(name: 'bankaccountno') String bankAccountNo,
         @JsonKey(name: 'bankindex') int bankIndex,
-        @JsonKey(fromJson: _strFromJson) String max,
-        @JsonKey(fromJson: _strFromJson) String min,
+        @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+        @JsonKey(fromJson: JsonUtil.getRawJson) String min,
         String payment,
         String type),
     @required Result orElse(),
@@ -483,8 +483,8 @@ abstract class $PaymentDataLocalCopyWith<$Res>
       {@JsonKey(name: 'bankaccountid') int bankAccountId,
       @JsonKey(name: 'bankaccountno') String bankAccountNo,
       @JsonKey(name: 'bankindex') int bankIndex,
-      @JsonKey(fromJson: _strFromJson) String max,
-      @JsonKey(fromJson: _strFromJson) String min,
+      @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+      @JsonKey(fromJson: JsonUtil.getRawJson) String min,
       String payment,
       String type});
 }
@@ -531,8 +531,8 @@ class _$PaymentDataLocal implements PaymentDataLocal {
       {@JsonKey(name: 'bankaccountid') this.bankAccountId,
       @JsonKey(name: 'bankaccountno') this.bankAccountNo,
       @JsonKey(name: 'bankindex') this.bankIndex,
-      @JsonKey(fromJson: _strFromJson) this.max,
-      @JsonKey(fromJson: _strFromJson) this.min,
+      @JsonKey(fromJson: JsonUtil.getRawJson) this.max,
+      @JsonKey(fromJson: JsonUtil.getRawJson) this.min,
       this.payment,
       this.type});
 
@@ -549,10 +549,10 @@ class _$PaymentDataLocal implements PaymentDataLocal {
   @JsonKey(name: 'bankindex')
   final int bankIndex;
   @override
-  @JsonKey(fromJson: _strFromJson)
+  @JsonKey(fromJson: JsonUtil.getRawJson)
   final String max;
   @override
-  @JsonKey(fromJson: _strFromJson)
+  @JsonKey(fromJson: JsonUtil.getRawJson)
   final String min;
   @override
   final String payment;
@@ -617,15 +617,15 @@ class _$PaymentDataLocal implements PaymentDataLocal {
             int min,
             int payment,
             @JsonKey(name: 'pgindex') int pgIndex,
-            @required List<int> sb,
+            List<int> sb,
             String type),
     @required
         Result local(
             @JsonKey(name: 'bankaccountid') int bankAccountId,
             @JsonKey(name: 'bankaccountno') String bankAccountNo,
             @JsonKey(name: 'bankindex') int bankIndex,
-            @JsonKey(fromJson: _strFromJson) String max,
-            @JsonKey(fromJson: _strFromJson) String min,
+            @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+            @JsonKey(fromJson: JsonUtil.getRawJson) String min,
             String payment,
             String type),
   }) {
@@ -648,14 +648,14 @@ class _$PaymentDataLocal implements PaymentDataLocal {
         int min,
         int payment,
         @JsonKey(name: 'pgindex') int pgIndex,
-        @required List<int> sb,
+        List<int> sb,
         String type),
     Result local(
         @JsonKey(name: 'bankaccountid') int bankAccountId,
         @JsonKey(name: 'bankaccountno') String bankAccountNo,
         @JsonKey(name: 'bankindex') int bankIndex,
-        @JsonKey(fromJson: _strFromJson) String max,
-        @JsonKey(fromJson: _strFromJson) String min,
+        @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+        @JsonKey(fromJson: JsonUtil.getRawJson) String min,
         String payment,
         String type),
     @required Result orElse(),
@@ -704,8 +704,8 @@ abstract class PaymentDataLocal implements PaymentFreezed {
       {@JsonKey(name: 'bankaccountid') int bankAccountId,
       @JsonKey(name: 'bankaccountno') String bankAccountNo,
       @JsonKey(name: 'bankindex') int bankIndex,
-      @JsonKey(fromJson: _strFromJson) String max,
-      @JsonKey(fromJson: _strFromJson) String min,
+      @JsonKey(fromJson: JsonUtil.getRawJson) String max,
+      @JsonKey(fromJson: JsonUtil.getRawJson) String min,
       String payment,
       String type}) = _$PaymentDataLocal;
 
@@ -719,9 +719,9 @@ abstract class PaymentDataLocal implements PaymentFreezed {
   String get bankAccountNo;
   @JsonKey(name: 'bankindex')
   int get bankIndex;
-  @JsonKey(fromJson: _strFromJson)
+  @JsonKey(fromJson: JsonUtil.getRawJson)
   String get max;
-  @JsonKey(fromJson: _strFromJson)
+  @JsonKey(fromJson: JsonUtil.getRawJson)
   String get min;
   String get payment;
   @override

@@ -12,86 +12,84 @@ mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
   Computed<bool> _$hasUserComputed;
 
   @override
-  bool get hasUser =>
-      (_$hasUserComputed ??= Computed<bool>(() => super.hasUser)).value;
+  bool get hasUser => (_$hasUserComputed ??= Computed<bool>(() => super.hasUser,
+          name: '_FeatureScreenStore.hasUser'))
+      .value;
   Computed<int> _$navIndexComputed;
 
   @override
   int get navIndex =>
-      (_$navIndexComputed ??= Computed<int>(() => super.navIndex)).value;
+      (_$navIndexComputed ??= Computed<int>(() => super.navIndex,
+              name: '_FeatureScreenStore.navIndex'))
+          .value;
 
   final _$_streamRouteAtom = Atom(name: '_FeatureScreenStore._streamRoute');
 
   @override
   ObservableStream<RouteInfo> get _streamRoute {
-    _$_streamRouteAtom.context.enforceReadPolicy(_$_streamRouteAtom);
-    _$_streamRouteAtom.reportObserved();
+    _$_streamRouteAtom.reportRead();
     return super._streamRoute;
   }
 
   @override
   set _streamRoute(ObservableStream<RouteInfo> value) {
-    _$_streamRouteAtom.context.conditionallyRunInAction(() {
+    _$_streamRouteAtom.reportWrite(value, super._streamRoute, () {
       super._streamRoute = value;
-      _$_streamRouteAtom.reportChanged();
-    }, _$_streamRouteAtom, name: '${_$_streamRouteAtom.name}_set');
+    });
   }
 
   final _$pageInfoAtom = Atom(name: '_FeatureScreenStore.pageInfo');
 
   @override
   RouteInfo get pageInfo {
-    _$pageInfoAtom.context.enforceReadPolicy(_$pageInfoAtom);
-    _$pageInfoAtom.reportObserved();
+    _$pageInfoAtom.reportRead();
     return super.pageInfo;
   }
 
   @override
   set pageInfo(RouteInfo value) {
-    _$pageInfoAtom.context.conditionallyRunInAction(() {
+    _$pageInfoAtom.reportWrite(value, super.pageInfo, () {
       super.pageInfo = value;
-      _$pageInfoAtom.reportChanged();
-    }, _$pageInfoAtom, name: '${_$pageInfoAtom.name}_set');
+    });
   }
 
   final _$_streamUserAtom = Atom(name: '_FeatureScreenStore._streamUser');
 
   @override
   ObservableStream<LoginStatus> get _streamUser {
-    _$_streamUserAtom.context.enforceReadPolicy(_$_streamUserAtom);
-    _$_streamUserAtom.reportObserved();
+    _$_streamUserAtom.reportRead();
     return super._streamUser;
   }
 
   @override
   set _streamUser(ObservableStream<LoginStatus> value) {
-    _$_streamUserAtom.context.conditionallyRunInAction(() {
+    _$_streamUserAtom.reportWrite(value, super._streamUser, () {
       super._streamUser = value;
-      _$_streamUserAtom.reportChanged();
-    }, _$_streamUserAtom, name: '${_$_streamUserAtom.name}_set');
+    });
   }
 
   final _$userStatusAtom = Atom(name: '_FeatureScreenStore.userStatus');
 
   @override
   LoginStatus get userStatus {
-    _$userStatusAtom.context.enforceReadPolicy(_$userStatusAtom);
-    _$userStatusAtom.reportObserved();
+    _$userStatusAtom.reportRead();
     return super.userStatus;
   }
 
   @override
   set userStatus(LoginStatus value) {
-    _$userStatusAtom.context.conditionallyRunInAction(() {
+    _$userStatusAtom.reportWrite(value, super.userStatus, () {
       super.userStatus = value;
-      _$userStatusAtom.reportChanged();
-    }, _$userStatusAtom, name: '${_$userStatusAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string =
-        'pageInfo: ${pageInfo.toString()},userStatus: ${userStatus.toString()},hasUser: ${hasUser.toString()},navIndex: ${navIndex.toString()}';
-    return '{$string}';
+    return '''
+pageInfo: $pageInfo,
+userStatus: $userStatus,
+hasUser: $hasUser,
+navIndex: $navIndex
+    ''';
   }
 }

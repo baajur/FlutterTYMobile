@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart'
-    show ToastError;
+import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/promo/data/models/promo_freezed.dart'
     show PromoEntity;
-import 'package:flutter_ty_mobile/features/resource_export.dart'
-    show Themes, HexColor;
-import 'package:flutter_ty_mobile/features/route_page_export.dart'
-    show Global, MyLogger, localeStr;
+import 'package:flutter_ty_mobile/features/route_page_export.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 /// Show promo detail in [WebView]
@@ -131,7 +127,11 @@ class _PromoDetailState extends State<PromoDetail> {
                     );
                   } else if (snapshot.hasError) {
                     MyLogger.error(msg: snapshot.error, tag: 'Promo Detail');
-                    return ToastError(message: Failure.internal().message);
+                    return ToastError(
+                        message: Failure.internal(FailureCode(
+                      typeCode: FailureTypeCode.PROMO,
+                      code: 1,
+                    )).message);
                   } else {
                     return SizedBox.shrink();
                   }

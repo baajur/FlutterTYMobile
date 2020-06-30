@@ -24,7 +24,8 @@ void main() {
     );
   });
 
-  final UserEntity userEntity = UserEntity(account: 'user', credit: '0.0000', vip: 1);
+  final UserEntity userEntity =
+      UserEntity(account: 'user', credit: '0.0000', vip: 1);
 
   final UserLoginForm form = UserLoginForm(account: 'user', password: '1234');
 
@@ -36,10 +37,9 @@ void main() {
   group('GetUserData', () {
     test(
       'should get data from the user data use case',
-          () async {
+      () async {
         // arrange
-        when(mockGetUserData(any))
-            .thenAnswer((_) async => Right(userEntity));
+        when(mockGetUserData(any)).thenAnswer((_) async => Right(userEntity));
         // act
         bloc.add(GetUserEvent(form: form));
         await untilCalled(mockGetUserData(any));
@@ -50,16 +50,15 @@ void main() {
 
     test(
       'bloc state should be loaded when data has been processed without failure',
-          () async {
+      () async {
         // arrange
-        when(mockGetUserData(any))
-            .thenAnswer((_) async => Right(userEntity));
+        when(mockGetUserData(any)).thenAnswer((_) async => Right(userEntity));
         // assert later
         // act
         bloc.add(GetUserEvent(form: form));
         await untilCalled(mockGetUserData(any));
-        await untilCalled(bloc.transformStates(
-            Stream.value(UserLoginState.uLoaded(user: any))));
+//        await untilCalled(bloc.transformStates(
+//            Stream.value(UserLoginState.uLoaded(user: any))));
         // assert
         await Future.delayed(Duration(milliseconds: 200));
         expect(bloc.state, UserLoginState.uLoaded(user: userEntity));
@@ -75,8 +74,7 @@ void main() {
     );
 
     test('emits [loading, loaded] when post event', () async {
-      when(mockGetUserData(any))
-          .thenAnswer((_) async => Right(userEntity));
+      when(mockGetUserData(any)).thenAnswer((_) async => Right(userEntity));
 
       expect(bloc.state, equals(UserLoginState.uInitial()));
 

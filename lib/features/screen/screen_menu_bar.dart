@@ -131,12 +131,12 @@ class _ScreenMenuBarState extends State<ScreenMenuBar> {
                 borderRadius: new BorderRadius.circular(4.0),
               ),
               child: RaisedButton(
-                color: Themes.defaultAccentColor,
                 child: new Text(
                   localeStr.pageTitleRegister2,
                   style: TextStyle(
-                      fontSize: FontSize.NORMAL.value + 1,
-                      color: Themes.defaultTextColorBlack),
+                    fontSize: FontSize.NORMAL.value + 1,
+                    color: Themes.defaultTextColorBlack,
+                  ),
                 ),
                 visualDensity: VisualDensity(horizontal: -3.0),
                 onPressed: () =>

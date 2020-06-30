@@ -13,17 +13,15 @@ mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
 
   @override
   ObservableStream<DeviceOrientation> get _streamRotate {
-    _$_streamRotateAtom.context.enforceReadPolicy(_$_streamRotateAtom);
-    _$_streamRotateAtom.reportObserved();
+    _$_streamRotateAtom.reportRead();
     return super._streamRotate;
   }
 
   @override
   set _streamRotate(ObservableStream<DeviceOrientation> value) {
-    _$_streamRotateAtom.context.conditionallyRunInAction(() {
+    _$_streamRotateAtom.reportWrite(value, super._streamRotate, () {
       super._streamRotate = value;
-      _$_streamRotateAtom.reportChanged();
-    }, _$_streamRotateAtom, name: '${_$_streamRotateAtom.name}_set');
+    });
   }
 
   final _$deviceOrientationAtom =
@@ -31,20 +29,19 @@ mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
 
   @override
   DeviceOrientation get deviceOrientation {
-    _$deviceOrientationAtom.context.enforceReadPolicy(_$deviceOrientationAtom);
-    _$deviceOrientationAtom.reportObserved();
+    _$deviceOrientationAtom.reportRead();
     return super.deviceOrientation;
   }
 
   @override
   set deviceOrientation(DeviceOrientation value) {
-    _$deviceOrientationAtom.context.conditionallyRunInAction(() {
+    _$deviceOrientationAtom.reportWrite(value, super.deviceOrientation, () {
       super.deviceOrientation = value;
-      _$deviceOrientationAtom.reportChanged();
-    }, _$deviceOrientationAtom, name: '${_$deviceOrientationAtom.name}_set');
+    });
   }
 
-  final _$rotateScreenAsyncAction = AsyncAction('rotateScreen');
+  final _$rotateScreenAsyncAction =
+      AsyncAction('_WebGameScreenStore.rotateScreen');
 
   @override
   Future<void> rotateScreen(DeviceOrientation receivedRotate) {
@@ -52,7 +49,8 @@ mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
         .run(() => super.rotateScreen(receivedRotate));
   }
 
-  final _$rotateScreenByIdAsyncAction = AsyncAction('rotateScreenById');
+  final _$rotateScreenByIdAsyncAction =
+      AsyncAction('_WebGameScreenStore.rotateScreenById');
 
   @override
   Future<void> rotateScreenById(int receivedId) {
@@ -60,14 +58,15 @@ mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
         .run(() => super.rotateScreenById(receivedId));
   }
 
-  final _$initSensorStreamAsyncAction = AsyncAction('initSensorStream');
+  final _$initSensorStreamAsyncAction =
+      AsyncAction('_WebGameScreenStore.initSensorStream');
 
   @override
   Future<void> initSensorStream() {
     return _$initSensorStreamAsyncAction.run(() => super.initSensorStream());
   }
 
-  final _$stopSensorAsyncAction = AsyncAction('stopSensor');
+  final _$stopSensorAsyncAction = AsyncAction('_WebGameScreenStore.stopSensor');
 
   @override
   Future<void> stopSensor() {
@@ -76,7 +75,8 @@ mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
 
   @override
   String toString() {
-    final string = 'deviceOrientation: ${deviceOrientation.toString()}';
-    return '{$string}';
+    return '''
+deviceOrientation: $deviceOrientation
+    ''';
   }
 }

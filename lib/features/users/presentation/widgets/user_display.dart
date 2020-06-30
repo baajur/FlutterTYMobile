@@ -1,8 +1,8 @@
 import 'package:flui/flui.dart' show FLToast;
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/hex_color.dart';
 import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart';
 
-import '../../../resource_export.dart' show HexColor;
 import '../../../route_page_export.dart';
 
 ///@author H.C.CHIANG
@@ -24,14 +24,22 @@ class UserDisplay extends StatelessWidget {
         text: localeStr.messageWelcomeUser(user.account),
       );
       Future.delayed(Duration(milliseconds: 1500)).whenComplete(() {
-        dismiss();
-        if (ScreenNavigate.screenIndex == 2)
-          ScreenNavigate.switchScreen();
-        else if (isDialog) {
-          Navigator.pop(context);
-          RouterNavigate.navigateClean(force: true);
-        } else
-          RouterNavigate.navigateToPage(RoutePage.member);
+        try {
+          dismiss();
+          if (ScreenNavigate.screenIndex == 2)
+            ScreenNavigate.switchScreen();
+          else if (isDialog) {
+            Navigator.pop(context);
+            RouterNavigate.navigateClean(force: true);
+          } else {
+            RouterNavigate.navigateToPage(RoutePage.member);
+          }
+        } catch (e) {
+          MyLogger.warn(
+              msg: 'User Login Display has exception!!',
+              error: e,
+              tag: 'UserDisplay');
+        }
       });
     });
     return SizedBox.shrink();

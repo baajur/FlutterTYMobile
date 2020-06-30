@@ -2,6 +2,8 @@ import 'package:intl/intl.dart';
 
 final DateFormat _datetimeFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 final DateFormat _dateFormat = DateFormat("yyyy-MM-dd");
+final DateFormat _dateStartFormat = DateFormat("yyyy-MM-dd 00:00:00");
+final DateFormat _dateEndFormat = DateFormat("yyyy-MM-dd 23:59:59");
 
 /// Get [DateTime.now] as String
 String getDateTime() => DateTime.now().toDatetimeString;
@@ -21,6 +23,10 @@ extension DateTimeExtensions on DateTime {
   String get toDatetimeString => _datetimeFormat.format(this);
 
   String get toDateString => _dateFormat.format(this);
+
+  String get toDateStartString => _dateStartFormat.format(this);
+
+  String get toDateEndString => _dateEndFormat.format(this);
 
   /// check if the [DateTime] has at least passed [hours] and the time is before [DateTime.now]
   /// Usage example:

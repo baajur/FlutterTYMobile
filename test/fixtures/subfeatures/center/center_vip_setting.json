@@ -1,0 +1,74 @@
+{
+  "1": {
+    "setting": {
+      "allgame": "0",
+      "slotgame": "0",
+      "casinogame": "0",
+      "sportgame": "0",
+      "fishgame": "0",
+      "lotterygame": "0",
+      "cardgame": "0"
+    },
+    "title": "\u666e\u901a\u4f1a\u5458"
+  },
+  "2": {
+    "setting": {
+      "allgame": "40",
+      "slotgame": "2000",
+      "casinogame": "400",
+      "sportgame": "300",
+      "fishgame": "200",
+      "lotterygame": "50",
+      "cardgame": "100"
+    },
+    "title": "\u9ec4\u91d1\u4f1a\u5458"
+  },
+  "3": {
+    "setting": {
+      "allgame": "3000000",
+      "slotgame": "2500000",
+      "casinogame": "50",
+      "sportgame": "40",
+      "fishgame": "30",
+      "lotterygame": "20",
+      "cardgame": "10"
+    },
+    "title": "\u7ea2\u5b9d\u77f3\u4f1a\u5458"
+  },
+  "4": {
+    "setting": {
+      "allgame": "6000000",
+      "slotgame": "5000000",
+      "casinogame": "60",
+      "sportgame": "50",
+      "fishgame": "40",
+      "lotterygame": "30",
+      "cardgame": "20"
+    },
+    "title": "\u7fe1\u7fe0\u4f1a\u5458"
+  },
+  "5": {
+    "setting": {
+      "allgame": "9000000",
+      "slotgame": "8000000",
+      "casinogame": "110",
+      "sportgame": "100",
+      "fishgame": "90",
+      "lotterygame": "80",
+      "cardgame": "70"
+    },
+    "title": "\u94bb\u77f3\u4f1a\u5458"
+  },
+  "6": {
+    "setting": {
+      "allgame": "\u65e0",
+      "slotgame": "\u65e0",
+      "casinogame": "5000",
+      "sportgame": "4000",
+      "fishgame": "3000",
+      "lotterygame": "2000",
+      "cardgame": "1000"
+    },
+    "title": "\u81f3\u5c0a\u4f1a\u5458"
+  }
+}

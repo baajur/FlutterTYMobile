@@ -25,7 +25,6 @@ class DepositRepositoryImpl implements DepositRepository {
   @override
   Future<Either<Failure, PaymentRaw>> getPayment() async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     if (connected) {
       final result =
           await handleResponse<PaymentRaw>(remoteDataSource.getPayment());
@@ -40,7 +39,6 @@ class DepositRepositoryImpl implements DepositRepository {
   @override
   Future<Either<Failure, PaymentPromoTypeJson>> getPaymentPromo() async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     if (connected) {
       final result = await handleResponse<PaymentPromoTypeJson>(
           remoteDataSource.getPaymentPromo());
@@ -56,7 +54,6 @@ class DepositRepositoryImpl implements DepositRepository {
   Future<Either<Failure, DepositResult>> postDeposit(
       DepositDataForm form) async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     if (connected) {
       final result = await handleResponse<DepositResult>(
           remoteDataSource.postDeposit(form));

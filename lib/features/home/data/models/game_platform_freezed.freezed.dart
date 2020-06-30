@@ -80,10 +80,8 @@ mixin _$GamePlatformFreezed {
             @HiveField(0)
             @JsonKey(name: 'class', required: true)
                 String className,
-            @required
             @HiveField(1)
                 String ch,
-            @required
             @HiveField(2)
                 String site,
             @HiveField(3)
@@ -92,30 +90,30 @@ mixin _$GamePlatformFreezed {
     @required
         Result model(
             @JsonKey(name: 'class', required: true) String className,
-            @required String ch,
-            @required int cid,
-            @required String site,
-            @required String site2,
+            String ch,
+            int cid,
+            String site,
+            String site2,
             @JsonKey(name: 'type', required: true) String category,
-            @required int sort,
-            @required String status),
+            int sort,
+            String status),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result entity(
         @HiveField(0) @JsonKey(name: 'class', required: true) String className,
-        @required @HiveField(1) String ch,
-        @required @HiveField(2) String site,
+        @HiveField(1) String ch,
+        @HiveField(2) String site,
         @HiveField(3) @JsonKey(name: 'type', required: true) String category),
     Result model(
         @JsonKey(name: 'class', required: true) String className,
-        @required String ch,
-        @required int cid,
-        @required String site,
-        @required String site2,
+        String ch,
+        int cid,
+        String site,
+        String site2,
         @JsonKey(name: 'type', required: true) String category,
-        @required int sort,
-        @required String status),
+        int sort,
+        String status),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -277,10 +275,8 @@ class _$GamePlatformEntity implements GamePlatformEntity {
             @HiveField(0)
             @JsonKey(name: 'class', required: true)
                 String className,
-            @required
             @HiveField(1)
                 String ch,
-            @required
             @HiveField(2)
                 String site,
             @HiveField(3)
@@ -289,13 +285,13 @@ class _$GamePlatformEntity implements GamePlatformEntity {
     @required
         Result model(
             @JsonKey(name: 'class', required: true) String className,
-            @required String ch,
-            @required int cid,
-            @required String site,
-            @required String site2,
+            String ch,
+            int cid,
+            String site,
+            String site2,
             @JsonKey(name: 'type', required: true) String category,
-            @required int sort,
-            @required String status),
+            int sort,
+            String status),
   }) {
     assert(entity != null);
     assert(model != null);
@@ -307,18 +303,18 @@ class _$GamePlatformEntity implements GamePlatformEntity {
   Result maybeWhen<Result extends Object>({
     Result entity(
         @HiveField(0) @JsonKey(name: 'class', required: true) String className,
-        @required @HiveField(1) String ch,
-        @required @HiveField(2) String site,
+        @HiveField(1) String ch,
+        @HiveField(2) String site,
         @HiveField(3) @JsonKey(name: 'type', required: true) String category),
     Result model(
         @JsonKey(name: 'class', required: true) String className,
-        @required String ch,
-        @required int cid,
-        @required String site,
-        @required String site2,
+        String ch,
+        int cid,
+        String site,
+        String site2,
         @JsonKey(name: 'type', required: true) String category,
-        @required int sort,
-        @required String status),
+        int sort,
+        String status),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -544,10 +540,8 @@ class _$GamePlatformModel implements GamePlatformModel {
             @HiveField(0)
             @JsonKey(name: 'class', required: true)
                 String className,
-            @required
             @HiveField(1)
                 String ch,
-            @required
             @HiveField(2)
                 String site,
             @HiveField(3)
@@ -556,13 +550,13 @@ class _$GamePlatformModel implements GamePlatformModel {
     @required
         Result model(
             @JsonKey(name: 'class', required: true) String className,
-            @required String ch,
-            @required int cid,
-            @required String site,
-            @required String site2,
+            String ch,
+            int cid,
+            String site,
+            String site2,
             @JsonKey(name: 'type', required: true) String category,
-            @required int sort,
-            @required String status),
+            int sort,
+            String status),
   }) {
     assert(entity != null);
     assert(model != null);
@@ -574,18 +568,18 @@ class _$GamePlatformModel implements GamePlatformModel {
   Result maybeWhen<Result extends Object>({
     Result entity(
         @HiveField(0) @JsonKey(name: 'class', required: true) String className,
-        @required @HiveField(1) String ch,
-        @required @HiveField(2) String site,
+        @HiveField(1) String ch,
+        @HiveField(2) String site,
         @HiveField(3) @JsonKey(name: 'type', required: true) String category),
     Result model(
         @JsonKey(name: 'class', required: true) String className,
-        @required String ch,
-        @required int cid,
-        @required String site,
-        @required String site2,
+        String ch,
+        int cid,
+        String site,
+        String site2,
         @JsonKey(name: 'type', required: true) String category,
-        @required int sort,
-        @required String status),
+        int sort,
+        String status),
     @required Result orElse(),
   }) {
     assert(orElse != null);

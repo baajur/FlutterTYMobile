@@ -6,6 +6,7 @@ part of 'game_types_freezed.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_GameTypes _$_$_GameTypesFromJson(Map<String, dynamic> json) {
   return _$_GameTypes(
     categories: (json['categories'] as List)
@@ -21,6 +22,7 @@ _$_GameTypes _$_$_GameTypesFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_GameTypesToJson(_$_GameTypes instance) =>
     <String, dynamic>{
       'categories': instance.categories,

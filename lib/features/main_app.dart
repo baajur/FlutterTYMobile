@@ -1,5 +1,6 @@
 import 'dart:io' show Platform, exit;
 
+import 'package:after_layout/after_layout.dart';
 import 'package:flui/flui.dart' show FLToastDefaults, FLToastProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemChannels;
@@ -7,6 +8,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_ty_mobile/features/route_page_export.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:super_enum/super_enum.dart';
 
 import '../core/data/hive_adapters_export.dart';
 import '../core/internal/themes.dart';
@@ -20,29 +23,31 @@ class MainApp extends StatefulWidget {
   State<StatefulWidget> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
+class _MainAppState extends State<MainApp>
+    with WidgetsBindingObserver, AfterLayoutMixin {
   final String tag = 'Main';
-//  final List<PermissionItem> permissions = List<PermissionItem>();
   final FLToastDefaults _toastDefaults = FLToastDefaults();
+  List<Permission> permissionList;
+  Exception permissionException;
+  StackTrace permissionStackTrace;
   var _hiveInitialized = false;
 
-//  void _initPermissionList() async {
-//    permissions.clear();
-//    await Future.forEach(
-//        PermissionGroup.values,
-//        (value) =>
-//            permissions.add(PermissionItem(value, PermissionStatus.unknown)));
-//    return _resolvePermissionState();
-//  }
-//
-//  Future<void> _resolvePermissionState() async {
-//    await Future.forEach(permissions, (item) async {
-//      int index = permissions.indexOf(item);
-//      await (PermissionHandler().checkPermissionStatus(item.group))
-//          .then((status) => permissions[index].status = status);
-//    });
-//    if (permissions.isNotEmpty) permissions.requestPermission();
-//  }
+  Future<void> _initPermissionList() async {
+    try {
+      return await permissionList.request().then((map) async {
+        StringBuffer result = new StringBuffer();
+        map.forEach((key, value) {
+          result.write('permission: $key is ${value.isGranted}');
+          if (key != map.keys.last) result.write('\n');
+        });
+        MyLogger.log(msg: 'Permissions: ${result.toString()}', tag: tag);
+      });
+    } catch (e, s) {
+      permissionException = e;
+      // NOTICE: delete this on release
+      permissionStackTrace = s;
+    }
+  }
 
   Future<void> _initHive() async {
     if (!_hiveInitialized) {
@@ -100,7 +105,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   @override
   void initState() {
     MyLogger.info(msg: 'app init', tag: tag);
-//    _initPermissionList();
+    if (Platform.isIOS)
+      permissionList = [Permission.location, Permission.storage];
+    else
+      permissionList = Permission.values;
+
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -124,7 +133,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     MyLogger.info(msg: 'app build', tag: tag);
     return FutureBuilder(
-      future: _initHive(),
+      future: Future.wait([_initPermissionList(), _initHive()]),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return Container(
@@ -172,5 +181,44 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         }
       },
     );
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    if (permissionException != null) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Permission'),
+              content: Column(
+                children: <Widget>[
+                  Text('We are sorry that something went wrong, '
+                      'please turn on location permission manually.\n'
+                      '$permissionException'),
+                  // NOTICE: delete this on release
+                  Container(
+                    height: 200,
+                    child: SingleChildScrollView(
+                      child: RichText(
+                        text: TextSpan(text: '$permissionStackTrace'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Settings'),
+                  onPressed: () => openAppSettings(),
+                ),
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            );
+          });
+    }
   }
 }

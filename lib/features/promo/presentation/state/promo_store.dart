@@ -36,7 +36,7 @@ abstract class _PromoStore with Store {
   }
 
   @action
-  Future getPromoList() async {
+  Future<void> getPromoList() async {
     try {
       // Reset the possible previous error message.
       errorMessage = null;
@@ -61,7 +61,9 @@ abstract class _PromoStore with Store {
         );
       });
     } on Exception {
-      errorMessage = Failure.internal().message;
+      errorMessage =
+          Failure.internal(FailureCode(typeCode: FailureTypeCode.PROMO))
+              .message;
     }
   }
 }

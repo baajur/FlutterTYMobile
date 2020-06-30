@@ -13,6 +13,18 @@ import 'package:flutter_ty_mobile/features/web/web_route.dart';
 import 'package:flutter_ty_mobile/features/member/presentation/member_route.dart';
 import 'package:flutter_ty_mobile/features/promo/presentation/promo_route.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/deposit/presentation/deposit_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/transfer/presentation/transfer_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/bankcard/presentation/bankcard_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/balance/presentation/balance_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/wallet/presentation/wallet_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/message/presentation/message_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/center_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/widgets/center_display_account_pwd.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/presentation/state/center_store.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/transactions/presentation/transaction_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/downloadarea/download_area_route.dart';
+import 'package:flutter_ty_mobile/features/subfeatures/notice/presentation/notice_route.dart';
+import 'package:flutter_ty_mobile/features/test_area_route.dart';
 import 'package:flutter_ty_mobile/template/mobx/presentation/template_route.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dart';
 
@@ -23,14 +35,51 @@ abstract class Routes {
   static const memberRoute = '/member-route';
   static const promoRoute = '/promo-route';
   static const depositRoute = '/deposit-route';
-  static const depositWebRoute = '/deposit-web-route';
+  static const depositWebPage = '/deposit-web-page';
+  static const transferRoute = '/transfer-route';
+  static const bankcardRoute = '/bankcard-route';
+  static const balanceRoute = '/balance-route';
+  static const walletRoute = '/wallet-route';
+  static const messageRoute = '/message-route';
+  static const centerRoute = '/center-route';
+  static const centerPasswordPage = '/center-password-page';
+  static const transactionRoute = '/transaction-route';
+  static const centerWebPage = '/center-web-page';
+  static const downloadAreaRoute = '/download-area-route';
+  static const noticeRoute = '/notice-route';
+  static const testAreaRoute = '/test-area-route';
   static const templateRoute = '/template-route';
   static const template2Route = '/template2-route';
+  static const all = {
+    homeRoute,
+    loginRoute,
+    serviceRoute,
+    memberRoute,
+    promoRoute,
+    depositRoute,
+    depositWebPage,
+    transferRoute,
+    bankcardRoute,
+    balanceRoute,
+    walletRoute,
+    messageRoute,
+    centerRoute,
+    centerPasswordPage,
+    transactionRoute,
+    centerWebPage,
+    downloadAreaRoute,
+    noticeRoute,
+    testAreaRoute,
+    templateRoute,
+    template2Route,
+  };
 }
 
 class Router extends RouterBase {
-  //This will probably be removed in future versions
-  //you should call ExtendedNavigator.ofRouter<Router>() directly
+  @override
+  Set<String> get allRoutes => Routes.all;
+
+  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
   static ExtendedNavigatorState get navigator =>
       ExtendedNavigator.ofRouter<Router>();
 
@@ -44,12 +93,12 @@ class Router extends RouterBase {
         }
         final typedArgs = args as HomeRouteArguments ?? HomeRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => HomeRoute(key: typedArgs.key),
+          builder: (context) => HomeRoute(key: typedArgs.key),
           settings: settings,
         );
       case Routes.loginRoute:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => LoginRoute(),
+          builder: (context) => LoginRoute(),
           settings: settings,
         );
       case Routes.serviceRoute:
@@ -58,7 +107,7 @@ class Router extends RouterBase {
         }
         final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => WebRoute(startUrl: typedArgs.startUrl),
+          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
           settings: settings,
         );
       case Routes.memberRoute:
@@ -68,7 +117,7 @@ class Router extends RouterBase {
         final typedArgs =
             args as MemberRouteArguments ?? MemberRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => MemberRoute(key: typedArgs.key),
+          builder: (context) => MemberRoute(key: typedArgs.key),
           settings: settings,
         );
       case Routes.promoRoute:
@@ -77,32 +126,107 @@ class Router extends RouterBase {
         }
         final typedArgs = args as PromoRouteArguments ?? PromoRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => PromoRoute(openPromoId: typedArgs.openPromoId),
+          builder: (context) => PromoRoute(openPromoId: typedArgs.openPromoId),
           settings: settings,
         );
       case Routes.depositRoute:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => DepositRoute(),
+          builder: (context) => DepositRoute(),
           settings: settings,
         );
-      case Routes.depositWebRoute:
+      case Routes.depositWebPage:
         if (hasInvalidArgs<WebRouteArguments>(args, isRequired: true)) {
           return misTypedArgsRoute<WebRouteArguments>(args);
         }
         final typedArgs = args as WebRouteArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => WebRoute(startUrl: typedArgs.startUrl),
+          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
+          settings: settings,
+        );
+      case Routes.transferRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => TransferRoute(),
+          settings: settings,
+        );
+      case Routes.bankcardRoute:
+        if (hasInvalidArgs<BankcardRouteArguments>(args)) {
+          return misTypedArgsRoute<BankcardRouteArguments>(args);
+        }
+        final typedArgs =
+            args as BankcardRouteArguments ?? BankcardRouteArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => BankcardRoute(withdraw: typedArgs.withdraw),
+          settings: settings,
+        );
+      case Routes.balanceRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => BalanceRoute(),
+          settings: settings,
+        );
+      case Routes.walletRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => WalletRoute(),
+          settings: settings,
+        );
+      case Routes.messageRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => MessageRoute(),
+          settings: settings,
+        );
+      case Routes.centerRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => CenterRoute(),
+          settings: settings,
+        );
+      case Routes.centerPasswordPage:
+        if (hasInvalidArgs<CenterDisplayAccountPasswordArguments>(args,
+            isRequired: true)) {
+          return misTypedArgsRoute<CenterDisplayAccountPasswordArguments>(args);
+        }
+        final typedArgs = args as CenterDisplayAccountPasswordArguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) =>
+              CenterDisplayAccountPassword(store: typedArgs.store),
+          settings: settings,
+        );
+      case Routes.transactionRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => TransactionRoute(),
+          settings: settings,
+        );
+      case Routes.centerWebPage:
+        if (hasInvalidArgs<WebRouteArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<WebRouteArguments>(args);
+        }
+        final typedArgs = args as WebRouteArguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => WebRoute(startUrl: typedArgs.startUrl),
+          settings: settings,
+        );
+      case Routes.downloadAreaRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => DownloadAreaRoute(),
+          settings: settings,
+        );
+      case Routes.noticeRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => NoticeRoute(),
+          settings: settings,
+        );
+      case Routes.testAreaRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => TestAreaRoute(),
           settings: settings,
         );
       case Routes.templateRoute:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => TemplateRoute(),
+          builder: (context) => TemplateRoute(),
           settings: settings,
           fullscreenDialog: true,
         );
       case Routes.template2Route:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => Template2Route(),
+          builder: (context) => Template2Route(),
           settings: settings,
           fullscreenDialog: true,
         );
@@ -112,9 +236,9 @@ class Router extends RouterBase {
   }
 }
 
-//**************************************************************************
+// *************************************************************************
 // Arguments holder classes
-//***************************************************************************
+// **************************************************************************
 
 //HomeRoute arguments holder class
 class HomeRouteArguments {
@@ -138,4 +262,16 @@ class MemberRouteArguments {
 class PromoRouteArguments {
   final int openPromoId;
   PromoRouteArguments({this.openPromoId = -1});
+}
+
+//BankcardRoute arguments holder class
+class BankcardRouteArguments {
+  final bool withdraw;
+  BankcardRouteArguments({this.withdraw = false});
+}
+
+//CenterDisplayAccountPassword arguments holder class
+class CenterDisplayAccountPasswordArguments {
+  final CenterStore store;
+  CenterDisplayAccountPasswordArguments({@required this.store});
 }

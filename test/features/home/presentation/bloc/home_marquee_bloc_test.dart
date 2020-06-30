@@ -62,8 +62,8 @@ void main() {
         // act
         bloc.add(GetMarqueeEvent());
         await untilCalled(mockGetHomeMarquee(any));
-        await untilCalled(bloc.transformStates(
-            Stream.value(HomeMarqueeState.mLoaded(marquee: any))));
+//        await untilCalled(bloc.transformStates(
+//            Stream.value(HomeMarqueeState.mLoaded(marquee: any))));
         // assert
         await Future.delayed(Duration(milliseconds: 200));
         expect(bloc.state, HomeMarqueeState.mLoaded(marquee: [marqueeEntity]));

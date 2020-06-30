@@ -33,31 +33,18 @@ abstract class GameEntity with _$GameEntity {
     @required String gameUrl,
   }) = _GameEntity;
 
-  @override
-  factory GameEntity.fromJson(Map<String, dynamic> json) {
-    return GameEntity(
-      gameUrl: '${json['platform']}/${json['category']}/${json['gameid']}',
-      cname: json['cname'],
-      id: json['id'],
-    );
-  }
-
-  @override
-  @Deprecated('Not working, use extJosn() instead')
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    final info = gameUrl.split('/');
-    data['category'] = info[0];
-    data['cname'] = cname;
-    data['gameid'] = info[2];
-    data['id'] = id;
-    data['platform'] = info[1];
-    return data;
-  }
+//  @override
+//  factory GameEntity.fromJson(Map<String, dynamic> json) {
+//    return GameEntity(
+//      gameUrl: '${json['platform']}/${json['category']}/${json['gameid']}',
+//      cname: json['cname'],
+//      id: json['id'],
+//    );
+//  }
 }
 
 extension GameEntityExtension on GameEntity {
-  Map<String, dynamic> extJson() {
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     final info = gameUrl.split('/');
     data['category'] = info[0];

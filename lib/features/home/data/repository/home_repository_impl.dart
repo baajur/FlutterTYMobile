@@ -23,7 +23,6 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, List<BannerEntity>>> getBanners() async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
 //    if (!connected) {
 //      final test = networkInfo.checkType;
 //      print('network type: $test');
@@ -73,7 +72,6 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, List<MarqueeEntity>>> getMarquees() async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     if (connected) {
       final result = await handleResponse<MarqueeModelList>(
           remoteDataSource.getMarquees());
@@ -115,7 +113,6 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, GameTypes>> getGameTypes() async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     if (connected) {
       final result =
           await handleResponse<GameTypes>(remoteDataSource.getGameTypes());
@@ -156,7 +153,6 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, List<GameEntity>>> getGames(
       PlatformGameForm form) async {
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     if (connected) {
       final result = await handleResponse<List<GameModel>>(
           remoteDataSource.getGames(form));
@@ -180,11 +176,11 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, String>> getGameUrl(String requestUrl) async {
     if (requestUrl == null || requestUrl.isEmpty) {
       MyLogger.error(msg: 'game url is empty', tag: tag);
-      return Left(Failure.internal());
+      return Left(
+          Failure.internal(FailureCode(typeCode: FailureTypeCode.WEB_URL)));
     }
 
     final connected = await networkInfo.isConnected;
-    print('network connected: $connected');
     if (connected) {
       final result =
           await handleResponse<String>(remoteDataSource.getGameUrl(requestUrl));
