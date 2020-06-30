@@ -76,7 +76,7 @@ extension GamePlatformEntityExtension on GamePlatformEntity {
       case 'lottery':
         return '${site.toUpperCase()}彩票';
       case 'card':
-        return '${site.toUpperCase()}热门';
+        return '${site.toUpperCase()}棋牌';
       default:
         return ch;
     }

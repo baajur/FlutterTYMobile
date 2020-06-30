@@ -1,15 +1,17 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
+import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
+import 'package:flutter_ty_mobile/utils/regex_util.dart';
 
 import '../../data/entity/center_account_entity.dart'
     show CenterAccountEntity, CenterAccountEntityExtension;
 import '../state/center_store.dart';
-import 'center_store_inherit_widget.dart';
 import 'center_dialog_cpw.dart';
 import 'center_dialog_mobile.dart';
+import 'center_store_inherit_widget.dart';
 
 class CenterDisplayAccount extends StatefulWidget {
   @override
@@ -64,10 +66,10 @@ class _CenterDisplayAccountState extends State<CenterDisplayAccount>
     FocusScope.of(context).requestFocus(FocusNode());
     if (_store == null) return;
     if (_store.waitForResponse) {
-      FLToast.showInfo(
+      FLToast.showText(
         text: localeStr.messageWait,
-        position: FLToastPosition.center,
-        showDuration: ToastDuration.SHORT.value,
+        showDuration: ToastDuration.DEFAULT.value,
+        position: FLToastPosition.top,
       );
       return;
     }

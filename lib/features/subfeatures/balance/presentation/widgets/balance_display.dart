@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_ty_mobile/core/internal/font_size.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/balance/balance_inject.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 
-import '../../../../general_route_widget_export.dart';
+import '../state/balance_store.dart';
 import 'balance_grid_item.dart';
 
 class BalanceDisplay extends StatefulWidget {
@@ -73,8 +70,16 @@ class _BalanceDisplayState extends State<BalanceDisplay> {
       return BalanceGridItem(
         key,
         platform,
-        onTapAction: (action, platform) =>
-            widget.store.exeGridAction(action, platform),
+        onTapAction: (action, platform) {
+          if (widget.store.waitForTransferResult)
+            FLToast.showText(
+              text: localeStr.messageWait,
+              showDuration: ToastDuration.DEFAULT.value,
+              position: FLToastPosition.top,
+            );
+          else
+            widget.store.exeGridAction(action, platform);
+        },
       );
     }).toList();
 

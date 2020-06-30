@@ -212,14 +212,9 @@ abstract class _BalanceStore with Store {
   @action
   Future<void> exeGridAction(BalanceGridAction action, String platform) async {
     print('execute $platform grid action: $action');
-    if ((action == BalanceGridAction.transferIn ||
-        action == BalanceGridAction.transferOut)) {
-      if (waitForTransferResult) {
-        errorMessage = localeStr.messageWait;
-        return;
-      }
-      waitForTransferResult = true;
-    }
+    if (action == BalanceGridAction.transferIn ||
+        action == BalanceGridAction.transferOut) waitForTransferResult = true;
+
     switch (action) {
       case BalanceGridAction.transferIn:
         print('account limit: $creditLimit');

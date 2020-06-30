@@ -1,13 +1,16 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/utils/datetime_format.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/pager_widget.dart';
-import 'package:flutter_ty_mobile/features/general_display_widget_export.dart';
+import 'package:flutter_ty_mobile/utils/datetime_format.dart';
 
-import '../state/bet_record_store.dart';
-import '../../data/form/bet_record_form.dart';
 import '../../data/enum/bet_record_time_enum.dart';
+import '../../data/form/bet_record_form.dart';
 import '../../data/models/bet_record_model.dart';
+import '../state/bet_record_store.dart';
 import 'bet_record_display_table.dart';
 
 class BetRecordDisplay extends StatefulWidget {
@@ -174,8 +177,10 @@ class _BetRecordDisplayState extends State<BetRecordDisplay>
       categories = (widget.store.hasValidData)
           ? widget.store.typeList.map((e) => e.categoryName).toList()
           : [];
-      print('bet categories: ${categories.length}');
-      switchCategory(0);
+      if (categories.isNotEmpty) {
+        switchCategory(0);
+        print('bet categories: ${categories.length}');
+      }
     }
     _timeSelected = BetRecordTimeEnum.today;
 

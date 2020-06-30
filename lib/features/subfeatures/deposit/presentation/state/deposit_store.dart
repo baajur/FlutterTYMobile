@@ -1,4 +1,3 @@
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/entity/payment_enum.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/form/deposit_form.dart';
@@ -131,10 +130,7 @@ abstract class _DepositStore with Store {
   @action
   Future<void> sendRequest(DepositDataForm form) async {
     try {
-      if (waitForDepositResult) {
-        errorMessage = localeStr.messageWait;
-        return;
-      }
+      if (waitForDepositResult) return;
       // Reset the possible previous error message.
       errorMessage = null;
       depositResult = null;

@@ -26,12 +26,10 @@ class BalanceRepositoryImpl implements BalanceRepository {
   final DioApiService dioApiService;
   final MemberJwtInterface jwtInterface;
   final tag = 'BalanceRepository';
-  bool jwtChecked = false;
 
   BalanceRepositoryImpl(
       {@required this.dioApiService, @required this.jwtInterface}) {
-    Future.value(jwtInterface.checkJwt('/'))
-        .then((value) => jwtChecked = value.isSuccess);
+    Future.sync(() => jwtInterface.checkJwt('/'));
   }
 
   @override

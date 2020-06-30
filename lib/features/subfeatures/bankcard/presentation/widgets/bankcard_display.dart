@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 
-import '../state/bankcard_store.dart';
 import '../../data/form/bankcard_form.dart';
 import '../../data/models/bankcard_model.dart';
+import '../state/bankcard_store.dart';
 
 class BankcardDisplay extends StatefulWidget {
   final BankcardStore store;
@@ -47,6 +49,38 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
   String _provinceSelected;
   String _citySelected;
   String _areaSelected;
+
+  void _validateForm() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      BankcardForm dataForm = BankcardForm(
+        owner: _nameFieldKey.currentState.getInput,
+        bankId: _bankSelected,
+        card: _accountFieldKey.currentState.getInput,
+        branch: _branchFieldKey.currentState.getInput,
+        province: _provinceSelected,
+        area: (_areaSelected != null) ? _areaSelected : _citySelected,
+      );
+      if (dataForm.isValid) {
+        print('bankcard form: ${dataForm.toJson()}');
+        if (widget.store.waitForNewCardResult)
+          FLToast.showText(
+            text: localeStr.messageWait,
+            showDuration: ToastDuration.DEFAULT.value,
+            position: FLToastPosition.top,
+          );
+        else
+          widget.store.sendRequest(dataForm);
+      } else {
+        FLToast.showText(
+          text: localeStr.messageActionFillForm,
+          position: FLToastPosition.top,
+          showDuration: ToastDuration.DEFAULT.value,
+        );
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -115,31 +149,6 @@ class _BankcardDisplayState extends State<BankcardDisplay> {
   void dispose() {
     _disposers.forEach((d) => d());
     super.dispose();
-  }
-
-  void _validateForm() {
-    final form = _formKey.currentState;
-    if (form.validate()) {
-      form.save();
-      BankcardForm dataForm = BankcardForm(
-        owner: _nameFieldKey.currentState.getInput,
-        bankId: _bankSelected,
-        card: _accountFieldKey.currentState.getInput,
-        branch: _branchFieldKey.currentState.getInput,
-        province: _provinceSelected,
-        area: (_areaSelected != null) ? _areaSelected : _citySelected,
-      );
-      if (dataForm.isValid) {
-        print('bankcard form: ${dataForm.toJson()}');
-        widget.store.sendRequest(dataForm);
-      } else {
-        FLToast.showText(
-          text: localeStr.messageActionFillForm,
-          position: FLToastPosition.top,
-          showDuration: ToastDuration.DEFAULT.value,
-        );
-      }
-    }
   }
 
   @override

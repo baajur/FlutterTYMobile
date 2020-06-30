@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../utils/regex_util.dart';
-import '../web/state/web_route_store.dart';
+import '../exports_for_route_widget.dart';
+import 'state/web_route_store.dart';
 
 class WebRoute extends StatefulWidget {
   final String startUrl;

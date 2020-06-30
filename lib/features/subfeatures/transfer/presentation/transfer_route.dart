@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
 import 'state/transfer_store.dart';
 import 'widgets/transfer_display.dart';
@@ -87,8 +88,12 @@ class _TransferRouteState extends State<TransferRoute> {
 
   @override
   void dispose() {
+    _store.closeStreams();
+    if (toastDismiss != null) {
+      toastDismiss();
+      toastDismiss = null;
+    }
     _disposers.forEach((d) => d());
-    _store.close();
     super.dispose();
   }
 

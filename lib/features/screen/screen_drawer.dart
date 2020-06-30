@@ -14,19 +14,24 @@ class ScreenDrawer extends StatelessWidget {
     ScreenDrawerItem.notice,
     ScreenDrawerItem.wallet,
     ScreenDrawerItem.vip,
+    ScreenDrawerItem.event,
     ScreenDrawerItem.store,
     ScreenDrawerItem.logout,
     ScreenDrawerItem.testUI,
     ScreenDrawerItem.test,
   ];
 
-  bool _itemTapped(ScreenDrawerItem item) {
+  bool _itemTapped(ScreenDrawerItem item, {FeatureScreenStore store}) {
     if (item == ScreenDrawerItem.logout) {
       getRouteUserStreams.logout();
       return true;
     }
     if (item == ScreenDrawerItem.test) {
       ScreenNavigate.switchScreen(screen: ScreenEnum.Test);
+      return true;
+    }
+    if (item == ScreenDrawerItem.event) {
+      store.forceShowEvent = true;
       return true;
     }
     var route = item.value.route;
@@ -96,7 +101,11 @@ class ScreenDrawer extends StatelessWidget {
                             onPressed: () {
                               if (viewState.scaffoldKey.currentState
                                   .isDrawerOpen) Navigator.pop(context);
-                              RouterNavigate.navigateToPage(RoutePage.login);
+                              RouterNavigate.navigateToPage(
+                                RoutePage.login,
+                                arg: LoginRouteArguments(
+                                    returnHomeAfterLogin: true),
+                              );
                             },
                           ),
                         ),
@@ -118,9 +127,14 @@ class ScreenDrawer extends StatelessWidget {
                   if (item.value.isUserOnly &&
                       getRouteUserStreams.hasUser == false)
                     return SizedBox.shrink();
+                  if (item == ScreenDrawerItem.event &&
+                      viewState.store.event.hasData == false)
+                    return SizedBox.shrink();
                   return GestureDetector(
                     onTap: () {
-                      if (_itemTapped(item)) {
+                      if ((item == ScreenDrawerItem.event)
+                          ? _itemTapped(item, store: viewState.store)
+                          : _itemTapped(item)) {
                         // close the drawer
                         if (viewState.scaffoldKey.currentState.isDrawerOpen)
                           Navigator.pop(context);

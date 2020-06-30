@@ -1,5 +1,6 @@
 import 'package:flutter_ty_mobile/core/base/data_operator.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
 part 'marquee_freezed.freezed.dart';
 part 'marquee_freezed.g.dart';
@@ -24,14 +25,11 @@ abstract class MarqueeModel with _$MarqueeModel {
 
 @freezed
 abstract class MarqueeEntity with _$MarqueeEntity implements DataOperator {
-//  @HiveType(typeId: 102)
+  @HiveType(typeId: 102)
   const factory MarqueeEntity({
-//    @HiveField(0)
-    @required int id,
-//    @HiveField(1)
-    @required String content,
-//    @HiveField(2)
-    @required String url,
+    @HiveField(0) @required int id,
+    @HiveField(1) @required String content,
+    @HiveField(2) @required String url,
   }) = _MarqueeEntity;
 }
 

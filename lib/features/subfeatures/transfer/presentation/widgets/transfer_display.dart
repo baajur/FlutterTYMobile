@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_input_chip_container.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/form/transfer_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/models/transfer_platform_model.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transfer/presentation/state/transfer_store.dart';
+
+import '../../data/form/transfer_form.dart';
+import '../../data/models/transfer_platform_model.dart';
+import '../state/transfer_store.dart';
 
 class TransferDisplay extends StatefulWidget {
   final TransferStore store;
@@ -55,6 +55,14 @@ class _TransferDisplayState extends State<TransferDisplay> {
   String _site2Selected;
 
   void _validateForm() {
+    if (widget.store.isPlatformValid == false) {
+      FLToast.showText(
+        text: localeStr.transferPlatformError,
+        showDuration: ToastDuration.DEFAULT.value,
+        position: FLToastPosition.top,
+      );
+      return;
+    }
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();

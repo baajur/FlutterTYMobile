@@ -18,12 +18,10 @@ class DealsRepositoryImpl implements DealsRepository {
   final DioApiService dioApiService;
   final MemberJwtInterface jwtInterface;
   final tag = 'DealsRepository';
-  bool jwtChecked = false;
 
   DealsRepositoryImpl(
       {@required this.dioApiService, @required this.jwtInterface}) {
-    Future.value(jwtInterface.checkJwt('/'))
-        .then((value) => jwtChecked = value.isSuccess);
+    Future.sync(() => jwtInterface.checkJwt('/'));
   }
 
   @override

@@ -64,16 +64,16 @@ mixin _$RegisterStore on _RegisterStore, Store {
   final _$postLoginAsyncAction = AsyncAction('_RegisterStore.postLogin');
 
   @override
-  Future<void> postLogin(UserLoginForm form) {
+  Future<void> postLogin(LoginForm form) {
     return _$postLoginAsyncAction.run(() => super.postLogin(form));
   }
 
   @override
   String toString() {
     return '''
-registerResult: ${registerResult},
-waitForRegister: ${waitForRegister},
-errorMessage: ${errorMessage}
+registerResult: $registerResult,
+waitForRegister: $waitForRegister,
+errorMessage: $errorMessage
     ''';
   }
 }

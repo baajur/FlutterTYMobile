@@ -1,12 +1,11 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/font_size.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
-import '../state/member_credit_store.dart';
 import '../data/member_grid_item_v2.dart';
+import '../state/member_credit_store.dart';
 import 'member_display_header.dart';
 
 class MemberDisplay extends StatefulWidget {

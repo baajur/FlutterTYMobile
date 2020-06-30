@@ -247,7 +247,9 @@ class _$MarqueeEntityTearOff {
   const _$MarqueeEntityTearOff();
 
   _MarqueeEntity call(
-      {@required int id, @required String content, @required String url}) {
+      {@required @HiveField(0) int id,
+      @required @HiveField(1) String content,
+      @required @HiveField(2) String url}) {
     return _MarqueeEntity(
       id: id,
       content: content,
@@ -260,8 +262,11 @@ class _$MarqueeEntityTearOff {
 const $MarqueeEntity = _$MarqueeEntityTearOff();
 
 mixin _$MarqueeEntity {
+  @HiveField(0)
   int get id;
+  @HiveField(1)
   String get content;
+  @HiveField(2)
   String get url;
 
   $MarqueeEntityCopyWith<MarqueeEntity> get copyWith;
@@ -271,7 +276,10 @@ abstract class $MarqueeEntityCopyWith<$Res> {
   factory $MarqueeEntityCopyWith(
           MarqueeEntity value, $Res Function(MarqueeEntity) then) =
       _$MarqueeEntityCopyWithImpl<$Res>;
-  $Res call({int id, String content, String url});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String content,
+      @HiveField(2) String url});
 }
 
 class _$MarqueeEntityCopyWithImpl<$Res>
@@ -302,7 +310,10 @@ abstract class _$MarqueeEntityCopyWith<$Res>
           _MarqueeEntity value, $Res Function(_MarqueeEntity) then) =
       __$MarqueeEntityCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String content, String url});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String content,
+      @HiveField(2) String url});
 }
 
 class __$MarqueeEntityCopyWithImpl<$Res>
@@ -329,18 +340,24 @@ class __$MarqueeEntityCopyWithImpl<$Res>
   }
 }
 
+@HiveType(typeId: 102)
 class _$_MarqueeEntity implements _MarqueeEntity {
   const _$_MarqueeEntity(
-      {@required this.id, @required this.content, @required this.url})
+      {@required @HiveField(0) this.id,
+      @required @HiveField(1) this.content,
+      @required @HiveField(2) this.url})
       : assert(id != null),
         assert(content != null),
         assert(url != null);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String content;
   @override
+  @HiveField(2)
   final String url;
 
   @override
@@ -380,15 +397,18 @@ class _$_MarqueeEntity implements _MarqueeEntity {
 
 abstract class _MarqueeEntity implements MarqueeEntity {
   const factory _MarqueeEntity(
-      {@required int id,
-      @required String content,
-      @required String url}) = _$_MarqueeEntity;
+      {@required @HiveField(0) int id,
+      @required @HiveField(1) String content,
+      @required @HiveField(2) String url}) = _$_MarqueeEntity;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get content;
   @override
+  @HiveField(2)
   String get url;
   @override
   _$MarqueeEntityCopyWith<_MarqueeEntity> get copyWith;

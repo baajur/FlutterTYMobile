@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/pager_widget.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
-import 'state/deals_store.dart';
-import 'widgets/deals_display.dart';
 import '../data/enum/deals_date_enum.dart';
 import '../data/enum/deals_status_enum.dart';
 import '../data/enum/deals_type_enum.dart';
 import '../data/form/deals_form.dart';
+import 'state/deals_store.dart';
+import 'widgets/deals_display.dart';
 
 class DealsRoute extends StatefulWidget {
   @override
@@ -134,6 +134,10 @@ class _DealsRouteState extends State<DealsRoute> {
 
   @override
   void dispose() {
+    if (toastDismiss != null) {
+      toastDismiss();
+      toastDismiss = null;
+    }
     _disposers.forEach((d) => d());
     super.dispose();
   }
@@ -153,7 +157,7 @@ class _DealsRouteState extends State<DealsRoute> {
               Expanded(
                 flex: 1,
                 child: CustomizeDropdownWidget(
-                  expandWidget: false,
+                  fixedWidget: false,
                   optionValues: DealsDateEnum.LIST,
                   optionStrings: _selectorDateStrings,
                   changeNotify: (data) {
@@ -165,7 +169,7 @@ class _DealsRouteState extends State<DealsRoute> {
               Expanded(
                 flex: 1,
                 child: CustomizeDropdownWidget(
-                  expandWidget: false,
+                  fixedWidget: false,
                   optionValues: DealsTypeEnum.LIST,
                   optionStrings: _selectorTypeStrings,
                   changeNotify: (data) {
@@ -177,7 +181,7 @@ class _DealsRouteState extends State<DealsRoute> {
               Expanded(
                 flex: 1,
                 child: CustomizeDropdownWidget(
-                  expandWidget: false,
+                  fixedWidget: false,
                   optionValues: DealsStatusEnum.LIST,
                   optionStrings: _selectorStatusStrings,
                   changeNotify: (data) {

@@ -44,4 +44,6 @@ class MapJsonDataException implements Exception {}
 
 class HiveDataException implements Exception {}
 
+class RequestTypeErrorException implements Exception {}
+
 class UnknownConditionException implements Exception {}

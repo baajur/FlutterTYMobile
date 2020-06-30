@@ -593,6 +593,26 @@ class S {
     );
   }
 
+  /// `Return`
+  String get sideBtnBackHome {
+    return Intl.message(
+      'Return',
+      name: 'sideBtnBackHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rotate`
+  String get sideBtnRotate {
+    return Intl.message(
+      'Rotate',
+      name: 'sideBtnRotate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `All`
   String get spinnerDateAll {
     return Intl.message(
@@ -1258,6 +1278,16 @@ class S {
     return Intl.message(
       'Cached file error, please try again later or contact customer service',
       name: 'messageErrorCachedFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can't not retrieve event from server, please try again later.`
+  String get messageErrorEvent {
+    return Intl.message(
+      'Can\'t not retrieve event from server, please try again later.',
+      name: 'messageErrorEvent',
       desc: '',
       args: [],
     );
@@ -1988,6 +2018,16 @@ class S {
     return Intl.message(
       'Data error, please select again',
       name: 'transferDataError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selected platform is maintaining`
+  String get transferPlatformError {
+    return Intl.message(
+      'Selected platform is maintaining',
+      name: 'transferPlatformError',
       desc: '',
       args: [],
     );
@@ -4473,10 +4513,10 @@ class S {
     );
   }
 
-  /// `Mallpoints:`
+  /// `Member Points:`
   String get storeTextTitlePoint {
     return Intl.message(
-      'Mallpoints:',
+      'Member Points:',
       name: 'storeTextTitlePoint',
       desc: '',
       args: [],
@@ -4508,6 +4548,16 @@ class S {
     return Intl.message(
       'Redeem Now',
       name: 'storeTextItemButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not enough points`
+  String get storeTextItemButtonDisabled {
+    return Intl.message(
+      'Not enough points',
+      name: 'storeTextItemButtonDisabled',
       desc: '',
       args: [],
     );
@@ -4623,6 +4673,66 @@ class S {
     );
   }
 
+  /// `Pending`
+  String get storeRecordTableStatusPending {
+    return Intl.message(
+      'Pending',
+      name: 'storeRecordTableStatusPending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name: {value}`
+  String storeRecordTableDetailName(Object value) {
+    return Intl.message(
+      'Name: $value',
+      name: 'storeRecordTableDetailName',
+      desc: '',
+      args: [value],
+    );
+  }
+
+  /// `Phone: {value}`
+  String storeRecordTableDetailPhone(Object value) {
+    return Intl.message(
+      'Phone: $value',
+      name: 'storeRecordTableDetailPhone',
+      desc: '',
+      args: [value],
+    );
+  }
+
+  /// `PostCode: {value}`
+  String storeRecordTableDetailPostCode(Object value) {
+    return Intl.message(
+      'PostCode: $value',
+      name: 'storeRecordTableDetailPostCode',
+      desc: '',
+      args: [value],
+    );
+  }
+
+  /// `Address: {value}`
+  String storeRecordTableDetailAddress(Object value) {
+    return Intl.message(
+      'Address: $value',
+      name: 'storeRecordTableDetailAddress',
+      desc: '',
+      args: [value],
+    );
+  }
+
+  /// `showing No.{from} to {to} results，total is {total}`
+  String storeRecordTableDetailItem(Object from, Object to, Object total) {
+    return Intl.message(
+      'showing No.$from to $to results，total is $total',
+      name: 'storeRecordTableDetailItem',
+      desc: '',
+      args: [from, to, total],
+    );
+  }
+
   /// `Member Redemption`
   String get storeProductWindowTitle {
     return Intl.message(
@@ -4683,11 +4793,31 @@ class S {
     );
   }
 
-  /// `Recipient Information`
+  /// `Contact Information`
   String get storeRequestWindowTitle {
     return Intl.message(
-      'Recipient Information',
+      'Contact Information',
       name: 'storeRequestWindowTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Points：`
+  String get storeRequestWindowPoints {
+    return Intl.message(
+      'Points：',
+      name: 'storeRequestWindowPoints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recipient`
+  String get storeRequestWindowHint {
+    return Intl.message(
+      'Recipient',
+      name: 'storeRequestWindowHint',
       desc: '',
       args: [],
     );
@@ -4753,13 +4883,83 @@ class S {
     );
   }
 
-  /// `Accumulated sign-in {value} days`
+  /// `Exchange Success`
+  String get storeExchangeResultWindowTitleSuccess {
+    return Intl.message(
+      'Exchange Success',
+      name: 'storeExchangeResultWindowTitleSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulation`
+  String get storeExchangeResultWindowHint {
+    return Intl.message(
+      'Congratulation',
+      name: 'storeExchangeResultWindowHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exchanged `
+  String get storeExchangeResultWindowHintItem1 {
+    return Intl.message(
+      'Exchanged ',
+      name: 'storeExchangeResultWindowHintItem1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` *1`
+  String get storeExchangeResultWindowHintItem2 {
+    return Intl.message(
+      ' *1',
+      name: 'storeExchangeResultWindowHintItem2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exchange failed`
+  String get storeExchangeResultError {
+    return Intl.message(
+      'Exchange failed',
+      name: 'storeExchangeResultError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `signed {value} days`
   String eventButtonSignUpTv(Object value) {
     return Intl.message(
-      'Accumulated sign-in $value days',
+      'signed $value days',
       name: 'eventButtonSignUpTv',
       desc: '',
       args: [value],
+    );
+  }
+
+  /// `Has Signed-Up`
+  String get eventSignUpHint1 {
+    return Intl.message(
+      'Has Signed-Up',
+      name: 'eventSignUpHint1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Days`
+  String get eventSignUpHint2 {
+    return Intl.message(
+      'Days',
+      name: 'eventSignUpHint2',
+      desc: '',
+      args: [],
     );
   }
 

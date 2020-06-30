@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/export_internal_file.dart';
 
 import 'center_display_account.dart';
 import 'center_display_lotto.dart';
@@ -20,6 +19,16 @@ class _CenterDisplayState extends State<CenterDisplay> {
   ];
 
   int _clicked = 0;
+  double gridRatio;
+
+  @override
+  void initState() {
+    double gridItemWidth = (Global.device.width - 6 * 5 - 12) / 3;
+    gridRatio = gridItemWidth / 36;
+    print('grid item width: $gridItemWidth, gridRatio: $gridRatio');
+    if (gridRatio > 4.16) gridRatio = 4.16;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,7 @@ class _CenterDisplayState extends State<CenterDisplay> {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 6,
-              childAspectRatio: 3.0,
+              childAspectRatio: gridRatio,
             ),
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,

@@ -49,6 +49,14 @@ mixin _$WebGameScreenStore on _WebGameScreenStore, Store {
         .run(() => super.rotateScreen(receivedRotate));
   }
 
+  final _$rotateScreenLeftAsyncAction =
+      AsyncAction('_WebGameScreenStore.rotateScreenLeft');
+
+  @override
+  Future<void> rotateScreenLeft() {
+    return _$rotateScreenLeftAsyncAction.run(() => super.rotateScreenLeft());
+  }
+
   final _$rotateScreenByIdAsyncAction =
       AsyncAction('_WebGameScreenStore.rotateScreenById');
 

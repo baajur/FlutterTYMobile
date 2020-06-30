@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ty_mobile/core/error/exceptions.dart';
 import 'package:flutter_ty_mobile/core/internal/font_size.dart';
+import 'package:flutter_ty_mobile/features/export_internal_file.dart';
 import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
 import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/home/data/game_page_data_export.dart';
+import 'package:flutter_ty_mobile/features/router/route_user_streams.dart'
+    show getRouteUserStreams;
+import 'package:flutter_ty_mobile/injection_container.dart';
 
-import '../../../../general_route_widget_export.dart'
-    show Global, MyLogger, getRouteUserStreams, localeStr, sl;
 import '../../bloc/game/bloc_game_export.dart';
 import 'game_control_grid.dart';
 import 'game_web_control.dart';
@@ -35,6 +38,8 @@ class _GameDisplayPageState extends State<GameDisplayPage>
   Widget _gamesWidget;
   bool _isGameGrid = false;
   int plusGrid;
+  int availableTextCount;
+  double labelHeightFactor;
 
   GamePlatformEntity _currentPlatform;
   List<GameEntity> games;
@@ -95,6 +100,18 @@ class _GameDisplayPageState extends State<GameDisplayPage>
   @override
   void initState() {
     plusGrid = (Global.device.widthScale > 1.5) ? 1 : 0;
+    if (plusGrid > 0) {
+      if (Global.device.widthScale > 2.0) {
+        availableTextCount = (!_isGameGrid) ? 8 : 7;
+        labelHeightFactor = (!_isGameGrid) ? 1.75 : 4;
+      } else {
+        availableTextCount = (!_isGameGrid) ? 7 : 6;
+        labelHeightFactor = (!_isGameGrid) ? 1.625 : 3.5;
+      }
+    } else {
+      availableTextCount = (!_isGameGrid) ? 6 : 5;
+      labelHeightFactor = (!_isGameGrid) ? 1.5 : 3;
+    }
     super.initState();
   }
 
@@ -253,11 +270,12 @@ class _GameDisplayPageState extends State<GameDisplayPage>
               child: ConstrainedBox(
                 constraints: BoxConstraints.tightFor(
                   width: (!_isGameGrid)
-                      ? FontSize.SUBTITLE.value * 6
-                      : FontSize.NORMAL.value * 5,
+                      ? FontSize.SUBTITLE.value * availableTextCount
+                      : FontSize.NORMAL.value * availableTextCount,
                   height: (!_isGameGrid)
-                      ? FontSize.SUBTITLE.value * 1.5
-                      : FontSize.NORMAL.value * 3, // preserved height for text
+                      ? FontSize.SUBTITLE.value * labelHeightFactor
+                      : FontSize.NORMAL.value *
+                          labelHeightFactor, // preserved height for text
                 ),
                 child: Align(
                   alignment: Alignment.center,

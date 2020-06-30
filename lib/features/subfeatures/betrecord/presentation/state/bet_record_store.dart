@@ -1,10 +1,8 @@
-import 'dart:async' show Stream, StreamController;
-
 import 'package:flutter_ty_mobile/core/store_export.dart';
 
-import '../../data/repository/bet_record_repository.dart';
 import '../../data/form/bet_record_form.dart';
 import '../../data/models/bet_record_type_model.dart';
+import '../../data/repository/bet_record_repository.dart';
 
 part 'bet_record_store.g.dart';
 
@@ -38,7 +36,7 @@ abstract class _BetRecordStore with Store {
 
   @computed
   BetRecordStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if (_typeFuture == null || _typeFuture.status == FutureStatus.rejected) {
       return BetRecordStoreState.initial;
     }

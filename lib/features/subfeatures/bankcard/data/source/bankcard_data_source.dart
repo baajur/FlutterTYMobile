@@ -35,39 +35,35 @@ class BankcardRemoteDataSourceImpl implements BankcardRemoteDataSource {
   final tag = 'BankcardRemoteDataSource';
 
   BankcardRemoteDataSourceImpl(
-      {@required this.dioApiService, @required this.jwtInterface});
+      {@required this.dioApiService, @required this.jwtInterface}) {
+    Future.sync(() => jwtInterface.checkJwt('/'));
+  }
 
   @override
   Future<BankcardModel> getBankcard() async {
-    final validStatus = await Future.value(jwtInterface.checkJwt('/'));
-    if (validStatus.isSuccess) {
-      return await requestRawString(
-        request: dioApiService.get(
-          BankcardApi.GET_CARD,
-          userToken: jwtInterface.token,
-        ),
-        allowJsonString: true,
-        tag: 'remote-Bankcard',
-      ).then((value) {
-        if (value == 'false') {
-          return BankcardModel(hasCard: false);
-        } else {
-          try {
-            String trimmed = JsonUtil.trimJson(value);
-            Map<String, dynamic> map = jsonDecode(trimmed);
-            map.putIfAbsent('hasCard', () => true);
-            MyLogger.print(msg: 'bankcard map: $map', tag: tag);
-            return BankcardModel.fromJson(map);
-          } on Exception catch (e) {
-            MyLogger.error(msg: 'bankcard map error!!', error: e, tag: tag);
-            return BankcardModel(hasCard: null);
-          }
+    return await requestRawString(
+      request: dioApiService.get(
+        BankcardApi.GET_CARD,
+        userToken: jwtInterface.token,
+      ),
+      allowJsonString: true,
+      tag: 'remote-Bankcard',
+    ).then((value) {
+      if (value == 'false') {
+        return BankcardModel(hasCard: false);
+      } else {
+        try {
+          String trimmed = JsonUtil.trimJson(value);
+          Map<String, dynamic> map = jsonDecode(trimmed);
+          map.putIfAbsent('hasCard', () => true);
+          MyLogger.print(msg: 'bankcard map: $map', tag: tag);
+          return BankcardModel.fromJson(map);
+        } on Exception catch (e) {
+          MyLogger.error(msg: 'bankcard map error!!', error: e, tag: tag);
+          return BankcardModel(hasCard: null);
         }
-      });
-    } else {
-      MyLogger.warn(msg: 'user token is not valid: $validStatus', tag: tag);
-      return BankcardModel(hasCard: null);
-    }
+      }
+    });
   }
 
   @override

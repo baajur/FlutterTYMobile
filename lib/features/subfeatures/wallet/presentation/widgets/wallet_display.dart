@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 import 'package:flutter_ty_mobile/res.dart';
 
-import '../../../../general_route_widget_export.dart';
 import '../enum/wallet_type.dart';
 import '../state/wallet_store.dart';
 import 'wallet_dialog.dart';
@@ -268,7 +267,7 @@ class _WalletDisplayState extends State<WalletDisplay> {
                     color: Themes.iconColorGrey,
                   ),
                   child: Icon(
-                    IconData(0xf155, fontFamily: 'FontAwesome'),
+                    const IconData(0xf155, fontFamily: 'FontAwesome'),
                     color: Colors.white,
                   ),
                 ),

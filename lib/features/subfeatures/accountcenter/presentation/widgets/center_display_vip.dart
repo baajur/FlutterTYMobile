@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/general_display_widget_export.dart';
-import 'package:flutter_ty_mobile/utils/value_util.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 import 'package:relative_layout/relative_layout.dart';
 
-import '../../data/models/center_vip_setting_model.dart';
 import '../../data/entity/center_vip_entity.dart';
+import '../../data/models/center_vip_setting_model.dart';
 import '../state/center_store.dart';
 import 'center_store_inherit_widget.dart';
 

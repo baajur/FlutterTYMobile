@@ -1,12 +1,14 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
-import 'package:flutter_ty_mobile/features/general_display_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_extend/share_extend.dart';
 
-import '../state/agent_store.dart';
 import '../../data/models/agent_model.dart';
+import '../state/agent_store.dart';
 import 'agent_inherit_widget.dart';
 
 class AgentDisplayInfo extends StatefulWidget {

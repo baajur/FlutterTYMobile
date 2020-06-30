@@ -12,6 +12,8 @@ import 'package:flutter_ty_mobile/utils/json_util.dart';
 import 'package:meta/meta.dart' show required;
 
 ///
+/// Catch exceptions and throws [Failure], which will be mapped to Left by [runTask]
+///
 /// Catch [ResponseException] and exceptions from dio service as [ServerException].
 /// Catch [FormatException] on error data type.
 /// Catch other [Exception] caused by the call.
@@ -21,14 +23,21 @@ Future<dynamic> _exceptionHandler(Function func, String tag) async {
     return await Future.microtask(func);
   } on ServerException {
     MyLogger.warn(msg: 'Request Failed: Server Exception', tag: tag);
-    return Failure.server();
+    throw Failure.server();
   } on FormatException catch (e, s) {
     MyLogger.wtf(msg: 'Data format error!!', tag: tag, error: e, stackTrace: s);
     throw e;
+  } on RequestTypeErrorException catch (e, s) {
+    MyLogger.wtf(
+        msg: 'Request type error, please check api GET/POST usage',
+        tag: tag,
+        error: e,
+        stackTrace: s);
+    throw Failure.internal(FailureCode());
   } on Exception catch (e, s) {
     MyLogger.error(
         msg: 'Something went wrong!!', tag: tag, error: e, stackTrace: s);
-    return Failure.internal(FailureCode());
+    throw Failure.internal(FailureCode());
   }
 }
 
@@ -46,9 +55,31 @@ Future _requestDataTest({
     if (response == null ||
         response.statusCode == null ||
         response.statusCode != 200) throw ResponseException();
+    if ('${response.data}'.startsWith('<!DOCTYPE html>'))
+      throw RequestTypeErrorException();
     return response.data;
   }, tag);
-  MyLogger.debug(msg: 'remote data result: $result', tag: tag);
+//  MyLogger.debug(msg: 'remote data result: $result', tag: tag);
+  return result;
+}
+
+Future _requestResponseHeader({
+  @required Future<Response> request,
+  String tag = 'remote-HEADER',
+}) async {
+  // check if network is connected
+  final connected = await sl.get<NetworkInfo>()?.isConnected ?? false;
+  print('network connected: $connected');
+  if (!connected) return Failure.network();
+  // request data with exception handler
+  final result = await _exceptionHandler(() async {
+    final response = await request;
+    if (response == null ||
+        response.statusCode == null ||
+        response.statusCode != 200) throw ResponseException();
+    return [response.headers, response.data];
+  }, tag);
+//  MyLogger.debug(msg: 'remote header result: $result', tag: tag);
   return result;
 }
 
@@ -139,6 +170,26 @@ Future<Either<Failure, List<T>>> requestModelList<T>({
               msg: 'type:${data.runtimeType}, data: $data', tag: tag);
           return Left(Failure.jsonFormat());
         }
+      },
+    );
+  });
+}
+
+Future<Either<Failure, dynamic>> requestHeader({
+  @required Future<Response<dynamic>> request,
+  @required String header,
+  String tag = 'remote-Header',
+}) async {
+  return await runTask(_requestResponseHeader(request: request)).then((result) {
+    return result.fold(
+      (failure) => Left(failure),
+      (data) {
+        if (data[0] is Headers) {
+          String headerRequested = data[0].value(header);
+          print('test header cookie: $headerRequested');
+          return Right(headerRequested ?? data[1]);
+        }
+        return Left(Failure.internal(FailureCode()));
       },
     );
   });

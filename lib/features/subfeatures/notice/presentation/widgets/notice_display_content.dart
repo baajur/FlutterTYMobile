@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/font_size.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:meta/meta.dart' show required;
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/export_internal_file.dart';
 
 import '../../data/models/notice_model.dart' show NoticeData;
 

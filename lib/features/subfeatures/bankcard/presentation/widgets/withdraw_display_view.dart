@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/mylogger.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/export_internal_file.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_titled_container.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';
 
 import '../../data/form/withdraw_form.dart';
@@ -54,7 +55,14 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
       );
       if (dataForm.isValid) {
         print('bankcard form: ${dataForm.toJson()}');
-        widget.store.sendRequest(dataForm);
+        if (widget.store.waitForWithdrawResult)
+          FLToast.showText(
+            text: localeStr.messageWait,
+            showDuration: ToastDuration.DEFAULT.value,
+            position: FLToastPosition.top,
+          );
+        else
+          widget.store.sendRequest(dataForm);
       } else {
         FLToast.showText(
           text: localeStr.messageActionFillForm,
@@ -168,7 +176,7 @@ class _WithdrawDisplayViewState extends State<WithdrawDisplayView> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0, top: 4.0),
                             child: Icon(
-                              IconData(0xf05a, fontFamily: 'FontAwesome'),
+                              const IconData(0xf05a, fontFamily: 'FontAwesome'),
                               color: Themes.hintHyperLink,
                               size: FontSize.NORMAL.value,
                             ),

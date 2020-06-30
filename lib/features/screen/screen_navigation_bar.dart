@@ -32,6 +32,7 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
 
   int _navIndex = 0;
   bool isUserTabs = false;
+  bool showingEventDialog = false;
   Widget barWidget;
 
   void _itemTapped(int index, bool hasUser) {
@@ -71,7 +72,7 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
         ),
       ),
       child: StreamBuilder<bool>(
-          stream: viewState.store.updateStream,
+          stream: viewState.store.loginStateStream,
           initialData: false,
           builder: (context, snapshot) {
             if (isUserTabs != snapshot.data) {
@@ -89,6 +90,43 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
       // observe nav index to change icon icon color (setState does not work).
       final index = viewState.store.navIndex;
       if (index >= 0) _navIndex = index;
+      if (viewState.store.showEvent && !showingEventDialog) {
+        showingEventDialog = true;
+        Future.delayed(Duration(milliseconds: 1500), () {
+          if (viewState.store.navIndex != 0 ||
+              viewState.store.hasUser == false) {
+            showingEventDialog = false;
+            return;
+          }
+          if (viewState.store.hasSignedEvent == false) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => new EventDialog(
+                event: viewState.store.event.eventData,
+                signCount: viewState.store.event.signData.times,
+                onSign: () => viewState.store.signEvent(),
+                onSignError: () => viewState.store.getEventError(),
+                onDialogClose: () {
+                  showingEventDialog = false;
+                },
+              ),
+            );
+          } else {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => new EventDialogSigned(
+                event: viewState.store.event.eventData,
+                signCount: viewState.store.event.signData.times,
+                onDialogClose: () {
+                  showingEventDialog = false;
+                },
+              ),
+            );
+          }
+        });
+      }
       return BottomNavigationBar(
         onTap: (index) {
           print('store state user: ${viewState.store.userStatus}');
@@ -104,29 +142,41 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
         items: (hasUser)
             ? List.generate(_userTabs.length, (index) {
                 var itemValue = _userTabs[index].value;
-                return BottomNavigationBarItem(
-                  icon: Icon(itemValue.iconData),
-                  title: Padding(
-                    padding: EdgeInsets.only(top: 2.0),
-                    child: Text(itemValue.replaceTitle ??
-                        itemValue.route?.pageTitle ??
-                        '?'),
-                  ),
-                );
+                return _createBarItem(itemValue, index == 4, viewState.store);
               })
             : List.generate(_tabs.length, (index) {
                 var itemValue = _tabs[index].value;
-                return BottomNavigationBarItem(
-                  icon: Icon(itemValue.iconData),
-                  title: Padding(
-                    padding: EdgeInsets.only(top: 2.0),
-                    child: Text(itemValue.replaceTitle ??
-                        itemValue.route?.pageTitle ??
-                        '?'),
-                  ),
-                );
+                return _createBarItem(itemValue, index == 4, viewState.store);
               }),
       );
     });
+  }
+
+  BottomNavigationBarItem _createBarItem(
+      RouteListItem itemValue, bool addBadge, FeatureScreenStore store) {
+    return BottomNavigationBarItem(
+      icon: (addBadge)
+          ? Badge(
+              showBadge: store.hasNewMessage,
+              badgeColor: Themes.hintHighlightRed,
+              badgeContent: Container(
+                margin: const EdgeInsets.all(1.0),
+                child: Icon(
+                  const IconData(0xf129, fontFamily: 'FontAwesome'),
+                  color: Colors.white,
+                  size: 8.0,
+                ),
+              ),
+              padding: EdgeInsets.zero,
+              position: BadgePosition.topRight(top: -5, right: -6),
+              child: Icon(itemValue.iconData),
+            )
+          : Icon(itemValue.iconData),
+      title: Padding(
+        padding: EdgeInsets.only(top: 2.0),
+        child:
+            Text(itemValue.replaceTitle ?? itemValue.route?.pageTitle ?? '?'),
+      ),
+    );
   }
 }

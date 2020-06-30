@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/font_size.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/export_internal_file.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';
 import 'package:relative_layout/relative_layout.dart';
 

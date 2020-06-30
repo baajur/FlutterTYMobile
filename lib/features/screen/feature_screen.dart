@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/features/screen/feature_screen_inherited_widget.dart';
 import 'package:flutter_ty_mobile/utils/platform_util.dart';
 
@@ -62,6 +63,7 @@ class _FeatureScreenState extends State<FeatureScreen> {
   void dispose() {
     MyLogger.warn(msg: 'disposing feature screen', tag: tag);
     try {
+      Global.regLocale = false;
       _store.closeStreams();
     } on Exception {}
     Future.delayed(Duration(milliseconds: 200), () => PlatformUtil.restart());

@@ -1,14 +1,18 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/table_cell_text_widget.dart';
-import 'package:flutter_ty_mobile/features/general_display_widget_export.dart';
-import 'package:flutter_ty_mobile/utils/value_util.dart';
 
-import '../state/agent_store.dart';
 import '../../data/models/agent_commission_model.dart';
+import '../state/agent_store.dart';
 import 'agent_inherit_widget.dart';
 
 class AgentDisplayCommission extends StatefulWidget {
+  final double availableHeight;
+
+  AgentDisplayCommission(this.availableHeight);
+
   @override
   _AgentDisplayCommissionState createState() => _AgentDisplayCommissionState();
 }
@@ -77,14 +81,13 @@ class _AgentDisplayCommissionState extends State<AgentDisplayCommission>
 
   @override
   void initState() {
-    double basicHeight = Global.TEST_DEVICE_CONTENT_HEIGHT - 24;
-    double availableHeight =
-        Global.device.height.roundToDouble() - Global.APP_TOOLS_HEIGHT - 24;
-    double heightFactor = availableHeight / basicHeight;
-//    print('screen height factor: $heightFactor');
-    // FontSize.NORMAL.value * 1.8 = font size and line spacing
-    // 17 = 8 rows * 2 lines + header line
-    _tableHeight = FontSize.NORMAL.value * 1.8 * 17 * heightFactor;
+    int availableRows =
+        ((widget.availableHeight - 20) / (FontSize.NORMAL.value * 2.35))
+            .floor();
+    print('max height: ${widget.availableHeight}, '
+        'available rows: $availableRows');
+    // FontSize.NORMAL.value * 2 = font size * 2 line + space
+    _tableHeight = FontSize.NORMAL.value * 2.15 * availableRows;
 
     _availableWidth = Global.device.width - 16;
     _tableWidthMap = {
@@ -132,8 +135,12 @@ class _AgentDisplayCommissionState extends State<AgentDisplayCommission>
 
     _totalRow ??= updateTotalRow();
 
-    return Padding(
+    return Container(
       padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 4.0),
+      constraints: BoxConstraints(
+        maxWidth: _availableWidth,
+        maxHeight: _tableHeight,
+      ),
       child: StreamBuilder<List<AgentCommissionModel>>(
         key: _streamKey,
         stream: _store.commissionStream,
@@ -159,13 +166,9 @@ class _AgentDisplayCommissionState extends State<AgentDisplayCommission>
     tableHasNoData = _dataList == null || _dataList.isEmpty;
     if (tableHasNoData) {
       /// No Data UI
-      return Container(
-        constraints: BoxConstraints(
-          maxWidth: _availableWidth,
-          maxHeight: _tableHeight,
-        ),
-        color: Themes.stackBackgroundColor,
-        child: SingleChildScrollView(
+      return SingleChildScrollView(
+        child: ColoredBox(
+          color: Themes.stackBackgroundColor,
           child: Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             columnWidths: _tableWidthMap,
@@ -181,13 +184,9 @@ class _AgentDisplayCommissionState extends State<AgentDisplayCommission>
       );
     } else {
       /// Normal UI
-      return Container(
-        constraints: BoxConstraints(
-          maxWidth: _availableWidth,
-          maxHeight: _tableHeight,
-        ),
-        color: Themes.stackBackgroundColor,
-        child: SingleChildScrollView(
+      return SingleChildScrollView(
+        child: ColoredBox(
+          color: Themes.stackBackgroundColor,
           child: Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             columnWidths: _tableWidthMap,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
-import '../../../general_route_widget_export.dart' show RouterNavigate, sl;
 import 'state/deposit_store.dart';
 import 'widgets/deposit_display.dart';
 
@@ -16,6 +15,37 @@ class DepositRoute extends StatefulWidget {
 
 class _DepositRouteState extends State<DepositRoute> {
   DepositStore _store;
+  List<ReactionDisposer> _disposers;
+
+  @override
+  void didChangeDependencies() {
+    print('didChangeDependencies');
+    super.didChangeDependencies();
+    _disposers ??= [
+      reaction(
+        // Observe in page
+        // Tell the reaction which observable to observe
+        (_) => _store.errorMessage,
+        // Run some logic with the content of the observed field
+        (String message) {
+          if (message != null && message.isNotEmpty) {
+            Future.delayed(Duration(milliseconds: 200)).then(
+              (value) => FLToast.showError(
+                text: message,
+                showDuration: ToastDuration.DEFAULT.value,
+              ),
+            );
+          }
+        },
+      ),
+    ];
+  }
+
+  @override
+  void dispose() {
+    _disposers.forEach((d) => d());
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -37,9 +67,6 @@ class _DepositRouteState extends State<DepositRoute> {
         padding: EdgeInsets.symmetric(vertical: 4.0),
         child: Observer(
           builder: (_) {
-            if (_store.errorMessage != null && _store.errorMessage.isNotEmpty) {
-              return ToastError(message: _store.errorMessage);
-            }
             switch (_store.state) {
               case DepositStoreState.loading:
                 return LoadingWidget();

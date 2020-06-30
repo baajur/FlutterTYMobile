@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
 import 'state/flows_store.dart';
 import 'widgets/flows_display.dart';
@@ -83,6 +84,10 @@ class _FlowsRouteState extends State<FlowsRoute> {
 
   @override
   void dispose() {
+    if (toastDismiss != null) {
+      toastDismiss();
+      toastDismiss = null;
+    }
     _disposers.forEach((d) => d());
     super.dispose();
   }

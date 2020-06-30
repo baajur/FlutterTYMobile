@@ -6,6 +6,9 @@ class FontSize extends GenericEnum<double> {
   /// font size = 12
   static const FontSize SMALL = FontSize._(12.0);
 
+  /// font size = 13
+  static const FontSize SMALLER = FontSize._(13.0);
+
   /// font size = 14
   static const FontSize NORMAL = FontSize._(14.0);
 

@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ty_mobile/features/home/presentation/widgets/home_widgets_export.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter_ty_mobile/injection_container.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/bloc/template2_bloc.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/bloc/template2_event.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/widgets/template2_control.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/widgets/template2_display.dart';
 
-import '../../../injection_container.dart';
 import 'bloc/template2_state.dart';
 
 class Template2Route extends StatefulWidget {
@@ -21,7 +20,7 @@ class _Template2RouteState extends State<Template2Route> {
 
   @override
   void initState() {
-    _bloc = sl<Template2Bloc>();
+    _bloc = sl.get<Template2Bloc>();
     super.initState();
   }
 
@@ -63,7 +62,8 @@ class _Template2RouteState extends State<Template2Route> {
                     tp2Initial: (_) => Template2Control(),
                     tp2Loading: (_) => LoadingWidget(),
                     tp2Loaded: (_) => Template2Display(desc: state.props.first),
-                    tp2Error: (_) => ToastError(message: state.props.first),
+                    tp2Error: (_) =>
+                        ToastErrorWidget(message: state.props.first),
                   );
                 },
               ),

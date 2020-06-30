@@ -113,6 +113,7 @@ Future<List<T>> requestList<T>({
 Future<T> requestData<T>({
   @required Future<Response<dynamic>> request,
   @required Function(Map<String, dynamic> jsonMap) jsonToModel,
+  bool trim = true,
   String tag = 'remote-Data',
 }) async {
   final result = await _requestHandler(() async {
@@ -126,6 +127,7 @@ Future<T> requestData<T>({
       return JsonUtil.decodeToModel<T>(
         response.data,
         jsonToModel,
+        trim: trim,
         tag: tag,
       );
     }

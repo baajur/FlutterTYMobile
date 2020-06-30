@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
 import 'state/message_store.dart';
 import 'widgets/message_display.dart';

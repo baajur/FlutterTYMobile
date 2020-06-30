@@ -1,15 +1,22 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/pager_widget.dart';
-import 'package:flutter_ty_mobile/features/general_display_widget_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transactions/data/enum/transaction_date_enum.dart';
 
-import '../state/agent_store.dart';
 import '../../data/models/agent_ledger_model.dart';
+import '../state/agent_store.dart';
 import 'agent_display_ledger_table.dart';
 import 'agent_inherit_widget.dart';
 
 class AgentDisplayLedger extends StatefulWidget {
+  final double availableHeight;
+
+  AgentDisplayLedger(this.availableHeight);
+
   @override
   _AgentDisplayLedgerState createState() => _AgentDisplayLedgerState();
 }
@@ -42,6 +49,7 @@ class _AgentDisplayLedgerState extends State<AgentDisplayLedger>
   TransactionDateSelected _dateSelected;
   bool layoutReady = false;
   int totalPage;
+  double tableMaxHeight;
 
   void getPageData(int page, bool requestNewData) {
     if (_store == null) return;
@@ -56,6 +64,10 @@ class _AgentDisplayLedgerState extends State<AgentDisplayLedger>
   @override
   void initState() {
     _dateSelected = _selectorValues[0];
+    tableMaxHeight = widget.availableHeight -
+        Themes.fieldHeight * 2 -
+        Global.device.comfortButtonHeight -
+        136;
     super.initState();
   }
 
@@ -98,6 +110,7 @@ class _AgentDisplayLedgerState extends State<AgentDisplayLedger>
             persistHint: false,
             prefixText: localeStr.agentLedgerHeaderAccount,
             maxInputLength: 12,
+            minusHeight: 12.0,
           ),
           Padding(
             padding:
@@ -142,6 +155,7 @@ class _AgentDisplayLedgerState extends State<AgentDisplayLedger>
                 return AgentDisplayLedgerTable(
                   dataList: snapshot.data.data,
                   sumColumn: snapshot.data.sumEachColumn,
+                  availableHeight: tableMaxHeight,
                 );
               },
             ),

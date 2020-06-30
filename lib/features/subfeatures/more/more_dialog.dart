@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/dialog_widget.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
-import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
 
 import 'more_grid_item.dart';
 

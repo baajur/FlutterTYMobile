@@ -3,9 +3,7 @@ import 'package:flutter_ty_mobile/core/network/handler/data_request_handler.dart
     show requestData, requestList;
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
-import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:meta/meta.dart' show required;
-import 'package:flutter_ty_mobile/utils/value_util.dart' show formatNum;
 
 import '../form/transfer_form.dart';
 import '../models/transfer_balance_model.dart';
@@ -31,12 +29,10 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
   final DioApiService dioApiService;
   final MemberJwtInterface jwtInterface;
   final tag = 'TransferRemoteDataSource';
-  bool jwtChecked = false;
 
   TransferRemoteDataSourceImpl(
       {@required this.dioApiService, @required this.jwtInterface}) {
-    Future.value(jwtInterface.checkJwt('/'))
-        .then((value) => jwtChecked = value.isSuccess);
+    Future.sync(() => jwtInterface.checkJwt('/'));
   }
 
   @override
@@ -50,17 +46,12 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
 
   @override
   Future<TransferBalanceModel> getBalance(String platform) async {
-    if (jwtChecked) {
-      return requestData<TransferBalanceModel>(
-        request: dioApiService.get('${TransferApi.GET_BALANCE}$platform',
-            userToken: jwtInterface.token),
-        jsonToModel: TransferBalanceModel.jsonToTransferBalanceModel,
-        tag: 'remote-TRANSFER_BALANCE',
-      );
-    } else {
-      MyLogger.warn(msg: 'user token is not valid', tag: tag);
-      return TransferBalanceModel(balance: formatNum(0, addCreditSign: true));
-    }
+    return requestData<TransferBalanceModel>(
+      request: dioApiService.get('${TransferApi.GET_BALANCE}$platform',
+          userToken: jwtInterface.token),
+      jsonToModel: TransferBalanceModel.jsonToTransferBalanceModel,
+      tag: 'remote-TRANSFER_BALANCE',
+    );
   }
 
   @override

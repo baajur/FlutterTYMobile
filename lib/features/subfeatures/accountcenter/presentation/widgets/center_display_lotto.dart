@@ -1,10 +1,10 @@
 import 'dart:math' show Random;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/error/failures.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general/customize_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/warning_display.dart';
 
 import '../state/center_store.dart';
 import 'center_store_inherit_widget.dart';
@@ -69,10 +69,10 @@ class _CenterDisplayLottoState extends State<CenterDisplayLotto> {
   void _validateForm() {
     if (_store == null) return;
     if (_store.waitForResponse) {
-      FLToast.showInfo(
+      FLToast.showText(
         text: localeStr.messageWait,
-        position: FLToastPosition.center,
-        showDuration: ToastDuration.SHORT.value,
+        showDuration: ToastDuration.DEFAULT.value,
+        position: FLToastPosition.top,
       );
       return;
     }

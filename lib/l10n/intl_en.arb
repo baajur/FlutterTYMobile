@@ -232,6 +232,14 @@
   "@btnShow": {
     "type": "text"
   },
+  "sideBtnBackHome": "Return",
+  "@sideBtnBackHome": {
+    "type": "text"
+  },
+  "sideBtnRotate": "Rotate",
+  "@sideBtnRotate": {
+    "type": "text"
+  },
   "spinnerDateAll": "All",
   "@spinnerDateAll": {
     "type": "text"
@@ -564,6 +572,10 @@
   "@messageErrorCachedFile": {
     "type": "text"
   },
+  "messageErrorEvent": "Can't not retrieve event from server, please try again later.",
+  "@messageErrorEvent": {
+    "type": "text"
+  },
   "messageErrorToken": "User token error, please logout and login again",
   "@messageErrorToken": {
     "type": "text"
@@ -869,6 +881,10 @@
   },
   "transferDataError": "Data error, please select again",
   "@transferDataError": {
+    "type": "text"
+  },
+  "transferPlatformError": "Selected platform is maintaining",
+  "@transferPlatformError": {
     "type": "text"
   },
   "transferResultAlertTitle": "Transfer failed",
@@ -1975,7 +1991,7 @@
   "@storeTextTitleRecord": {
     "type": "text"
   },
-  "storeTextTitlePoint": "Mallpoints:",
+  "storeTextTitlePoint": "Member Points:",
   "@storeTextTitlePoint": {
     "type": "text"
   },
@@ -1994,6 +2010,10 @@
   },
   "storeTextItemButton": "Redeem Now",
   "@storeTextItemButton": {
+    "type": "text"
+  },
+  "storeTextItemButtonDisabled": "Not enough points",
+  "@storeTextItemButtonDisabled": {
     "type": "text"
   },
   "storeRuleTableHeader": "You can get a points table for every 100 yuan of valid bets",
@@ -2045,6 +2065,61 @@
   "@storeRecordTableTitleState": {
     "type": "text"
   },
+  "storeRecordTableStatusPending": "Pending",
+  "@storeRecordTableStatusPending": {
+    "type": "text"
+  },
+  "storeRecordTableDetailName": "Name: {value}",
+  "@storeRecordTableDetailName": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "name"
+      }
+    }
+  },
+  "storeRecordTableDetailPhone": "Phone: {value}",
+  "@storeRecordTableDetailPhone": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "123"
+      }
+    }
+  },
+  "storeRecordTableDetailPostCode": "PostCode: {value}",
+  "@storeRecordTableDetailPostCode": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "110"
+      }
+    }
+  },
+  "storeRecordTableDetailAddress": "Address: {value}",
+  "@storeRecordTableDetailAddress": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "address"
+      }
+    }
+  },
+  "storeRecordTableDetailItem": "showing No.{from} to {to} results，total is {total}",
+  "@storeRecordTableDetailItem": {
+    "type": "text",
+    "placeholders": {
+      "from": {
+        "example": "1"
+      },
+      "to": {
+        "example": "5"
+      },
+      "total": {
+        "example": "10"
+      }
+    }
+  },
   "storeProductWindowTitle": "Member Redemption",
   "@storeProductWindowTitle": {
     "type": "text"
@@ -2069,8 +2144,16 @@
   "@storeRequestWindowTextPoint": {
     "type": "text"
   },
-  "storeRequestWindowTitle": "Recipient Information",
+  "storeRequestWindowTitle": "Contact Information",
   "@storeRequestWindowTitle": {
+    "type": "text"
+  },
+  "storeRequestWindowPoints": "Points：",
+  "@storeRequestWindowPoints": {
+    "type": "text"
+  },
+  "storeRequestWindowHint": "Recipient",
+  "@storeRequestWindowHint": {
     "type": "text"
   },
   "storeRequestWindowFieldTitleName": "Name",
@@ -2097,7 +2180,27 @@
   "@storeRequestWindowSpinnerHint": {
     "type": "text"
   },
-  "eventButtonSignUpTv": "Accumulated sign-in {value} days",
+  "storeExchangeResultWindowTitleSuccess": "Exchange Success",
+  "@storeExchangeResultWindowTitleSuccess": {
+    "type": "text"
+  },
+  "storeExchangeResultWindowHint": "Congratulation",
+  "@storeExchangeResultWindowHint": {
+    "type": "text"
+  },
+  "storeExchangeResultWindowHintItem1": "Exchanged ",
+  "@storeExchangeResultWindowHintItem1": {
+    "type": "text"
+  },
+  "storeExchangeResultWindowHintItem2": " *1",
+  "@storeExchangeResultWindowHintItem2": {
+    "type": "text"
+  },
+  "storeExchangeResultError": "Exchange failed",
+  "@storeExchangeResultError": {
+    "type": "text"
+  },
+  "eventButtonSignUpTv": "signed {value} days",
   "@eventButtonSignUpTv": {
     "type": "text",
     "placeholders": {
@@ -2105,6 +2208,14 @@
         "example": "3"
       }
     }
+  },
+  "eventSignUpHint1": "Has Signed-Up",
+  "@eventSignUpHint1": {
+    "type": "text"
+  },
+  "eventSignUpHint2": "Days",
+  "@eventSignUpHint2": {
+    "type": "text"
   },
   "eventButtonSignUpAlready": "Signed in",
   "@eventButtonSignUpAlready": {

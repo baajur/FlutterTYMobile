@@ -20,8 +20,9 @@ class CustomizeDropdownWidget extends StatefulWidget {
   /// Dropdown widget's selected index, default is 0.
   final int defaultValueIndex;
 
-  /// Expand the dropdown to fit the row, default is true.
-  final bool expandWidget;
+  /// Expand the dropdown button.
+  /// notice: if set to true, do not wrap with [Expanded] widget.
+  final bool fixedWidget;
 
   /// Parent widget width, default is Device.width
   final double parentWidth;
@@ -45,6 +46,8 @@ class CustomizeDropdownWidget extends StatefulWidget {
   final double minusHeight;
   final double minusPrefixWidth;
   final bool clearValueOnMenuChanged;
+  final bool whiteBox;
+  final bool scaleText;
   final bool debug;
 
   CustomizeDropdownWidget({
@@ -53,7 +56,7 @@ class CustomizeDropdownWidget extends StatefulWidget {
     this.optionStrings,
     this.changeNotify,
     this.defaultValueIndex = 0,
-    this.expandWidget = true,
+    this.fixedWidget = false,
     this.parentWidth,
     this.padding,
     this.horizontalInset = Themes.horizontalInset,
@@ -68,6 +71,8 @@ class CustomizeDropdownWidget extends StatefulWidget {
     this.minusHeight = Themes.minusSize,
     this.minusPrefixWidth = Themes.minusSize,
     this.clearValueOnMenuChanged = false,
+    this.whiteBox = false,
+    this.scaleText = false,
     this.debug = false,
   }) : super(key: key);
 
@@ -97,8 +102,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
 
   @override
   void initState() {
-    _viewWidth = (widget.parentWidth ?? Global.device.width).roundToDouble() -
-        widget.horizontalInset;
+    _viewWidth = Global.device.width.roundToDouble() - widget.horizontalInset;
 
     _prefixWidth = ((widget.prefixText != null)
             ? _viewWidth * widget.titleWidthFactor
@@ -163,17 +167,20 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
       _buildPostfix();
     }
 
-    dropdownDecor = (_postfixWidget == null)
-        ? BoxDecoration(
-            color: Themes.fieldInputBgColor,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(4.0),
-              bottomRight: Radius.circular(4.0),
-            ),
-          )
-        : BoxDecoration(
-            color: Themes.fieldInputBgColor,
-          );
+    if (_postfixWidget == null && _prefixWidget != null) {
+      dropdownDecor = BoxDecoration(
+        color: (widget.whiteBox) ? Colors.white : Themes.fieldInputBgColor,
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(4.0),
+          bottomRight: Radius.circular(4.0),
+        ),
+      );
+    } else {
+      dropdownDecor = BoxDecoration(
+        color: (widget.whiteBox) ? Colors.white : Themes.fieldInputBgColor,
+        borderRadius: BorderRadius.circular(2.0),
+      );
+    }
 
     return Container(
       padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 2.0),
@@ -193,19 +200,34 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
               decoration: dropdownDecor,
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-                  hint: Text(
-                    localeStr.hintActionSelect,
-                    style: TextStyle(color: Themes.defaultHintColorDark),
+                  hint: FittedBox(
+                    fit: (widget.scaleText) ? BoxFit.fitHeight : BoxFit.none,
+                    child: Text(
+                      localeStr.hintActionSelect,
+                      style: TextStyle(
+                        color: (widget.whiteBox)
+                            ? Themes.defaultTextColorGrey
+                            : Themes.defaultHintColorDark,
+                      ),
+                    ),
                   ),
                   icon: Icon(Icons.arrow_drop_down),
                   iconSize: 24,
                   elevation: 0,
-                  isExpanded: widget.expandWidget,
+                  isExpanded: widget.fixedWidget == false,
                   isDense: true,
                   style: TextStyle(
-                    color: Themes.defaultTextColor,
+                    color: (widget.whiteBox)
+                        ? Themes.defaultTextColorGrey
+                        : Themes.defaultTextColor,
                     fontSize: FontSize.SUBTITLE.value,
                   ),
+                  dropdownColor: (widget.whiteBox)
+                      ? Colors.white
+                      : Themes.fieldInputBgColor,
+                  iconEnabledColor: (widget.whiteBox)
+                      ? Themes.defaultWidgetBgColor
+                      : Themes.defaultWidgetColor,
                   value: _dropdownValue,
                   onChanged: (data) {
                     if (widget.changeNotify != null) widget.changeNotify(data);
@@ -217,19 +239,33 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
                     if (widget.optionStrings != null &&
                         widget.optionStrings.isNotEmpty) {
                       return widget.optionStrings.map<Widget>((item) {
-                        return Text(
-                          item,
-                          style: TextStyle(
-                            color: Themes.defaultTextColorWhite,
+                        return FittedBox(
+                          fit: (widget.scaleText)
+                              ? BoxFit.fitHeight
+                              : BoxFit.none,
+                          child: Text(
+                            item,
+                            style: TextStyle(
+                              color: (widget.whiteBox)
+                                  ? Themes.defaultTextColorGrey
+                                  : Themes.defaultTextColorWhite,
+                            ),
                           ),
                         );
                       }).toList();
                     } else {
                       return widget.optionValues.map<Widget>((item) {
-                        return Text(
-                          item,
-                          style: TextStyle(
-                            color: Themes.defaultTextColorWhite,
+                        return FittedBox(
+                          fit: (widget.scaleText)
+                              ? BoxFit.fitHeight
+                              : BoxFit.none,
+                          child: Text(
+                            item,
+                            style: TextStyle(
+                              color: (widget.whiteBox)
+                                  ? Themes.defaultTextColorGrey
+                                  : Themes.defaultTextColorWhite,
+                            ),
                           ),
                         );
                       }).toList();
@@ -249,7 +285,9 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
                         style: TextStyle(
                           color: (_dropdownValue == item)
                               ? Themes.defaultAccentColor
-                              : Themes.defaultTextColor,
+                              : (widget.whiteBox)
+                                  ? Themes.defaultTextColorGrey
+                                  : Themes.defaultTextColor,
                         ),
                       ),
                     );

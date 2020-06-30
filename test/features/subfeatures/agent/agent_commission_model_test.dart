@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/agent/data/models/agent_ad_model.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/agent/data/models/agent_commission_model.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
 

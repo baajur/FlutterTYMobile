@@ -102,6 +102,10 @@ class _WithdrawDisplayState extends State<WithdrawDisplay> {
 
   @override
   void dispose() {
+    if (toastDismiss != null) {
+      toastDismiss();
+      toastDismiss = null;
+    }
     _disposers.forEach((d) => d());
     super.dispose();
   }

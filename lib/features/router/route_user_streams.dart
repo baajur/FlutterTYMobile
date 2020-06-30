@@ -2,13 +2,14 @@ import 'dart:async' show StreamController, Stream;
 
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/features/general/data/user/user_token_storage.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
-import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart'
-    show LoginStatus;
-import 'package:flutter_ty_mobile/features/users/data/source/user_api.dart';
+import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
+import 'package:flutter_ty_mobile/features/user/data/entity/login_status.dart';
+import 'package:flutter_ty_mobile/features/user/data/repository/user_repository.dart'
+    show UserApi;
+import 'package:flutter_ty_mobile/injection_container.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 
-import '../../injection_container.dart' show sl;
+import 'app_navigate.dart' show RouterNavigate;
 
 RouteUserStreams get getRouteUserStreams => sl.get<RouteUserStreams>();
 
@@ -30,9 +31,15 @@ class RouteUserStreams {
 
   LoginStatus _user = LoginStatus(loggedIn: false);
 
+  bool hasEvent = false;
+
   LoginStatus get lastUser => _user;
 
   bool get hasUser => _user.loggedIn;
+
+  int get userLevel => _user.currentUser?.vip ?? 0;
+
+  String get userName => _user.currentUser?.account ?? 'Guest';
 
   RouteUserStreams() {
     _userControl.stream.listen((event) {
@@ -58,6 +65,8 @@ class RouteUserStreams {
       await Future.value(UserTokenStorage.load(userName)).then((value) {
         _dioApiService.post(UserApi.LOGOUT, userToken: value.cookie.value);
       });
+      var jwtInterface = sl.get<MemberJwtInterface>();
+      jwtInterface.clearToken();
     } catch (e, s) {
       MyLogger.error(
         msg: 'logout $userName has error: $e',

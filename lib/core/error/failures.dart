@@ -29,6 +29,8 @@ enum _Failure {
   Login,
   @object
   Token,
+  @object
+  Event,
 }
 
 extension FailureExtension on Failure {
@@ -47,6 +49,8 @@ extension FailureExtension on Failure {
         return localeStr.messageLoginFailed;
       case _Failure.Token:
         return localeStr.messageErrorToken;
+      case _Failure.Event:
+        return localeStr.messageErrorEvent;
       case _Failure.CachedFile:
         return localeStr.messageErrorCachedFile;
       case _Failure.Internal:

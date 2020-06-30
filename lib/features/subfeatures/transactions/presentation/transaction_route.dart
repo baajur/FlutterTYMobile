@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_dropdown_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/pager_widget.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
 
+import '../data/enum/transaction_date_enum.dart';
 import 'state/transaction_store.dart';
 import 'widgets/transaction_display.dart';
-import '../data/enum/transaction_date_enum.dart';
 
 class TransactionRoute extends StatefulWidget {
   @override
@@ -116,6 +117,10 @@ class _TransactionRouteState extends State<TransactionRoute> {
 
   @override
   void dispose() {
+    if (toastDismiss != null) {
+      toastDismiss();
+      toastDismiss = null;
+    }
     _disposers.forEach((d) => d());
     super.dispose();
   }
@@ -166,7 +171,7 @@ class _TransactionRouteState extends State<TransactionRoute> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(2.0, 6.0, 2.0, 10.0),
+            padding: EdgeInsets.fromLTRB(2.0, 2.0, 2.0, 10.0),
             child: TransactionDisplay(contentKey),
           ),
           Row(

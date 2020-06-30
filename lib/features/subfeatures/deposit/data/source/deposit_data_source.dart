@@ -2,7 +2,6 @@ import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/core/network/handler/data_request_handler.dart'
     show requestData;
 import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
-import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:meta/meta.dart' show required;
 
 import '../form/deposit_form.dart';
@@ -33,23 +32,18 @@ class DepositRemoteDataSourceImpl implements DepositRemoteDataSource {
   final tag = 'DepositRemoteDataSource';
 
   DepositRemoteDataSourceImpl(
-      {@required this.dioApiService, @required this.jwtInterface});
+      {@required this.dioApiService, @required this.jwtInterface}) {
+    Future.sync(() => jwtInterface.checkJwt(DepositApi.JWT_CHECK_HREF));
+  }
 
   @override
   Future<PaymentRaw> getPayment() async {
-    final validStatus =
-        await Future.value(jwtInterface.checkJwt(DepositApi.JWT_CHECK_HREF));
-    if (validStatus.isSuccess) {
-      return requestData<PaymentRaw>(
-        request: dioApiService.get(DepositApi.GET_PAYMENT,
-            userToken: jwtInterface.token),
-        jsonToModel: PaymentRaw.jsonToPaymentRaw,
-        tag: 'remote-DEPOSIT',
-      );
-    } else {
-      MyLogger.warn(msg: 'user token is not valid: $validStatus', tag: tag);
-      return PaymentRaw();
-    }
+    return requestData<PaymentRaw>(
+      request: dioApiService.get(DepositApi.GET_PAYMENT,
+          userToken: jwtInterface.token),
+      jsonToModel: PaymentRaw.jsonToPaymentRaw,
+      tag: 'remote-DEPOSIT',
+    );
   }
 
   @override

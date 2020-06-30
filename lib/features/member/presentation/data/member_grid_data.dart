@@ -26,98 +26,98 @@ class MemberGridItem extends GenericEnum<MemberGridData> {
 
   static MemberGridItem deposit = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleDeposit,
-    iconData: IconData(0xf1c0, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf1c0, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#ffb468'),
     iconDecorColorEnd: HexColor.fromHex('#f36500'),
     route: RoutePage.deposit,
   ));
   static MemberGridItem transfer = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleTransfer,
-    iconData: IconData(0xf079, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf079, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#6ede52'),
     iconDecorColorEnd: HexColor.fromHex('#32a063'),
     route: RoutePage.transfer,
   ));
   static MemberGridItem bankcard = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleCard,
-    iconData: IconData(0xf09d, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf09d, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#7bdefb'),
     iconDecorColorEnd: HexColor.fromHex('#0082ce'),
     route: RoutePage.bankcard,
   ));
   static MemberGridItem withdraw = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleWithdraw,
-    iconData: IconData(0xf155, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf155, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#7294f5'),
     iconDecorColorEnd: HexColor.fromHex('#3054bb'),
     route: RoutePage.withdraw,
   ));
   static MemberGridItem balance = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleBalance,
-    iconData: IconData(0xf03a, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf03a, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#ff88f0'),
     iconDecorColorEnd: HexColor.fromHex('#ad2087'),
     route: RoutePage.balance,
   ));
   static MemberGridItem wallet = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleWallet,
-    iconData: IconData(0xf155, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf155, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#3df3c0'),
     iconDecorColorEnd: HexColor.fromHex('#119c8f'),
     route: RoutePage.wallet,
   ));
   static MemberGridItem stationMessages = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleMessage,
-    iconData: IconData(0xf0e0, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf0e0, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#d265ff'),
     iconDecorColorEnd: HexColor.fromHex('#7c2fad'),
     route: RoutePage.message,
   ));
   static MemberGridItem accountCenter = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleAccount,
-    iconData: IconData(0xf2b9, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf2b9, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#e65757'),
     iconDecorColorEnd: HexColor.fromHex('#ce0909'),
     route: RoutePage.center,
   ));
   static MemberGridItem transferRecord = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleTransaction,
-    iconData: IconData(0xf0ca, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf0ca, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#f1dd98'),
     iconDecorColorEnd: HexColor.fromHex('#9c7407'),
     route: RoutePage.transaction,
   ));
   static MemberGridItem betRecord = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleBet,
-    iconData: IconData(0xf1cd, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf1cd, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#33c8ff'),
     iconDecorColorEnd: HexColor.fromHex('#185cc3'),
     route: RoutePage.betRecord,
   ));
   static MemberGridItem dealRecord = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleDeal,
-    iconData: IconData(0xf0cb, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf0cb, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#c8de59'),
     iconDecorColorEnd: HexColor.fromHex('#7c9c1f'),
     route: RoutePage.deals,
   ));
   static MemberGridItem flowRecord = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleFlow,
-    iconData: IconData(0xf06d, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf06d, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#ed6b72'),
     iconDecorColorEnd: HexColor.fromHex('#b72541'),
     route: RoutePage.flows,
   ));
   static MemberGridItem agent = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleAgent,
-    iconData: IconData(0xf2ba, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf2ba, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#e68f63'),
     iconDecorColorEnd: HexColor.fromHex('#a75433'),
     route: RoutePage.agent,
   ));
   static MemberGridItem logout = MemberGridItem._(MemberGridData(
     title: localeStr.memberGridTitleLogout,
-    iconData: IconData(0xf08b, fontFamily: 'FontAwesome'),
+    iconData: const IconData(0xf08b, fontFamily: 'FontAwesome'),
     iconDecorColorStart: HexColor.fromHex('#cccccc'),
     iconDecorColorEnd: HexColor.fromHex('#929292'),
   ));
