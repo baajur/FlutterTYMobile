@@ -22,6 +22,7 @@ class Themes {
 
   static final accentLightColor = Color(0xffeace98);
   static final dialogBgColor = Color(0xff424242);
+  static final dialogBgColorLight = Color(0xff606266);
   static final dialogBgColorDark = Color(0xff2a2a2a);
   static final dialogBgTransparent = Color(0xD0383838);
   static final dialogTextColor = Color(0xffe6e6e6);
@@ -30,6 +31,7 @@ class Themes {
 
   static final defaultTextColor = Color(0xffb5b5b5);
   static final defaultTextColorWhite = Color(0xffffffff);
+  static final defaultTextColorGrey = Color(0xff606060);
   static final defaultTextColorBlack = Color(0xff000000);
   static final defaultSubtitleColor = Color(0xffeea942);
   static final defaultHintColor = Color(0xffdadada);
@@ -70,6 +72,7 @@ class Themes {
   static final hintHighlightYellow = Color(0xffffdd3a);
   static final hintHighlightLightYellow = Color(0xffffe6b1);
   static final hintHighlightOrange = Color(0xffde9c57);
+  static final hintHighlightOrangeStrong = Color(0xffff9e4c);
   static final hintHyperLink = Color(0xff82f8ff);
 
   static final linearAccentColor1 = Color(0xffbb904d);

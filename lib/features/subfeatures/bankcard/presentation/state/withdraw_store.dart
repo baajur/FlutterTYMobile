@@ -1,7 +1,7 @@
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/form/withdraw_form.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/models/withdraw_model.dart';
+
 import '../../data/repository/withdraw_repository.dart';
 
 part 'withdraw_store.g.dart';
@@ -111,10 +111,6 @@ abstract class _WithdrawStore with Store {
   @action
   Future<void> sendRequest(WithdrawForm form) async {
     try {
-      if (waitForWithdrawResult) {
-        errorMessage = localeStr.messageWait;
-        return;
-      }
       // Reset the possible previous error message.
       errorMessage = null;
       withdrawResult = null;

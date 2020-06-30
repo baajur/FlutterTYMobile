@@ -17,12 +17,10 @@ class FlowsRepositoryImpl implements FlowsRepository {
   final DioApiService dioApiService;
   final MemberJwtInterface jwtInterface;
   final tag = 'FlowRepository';
-  bool jwtChecked = false;
 
   FlowsRepositoryImpl(
       {@required this.dioApiService, @required this.jwtInterface}) {
-    Future.value(jwtInterface.checkJwt('/'))
-        .then((value) => jwtChecked = value.isSuccess);
+    Future.sync(() => jwtInterface.checkJwt('/'));
   }
 
   @override

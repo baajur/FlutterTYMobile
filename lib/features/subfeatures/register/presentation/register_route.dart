@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/customize_field_widget.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
-import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart'
-    show UserEntity;
-import 'package:flutter_ty_mobile/features/users/presentation/widgets/user_display.dart';
+import 'package:flutter_ty_mobile/features/user/data/entity/user_entity.dart';
+import 'package:flutter_ty_mobile/features/user/login/presentation/widgets/login_navigate.dart';
 
 import '../data/form/register_form.dart';
 import 'state/register_store.dart';
@@ -127,6 +127,10 @@ class _RegisterRouteState extends State<RegisterRoute> {
   void dispose() {
     try {
       _store.closeStreams();
+      if (toastDismiss != null) {
+        toastDismiss();
+        toastDismiss = null;
+      }
       _disposers.forEach((d) => d());
     } on Exception {}
     super.dispose();
@@ -220,10 +224,7 @@ class _RegisterRouteState extends State<RegisterRoute> {
                 builder: (_, snapshot) {
                   if (snapshot != null && snapshot.data != null) {
                     if (snapshot.data is UserEntity) {
-                      return UserDisplay(
-                        user: snapshot.data,
-                        returnHome: true,
-                      );
+                      return LoginNavigate(true);
                     } else if (snapshot.data is String) {
                       FLToast.showError(
                         text: localeStr.messageErrorAutoLogin,

@@ -1,19 +1,17 @@
-import 'dart:async';
-
 import 'package:flutter_ty_mobile/core/data/hive_actions.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/accountcenter/data/form/center_password_form.dart';
-import 'package:flutter_ty_mobile/features/users/data/form/login_form.dart';
+import 'package:flutter_ty_mobile/features/user/data/form/login_form.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
 import 'package:hive/hive.dart';
 
-import '../../data/repository/center_repository.dart';
-import '../../data/models/center_model.dart';
 import '../../data/entity/center_account_entity.dart';
 import '../../data/entity/center_vip_entity.dart';
+import '../../data/models/center_model.dart';
+import '../../data/repository/center_repository.dart';
 
 part 'center_store.g.dart';
 
@@ -208,9 +206,9 @@ abstract class _CenterStore with Store {
             if (data.isSuccess &&
                 _loginDataBox != null &&
                 _loginDataBox.isNotEmpty) {
-              UserLoginHiveForm hiveForm = _loginDataBox.values?.last;
+              LoginHiveForm hiveForm = _loginDataBox.values?.last;
               if (hiveForm.account == accountEntity.accountCode) {
-                UserLoginHiveForm newHiveForm = hiveForm.copyWith(password: '');
+                LoginHiveForm newHiveForm = hiveForm.copyWith(password: '');
                 Future.sync(() {
                   _loginDataBox
                       .putAt(0, newHiveForm)

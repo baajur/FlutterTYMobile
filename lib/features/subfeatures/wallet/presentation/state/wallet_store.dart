@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_ty_mobile/core/store_export.dart';
 
 import '../../data/models/wallet_model.dart';
@@ -106,7 +104,7 @@ abstract class _WalletStore with Store {
           )
           .whenComplete(() => waitForTypeChange = false);
     } on Exception {
-      bool waitForTypeChange = false;
+      waitForTypeChange = false;
       errorMessage = "Couldn't fetch wallet. Is the device online?";
     }
   }
@@ -159,7 +157,7 @@ abstract class _WalletStore with Store {
           .whenComplete(() => Future.delayed(
               Duration(milliseconds: 500), () => waitForTransfer = false));
     } on Exception {
-      bool waitForTypeChange = false;
+      waitForTypeChange = false;
       errorMessage = "Couldn't fetch wallet. Is the device online?";
     }
   }

@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m17(num, num2, num3) => "Input range: ${num} ~ ${num2} (amount is a multiple of ${num3})";
 
-  static m18(value) => "Accumulated sign-in ${value} days";
+  static m18(value) => "signed ${value} days";
 
   static m19(name) => "Hello, ${name}！";
 
@@ -85,17 +85,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m32(name) => "Welcome, ${name}";
 
-  static m33(value) => "Each platform ${value}";
+  static m33(value) => "Address: ${value}";
 
-  static m34(value) => "${value} points";
+  static m34(from, to, total) => "showing No.${from} to ${to} results，total is ${total}";
 
-  static m35(value) => "￥ ${value}";
+  static m35(value) => "Name: ${value}";
 
-  static m36(separator) => "Request${separator}Code";
+  static m36(value) => "Phone: ${value}";
 
-  static m37(msg) => "No records found for ${msg}";
+  static m37(value) => "PostCode: ${value}";
 
-  static m38(num) => "Cumulative Lucky Draw: ${num} times";
+  static m38(value) => "Each platform ${value}";
+
+  static m39(value) => "${value} points";
+
+  static m40(value) => "￥ ${value}";
+
+  static m41(separator) => "Request${separator}Code";
+
+  static m42(msg) => "No records found for ${msg}";
+
+  static m43(num) => "Cumulative Lucky Draw: ${num} times";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -313,6 +323,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "eventButtonSignUpFailed" : MessageLookupByLibrary.simpleMessage("Sign in failed!!"),
     "eventButtonSignUpSuccess" : MessageLookupByLibrary.simpleMessage("Sign in successfully!!"),
     "eventButtonSignUpTv" : m18,
+    "eventSignUpHint1" : MessageLookupByLibrary.simpleMessage("Has Signed-Up"),
+    "eventSignUpHint2" : MessageLookupByLibrary.simpleMessage("Days"),
     "exitAppHint" : MessageLookupByLibrary.simpleMessage("Press again to exit APP"),
     "flowHeaderTextAmount" : MessageLookupByLibrary.simpleMessage("Amount"),
     "flowHeaderTextCode" : MessageLookupByLibrary.simpleMessage("Transaction Code"),
@@ -364,6 +376,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "messageErrorBindUrl" : m21,
     "messageErrorCachedFile" : MessageLookupByLibrary.simpleMessage("Cached file error, please try again later or contact customer service"),
     "messageErrorCause" : m22,
+    "messageErrorEvent" : MessageLookupByLibrary.simpleMessage("Can\'t not retrieve event from server, please try again later."),
     "messageErrorFieldError" : m23,
     "messageErrorHasCardData" : MessageLookupByLibrary.simpleMessage("A bank card has been bound"),
     "messageErrorInternal" : MessageLookupByLibrary.simpleMessage("Internal error, please try again later or contact customer service"),
@@ -467,6 +480,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "registerFieldTitleRecommend" : MessageLookupByLibrary.simpleMessage("Recommended Code:"),
     "registerFieldTitleVerify" : MessageLookupByLibrary.simpleMessage("Verification Code:"),
     "registerHintAutoLogin" : MessageLookupByLibrary.simpleMessage("Logging in，please wait..."),
+    "sideBtnBackHome" : MessageLookupByLibrary.simpleMessage("Return"),
+    "sideBtnRotate" : MessageLookupByLibrary.simpleMessage("Rotate"),
     "sideMenuThemeSwitch" : MessageLookupByLibrary.simpleMessage("Change Skin:"),
     "sideMenuThemeSwitchDark" : MessageLookupByLibrary.simpleMessage("deep"),
     "sideMenuThemeSwitchLight" : MessageLookupByLibrary.simpleMessage("浅"),
@@ -475,6 +490,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "spinnerDateMonth" : MessageLookupByLibrary.simpleMessage("Month"),
     "spinnerDateToday" : MessageLookupByLibrary.simpleMessage("Today"),
     "spinnerDateYesterday" : MessageLookupByLibrary.simpleMessage("Yesterday"),
+    "storeExchangeResultError" : MessageLookupByLibrary.simpleMessage("Exchange failed"),
+    "storeExchangeResultWindowHint" : MessageLookupByLibrary.simpleMessage("Congratulation"),
+    "storeExchangeResultWindowHintItem1" : MessageLookupByLibrary.simpleMessage("Exchanged "),
+    "storeExchangeResultWindowHintItem2" : MessageLookupByLibrary.simpleMessage(" *1"),
+    "storeExchangeResultWindowTitleSuccess" : MessageLookupByLibrary.simpleMessage("Exchange Success"),
     "storeProductWindowHint1" : MessageLookupByLibrary.simpleMessage("Limited number, while stocks last"),
     "storeProductWindowHint2" : MessageLookupByLibrary.simpleMessage("Use per branch"),
     "storeProductWindowHint3" : MessageLookupByLibrary.simpleMessage("Point Exchange"),
@@ -484,6 +504,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "storeRecordFieldHint" : MessageLookupByLibrary.simpleMessage("Please enter a product name"),
     "storeRecordSpinnerTitle1" : MessageLookupByLibrary.simpleMessage("Show"),
     "storeRecordSpinnerTitle2" : MessageLookupByLibrary.simpleMessage("item"),
+    "storeRecordTableDetailAddress" : m33,
+    "storeRecordTableDetailItem" : m34,
+    "storeRecordTableDetailName" : m35,
+    "storeRecordTableDetailPhone" : m36,
+    "storeRecordTableDetailPostCode" : m37,
+    "storeRecordTableStatusPending" : MessageLookupByLibrary.simpleMessage("Pending"),
     "storeRecordTableTitleDate" : MessageLookupByLibrary.simpleMessage("Date"),
     "storeRecordTableTitleNo" : MessageLookupByLibrary.simpleMessage("Order Number"),
     "storeRecordTableTitlePoint" : MessageLookupByLibrary.simpleMessage("Integral"),
@@ -494,20 +520,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "storeRequestWindowFieldTitleName" : MessageLookupByLibrary.simpleMessage("Name"),
     "storeRequestWindowFieldTitlePhone" : MessageLookupByLibrary.simpleMessage("Phone"),
     "storeRequestWindowFieldTitlePostno" : MessageLookupByLibrary.simpleMessage("Postcode"),
+    "storeRequestWindowHint" : MessageLookupByLibrary.simpleMessage("Recipient"),
+    "storeRequestWindowPoints" : MessageLookupByLibrary.simpleMessage("Points："),
     "storeRequestWindowSpinnerHint" : MessageLookupByLibrary.simpleMessage("Please select"),
     "storeRequestWindowTextPoint" : MessageLookupByLibrary.simpleMessage("Accumulated Points:"),
-    "storeRequestWindowTitle" : MessageLookupByLibrary.simpleMessage("Recipient Information"),
+    "storeRequestWindowTitle" : MessageLookupByLibrary.simpleMessage("Contact Information"),
     "storeRuleTableHeader" : MessageLookupByLibrary.simpleMessage("You can get a points table for every 100 yuan of valid bets"),
-    "storeRuleTableTitle" : m33,
+    "storeRuleTableTitle" : m38,
     "storeTextItemButton" : MessageLookupByLibrary.simpleMessage("Redeem Now"),
+    "storeTextItemButtonDisabled" : MessageLookupByLibrary.simpleMessage("Not enough points"),
     "storeTextItemHint" : MessageLookupByLibrary.simpleMessage("Limited to a limited number"),
-    "storeTextItemPoint" : m34,
-    "storeTextTitlePoint" : MessageLookupByLibrary.simpleMessage("Mallpoints:"),
+    "storeTextItemPoint" : m39,
+    "storeTextTitlePoint" : MessageLookupByLibrary.simpleMessage("Member Points:"),
     "storeTextTitleProduct" : MessageLookupByLibrary.simpleMessage("Redeem Product"),
     "storeTextTitleRecord" : MessageLookupByLibrary.simpleMessage("Point Record"),
     "storeTextTitleRule" : MessageLookupByLibrary.simpleMessage("Exchange Rules"),
     "title" : MessageLookupByLibrary.simpleMessage("TY International V1"),
-    "toolBarMemberCredit" : m35,
+    "toolBarMemberCredit" : m40,
     "transactionHeaderAmount" : MessageLookupByLibrary.simpleMessage("Amount"),
     "transactionHeaderDate" : MessageLookupByLibrary.simpleMessage("Date"),
     "transactionHeaderDesc" : MessageLookupByLibrary.simpleMessage("Description"),
@@ -515,6 +544,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "transactionHeaderType" : MessageLookupByLibrary.simpleMessage("Category"),
     "transactionViewSpinnerTitle" : MessageLookupByLibrary.simpleMessage("Transfer time"),
     "transferDataError" : MessageLookupByLibrary.simpleMessage("Data error, please select again"),
+    "transferPlatformError" : MessageLookupByLibrary.simpleMessage("Selected platform is maintaining"),
     "transferResultAlertTitle" : MessageLookupByLibrary.simpleMessage("Transfer failed"),
     "transferViewButtonConfirm" : MessageLookupByLibrary.simpleMessage("Confirm Transfer"),
     "transferViewSiteHint" : MessageLookupByLibrary.simpleMessage("Select One"),
@@ -530,7 +560,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "userPwdFieldTitleConfirm" : MessageLookupByLibrary.simpleMessage("Password Confirmation:"),
     "userPwdFieldTitleNew" : MessageLookupByLibrary.simpleMessage("New Password:"),
     "userPwdFieldTitleOld" : MessageLookupByLibrary.simpleMessage("Old Password:"),
-    "userVerifyButtonText" : m36,
+    "userVerifyButtonText" : m41,
     "userVerifyFieldHint" : MessageLookupByLibrary.simpleMessage("enter verify code"),
     "userVerifyFieldInfo" : MessageLookupByLibrary.simpleMessage("You can only request once in 24 hrs"),
     "userVerifyFieldTitle" : MessageLookupByLibrary.simpleMessage("Verify:"),
@@ -559,8 +589,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "wheelRecordTableTextCount" : MessageLookupByLibrary.simpleMessage("Number of times"),
     "wheelRecordTableTextOperate" : MessageLookupByLibrary.simpleMessage("Operation"),
     "wheelRecordTableTextTime" : MessageLookupByLibrary.simpleMessage("Time"),
-    "wheelTableMessageEmpty" : m37,
-    "wheelTextTitleCount" : m38,
+    "wheelTableMessageEmpty" : m42,
+    "wheelTextTitleCount" : m43,
     "wheelTextTitleGet" : MessageLookupByLibrary.simpleMessage("Get spins"),
     "wheelTextTitlePrize" : MessageLookupByLibrary.simpleMessage("Winning History"),
     "wheelTextTitleRecord" : MessageLookupByLibrary.simpleMessage("Operation Record"),

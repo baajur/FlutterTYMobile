@@ -4,13 +4,12 @@ import 'package:flutter_ty_mobile/core/network/handler/data_request_handler.dart
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
 import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
-import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
 import 'package:meta/meta.dart' show required;
 
+import '../../../../../core/network/handler/request_code_model.dart';
 import '../form/center_password_form.dart';
 import '../models/center_model.dart';
-import '../../../../../core/network/handler/request_code_model.dart';
 
 class CenterApi {
   static const String GET_ACCOUNT = "api/center";
@@ -45,25 +44,20 @@ class CenterRemoteDataSourceImpl implements CenterRemoteDataSource {
   final tag = 'CenterRemoteDataSource';
 
   CenterRemoteDataSourceImpl(
-      {@required this.dioApiService, @required this.jwtInterface});
+      {@required this.dioApiService, @required this.jwtInterface}) {
+    Future.sync(() => jwtInterface.checkJwt(CenterApi.JWT_CHECK_HREF));
+  }
 
   @override
   Future<CenterModel> getAccount() async {
-    final validStatus =
-        await Future.value(jwtInterface.checkJwt(CenterApi.JWT_CHECK_HREF));
-    if (validStatus.isSuccess) {
-      return requestData<CenterModel>(
-        request: dioApiService.get(
-          CenterApi.GET_ACCOUNT,
-          userToken: jwtInterface.token,
-        ),
-        jsonToModel: CenterModel.jsonToCenterModel,
-        tag: 'remote-ACCOUNT',
-      );
-    } else {
-      MyLogger.warn(msg: 'user token is not valid: $validStatus', tag: tag);
-      return CenterModel();
-    }
+    return requestData<CenterModel>(
+      request: dioApiService.get(
+        CenterApi.GET_ACCOUNT,
+        userToken: jwtInterface.token,
+      ),
+      jsonToModel: CenterModel.jsonToCenterModel,
+      tag: 'remote-ACCOUNT',
+    );
   }
 
   @override
@@ -91,7 +85,7 @@ class CenterRemoteDataSourceImpl implements CenterRemoteDataSource {
   }
 
   @override
-  Future<RequestStatusModel> postPassword(CenterPasswordForm form) {
+  Future<RequestStatusModel> postPassword(CenterPasswordForm form) async {
     return requestData<RequestStatusModel>(
       request: dioApiService.post(
         CenterApi.POST_PASSWORD,

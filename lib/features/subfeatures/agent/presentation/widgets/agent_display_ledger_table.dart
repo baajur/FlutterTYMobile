@@ -10,12 +10,13 @@ import '../../data/models/agent_ledger_model.dart';
 class AgentDisplayLedgerTable extends StatelessWidget {
   final List<AgentLedgerData> dataList;
   final List<num> sumColumn;
+  final double availableHeight;
 
-  AgentDisplayLedgerTable({@required this.dataList, @required this.sumColumn});
-
-  static final double basicHeight = Global.TEST_DEVICE_CONTENT_HEIGHT - 24;
-  static final double availableHeight =
-      Global.device.height.roundToDouble() - Global.APP_TOOLS_HEIGHT - 24;
+  AgentDisplayLedgerTable({
+    @required this.dataList,
+    @required this.sumColumn,
+    @required this.availableHeight,
+  });
 
   final List<String> _headerRowTexts = [
     localeStr.agentLedgerHeaderAccount,
@@ -27,38 +28,40 @@ class AgentDisplayLedgerTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double heightFactor = availableHeight / basicHeight;
-//    print('screen height factor: $heightFactor');
-    // FontSize.NORMAL.value * 1.8 = font size and line spacing
-    // 17 = 8 rows * 2 lines + header line
-    double _tableHeight = FontSize.NORMAL.value * 1.8 * 17 * heightFactor;
-    double _availableWidth = Global.device.width - 16;
+    int availableRows =
+        (availableHeight / (FontSize.NORMAL.value * 2.35)).floor();
+    print('max height: $availableHeight, available rows: $availableRows');
+    // FontSize.NORMAL.value * 2 = font size * 2 line + space
+    double tableHeight = FontSize.NORMAL.value * 2.15 * availableRows;
+    double availableWidth = Global.device.width - 16;
     Map<int, TableColumnWidth> _tableWidthMap = {
       //指定索引及固定列宽
-      0: FixedColumnWidth(_availableWidth * 0.2),
-      1: FixedColumnWidth(_availableWidth * 0.2),
-      2: FixedColumnWidth(_availableWidth * 0.2),
-      3: FixedColumnWidth(_availableWidth * 0.2),
-      4: FixedColumnWidth(_availableWidth * 0.2),
+      0: FixedColumnWidth(availableWidth * 0.2),
+      1: FixedColumnWidth(availableWidth * 0.2),
+      2: FixedColumnWidth(availableWidth * 0.2),
+      3: FixedColumnWidth(availableWidth * 0.2),
+      4: FixedColumnWidth(availableWidth * 0.2),
     };
 
     return Container(
       constraints: BoxConstraints(
-        maxWidth: _availableWidth,
-        maxHeight: _tableHeight,
+        maxWidth: availableWidth,
+        maxHeight: tableHeight,
       ),
-      color: Themes.stackBackgroundColor,
       child: SingleChildScrollView(
-        child: Table(
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          columnWidths: _tableWidthMap,
-          border: TableBorder.all(
-            color: Themes.defaultBorderColor,
-            width: 2.0,
-            style: BorderStyle.solid,
+        child: ColoredBox(
+          color: Themes.stackBackgroundColor,
+          child: Table(
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            columnWidths: _tableWidthMap,
+            border: TableBorder.all(
+              color: Themes.defaultBorderColor,
+              width: 2.0,
+              style: BorderStyle.solid,
+            ),
+            /* create table header and generate rows */
+            children: _buildContent(),
           ),
-          /* create table header and generate rows */
-          children: _buildContent(),
         ),
       ),
     );

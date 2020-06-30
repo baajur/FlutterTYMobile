@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/betrecord/presentation/widgets/bet_record_display.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
-import '../../../general_route_widget_export.dart';
 import 'state/bet_record_store.dart';
+import 'widgets/bet_record_display.dart';
 
 class BetRecordRoute extends StatefulWidget {
   @override
@@ -68,6 +69,10 @@ class _BetRecordRouteState extends State<BetRecordRoute> {
   void dispose() {
     try {
       _store.closeStreams();
+      if (toastDismiss != null) {
+        toastDismiss();
+        toastDismiss = null;
+      }
       _disposers.forEach((d) => d());
     } on Exception {}
     super.dispose();

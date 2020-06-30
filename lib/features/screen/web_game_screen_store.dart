@@ -26,11 +26,17 @@ abstract class _WebGameScreenStore with Store {
 
   StreamSubscription sensorSubscription;
 
+  DeviceOrientation targetOrientation;
+
   int sensorRotateId = 1;
   bool _sensorOn = false;
   bool lockAutoRotate = false;
   bool isAndroid = Platform.isAndroid;
   WebViewController _viewController;
+
+  bool get isScreenPortrait =>
+      deviceOrientation == DeviceOrientation.portraitUp ||
+      deviceOrientation == DeviceOrientation.portraitDown;
 
   @action
   Future<void> rotateScreen(DeviceOrientation receivedRotate) async {
@@ -41,6 +47,32 @@ abstract class _WebGameScreenStore with Store {
     } on Exception catch (e) {
       MyLogger.error(msg: 'rotate screen has exception', error: e, tag: tag);
     }
+  }
+
+  @action
+  Future<void> rotateScreenLeft() async {
+    print('current orientation: $deviceOrientation');
+    if (targetOrientation == deviceOrientation) return;
+    switch (deviceOrientation) {
+      case DeviceOrientation.portraitUp:
+        targetOrientation = DeviceOrientation.landscapeLeft;
+        break;
+      case DeviceOrientation.landscapeLeft:
+        targetOrientation = DeviceOrientation.portraitDown;
+        break;
+      case DeviceOrientation.portraitDown:
+        targetOrientation = DeviceOrientation.landscapeRight;
+        break;
+      case DeviceOrientation.landscapeRight:
+        targetOrientation = DeviceOrientation.portraitUp;
+        break;
+    }
+    await OrientationHelper.forceOrientation(targetOrientation)
+        .whenComplete(() {
+      deviceOrientation = targetOrientation;
+      targetOrientation = null;
+      print('rotate complete: $deviceOrientation');
+    });
   }
 
   @action

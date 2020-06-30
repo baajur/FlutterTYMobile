@@ -1,15 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/home/presentation/bloc/bloc_home_export.dart';
-import 'package:flutter_ty_mobile/features/home/presentation/widgets/home_widgets_export.dart';
+import 'package:flutter_ty_mobile/features/export_internal_file.dart';
+import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
+import 'package:flutter_ty_mobile/injection_container.dart';
 
-import '../../general_route_widget_export.dart';
+import 'bloc/bloc_home_export.dart';
+import 'widgets/home_widgets_export.dart';
 
+///
 /// Main View of [Router.homeRoute]
 ///@author H.C.CHIANG
 ///@version 2020/2/12
+///
 class HomeRoute extends StatefulWidget {
   HomeRoute({Key key}) : super(key: key);
 
@@ -134,8 +136,10 @@ class _HomeRouteState extends State<HomeRoute> {
     return Expanded(
       child: new Padding(
         padding: EdgeInsets.only(left: 6.0),
-        child: Icon(IconData(0xf027, fontFamily: 'FontAwesome'),
-            color: Themes.accentLightColor),
+        child: Icon(
+          const IconData(0xf027, fontFamily: 'FontAwesome'),
+          color: Themes.accentLightColor,
+        ),
       ),
     );
   }

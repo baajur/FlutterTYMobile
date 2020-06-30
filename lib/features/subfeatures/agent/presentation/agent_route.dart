@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
 import 'state/agent_store.dart';
 import 'widgets/agent_display.dart';
@@ -93,6 +94,10 @@ class _AgentRouteState extends State<AgentRoute> {
   void dispose() {
     try {
       _store.closeStreams();
+      if (toastDismiss != null) {
+        toastDismiss();
+        toastDismiss = null;
+      }
       _disposers.forEach((d) => d());
     } on Exception {}
     super.dispose();

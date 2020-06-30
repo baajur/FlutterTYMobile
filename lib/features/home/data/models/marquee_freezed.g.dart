@@ -3,10 +3,43 @@
 part of 'marquee_freezed.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class MarqueeEntityAdapter extends TypeAdapter<_$_MarqueeEntity> {
+  @override
+  final typeId = 102;
+
+  @override
+  _$_MarqueeEntity read(BinaryReader reader) {
+    var numOfFields = reader.readByte();
+    var fields = <int, dynamic>{
+      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$_MarqueeEntity(
+      id: fields[0] as int,
+      content: fields[1] as String,
+      url: fields[2] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$_MarqueeEntity obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.content)
+      ..writeByte(2)
+      ..write(obj.url);
+  }
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-// ignore: non_constant_identifier_names
 _$_MarqueeModel _$_$_MarqueeModelFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['created_at', 'updated_at']);
   return _$_MarqueeModel(
@@ -19,7 +52,6 @@ _$_MarqueeModel _$_$_MarqueeModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_MarqueeModelToJson(_$_MarqueeModel instance) =>
     <String, dynamic>{
       'id': instance.id,
@@ -30,7 +62,6 @@ Map<String, dynamic> _$_$_MarqueeModelToJson(_$_MarqueeModel instance) =>
       'showDate': instance.showDate,
     };
 
-// ignore: non_constant_identifier_names
 _$_MarqueeModelList _$_$_MarqueeModelListFromJson(Map<String, dynamic> json) {
   return _$_MarqueeModelList(
     marquees: (json['marquees'] as List)
@@ -41,7 +72,6 @@ _$_MarqueeModelList _$_$_MarqueeModelListFromJson(Map<String, dynamic> json) {
   );
 }
 
-// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_MarqueeModelListToJson(
         _$_MarqueeModelList instance) =>
     <String, dynamic>{

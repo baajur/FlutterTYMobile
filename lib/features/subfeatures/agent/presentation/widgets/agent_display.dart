@@ -31,14 +31,19 @@ class _AgentDisplayState extends State<AgentDisplay> {
   ];
 
   double gridRatio;
+  double contentMaxHeight;
   int _clicked = 0;
 
   @override
   void initState() {
     double gridItemWidth = (Global.device.width - 6 * 7 - 16) / 5;
-    gridRatio = gridItemWidth / 36;
+    gridRatio = gridItemWidth / 36 / Global.device.widthScale;
+    if (gridRatio > 1.75) gridRatio = 1.75;
     print('grid item width: $gridItemWidth, gridRatio: $gridRatio');
-    if (gridRatio > 4.16) gridRatio = 4.16;
+    contentMaxHeight = Global.device.height -
+        Global.APP_TOOLS_HEIGHT -
+        24 -
+        gridItemWidth / gridRatio;
     super.initState();
   }
 
@@ -88,8 +93,8 @@ class _AgentDisplayState extends State<AgentDisplay> {
                 children: <Widget>[
                   AgentDisplayInfo(),
                   AgentDisplayChart(),
-                  AgentDisplayCommission(),
-                  AgentDisplayLedger(),
+                  AgentDisplayCommission(contentMaxHeight),
+                  AgentDisplayLedger(contentMaxHeight),
                   AgentDisplayAds(),
                 ],
               ),

@@ -37,7 +37,10 @@ class WalletRemoteDataSourceImpl implements WalletRemoteDataSource {
   bool jwtChecked = false;
 
   WalletRemoteDataSourceImpl(
-      {@required this.dioApiService, @required this.jwtInterface});
+      {@required this.dioApiService, @required this.jwtInterface}) {
+    Future.sync(() => jwtInterface.checkJwt(WalletApi.JWT_CHECK_HREF))
+        .then((value) => jwtChecked = value.isSuccess);
+  }
 
   @override
   Future<WalletModel> getWallet() async {

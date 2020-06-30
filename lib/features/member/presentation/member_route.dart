@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
-import 'package:flutter_ty_mobile/features/member/presentation/widgets/member_display.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
-import '../../../injection_container.dart' show sl;
 import 'state/member_credit_store.dart';
+import 'widgets/member_display.dart';
 
 /// Main View of [Router.memberRoute]
 /// @author H.C.CHIANG

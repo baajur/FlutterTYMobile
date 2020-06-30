@@ -20,12 +20,10 @@ class TransactionRepositoryImpl implements TransactionRepository {
   final DioApiService dioApiService;
   final MemberJwtInterface jwtInterface;
   final tag = 'TransactionRepository';
-  bool jwtChecked = false;
 
   TransactionRepositoryImpl(
       {@required this.dioApiService, @required this.jwtInterface}) {
-    Future.value(jwtInterface.checkJwt('/'))
-        .then((value) => jwtChecked = value.isSuccess);
+    Future.sync(() => jwtInterface.checkJwt('/'));
   }
 
   @override
@@ -58,6 +56,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
         data: {'dateend': endDate, 'datestart': startDate},
       ),
       jsonToModel: TransactionModel.jsonToTransactionModel,
+      trim: false,
       tag: 'remote-TRANSACTION',
     );
     print('test response type: ${result.runtimeType}, data: $result');

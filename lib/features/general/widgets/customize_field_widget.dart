@@ -27,6 +27,7 @@ class CustomizeFieldWidget extends StatefulWidget {
   final bool coloredHint;
   final bool centerFieldText;
   final bool useSameBgColor;
+  final bool whiteField;
   final bool readOnly;
 
   /* Field Validate Settings */
@@ -64,6 +65,7 @@ class CustomizeFieldWidget extends StatefulWidget {
     this.coloredHint = false,
     this.centerFieldText = false,
     this.useSameBgColor = false,
+    this.whiteField = false,
     this.readOnly = false,
     this.maxInputLength = 16,
     this.maxLines = 1,
@@ -97,6 +99,7 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
   double _viewWidth;
   EdgeInsetsGeometry _fieldInset;
   TextStyle _fieldTextStyle;
+  Color _fieldColor;
   double _smallWidgetHeight;
   double _prefixWidth;
   Widget _prefixWidget;
@@ -149,17 +152,27 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
         ? EdgeInsets.only(left: 2.0)
         : EdgeInsets.symmetric(horizontal: 8.0, vertical: fieldInsetHeight);
 
+    Color textColor = (widget.readOnly)
+        ? Themes.defaultTextColor
+        : (widget.whiteField)
+            ? Themes.defaultTextColorBlack
+            : Themes.defaultTextColorWhite;
+
     _fieldTextStyle = TextStyle(
       fontSize:
           (widget.readOnly) ? FontSize.NORMAL.value : FontSize.SUBTITLE.value,
-      color: (widget.readOnly)
-          ? Themes.defaultTextColor
-          : Themes.defaultTextColorWhite,
+      color: textColor,
+      decorationColor: textColor,
     );
+
+    _fieldColor = (widget.useSameBgColor)
+        ? Themes.defaultWidgetBgColor
+        : (widget.whiteField) ? Colors.white : Themes.fieldInputBgColor;
 
     if (widget.debug) {
       print('screen width: ${Global.device.width}');
       print('field prefix width: $_prefixWidth');
+      print('field height: $_smallWidgetHeight');
     }
     super.initState();
   }
@@ -190,13 +203,18 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
         minHeight: _smallWidgetHeight,
       );
     }
+    Color textColor = (widget.readOnly)
+        ? Themes.defaultTextColor
+        : (widget.whiteField)
+            ? Themes.defaultTextColorBlack
+            : Themes.defaultTextColorWhite;
+
     // update text style if readOnly has changed
     _fieldTextStyle = TextStyle(
       fontSize:
           (widget.readOnly) ? FontSize.NORMAL.value : FontSize.SUBTITLE.value,
-      color: (widget.readOnly)
-          ? Themes.defaultTextColor
-          : Themes.defaultTextColorWhite,
+      color: textColor,
+      decorationColor: textColor,
     );
     super.didUpdateWidget(oldWidget);
   }
@@ -223,12 +241,13 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
     }
     if (_prefixWidget == null && _suffixWidget == null) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(6.0),
         child: Container(
           padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 2.0),
           constraints: BoxConstraints(
             maxWidth: _viewWidth,
             minHeight: _smallWidgetHeight,
+            maxHeight: _smallWidgetHeight,
           ),
           child: new TextFormField(
             key: _fieldKey,
@@ -244,6 +263,9 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
               setState(() {});
             },
             style: _fieldTextStyle,
+            cursorColor: (widget.whiteField)
+                ? Themes.defaultTextColorBlack
+                : Themes.defaultAccentColor,
             textAlign:
                 (widget.centerFieldText) ? TextAlign.center : TextAlign.start,
             textAlignVertical: TextAlignVertical.center,
@@ -253,6 +275,7 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
               hintStyle: (widget.coloredHint)
                   ? TextStyle(color: Themes.hintHighlight)
                   : null,
+              fillColor: _fieldColor,
               isDense: true,
               contentPadding: _fieldInset,
               errorText: (_isValid) ? null : widget.errorMsg,
@@ -291,6 +314,9 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
               setState(() {});
             },
             style: _fieldTextStyle,
+            cursorColor: (widget.whiteField)
+                ? Themes.defaultTextColorBlack
+                : Themes.defaultAccentColor,
             textAlign:
                 (widget.centerFieldText) ? TextAlign.center : TextAlign.start,
             textAlignVertical: TextAlignVertical.center,
@@ -301,9 +327,7 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
                   ? TextStyle(color: Themes.hintHighlight)
                   : null,
               isDense: true,
-              fillColor: (widget.useSameBgColor)
-                  ? Themes.defaultWidgetBgColor
-                  : Themes.fieldInputBgColor,
+              fillColor: _fieldColor,
               contentPadding: _fieldInset,
               prefixIconConstraints: (_prefixWidget != null)
                   ? _prefixConstraints

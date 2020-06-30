@@ -1,13 +1,11 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/features/general/toast_widget_export.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/deposit/data/model/deposit_result.dart';
-import 'package:mobx/mobx.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
+import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
 
 import '../../data/entity/payment_enum.dart';
+import '../../data/model/deposit_result.dart';
 import '../state/deposit_store.dart';
 import 'deposit_display_grid.dart';
 import 'payment_content.dart';

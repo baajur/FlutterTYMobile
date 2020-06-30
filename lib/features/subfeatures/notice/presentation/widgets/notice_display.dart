@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/features/general/bloc_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/export_internal_file.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/warning_display.dart';
 
 import '../state/notice_store.dart';
 import 'notice_display_content.dart';

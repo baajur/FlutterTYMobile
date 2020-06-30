@@ -2,7 +2,8 @@ import 'package:flutter_ty_mobile/core/base/usecase_export.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
 import 'package:flutter_ty_mobile/features/router/route_user_streams.dart'
     show getRouteUserStreams;
-import 'package:flutter_ty_mobile/features/users/data/models/user_freezed.dart';
+import 'package:flutter_ty_mobile/features/user/data/entity/login_status.dart';
+import 'package:flutter_ty_mobile/features/user/data/entity/user_entity.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../data/repository/member_repository.dart';
@@ -18,7 +19,7 @@ abstract class _MemberCreditStore with Store {
     _userStream = ObservableStream(getRouteUserStreams.userStream);
     _userStream.listen((event) {
       user = event.currentUser;
-      credit = user.credit;
+      credit = user?.credit ?? '';
       print('member store user: $user, credit: $credit');
     });
   }

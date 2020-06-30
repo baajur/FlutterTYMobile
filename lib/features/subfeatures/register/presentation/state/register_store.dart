@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/register/data/form/register_form.dart';
-import 'package:flutter_ty_mobile/features/users/data/form/login_form.dart';
-import 'package:flutter_ty_mobile/features/users/data/repository/user_repository.dart';
+import 'package:flutter_ty_mobile/features/user/data/form/login_form.dart';
+import 'package:flutter_ty_mobile/features/user/data/repository/user_repository.dart';
 
+import '../../data/form/register_form.dart';
 import '../../data/repository/register_repository.dart';
 
 part 'register_store.g.dart';
@@ -49,7 +46,7 @@ abstract class _RegisterStore with Store {
                 registerResult = model;
                 if (model.isSuccess) {
                   Future.delayed(Duration(milliseconds: 500), () {
-                    postLogin(UserLoginForm(
+                    postLogin(LoginForm(
                       account: form.username,
                       password: form.confirmPassword,
                     ));
@@ -69,12 +66,12 @@ abstract class _RegisterStore with Store {
   }
 
   @action
-  Future<void> postLogin(UserLoginForm form) async {
+  Future<void> postLogin(LoginForm form) async {
     try {
       // Reset the possible previous error message.
       errorMessage = null;
       // ObservableFuture extends Future - it can be awaited and exceptions will propagate as usual.
-      await _userRepository.getAccount(form).then(
+      await _userRepository.login(form).then(
             (result) => result.fold(
               (failure) {
                 print('auto login failed: $failure');

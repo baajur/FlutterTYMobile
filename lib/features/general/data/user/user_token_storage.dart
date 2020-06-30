@@ -2,10 +2,10 @@ import 'package:flutter_ty_mobile/core/data/hive_actions.dart' show getHiveBox;
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/features/general/data/user/hive_cookie.dart';
-import 'package:flutter_ty_mobile/features/users/data/source/user_api.dart';
+import 'package:flutter_ty_mobile/features/user/data/repository/user_repository.dart'
+    show UserApi;
+import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:hive/hive.dart' show Box;
-
-import '../../../../mylogger.dart';
 
 /// Store user token in [Hive}
 ///
@@ -23,6 +23,7 @@ class UserTokenStorage {
 //    }
     var tokenCookie =
         cookies.singleWhere((element) => element.name == 'token_mobile');
+    print('cookie token: ${tokenCookie.value}');
     print('cookie token length: ${tokenCookie.value.length}');
     try {
       // TODO: Need to check if saving token to hive is necessary or the RAM cookie will suffice
@@ -37,7 +38,7 @@ class UserTokenStorage {
 
   static Future<HiveCookieEntity> load(String account) async {
     Box box = await getHiveBox(Global.CACHED_COOKIE);
-    var entity;
+    HiveCookieEntity entity;
     if (box.isNotEmpty) {
       try {
         entity = box.get(account) as HiveCookieEntity;
@@ -46,7 +47,7 @@ class UserTokenStorage {
       }
     }
     box.close();
-    print('user token: $entity');
+    print('loaded hive token: ${entity.cookie}');
     return entity;
   }
 

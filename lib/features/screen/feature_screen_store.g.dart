@@ -9,12 +9,6 @@ part of 'feature_screen_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
-  Computed<bool> _$hasUserComputed;
-
-  @override
-  bool get hasUser => (_$hasUserComputed ??= Computed<bool>(() => super.hasUser,
-          name: '_FeatureScreenStore.hasUser'))
-      .value;
   Computed<int> _$navIndexComputed;
 
   @override
@@ -22,6 +16,27 @@ mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
       (_$navIndexComputed ??= Computed<int>(() => super.navIndex,
               name: '_FeatureScreenStore.navIndex'))
           .value;
+  Computed<bool> _$hasUserComputed;
+
+  @override
+  bool get hasUser => (_$hasUserComputed ??= Computed<bool>(() => super.hasUser,
+          name: '_FeatureScreenStore.hasUser'))
+      .value;
+
+  final _$errorMessageAtom = Atom(name: '_FeatureScreenStore.errorMessage');
+
+  @override
+  String get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
 
   final _$_streamRouteAtom = Atom(name: '_FeatureScreenStore._streamRoute');
 
@@ -83,13 +98,85 @@ mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
     });
   }
 
+  final _$showEventAtom = Atom(name: '_FeatureScreenStore.showEvent');
+
+  @override
+  bool get showEvent {
+    _$showEventAtom.reportRead();
+    return super.showEvent;
+  }
+
+  @override
+  set showEvent(bool value) {
+    _$showEventAtom.reportWrite(value, super.showEvent, () {
+      super.showEvent = value;
+    });
+  }
+
+  final _$hasSignedEventAtom = Atom(name: '_FeatureScreenStore.hasSignedEvent');
+
+  @override
+  bool get hasSignedEvent {
+    _$hasSignedEventAtom.reportRead();
+    return super.hasSignedEvent;
+  }
+
+  @override
+  set hasSignedEvent(bool value) {
+    _$hasSignedEventAtom.reportWrite(value, super.hasSignedEvent, () {
+      super.hasSignedEvent = value;
+    });
+  }
+
+  final _$hasNewMessageAtom = Atom(name: '_FeatureScreenStore.hasNewMessage');
+
+  @override
+  bool get hasNewMessage {
+    _$hasNewMessageAtom.reportRead();
+    return super.hasNewMessage;
+  }
+
+  @override
+  set hasNewMessage(bool value) {
+    _$hasNewMessageAtom.reportWrite(value, super.hasNewMessage, () {
+      super.hasNewMessage = value;
+    });
+  }
+
+  final _$getNewMessageCountAsyncAction =
+      AsyncAction('_FeatureScreenStore.getNewMessageCount');
+
+  @override
+  Future<void> getNewMessageCount() {
+    return _$getNewMessageCountAsyncAction
+        .run(() => super.getNewMessageCount());
+  }
+
+  final _$getEventAsyncAction = AsyncAction('_FeatureScreenStore.getEvent');
+
+  @override
+  Future<void> getEvent() {
+    return _$getEventAsyncAction.run(() => super.getEvent());
+  }
+
+  final _$signEventAsyncAction = AsyncAction('_FeatureScreenStore.signEvent');
+
+  @override
+  Future<bool> signEvent() {
+    return _$signEventAsyncAction.run(() => super.signEvent());
+  }
+
   @override
   String toString() {
     return '''
+errorMessage: $errorMessage,
 pageInfo: $pageInfo,
 userStatus: $userStatus,
-hasUser: $hasUser,
-navIndex: $navIndex
+showEvent: $showEvent,
+hasSignedEvent: $hasSignedEvent,
+hasNewMessage: $hasNewMessage,
+navIndex: $navIndex,
+hasUser: $hasUser
     ''';
   }
 }

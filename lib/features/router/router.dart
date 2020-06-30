@@ -1,6 +1,4 @@
 import 'package:auto_route/auto_route_annotations.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/betrecord/presentation/bet_record_route.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/register/presentation/register_route.dart';
 import 'package:flutter_ty_mobile/template/mobx/presentation/template_route.dart';
 import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dart';
 
@@ -21,9 +19,13 @@ import '../subfeatures/flows/presentation/flows_route.dart';
 import '../subfeatures/agent/presentation/agent_route.dart';
 import '../subfeatures/deals/presentation/deals_route.dart';
 import '../subfeatures/transactions/presentation/transaction_route.dart';
-import '../test_area_route.dart';
-import '../users/presentation/login_route.dart';
+import '../subfeatures/betrecord/presentation/bet_record_route.dart';
+import '../subfeatures/register/presentation/register_route.dart';
+import '../subfeatures/store/presentation/store_route.dart';
+import '../subfeatures/viplevel/presentation/vip_level_route.dart';
+import '../user/login/presentation/login_route.dart';
 import '../web/web_route.dart';
+import '../test_area_route.dart';
 
 @MaterialAutoRouter()
 class $Router {
@@ -43,17 +45,19 @@ class $Router {
   MessageRoute messageRoute;
   CenterRoute centerRoute;
   CenterDisplayAccountPassword centerPasswordPage;
+  WebRoute centerWebPage;
   TransactionRoute transactionRoute;
   BetRecordRoute betRecordRoute;
   DealsRoute dealsRoute;
   FlowsRoute flowsRoute;
   AgentRoute agentRoute;
-  WebRoute centerWebPage;
   WebRoute moreWebPage;
 
   /// side menu route
   DownloadAreaRoute downloadAreaRoute;
   NoticeRoute noticeRoute;
+  VipLevelRoute levelRoute;
+  StoreRoute storeRoute;
 
   /// test route
   TestAreaRoute testAreaRoute;

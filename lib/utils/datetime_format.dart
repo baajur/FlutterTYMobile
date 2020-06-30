@@ -8,6 +8,7 @@ final DateFormat _dateEndFormat = DateFormat("yyyy-MM-dd 23:59:59");
 /// Get [DateTime.now] as String
 String getDateTime() => DateTime.now().toDatetimeString;
 
+/// return true if current time is between [start] and [end] time
 bool checkDateRange(String start, String end) {
   if (start == null || start.isEmpty || end == null || end.isEmpty)
     return false;
@@ -21,6 +22,20 @@ bool checkDateRange(String start, String end) {
   } on Exception {
     return false;
   }
+}
+
+/// Return true if current time is after [expireDate]
+bool hasExpired(String expireDate) {
+  DateTime now = DateTime.now().toDateString.toDatetime();
+  DateTime dateTime = expireDate.toDatetime();
+  return now.isAfter(dateTime);
+}
+
+/// Return true if current time is same as [date]
+bool isSameDay(String date) {
+  DateTime now = DateTime.now().toDateString.toDatetime();
+  DateTime compareDate = date.toDatetime();
+  return compareDate.compareTo(now) == 0;
 }
 
 extension DateTimeStringExtensions on String {

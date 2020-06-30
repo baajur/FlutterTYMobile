@@ -27,8 +27,14 @@ class _MainStartupState extends State<MainStartup> {
   int closeAppCount = 0;
 
   void registerLocale(BuildContext context) {
-    sl.registerSingleton<LocalStrings>(LocalStrings(context));
-    Global.regLocale = true;
+    try {
+      sl.registerSingleton<LocalStrings>(LocalStrings(context));
+//      print('test locale:${sl.get<LocalStrings>().res.pageTitleHome}');
+    } catch (e) {
+      MyLogger.warn(msg: 'locale file has exception: $e');
+    } finally {
+      Global.regLocale = true;
+    }
 //    print('test locale res:${localeStr.pageTitleHome}');
 //    sl.get<LocalStrings>().init().then((value) {
 //      print('test locale res1:${S.of(context).pageHomeRoute}');
@@ -37,8 +43,7 @@ class _MainStartupState extends State<MainStartup> {
   }
 
   void getDeviceInfo(BuildContext context) {
-    Global.device = Device(MediaQuery.of(context),
-        MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
+    Global.device = Device(MediaQuery.of(context));
     print('Device Size: ${Global.device}');
   }
 

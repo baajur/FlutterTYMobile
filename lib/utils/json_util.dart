@@ -141,15 +141,21 @@ class JsonUtil {
     bool trim = true,
     String tag = debugTag,
   }) {
-    var trimmed = (trim) ? trimJson(str) : str;
-    MyLogger.debug(msg: 'start decoding data to $T...', tag: tag);
-    Map<String, dynamic> map = jsonDecode(trimmed);
+    Map<String, dynamic> map;
+    if (str is Map == false) {
+      var trimmed = (trim) ? trimJson(str) : str;
+      MyLogger.debug(msg: 'start decoding data to $T...', tag: tag);
+      map = jsonDecode(trimmed);
+    } else {
+      map = str;
+    }
     // transfer decoded data to model data
     try {
       return jsonToModel(map) as T;
     } catch (e, s) {
+      print('decode to model error: $e');
       MyLogger.error(
-          msg: 'mapped model error!! data: $trimmed\nmapped json: $map',
+          msg: 'mapped model error!! data: $str\nmapped json: $map',
           stackTrace: s,
           tag: tag);
       throw MapJsonDataException();

@@ -5,18 +5,31 @@ import 'package:flutter_ty_mobile/core/internal/global.dart';
 
 class Device {
   final MediaQueryData _mediaQueryData;
-  final double _screenWidth;
-  final double _screenHeight;
+  double _screenWidth;
+  double _screenHeight;
+  // device status bar
+  double _screenTopPadding;
+  // device virtual key
+  double _screenBottomInset;
+  // screen width compare with test device
   double _screenWidthScale;
+  // screen height compare with test device
   double _screenHeightScale;
+  // computed button height
   double _screenButtonHeight;
 
-  Device(this._mediaQueryData, this._screenWidth, this._screenHeight) {
+  Device(this._mediaQueryData) {
+    _screenWidth = _mediaQueryData.size.width;
+    _screenHeight = _mediaQueryData.size.height;
     _screenWidthScale = _screenWidth / Global.TEST_DEVICE_WIDTH;
     _screenHeightScale = _screenHeight / Global.TEST_DEVICE_HEIGHT;
+    _screenTopPadding = _mediaQueryData.viewPadding.top;
+    _screenBottomInset = _mediaQueryData.viewInsets.bottom;
     _screenButtonHeight = (_screenHeightScale > 1)
         ? (36 * _screenHeightScale).ceilToDouble()
         : 36.0;
+    print('Device Inset: ${_mediaQueryData.viewInsets}');
+    print('Device Padding: ${_mediaQueryData.viewPadding}');
   }
 
   @override
@@ -25,6 +38,7 @@ class Device {
         'width scale=$_screenWidthScale\n'
         'height=$_screenHeight\n'
         'height scale=$_screenHeightScale\n'
+        'inset=$_screenBottomInset\n'
         'button=$_screenButtonHeight';
   }
 
@@ -51,4 +65,10 @@ class Device {
 
   /// device's relative button height
   double get comfortButtonHeight => _screenButtonHeight;
+
+  double get featureContentHeight =>
+      _screenHeight -
+      Global.APP_TOOLS_HEIGHT -
+      _screenBottomInset -
+      _screenTopPadding;
 }

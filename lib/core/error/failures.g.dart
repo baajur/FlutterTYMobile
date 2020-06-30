@@ -29,6 +29,8 @@ abstract class Failure extends Equatable {
 
   factory Failure.token() = Token;
 
+  factory Failure.event() = Event;
+
   final _Failure _type;
 
 //ignore: missing_return
@@ -41,7 +43,8 @@ abstract class Failure extends Equatable {
       @required R Function(CachedFile) cachedFile,
       @required R Function(FailureCode) internal,
       @required R Function(RequestStatusModel) login,
-      @required R Function(Token) token}) {
+      @required R Function(Token) token,
+      @required R Function(Event) event}) {
     assert(() {
       if (network == null ||
           networkLocation == null ||
@@ -51,7 +54,8 @@ abstract class Failure extends Equatable {
           cachedFile == null ||
           internal == null ||
           login == null ||
-          token == null) {
+          token == null ||
+          event == null) {
         throw 'check for all possible cases';
       }
       return true;
@@ -75,6 +79,8 @@ abstract class Failure extends Equatable {
         return login((this as RequestStatusModelWrapper).requestStatusModel);
       case _Failure.Token:
         return token(this as Token);
+      case _Failure.Event:
+        return event(this as Event);
     }
   }
 
@@ -88,7 +94,8 @@ abstract class Failure extends Equatable {
       @required FutureOr<R> Function(CachedFile) cachedFile,
       @required FutureOr<R> Function(FailureCode) internal,
       @required FutureOr<R> Function(RequestStatusModel) login,
-      @required FutureOr<R> Function(Token) token}) {
+      @required FutureOr<R> Function(Token) token,
+      @required FutureOr<R> Function(Event) event}) {
     assert(() {
       if (network == null ||
           networkLocation == null ||
@@ -98,7 +105,8 @@ abstract class Failure extends Equatable {
           cachedFile == null ||
           internal == null ||
           login == null ||
-          token == null) {
+          token == null ||
+          event == null) {
         throw 'check for all possible cases';
       }
       return true;
@@ -122,6 +130,8 @@ abstract class Failure extends Equatable {
         return login((this as RequestStatusModelWrapper).requestStatusModel);
       case _Failure.Token:
         return token(this as Token);
+      case _Failure.Event:
+        return event(this as Event);
     }
   }
 
@@ -135,6 +145,7 @@ abstract class Failure extends Equatable {
       R Function(FailureCode) internal,
       R Function(RequestStatusModel) login,
       R Function(Token) token,
+      R Function(Event) event,
       @required R Function(Failure) orElse}) {
     assert(() {
       if (orElse == null) {
@@ -170,6 +181,9 @@ abstract class Failure extends Equatable {
       case _Failure.Token:
         if (token == null) break;
         return token(this as Token);
+      case _Failure.Event:
+        if (event == null) break;
+        return event(this as Event);
     }
     return orElse(this);
   }
@@ -184,6 +198,7 @@ abstract class Failure extends Equatable {
       FutureOr<R> Function(FailureCode) internal,
       FutureOr<R> Function(RequestStatusModel) login,
       FutureOr<R> Function(Token) token,
+      FutureOr<R> Function(Event) event,
       @required FutureOr<R> Function(Failure) orElse}) {
     assert(() {
       if (orElse == null) {
@@ -219,6 +234,9 @@ abstract class Failure extends Equatable {
       case _Failure.Token:
         if (token == null) break;
         return token(this as Token);
+      case _Failure.Event:
+        if (event == null) break;
+        return event(this as Event);
     }
     return orElse(this);
   }
@@ -233,7 +251,8 @@ abstract class Failure extends Equatable {
       FutureOr<void> Function(CachedFile) cachedFile,
       FutureOr<void> Function(FailureCode) internal,
       FutureOr<void> Function(RequestStatusModel) login,
-      FutureOr<void> Function(Token) token}) {
+      FutureOr<void> Function(Token) token,
+      FutureOr<void> Function(Event) event}) {
     assert(() {
       if (network == null &&
           networkLocation == null &&
@@ -243,7 +262,8 @@ abstract class Failure extends Equatable {
           cachedFile == null &&
           internal == null &&
           login == null &&
-          token == null) {
+          token == null &&
+          event == null) {
         throw 'provide at least one branch';
       }
       return true;
@@ -276,6 +296,9 @@ abstract class Failure extends Equatable {
       case _Failure.Token:
         if (token == null) break;
         return token(this as Token);
+      case _Failure.Event:
+        if (event == null) break;
+        return event(this as Event);
     }
   }
 
@@ -390,4 +413,16 @@ class Token extends Failure {
   }
 
   static Token _instance;
+}
+
+@immutable
+class Event extends Failure {
+  const Event._() : super(_Failure.Event);
+
+  factory Event() {
+    _instance ??= const Event._();
+    return _instance;
+  }
+
+  static Event _instance;
 }

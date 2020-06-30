@@ -212,7 +212,7 @@
   "@btnFastLogin": {
     "type": "text"
   },
-  "btnSignUp": "签到",
+  "btnSignUp": "立即签到",
   "@btnSignUp": {
     "type": "text"
   },
@@ -230,6 +230,14 @@
   },
   "btnShow": "显示",
   "@btnShow": {
+    "type": "text"
+  },
+  "sideBtnBackHome": "回首页",
+  "@sideBtnBackHome": {
+    "type": "text"
+  },
+  "sideBtnRotate": "旋转屏幕",
+  "@sideBtnRotate": {
     "type": "text"
   },
   "spinnerDateAll": "全部时间",
@@ -563,6 +571,10 @@
   "@messageErrorCachedFile": {
     "type": "text"
   },
+  "messageErrorEvent": "无法取得签到活动数据，请稍候再重试或联系客服",
+  "@messageErrorEvent": {
+    "type": "text"
+  },
   "messageErrorToken": "用户验证失败，请重新登入或联系客服",
   "@messageErrorToken": {
     "type": "text"
@@ -860,6 +872,10 @@
   },
   "transferDataError": "数据错误，请重新选择",
   "@transferDataError": {
+    "type": "text"
+  },
+  "transferPlatformError": "所选平台当前无法转帐",
+  "@transferPlatformError": {
     "type": "text"
   },
   "transferResultAlertTitle": "转帐失败",
@@ -1966,7 +1982,7 @@
   "@storeTextTitleRecord": {
     "type": "text"
   },
-  "storeTextTitlePoint": "商城积分：",
+  "storeTextTitlePoint": "会员积分：",
   "@storeTextTitlePoint": {
     "type": "text"
   },
@@ -1985,6 +2001,10 @@
   },
   "storeTextItemButton": "立即兑换",
   "@storeTextItemButton": {
+    "type": "text"
+  },
+  "storeTextItemButtonDisabled": "積分不足",
+  "@storeTextItemButtonDisabled": {
     "type": "text"
   },
   "storeRuleTableHeader": "每100元有效投注额即可获得积分表",
@@ -2036,6 +2056,61 @@
   "@storeRecordTableTitleState": {
     "type": "text"
   },
+  "storeRecordTableStatusPending": "待出货",
+  "@storeRecordTableStatusPending": {
+    "type": "text"
+  },
+  "storeRecordTableDetailName": "姓名：{value}",
+  "@storeRecordTableDetailName": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "name"
+      }
+    }
+  },
+  "storeRecordTableDetailPhone": "电话：{value}",
+  "@storeRecordTableDetailPhone": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "123"
+      }
+    }
+  },
+  "storeRecordTableDetailPostCode": "邮编：{value}",
+  "@storeRecordTableDetailPostCode": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "110"
+      }
+    }
+  },
+  "storeRecordTableDetailAddress": "地址：{value}",
+  "@storeRecordTableDetailAddress": {
+    "type": "text",
+    "placeholders": {
+      "value": {
+        "example": "address"
+      }
+    }
+  },
+  "storeRecordTableDetailItem": "顯示第 {from} 至 {to} 項結果，共 {total} 項",
+  "@storeRecordTableDetailItem": {
+    "type": "text",
+    "placeholders": {
+      "from": {
+        "example": "1"
+      },
+      "to": {
+        "example": "5"
+      },
+      "total": {
+        "example": "10"
+      }
+    }
+  },
   "storeProductWindowTitle": "会员兑换",
   "@storeProductWindowTitle": {
     "type": "text"
@@ -2060,8 +2135,16 @@
   "@storeRequestWindowTextPoint": {
     "type": "text"
   },
-  "storeRequestWindowTitle": "收件人资讯",
+  "storeRequestWindowTitle": "联络资讯",
   "@storeRequestWindowTitle": {
+    "type": "text"
+  },
+  "storeRequestWindowPoints": "积分兑换：",
+  "@storeRequestWindowPoints": {
+    "type": "text"
+  },
+  "storeRequestWindowHint": "收件人资讯",
+  "@storeRequestWindowHint": {
     "type": "text"
   },
   "storeRequestWindowFieldTitleName": "姓名",
@@ -2084,6 +2167,26 @@
   "@storeRequestWindowFieldTitleAddress": {
     "type": "text"
   },
+  "storeExchangeResultWindowTitleSuccess": "会员兑换成功",
+  "@storeExchangeResultWindowTitleSuccess": {
+    "type": "text"
+  },
+  "storeExchangeResultWindowHint": "恭喜会员",
+  "@storeExchangeResultWindowHint": {
+    "type": "text"
+  },
+  "storeExchangeResultWindowHintItem1": "兑换",
+  "@storeExchangeResultWindowHintItem1": {
+    "type": "text"
+  },
+  "storeExchangeResultWindowHintItem2": "一个",
+  "@storeExchangeResultWindowHintItem2": {
+    "type": "text"
+  },
+  "storeExchangeResultError": "兑换失败，请稍候再重试或联系客服",
+  "@storeExchangeResultError": {
+    "type": "text"
+  },
   "eventButtonSignUpTv": "已累积签到{value}天",
   "@eventButtonSignUpTv": {
     "type": "text",
@@ -2092,6 +2195,14 @@
         "example": "3"
       }
     }
+  },
+  "eventSignUpHint1": "已累积签到",
+  "@eventSignUpHint1": {
+    "type": "text"
+  },
+  "eventSignUpHint2": "天",
+  "@eventSignUpHint2": {
+    "type": "text"
   },
   "eventButtonSignUpAlready": "已签到",
   "@eventButtonSignUpAlready": {

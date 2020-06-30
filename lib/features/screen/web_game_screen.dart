@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/orientation_helper.dart';
+import 'package:flutter_ty_mobile/features/screen/web_game_screen_drawer.dart';
 import 'package:flutter_ty_mobile/features/screen/web_game_screen_store.dart';
 import 'package:flutter_ty_mobile/injection_container.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
-import 'package:flutter_ty_mobile/temp/test_anim_drawer.dart';
 import 'package:flutter_ty_mobile/utils/regex_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -18,6 +18,9 @@ class WebGameScreen extends StatefulWidget {
 }
 
 class _WebGameScreenState extends State<WebGameScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey =
+      new GlobalKey<ScaffoldState>(debugLabel: 'webgame');
+
   WebViewController _controller;
   WebGameScreenStore _store;
 
@@ -106,7 +109,11 @@ class _WebGameScreenState extends State<WebGameScreen> {
     return SafeArea(
       child: WillPopScope(
         child: Scaffold(
-          drawer: TestAnimDrawer(),
+          key: _scaffoldKey,
+          drawer: WebGameScreenDrawer(
+            scaffoldKey: _scaffoldKey,
+            store: _store,
+          ),
           body: WebView(
             initialUrl: widget.startUrl,
             javascriptMode: JavascriptMode.unrestricted,

@@ -8,7 +8,8 @@ import 'package:flutter_ty_mobile/features/home/data/models/game_types_freezed.d
 import 'package:flutter_ty_mobile/features/home/data/models/models.dart'
     show BannerModel, GameModel, MarqueeModelList;
 import 'package:flutter_ty_mobile/features/home/domain/entity/platform_game_form.dart';
-import 'package:flutter_ty_mobile/features/users/data/source/user_api.dart';
+import 'package:flutter_ty_mobile/features/user/data/repository/user_repository.dart'
+    show UserApi;
 import 'package:meta/meta.dart' show required;
 
 import 'home_api.dart';
@@ -50,6 +51,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     return requestData<MarqueeModelList>(
       request: dioApiService.get(HomeApi.MARQUEE),
       jsonToModel: MarqueeModelList.jsonToMarqueeModelList,
+      trim: false,
       tag: 'remote-MARQUEE',
     );
   }

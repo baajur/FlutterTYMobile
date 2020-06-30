@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart' show required;
 import 'package:super_enum/super_enum.dart';
 

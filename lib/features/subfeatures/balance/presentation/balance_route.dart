@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
 import 'state/balance_store.dart';
 import 'widgets/balance_display.dart';
@@ -89,6 +89,10 @@ class _BalanceRouteState extends State<BalanceRoute> {
 
   @override
   void dispose() {
+    if (toastDismiss != null) {
+      toastDismiss();
+      toastDismiss = null;
+    }
     _disposers.forEach((d) => d());
     super.dispose();
   }

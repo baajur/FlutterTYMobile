@@ -1,13 +1,9 @@
-import 'dart:async';
-
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/form/transfer_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/models/transfer_platform_model.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/repository/transfer_repository.dart';
-import 'package:flutter_ty_mobile/utils/value_util.dart'
-    show ValueUtilExtension;
+
+import '../../data/form/transfer_form.dart';
+import '../../data/models/transfer_platform_model.dart';
+import '../../data/repository/transfer_repository.dart';
 
 part 'transfer_store.g.dart';
 
@@ -18,10 +14,21 @@ enum TransferStoreState { initial, loading, loaded }
 abstract class _TransferStore with Store {
   final TransferRepository _repository;
 
-  _TransferStore(this._repository);
+  _TransferStore(this._repository) {
+    _site1ValueController.stream.listen((event) {
+      site1 = event;
+      checkPlatformValid();
+    });
+    _site2ValueController.stream.listen((event) {
+      site2 = event;
+      checkPlatformValid();
+    });
+  }
 
-  final StreamController<String> _site1ValueController = new StreamController();
-  final StreamController<String> _site2ValueController = new StreamController();
+  final StreamController<String> _site1ValueController =
+      new StreamController<String>.broadcast();
+  final StreamController<String> _site2ValueController =
+      new StreamController<String>.broadcast();
 
   Stream<String> get site1ValueStream => _site1ValueController.stream;
   Stream<String> get site2ValueStream => _site2ValueController.stream;
@@ -43,14 +50,10 @@ abstract class _TransferStore with Store {
 
   int creditLimit = 0;
 
-  Future<void> close() async {
-    try {
-      _site1ValueController.close();
-      _site2ValueController.close();
-    } catch (e) {
-      MyLogger.warn(msg: 'close transfer stream error', error: e);
-    }
-  }
+  bool isPlatformValid = false;
+
+  String site1;
+  String site2;
 
   @computed
   TransferStoreState get state {
@@ -99,11 +102,12 @@ abstract class _TransferStore with Store {
           (failure) => errorMessage = failure.message,
           (data) {
             print('$site balance: ${data.balance}');
+            bool platformClosed = data.balance == '￥-1.00';
             if (isLimit) {
-              creditLimit = data.balance.strToInt;
-              setSite1Value(data.balance);
+              creditLimit = (platformClosed) ? 0 : data.balance.strToInt;
+              setSite1Value((platformClosed) ? '￥---' : data.balance);
             } else {
-              setSite2Value(data.balance);
+              setSite2Value((platformClosed) ? '￥---' : data.balance);
             }
           },
         );
@@ -116,10 +120,7 @@ abstract class _TransferStore with Store {
   @action
   Future<void> sendRequest(TransferForm form) async {
     try {
-      if (waitForTransferResult) {
-        errorMessage = localeStr.messageWait;
-        return;
-      }
+      if (waitForTransferResult) return;
       // Reset the possible previous error message.
       errorMessage = null;
       transferResult = null;
@@ -151,11 +152,26 @@ abstract class _TransferStore with Store {
     }
   }
 
-  void setSite1Value(String text) {
+  void setSite1Value(String text) async {
     _site1ValueController.sink.add(text);
   }
 
-  void setSite2Value(String text) {
+  void setSite2Value(String text) async {
     _site2ValueController.sink.add(text);
+  }
+
+  void checkPlatformValid() {
+    isPlatformValid =
+        site1 != null && site1 != '￥---' && site2 != null && site2 != '￥---';
+    print('platform can transfer: $isPlatformValid');
+  }
+
+  Future<void> closeStreams() async {
+    try {
+      _site1ValueController.close();
+      _site2ValueController.close();
+    } catch (e) {
+      MyLogger.warn(msg: 'close transfer stream error', error: e);
+    }
   }
 }

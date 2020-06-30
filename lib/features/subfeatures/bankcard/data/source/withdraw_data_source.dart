@@ -27,7 +27,9 @@ class WithdrawRemoteDataSourceImpl implements WithdrawRemoteDataSource {
   final tag = 'WithdrawRemoteDataSource';
 
   WithdrawRemoteDataSourceImpl(
-      {@required this.dioApiService, @required this.jwtInterface});
+      {@required this.dioApiService, @required this.jwtInterface}) {
+    Future.sync(() => jwtInterface.checkJwt('/'));
+  }
 
   @override
   Future<String> getCgpWallet() {

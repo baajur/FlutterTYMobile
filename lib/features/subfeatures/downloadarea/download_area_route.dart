@@ -41,7 +41,7 @@ class DownloadAreaRoute extends StatelessWidget {
       );
     } else {
       return Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 8.0),
         child: ListView.builder(
           itemCount: 4,
           itemBuilder: (_, index) {

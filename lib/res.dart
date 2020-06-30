@@ -14,6 +14,10 @@ class Res {
   static const String walletBgIconSmall =
       "assets/images/wlpop_titico_small.png";
 
+  static const String storeProductNewIcon = "assets/images/new_product.png";
+
+  static const String eventMoneyForeground = "assets/images/event_money.png";
+
   static const String homeMemberAreaIconDeposit =
       "/images/index/idxusico_dsp.png";
   static const String homeMemberAreaIconWithdraw =

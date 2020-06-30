@@ -168,6 +168,18 @@ class RoutePage extends GenericEnum<RouteInfo> {
     hideAppbarActions: true,
   ));
 
+  static RoutePage vipLevel = RoutePage._(RouteInfo(
+    route: Routes.levelRoute,
+    title: localeStr.pageTitleRank,
+    hideAppbarActions: true,
+  ));
+
+  static RoutePage pointStore = RoutePage._(RouteInfo(
+    route: Routes.storeRoute,
+    title: localeStr.pageTitleStore,
+    hideAppbarActions: true,
+  ));
+
   /// test route
   static RoutePage template = RoutePage._(RouteInfo(
       route: Routes.templateRoute,
@@ -218,6 +230,8 @@ extension PagesNameExtension on String {
         return RoutePage.template;
       case Routes.template2Route:
         return RoutePage.template2;
+      case Routes.testAreaRoute:
+        return RoutePage.testArea;
       default:
         throw UnknownConditionException();
     }

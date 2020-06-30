@@ -25,7 +25,13 @@ class DialogWidget extends StatefulWidget {
 
   final double widthShrink;
 
+  final double roundParam;
+
+  final bool noBackground;
+
   final bool transparentBg;
+
+  final bool lightBg;
 
   final bool darkBg;
 
@@ -41,7 +47,10 @@ class DialogWidget extends StatefulWidget {
     this.minHeight,
     this.maxHeight,
     this.widthShrink = 32.0,
+    this.roundParam = 16.0,
+    this.noBackground = false,
     this.transparentBg = false,
+    this.lightBg = false,
     this.darkBg = false,
     this.debug = false,
   }) : super(key: key);
@@ -54,9 +63,19 @@ class DialogWidgetState extends State<DialogWidget> {
   final Duration insetAnimationDuration = const Duration(milliseconds: 100);
   final Curve insetAnimationCurve = Curves.decelerate;
 
+  Color bgColor;
   double dialogHeight;
   double dialogWidth;
   double contentWidth;
+
+  void updateHeightFactor(double heightFactor) {
+    dialogHeight = Global.device.height * heightFactor;
+    if (widget.maxHeight != null && dialogHeight > widget.maxHeight)
+      dialogHeight = widget.maxHeight;
+    if (widget.minHeight != null && dialogHeight < widget.minHeight)
+      dialogHeight = widget.minHeight;
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -74,6 +93,17 @@ class DialogWidgetState extends State<DialogWidget> {
       dialogHeight = widget.maxHeight;
     if (widget.minHeight != null && dialogHeight < widget.minHeight)
       dialogHeight = widget.minHeight;
+
+    if (widget.noBackground)
+      bgColor = Colors.transparent;
+    else if (widget.transparentBg)
+      bgColor = Themes.dialogBgTransparent;
+    else if (widget.darkBg)
+      bgColor = Themes.dialogBgColorDark;
+    else if (widget.lightBg)
+      bgColor = Themes.dialogBgColorLight;
+    else
+      bgColor = Themes.dialogBgColor;
     super.initState();
   }
 
@@ -97,13 +127,10 @@ class DialogWidgetState extends State<DialogWidget> {
           child: Material(
             // round corner view
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0)),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(widget.roundParam)),
             ),
-            color: (widget.transparentBg)
-                ? Themes.dialogBgTransparent
-                : (widget.darkBg)
-                    ? Themes.dialogBgColorDark
-                    : Themes.dialogBgColor,
+            color: bgColor,
             child: InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,

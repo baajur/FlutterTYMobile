@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 
 import 'state/center_store.dart';
-import 'widgets/center_store_inherit_widget.dart';
 import 'widgets/center_display.dart';
+import 'widgets/center_store_inherit_widget.dart';
 
 class CenterRoute extends StatefulWidget {
   @override

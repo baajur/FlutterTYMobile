@@ -20,12 +20,10 @@ class MessageRepositoryImpl implements MessageRepository {
   final DioApiService dioApiService;
   final MemberJwtInterface jwtInterface;
   final tag = 'MessageRepository';
-  bool jwtChecked = false;
 
   MessageRepositoryImpl(
       {@required this.dioApiService, @required this.jwtInterface}) {
-    Future.value(jwtInterface.checkJwt('/'))
-        .then((value) => jwtChecked = value.isSuccess);
+    Future.sync(() => jwtInterface.checkJwt('/'));
   }
 
   @override

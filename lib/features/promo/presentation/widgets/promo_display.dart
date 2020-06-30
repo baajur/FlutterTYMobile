@@ -1,10 +1,8 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ty_mobile/core/internal/global.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
-import 'package:flutter_ty_mobile/mylogger.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
 
 import '../../data/models/promo_category.dart';
 import '../../data/models/promo_freezed.dart';

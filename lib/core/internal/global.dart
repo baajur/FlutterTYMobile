@@ -18,11 +18,9 @@ class Global {
   static const String TY_SERVICE_URL = "https://vip66732.com/";
 
   static const double APP_BAR_HEIGHT = kToolbarHeight - 8;
-  static const double APP_TOOLS_HEIGHT = Global.APP_BAR_HEIGHT * 2.25;
+  static const double APP_TOOLS_HEIGHT = Global.APP_BAR_HEIGHT * 2 + 8;
   static const double TEST_DEVICE_HEIGHT = 785.45;
   static const double TEST_DEVICE_WIDTH = 392.72;
-  static const double TEST_DEVICE_CONTENT_HEIGHT =
-      TEST_DEVICE_HEIGHT - APP_TOOLS_HEIGHT;
 
   static const String CACHED_COOKIE = 'CACHED_USER_COOKIE';
   static const String CACHE_LOGIN_FORM = 'CACHE_LOGIN_FORM';

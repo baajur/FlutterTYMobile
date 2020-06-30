@@ -1,14 +1,19 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_mobx/flutter_mobx.dart' show Observer;
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
-import 'package:flutter_ty_mobile/features/screen/screen_drawer_item.dart';
+import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
+import 'package:flutter_ty_mobile/features/router/route_user_streams.dart';
+import 'package:flutter_ty_mobile/features/screen/feature_screen_store.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/more/more_dialog.dart';
+import 'package:flutter_ty_mobile/features/user/event/presentation/event_dialog.dart';
+import 'package:flutter_ty_mobile/features/user/event/presentation/event_dialog_signed.dart';
 import 'package:flutter_ty_mobile/res.dart';
 
-import '../general_route_widget_export.dart';
-import '../router/router.gr.dart';
+import '../export_internal_file.dart';
 import 'feature_screen_inherited_widget.dart';
+import 'screen_drawer_item.dart';
 import 'screen_navigation_bar_item.dart';
 
 part 'screen_drawer.dart';

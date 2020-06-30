@@ -5,17 +5,17 @@ import 'package:flui/flui.dart' show FLToastDefaults, FLToastProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemChannels;
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_ty_mobile/features/general_route_widget_export.dart';
+import 'package:flutter_ty_mobile/core/data/hive_adapters_export.dart';
+import 'package:flutter_ty_mobile/core/internal/themes.dart';
+import 'package:flutter_ty_mobile/features/router/route_user_streams.dart';
+import 'package:flutter_ty_mobile/generated/l10n.dart';
+import 'package:flutter_ty_mobile/injection_container.dart';
+import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:super_enum/super_enum.dart';
 
-import '../core/data/hive_adapters_export.dart';
-import '../core/internal/themes.dart';
-import '../generated/l10n.dart';
-import '../injection_container.dart' as di;
-import '../mylogger.dart';
 import 'main_startup.dart';
 
 class MainApp extends StatefulWidget {
@@ -58,13 +58,13 @@ class _MainAppState extends State<MainApp>
       //TODO: Register data adapters here
       try {
         Hive.registerAdapter(BannerEntityAdapter());
-//        Hive.registerAdapter(MarqueeEntityAdapter());
+        Hive.registerAdapter(MarqueeEntityAdapter());
         Hive.registerAdapter(GameCategoryModelAdapter());
         Hive.registerAdapter(GamePlatformEntityAdapter());
         Hive.registerAdapter(CookieAdapter());
         Hive.registerAdapter(HiveCookieEntityAdapter());
         Hive.registerAdapter(PromoEntityAdapter());
-        Hive.registerAdapter(UserLoginHiveFormAdapter());
+        Hive.registerAdapter(LoginHiveFormAdapter());
       } catch (e) {
         MyLogger.warn(
             msg: 'register hive adapter has error!!', tag: tag, error: e);
@@ -123,7 +123,7 @@ class _MainAppState extends State<MainApp>
   @override
   void dispose() async {
     await Hive.close().then((value) => _hiveInitialized = false);
-    di.sl.get<RouteUserStreams>().dispose();
+    sl.get<RouteUserStreams>().dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

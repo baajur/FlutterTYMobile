@@ -1,4 +1,3 @@
-import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/form/bankcard_form.dart';
@@ -169,10 +168,6 @@ abstract class _BankcardStore with Store {
   @action
   Future sendRequest(BankcardForm form) async {
     try {
-      if (waitForNewCardResult) {
-        errorMessage = localeStr.messageWait;
-        return;
-      }
       // Reset the possible previous error message.
       errorMessage = null;
       newCardResult = null;

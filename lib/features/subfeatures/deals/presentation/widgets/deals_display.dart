@@ -14,12 +14,20 @@ class DealsDisplay extends StatefulWidget {
 }
 
 class DealsDisplayState extends State<DealsDisplay> {
+  final List<String> _headerRowTexts = [
+    localeStr.dealsHeaderSerial,
+    localeStr.dealsHeaderDate,
+    localeStr.dealsHeaderType,
+    localeStr.dealsHeaderDetail,
+    localeStr.dealsHeaderStatus,
+    localeStr.dealsHeaderAmount,
+  ];
+
   double _availableWidth;
   double _tableHeight;
   Map<int, TableColumnWidth> _tableWidthMap;
 
   List<DealsData> _dataList;
-  List<String> _headerRowTexts;
   TableRow _headerRow;
 
   set updateContent(List<DealsData> list) {
@@ -32,25 +40,26 @@ class DealsDisplayState extends State<DealsDisplay> {
 
   @override
   void initState() {
-    double basicHeight = Global.TEST_DEVICE_CONTENT_HEIGHT - 24;
-    double availableHeight =
-        Global.device.height.roundToDouble() - Global.APP_TOOLS_HEIGHT - 24;
-    double heightFactor = availableHeight / basicHeight;
-    print('height factor: $heightFactor');
-    // FontSize.NORMAL.value * 1.8 = font size and line spacing
-    // 17 = 8 rows * 2 lines + header line
-    _tableHeight = FontSize.NORMAL.value * 1.8 * 17 * heightFactor;
+    double availableHeight = Global.device.featureContentHeight -
+        Themes.fieldHeight -
+        Global.device.comfortButtonHeight -
+        48; // 48 = padding and pager
+    int availableRows =
+        (availableHeight / (FontSize.NORMAL.value * 2.35)).floor();
+    print('max height: $availableHeight, available rows: $availableRows');
+    // FontSize.NORMAL.value * 2 = font size * 2 line + space
+    _tableHeight = FontSize.NORMAL.value * 2.15 * availableRows;
 
     _availableWidth = Global.device.width - 16;
-    double remainWidth = _availableWidth - 84;
+    double remainWidth = _availableWidth - 90;
     _tableWidthMap = {
       //指定索引及固定列宽
-      0: FixedColumnWidth(48.0),
-      1: FixedColumnWidth(remainWidth * 0.3),
+      0: FixedColumnWidth(54.0),
+      1: FixedColumnWidth(remainWidth * 0.325),
       2: FixedColumnWidth(36.0),
-      3: FixedColumnWidth(remainWidth * 0.25),
-      4: FixedColumnWidth(remainWidth * 0.225),
-      5: FixedColumnWidth(remainWidth * 0.225),
+      3: FixedColumnWidth(remainWidth * 0.225),
+      4: FixedColumnWidth(remainWidth * 0.2),
+      5: FixedColumnWidth(remainWidth * 0.25),
     };
     super.initState();
   }
@@ -58,66 +67,61 @@ class DealsDisplayState extends State<DealsDisplay> {
   @override
   Widget build(BuildContext context) {
     if (_dataList == null) return SizedBox.shrink();
-    _headerRowTexts = [
-      localeStr.dealsHeaderSerial,
-      localeStr.dealsHeaderDate,
-      localeStr.dealsHeaderType,
-      localeStr.dealsHeaderDetail,
-      localeStr.dealsHeaderStatus,
-      localeStr.dealsHeaderAmount,
-    ];
-    _headerRow ??= TableRow(
-      children: List.generate(
-        _headerRowTexts.length,
-        (index) => TableCellTextWidget(text: _headerRowTexts[index]),
-      ),
-    );
-
-    if (_dataList.isEmpty)
+    if (_dataList.isEmpty) {
       return SizedBox(
         height: _tableHeight,
         child: Center(
           child: Text(localeStr.messageWarnNoHistoryData),
         ),
       );
-    else
+    } else {
+      _headerRow ??= TableRow(
+        children: List.generate(
+          _headerRowTexts.length,
+          (index) => TableCellTextWidget(text: _headerRowTexts[index]),
+        ),
+      );
       return Container(
         constraints: BoxConstraints(
           maxWidth: _availableWidth,
           maxHeight: _tableHeight,
         ),
-        color: Themes.stackBackgroundColor,
         child: SingleChildScrollView(
-          child: Table(
-            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            columnWidths: _tableWidthMap,
-            border: TableBorder.all(
-              color: Themes.defaultBorderColor,
-              width: 2.0,
-              style: BorderStyle.solid,
+          child: ColoredBox(
+            color: Themes.stackBackgroundColor,
+            child: Table(
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              columnWidths: _tableWidthMap,
+              border: TableBorder.all(
+                color: Themes.defaultBorderColor,
+                width: 2.0,
+                style: BorderStyle.solid,
+              ),
+              /* create table header and generate rows */
+              children: <TableRow>[_headerRow] +
+                  List.generate(_dataList.length, (index) {
+                    DealsData data = _dataList[index];
+                    List<dynamic> dataTexts = [
+                      data.id,
+                      data.date,
+                      data.action,
+                      data.type,
+                      data.status,
+                      data.amount
+                    ];
+                    /* generate cell text */
+                    return TableRow(
+                      children: List.generate(
+                        dataTexts.length,
+                        (index) =>
+                            TableCellTextWidget(text: '${dataTexts[index]}'),
+                      ),
+                    );
+                  }),
             ),
-            /* create table header and generate rows */
-            children: <TableRow>[_headerRow] +
-                List.generate(_dataList.length, (index) {
-                  DealsData data = _dataList[index];
-                  List<dynamic> dataTexts = [
-                    data.id,
-                    data.date,
-                    data.action,
-                    data.type,
-                    data.status,
-                    data.amount
-                  ];
-                  /* generate cell text */
-                  return TableRow(
-                    children: List.generate(
-                      dataTexts.length,
-                      (index) => TableCellTextWidget(text: '${dataTexts[index]}'),
-                    ),
-                  );
-                }),
           ),
         ),
       );
+    }
   }
 }
