@@ -100,7 +100,10 @@ abstract class _LoginStore with Store {
       _loginFuture = ObservableFuture(_repository.login(form));
       // ObservableFuture extends Future - it can be awaited and exceptions will propagate as usual.
       await _loginFuture.then((value) => value.fold(
-            (failure) => errorMessage = failure.message,
+            (failure) {
+              waitForLogin = false;
+              errorMessage = failure.message;
+            },
             (model) async {
               if (saveForm)
                 await saveToBox(LoginHiveForm(
@@ -120,6 +123,7 @@ abstract class _LoginStore with Store {
             },
           ));
     } on Exception {
+      waitForLogin = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage = Failure.internal(FailureCode()).message;
     }

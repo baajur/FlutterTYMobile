@@ -2,7 +2,7 @@ import 'dart:async' show StreamController, Stream;
 
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/features/general/data/user/user_token_storage.dart';
-import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 import 'package:flutter_ty_mobile/features/user/data/entity/login_status.dart';
 import 'package:flutter_ty_mobile/features/user/data/repository/user_repository.dart'
     show UserApi;

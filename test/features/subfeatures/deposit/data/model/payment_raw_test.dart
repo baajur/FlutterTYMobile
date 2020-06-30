@@ -10,8 +10,9 @@ import '../../../../../fixtures/fixture_reader.dart';
 /// localeStr to constant string or test will failed
 ///
 void main() {
+  final map = json.decode(fixture('deposit/payment.json'));
+
   test('test json to model', () {
-    final map = json.decode(fixture('deposit/payment.json'));
     print(map.keys);
     final model = PaymentRaw.fromJson(map);
     print(model);

@@ -209,15 +209,15 @@ mixin _$PointStore on _PointStore, Store {
   @override
   String toString() {
     return '''
-provinceMap: $provinceMap,
-cityMap: $cityMap,
-areaMap: $areaMap,
-errorMessage: $errorMessage,
-waitForInitializeData: $waitForInitializeData,
-waitForExchange: $waitForExchange,
-exchangeResult: $exchangeResult,
-waitForRecord: $waitForRecord,
-state: $state
+provinceMap: ${provinceMap},
+cityMap: ${cityMap},
+areaMap: ${areaMap},
+errorMessage: ${errorMessage},
+waitForInitializeData: ${waitForInitializeData},
+waitForExchange: ${waitForExchange},
+exchangeResult: ${exchangeResult},
+waitForRecord: ${waitForRecord},
+state: ${state}
     ''';
   }
 }

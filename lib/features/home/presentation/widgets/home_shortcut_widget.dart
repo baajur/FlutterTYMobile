@@ -270,7 +270,7 @@ class MemberWidgetState extends State<MemberWidget> {
             _createIconButton(
               Res.homeMemberAreaIconVip,
               'VIP',
-              () => FLToast.showInfo(text: localeStr.workInProgress),
+              () => RouterNavigate.navigateToPage(RoutePage.vipLevel),
             ),
           ],
         ),

@@ -122,7 +122,7 @@ class _LoginDisplayState extends State<LoginDisplay> {
                   else if (getRouteUserStreams.hasUser && !_waitForClose) {
                     _waitForClose = true;
                     return LoginNavigate(
-                      widget.returnHome,
+                      returnHomePage: widget.returnHome,
                       closeDialog: widget.isDialog,
                     );
                   }

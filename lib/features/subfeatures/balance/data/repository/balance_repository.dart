@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transfer/data/form/transfer_form.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
 import 'package:meta/meta.dart' show required;
@@ -121,7 +121,8 @@ class BalanceRepositoryImpl implements BalanceRepository {
 
   @override
   Future<Either<Failure, RequestStatusModel>> postTransfer(
-      TransferForm form) async {
+    TransferForm form,
+  ) async {
     final result = await requestModel<RequestStatusModel>(
       request:
           dioApiService.post(BalanceApi.POST_TRANSFER, data: form.toJson()),

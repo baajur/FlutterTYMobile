@@ -34,7 +34,10 @@ class MoreDialog extends StatelessWidget {
         // open web page
         RouterNavigate.replacePage(
           itemValue.route,
-          arg: WebRouteArguments(startUrl: itemValue.webUrl),
+          arg: WebRouteArguments(
+            startUrl: itemValue.webUrl,
+            hideBars: true,
+          ),
         );
       } else {
         // navigate to route

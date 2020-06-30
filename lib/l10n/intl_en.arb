@@ -503,6 +503,10 @@
   "@messageInvalidPassword": {
     "type": "text"
   },
+  "messageInvalidPasswordNew": "Password should be 8 ~ 20 words",
+  "@messageInvalidPasswordNew": {
+    "type": "text"
+  },
   "messageInvalidConfirmPassword": "Password does not match",
   "@messageInvalidConfirmPassword": {
     "type": "text"

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_ty_mobile/features/export_internal_file.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/dialog_widget.dart';
 import 'package:flutter_ty_mobile/features/user/data/models/event_model.dart';
+import 'package:flutter_ty_mobile/res.dart';
 
 typedef EventSignFunction = Future<bool> Function();
 typedef EventErrorFunction = String Function();
@@ -43,13 +45,13 @@ class _EventDialogState extends State<EventDialog> {
   @override
   Widget build(BuildContext context) {
     double dialogWidth =
-        (Global.device.width >= 352) ? 320 : Global.device.width - 32;
+        (Global.device.width >= 320) ? 228 : Global.device.width - 92;
     return DialogWidget(
       noBackground: true,
       canClose: false,
       constraints: BoxConstraints(
-        maxHeight: 364,
-        maxWidth: dialogWidth,
+        maxHeight: 316,
+        maxWidth: dialogWidth + 60,
       ),
       children: [
         Container(
@@ -57,7 +59,7 @@ class _EventDialogState extends State<EventDialog> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(16.0),
           ),
-          margin: const EdgeInsets.only(bottom: 64.0),
+          margin: const EdgeInsets.only(bottom: 64.0, left: 30.0, right: 30.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -73,14 +75,16 @@ class _EventDialogState extends State<EventDialog> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (!signed)
                       Row(
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: dialogWidth / 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 36.0,
+                              ),
                               child: RaisedButton(
                                 materialTapTargetSize:
                                     MaterialTapTargetSize.padded,
@@ -115,16 +119,22 @@ class _EventDialogState extends State<EventDialog> {
                       ),
                     if (signed)
                       Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.check_circle,
                             color: HexColor.fromHex('#6dc854'),
+                            size: 28.0,
                           ),
-                          Text(
-                            localeStr.eventButtonSignUpSuccess,
-                            style: TextStyle(
-                              color: HexColor.fromHex('#6dc854'),
-                              fontSize: FontSize.TITLE.value,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4.0),
+                            child: Text(
+                              localeStr.eventButtonSignUpSuccess,
+                              style: TextStyle(
+                                color: HexColor.fromHex('#6dc854'),
+                                fontSize: FontSize.HEADER.value,
+                              ),
                             ),
                           )
                         ],
@@ -163,9 +173,16 @@ class _EventDialogState extends State<EventDialog> {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, bottom: 6.0),
+          child: Image.asset(
+            Res.eventMoneyForeground,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
         Positioned(
           bottom: 0,
-          left: dialogWidth / 2 - 25,
+          left: (dialogWidth + 60) / 2 - 25,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +200,7 @@ class _EventDialogState extends State<EventDialog> {
                   icon: Icon(
                     Icons.close,
                     color: Colors.white,
-                    size: 48.0,
+                    size: 46.0,
                   ),
                   onPressed: () {
                     widget.onDialogClose();
@@ -193,7 +210,7 @@ class _EventDialogState extends State<EventDialog> {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

@@ -62,13 +62,13 @@ class _PromoDisplayState extends State<PromoDisplay>
     super.initState();
     _tabController = TabController(length: categories.length, vsync: this);
     _pageController = PageController();
-    _pageController.addListener(() {
-      if (_pageController.page % 1.0 == 0) {
-        print('page anim complete');
-        _setActiveTabIndex();
-      }
-    });
-//    _tabController.addListener(_setActiveTabIndex);
+    _tabController.addListener(_setActiveTabIndex);
+//    _pageController.addListener(() {
+//      if (_pageController.page % 1.0 == 0) {
+//        print('page anim complete');
+//        _setActiveTabIndex();
+//      }
+//    });
   }
 
   @override

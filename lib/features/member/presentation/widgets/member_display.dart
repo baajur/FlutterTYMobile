@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
@@ -158,7 +159,10 @@ class _MemberDisplayState extends State<MemberDisplay> with AfterLayoutMixin {
               children: gridItems
                   .map((item) => GestureDetector(
                         onTap: () => _itemTapped(item),
-                        child: _createGridItem(item.value),
+                        child: _createGridItem(
+                          item.value,
+                          item == gridItems[6],
+                        ),
                       ))
                   .toList(),
             ),
@@ -168,7 +172,7 @@ class _MemberDisplayState extends State<MemberDisplay> with AfterLayoutMixin {
     );
   }
 
-  Widget _createGridItem(RouteListItem itemValue) {
+  Widget _createGridItem(RouteListItem itemValue, bool addBadge) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black45,
@@ -179,9 +183,34 @@ class _MemberDisplayState extends State<MemberDisplay> with AfterLayoutMixin {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
+          if (addBadge)
+            Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 6.0),
-              child: networkImageBuilder(itemValue.imageName, imgScale: 2.0)),
+              child: Observer(
+                builder: (_) => Badge(
+                  showBadge: widget.store.hasNewMessage,
+                  badgeColor: Themes.hintHighlightRed,
+                  badgeContent: Container(
+                    margin: const EdgeInsets.all(1.0),
+                    child: Icon(
+                      const IconData(0xf129, fontFamily: 'FontAwesome'),
+                      color: Colors.white,
+                      size: 10.0,
+                    ),
+                  ),
+                  padding: EdgeInsets.zero,
+                  position: BadgePosition.topRight(top: -2, right: -6),
+                  child: networkImageBuilder(
+                    itemValue.imageName,
+                    imgScale: 2.0,
+                  ),
+                ),
+              ),
+            ),
+          if (!addBadge)
+            Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 6.0),
+                child: networkImageBuilder(itemValue.imageName, imgScale: 2.0)),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0),
             child: Text(

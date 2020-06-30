@@ -502,6 +502,10 @@
   "@messageInvalidPassword": {
     "type": "text"
   },
+  "messageInvalidPasswordNew": "密码为8~20个字",
+  "@messageInvalidPasswordNew": {
+    "type": "text"
+  },
   "messageInvalidConfirmPassword": "密码不符合",
   "@messageInvalidConfirmPassword": {
     "type": "text"

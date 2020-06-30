@@ -136,7 +136,7 @@ class PaymentTutorial extends StatelessWidget {
 //                  RoutePage.depositWeb,
 //                  arg: 'https://www.gamewallet.asia/version.php?fn=gp_a&latest',
 //                );
-//                Navigator.pop(context);
+//                Navigator.of(context).pop();
                       break;
                     case 82:
                       await launch('https://www.vip66729.com/pdf/cpw.pdf');

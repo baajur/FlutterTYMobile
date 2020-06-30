@@ -31,7 +31,7 @@ class ScreenDrawerItem extends GenericEnum<RouteListItem> {
   ));
   static ScreenDrawerItem wallet = ScreenDrawerItem._(RouteListItem(
     iconData: const IconData(0xf155, fontFamily: 'FontAwesome'),
-    route: RoutePage.wallet,
+    route: RoutePage.sideWallet,
     isUserOnly: true,
   ));
   static ScreenDrawerItem vip = ScreenDrawerItem._(RouteListItem(

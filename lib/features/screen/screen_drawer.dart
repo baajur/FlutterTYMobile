@@ -31,7 +31,7 @@ class ScreenDrawer extends StatelessWidget {
       return true;
     }
     if (item == ScreenDrawerItem.event) {
-      store.forceShowEvent = true;
+      store.setForceShowEvent = true;
       return true;
     }
     var route = item.value.route;
@@ -41,7 +41,10 @@ class ScreenDrawer extends StatelessWidget {
       // open web page
       RouterNavigate.replacePage(
         route,
-        arg: WebRouteArguments(startUrl: item.value.webUrl),
+        arg: WebRouteArguments(
+          startUrl: item.value.webUrl,
+          hideBars: true,
+        ),
       );
       return true;
     } else if (route.page != RouterNavigate.current) {
@@ -100,7 +103,7 @@ class ScreenDrawer extends StatelessWidget {
                             child: Text(localeStr.pageTitleLogin2),
                             onPressed: () {
                               if (viewState.scaffoldKey.currentState
-                                  .isDrawerOpen) Navigator.pop(context);
+                                  .isDrawerOpen) Navigator.of(context).pop();
                               RouterNavigate.navigateToPage(
                                 RoutePage.login,
                                 arg: LoginRouteArguments(
@@ -137,7 +140,7 @@ class ScreenDrawer extends StatelessWidget {
                           : _itemTapped(item)) {
                         // close the drawer
                         if (viewState.scaffoldKey.currentState.isDrawerOpen)
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
                       }
                     },
                     child: _buildListItem(item.value),

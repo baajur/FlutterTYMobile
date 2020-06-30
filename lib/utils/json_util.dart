@@ -41,6 +41,7 @@ class JsonUtil {
         MyLogger.warn(msg: 'decoded data list is empty!!', tag: tag);
       return decoded;
     } catch (e, s) {
+      print('exception: $e');
       if (returnNullOnError) {
         MyLogger.error(msg: 'decode json array error!!', tag: tag);
         return null;
@@ -82,7 +83,8 @@ class JsonUtil {
         : list.map((model) => jsonToModel(model) as T).toList();
     if (dataList.isEmpty && list.isNotEmpty) {
       MyLogger.error(
-          msg: 'mapped model list error!! data: $data\nmapped json: $list',
+          msg: 'mapped model list error!!'
+              'data: $data\nmapped json: $list',
           tag: tag);
       throw MapJsonDataException();
     } else {

@@ -224,7 +224,9 @@ class _RegisterRouteState extends State<RegisterRoute> {
                 builder: (_, snapshot) {
                   if (snapshot != null && snapshot.data != null) {
                     if (snapshot.data is UserEntity) {
-                      return LoginNavigate(true);
+                      return LoginNavigate(
+                        user: snapshot.data,
+                      );
                     } else if (snapshot.data is String) {
                       FLToast.showError(
                         text: localeStr.messageErrorAutoLogin,

@@ -146,7 +146,7 @@ class CustomizeFieldWidgetState extends State<CustomizeFieldWidget> {
     if (widget.prefixIconData != null) _smallWidgetHeight += 8.0;
 
     double fieldInsetHeight =
-        (widget.persistHint) ? 8 : (_smallWidgetHeight - 21.6) / 2;
+        (widget.persistHint) ? 4 : (_smallWidgetHeight - 21.6) / 2;
 
     _fieldInset = (widget.centerFieldText)
         ? EdgeInsets.only(left: 2.0)

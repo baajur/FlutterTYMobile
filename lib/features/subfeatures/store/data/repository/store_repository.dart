@@ -1,6 +1,6 @@
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/store/data/form/store_exchange_form.dart';
 import 'package:flutter_ty_mobile/utils/json_util.dart';
 import 'package:flutter_ty_mobile/utils/value_util.dart';

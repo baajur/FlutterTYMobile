@@ -1,12 +1,8 @@
-import 'package:flutter_ty_mobile/core/base/usecase_export.dart';
-import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/router/route_user_streams.dart'
-    show getRouteUserStreams;
+import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_repository.dart';
+import 'package:flutter_ty_mobile/features/router/route_user_streams.dart';
 import 'package:flutter_ty_mobile/features/user/data/entity/login_status.dart';
 import 'package:flutter_ty_mobile/features/user/data/entity/user_entity.dart';
-import 'package:mobx/mobx.dart';
-
-import '../../data/repository/member_repository.dart';
 
 part 'member_credit_store.g.dart';
 
@@ -31,6 +27,9 @@ abstract class _MemberCreditStore with Store {
   UserEntity user;
 
   @observable
+  bool hasNewMessage = false;
+
+  @observable
   ObservableFuture<Either<Failure, String>> _creditFuture;
 
   @observable
@@ -43,6 +42,20 @@ abstract class _MemberCreditStore with Store {
 
   void getUser() {
     user = getRouteUserStreams.lastUser.currentUser;
+  }
+
+  @action
+  Future<void> getNewMessageCount() async {
+    // Reset the possible previous error message.
+    errorMessage = null;
+    // ObservableFuture extends Future - it can be awaited and exceptions will propagate as usual.
+    await _repository.checkNewMessage().then((result) {
+      print('new message result: $result');
+      result.fold(
+        (failure) => errorMessage = failure.message,
+        (value) => hasNewMessage = value,
+      );
+    });
   }
 
   @action

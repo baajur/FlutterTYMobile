@@ -1,7 +1,7 @@
 import 'package:flutter_ty_mobile/core/store_export.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/form/withdraw_form.dart';
-import 'package:flutter_ty_mobile/features/subfeatures/bankcard/data/models/withdraw_model.dart';
 
+import '../../data/form/withdraw_form.dart';
+import '../../data/models/withdraw_model.dart';
 import '../../data/repository/withdraw_repository.dart';
 
 part 'withdraw_store.g.dart';

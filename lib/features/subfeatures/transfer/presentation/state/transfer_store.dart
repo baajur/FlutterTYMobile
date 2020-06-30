@@ -136,7 +136,7 @@ abstract class _TransferStore with Store {
           (data) {
             transferResult = data;
             if (data.isSuccess) {
-              Future.delayed(Duration(milliseconds: 500), () {
+              Future.delayed(Duration(milliseconds: 1000), () {
                 getBalance(form.from, isLimit: true);
                 getBalance(form.to);
               });

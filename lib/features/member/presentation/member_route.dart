@@ -23,6 +23,7 @@ class _MemberRouteState extends State<MemberRoute> {
     _store ??= sl.get<MemberCreditStore>();
     _store.getUser();
     super.initState();
+    _store.getNewMessageCount();
   }
 
   @override

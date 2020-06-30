@@ -1,6 +1,6 @@
 import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
 import 'package:flutter_ty_mobile/core/repository_export.dart';
-import 'package:flutter_ty_mobile/features/member/data/source/member_jwt_interface.dart';
+import 'package:flutter_ty_mobile/features/member/data/repository/member_jwt_interface.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/transactions/data/enum/transaction_date_enum.dart';
 import 'package:flutter_ty_mobile/utils/datetime_format.dart';
 import 'package:meta/meta.dart' show required;

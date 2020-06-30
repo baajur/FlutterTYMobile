@@ -56,103 +56,108 @@ class _WebGameScreenDrawerState extends State<WebGameScreenDrawer>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animationController,
-      builder: (context, _) => _buildDrawer(),
-    );
-  }
-
-  Widget _buildDrawer() {
-    return Material(
-      elevation: 8.0,
-      child: Container(
-        width: _widthAnimation.value,
-        height: Global.device.height,
-        color: Colors.black54,
-        child: Column(
-          children: [
-            if (widget.store.isScreenPortrait)
-              SizedBox(
-                height: (isCollapsed) ? 100 : 144,
-                child: DrawerHeader(
-                  decoration:
-                      BoxDecoration(color: Themes.defaultBackgroundColor),
-                  margin: const EdgeInsets.only(bottom: 4.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          'assets/images/vip/user_vip_$userLevel.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      if (!isCollapsed)
+      builder: (context, _) => Material(
+        elevation: 8.0,
+        child: Container(
+          width: _widthAnimation.value,
+          height: Global.device.height,
+          color: Colors.black54,
+          child: Column(
+            children: [
+              if (widget.store.isScreenPortrait)
+                SizedBox(
+                  height: (isCollapsed) ? 100 : 144,
+                  child: DrawerHeader(
+                    decoration:
+                        BoxDecoration(color: Themes.defaultBackgroundColor),
+                    margin: const EdgeInsets.only(bottom: 4.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                         Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 12.0),
-                            child: Text(
-                              username,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                          child: Image.asset(
+                            'assets/images/vip/user_vip_$userLevel.png',
+                            fit: BoxFit.contain,
                           ),
-                        )
-                    ],
+                        ),
+                        if (!isCollapsed)
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: Text(
+                                username,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                ),
+              Expanded(
+                child: ListView.separated(
+                  separatorBuilder: (_, index) {
+//                  return Divider(height: 12.0);
+                    return SizedBox(height: 4.0);
+                  },
+                  itemCount: itemList.length,
+                  itemBuilder: (_, index) {
+                    RouteListItem item = itemList[index].value;
+                    return WebGameScreenDrawerTile(
+                      item: item,
+                      animationController: _animationController,
+                      onTap: () {
+                        if (item.route == RoutePage.home) {
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text('tap button home')),
+                          );
+                          ScreenNavigate.switchScreen(
+                            force: true,
+                            screen: ScreenEnum.Feature,
+                          );
+                        } else {
+                          switch (index) {
+                            case 1:
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(content: Text('tap button rotate')),
+                              );
+                              widget.store.rotateScreenLeft();
+                              break;
+                            default:
+                              break;
+                          }
+                        }
+                        if (widget.scaffoldKey.currentState.isDrawerOpen)
+                          Navigator.of(context).pop();
+                      },
+                    );
+                  },
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text('tap list view')),
+                  );
+                  setState(() {
+                    isCollapsed = !isCollapsed;
+                    isCollapsed
+                        ? _animationController.reverse()
+                        : _animationController.forward();
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: AnimatedIcon(
+                    icon: AnimatedIcons.view_list,
+                    color: Themes.iconColorLightGrey,
+                    progress: _animationController,
+                    size: 30.0,
                   ),
                 ),
               ),
-            Expanded(
-              child: ListView.separated(
-                separatorBuilder: (_, index) {
-//                  return Divider(height: 12.0);
-                  return SizedBox(height: 4.0);
-                },
-                itemCount: itemList.length,
-                itemBuilder: (_, index) {
-                  RouteListItem item = itemList[index].value;
-                  return WebGameScreenDrawerTile(
-                    item: item,
-                    animationController: _animationController,
-                    onTap: () {
-                      if (item.route == RoutePage.home)
-                        ScreenNavigate.switchScreen(
-                          force: true,
-                          screen: ScreenEnum.Feature,
-                        );
-                      else {
-                        switch (index) {
-                          case 1:
-                            widget.store.rotateScreenLeft();
-                            break;
-                          default:
-                            break;
-                        }
-                      }
-                      if (widget.scaffoldKey.currentState.isDrawerOpen)
-                        Navigator.pop(context);
-                    },
-                  );
-                },
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  isCollapsed = !isCollapsed;
-                  isCollapsed
-                      ? _animationController.reverse()
-                      : _animationController.forward();
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: AnimatedIcon(
-                  icon: AnimatedIcons.view_list,
-                  color: Themes.iconColorLightGrey,
-                  progress: _animationController,
-                  size: 30.0,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

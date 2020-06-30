@@ -7,8 +7,9 @@ import 'state/web_route_store.dart';
 
 class WebRoute extends StatefulWidget {
   final String startUrl;
+  final bool hideBars;
 
-  const WebRoute({@required this.startUrl});
+  const WebRoute({@required this.startUrl, this.hideBars = false});
 
   @override
   _WebRouteState createState() => _WebRouteState();
@@ -102,6 +103,15 @@ class _WebRouteState extends State<WebRoute> {
                   setState(() {
                     _stackToView = 0;
                   });
+                }
+                if (widget.hideBars) {
+                  print('hiding web page bars');
+                  _controller.evaluateJavascript(
+                      "document.getElementsByClassName('el-header')[0].style.display='none';");
+                  _controller.evaluateJavascript(
+                      "document.getElementsByClassName('el-footer')[0].style.display='none';");
+                  _controller.evaluateJavascript(
+                      "document.getElementsByClassName('aside_bars')[0].style.display='none';");
                 }
 
                 print('web page loaded: $url');

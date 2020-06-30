@@ -30,6 +30,7 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
     ScreenNavigationBarItem.more,
   ];
 
+  FeatureScreenStore store;
   int _navIndex = 0;
   bool isUserTabs = false;
   bool showingEventDialog = false;
@@ -65,6 +66,7 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final viewState = FeatureScreenInheritedWidget.of(context);
+    store ??= viewState.store;
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -76,61 +78,57 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
           initialData: false,
           builder: (context, snapshot) {
             if (isUserTabs != snapshot.data) {
-              barWidget = _buildWidget(snapshot.data, viewState);
+              barWidget = _buildWidget(
+                snapshot.data,
+              );
             }
-            barWidget ??= _buildWidget(snapshot.data, viewState);
+            barWidget ??= _buildWidget(snapshot.data);
             isUserTabs = snapshot.data;
             return barWidget;
           }),
     );
   }
 
-  Widget _buildWidget(bool hasUser, FeatureScreenInheritedWidget viewState) {
+  Widget _buildWidget(bool hasUser) {
     return Observer(builder: (_) {
       // observe nav index to change icon icon color (setState does not work).
-      final index = viewState.store.navIndex;
+      final index = store.navIndex;
       if (index >= 0) _navIndex = index;
-      if (viewState.store.showEvent && !showingEventDialog) {
+      if (store.showEvent && !showingEventDialog) {
         showingEventDialog = true;
         Future.delayed(Duration(milliseconds: 1500), () {
-          if (viewState.store.navIndex != 0 ||
-              viewState.store.hasUser == false) {
-            showingEventDialog = false;
+          // will not show
+          if (store.hasUser == false ||
+              (store.navIndex != 0 && store.forceShowEvent == false)) {
+            stopEventAutoShow();
             return;
-          }
-          if (viewState.store.hasSignedEvent == false) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => new EventDialog(
-                event: viewState.store.event.eventData,
-                signCount: viewState.store.event.signData.times,
-                onSign: () => viewState.store.signEvent(),
-                onSignError: () => viewState.store.getEventError(),
-                onDialogClose: () {
-                  showingEventDialog = false;
-                },
-              ),
-            );
           } else {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => new EventDialogSigned(
-                event: viewState.store.event.eventData,
-                signCount: viewState.store.event.signData.times,
-                onDialogClose: () {
-                  showingEventDialog = false;
-                },
-              ),
-            );
+            // set to false so it will not pop on other pages
+            store.setForceShowEvent = false;
           }
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => (store.hasSignedEvent == false)
+                ? new EventDialog(
+                    event: store.event.eventData,
+                    signCount: store.event.signData.times,
+                    onSign: () => store.signEvent(),
+                    onSignError: () => store.getEventError(),
+                    onDialogClose: () => stopEventAutoShow(),
+                  )
+                : new EventDialogSigned(
+                    event: store.event.eventData,
+                    signCount: store.event.signData.times,
+                    onDialogClose: () => stopEventAutoShow(),
+                  ),
+          );
         });
       }
       return BottomNavigationBar(
         onTap: (index) {
-          print('store state user: ${viewState.store.userStatus}');
-          _itemTapped(index, viewState.store.hasUser);
+          print('store state user: ${store.userStatus}');
+          _itemTapped(index, store.hasUser);
         },
         currentIndex: _navIndex,
         type: BottomNavigationBarType.fixed,
@@ -142,11 +140,11 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
         items: (hasUser)
             ? List.generate(_userTabs.length, (index) {
                 var itemValue = _userTabs[index].value;
-                return _createBarItem(itemValue, index == 4, viewState.store);
+                return _createBarItem(itemValue, index == 4, store);
               })
             : List.generate(_tabs.length, (index) {
                 var itemValue = _tabs[index].value;
-                return _createBarItem(itemValue, index == 4, viewState.store);
+                return _createBarItem(itemValue, index == 4, store);
               }),
       );
     });
@@ -178,5 +176,12 @@ class _ScreenNavigationBarState extends State<ScreenNavigationBar> {
             Text(itemValue.replaceTitle ?? itemValue.route?.pageTitle ?? '?'),
       ),
     );
+  }
+
+  void stopEventAutoShow() {
+    if (store == null) return;
+    showingEventDialog = false;
+    // set to false so it will not pop again when return to home page
+    store.setShowEvent = false;
   }
 }
