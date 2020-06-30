@@ -101,8 +101,7 @@ class _CenterDisplayLottoState extends State<CenterDisplayLotto> {
       return Center(
         child: WarningDisplay(
           message:
-              Failure.internal(FailureCode(typeCode: FailureTypeCode.CENTER))
-                  .message,
+              Failure.internal(FailureCode(type: FailureType.CENTER)).message,
         ),
       );
     }

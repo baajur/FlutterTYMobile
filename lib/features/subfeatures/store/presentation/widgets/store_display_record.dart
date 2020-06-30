@@ -63,8 +63,7 @@ class _StoreDisplayRecordState extends State<StoreDisplayRecord>
       return Center(
         child: WarningDisplay(
           message:
-              Failure.internal(FailureCode(typeCode: FailureTypeCode.STORE))
-                  .message,
+              Failure.internal(FailureCode(type: FailureType.STORE)).message,
         ),
       );
     }

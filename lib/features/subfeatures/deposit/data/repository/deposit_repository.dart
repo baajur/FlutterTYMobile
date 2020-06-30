@@ -41,7 +41,7 @@ class DepositRepositoryImpl implements DepositRepository {
       jsonToModel: PaymentRaw.jsonToPaymentRaw,
       tag: 'remote-DEPOSIT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -58,7 +58,7 @@ class DepositRepositoryImpl implements DepositRepository {
       jsonToModel: PaymentPromo.jsonToPaymentPromo,
       tag: 'remote-DEPOSIT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -77,7 +77,7 @@ class DepositRepositoryImpl implements DepositRepository {
       jsonToModel: DepositResult.jsonToDepositResult,
       tag: 'remote-DEPOSIT',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

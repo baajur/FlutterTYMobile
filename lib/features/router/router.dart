@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:flutter_ty_mobile/template/mobx/presentation/template_route.dart';
-import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dart';
 
 import '../home/presentation/home_route.dart';
 import '../member/presentation/member_route.dart';
@@ -63,8 +62,6 @@ class $Router {
   TestAreaRoute testAreaRoute;
   @MaterialRoute(fullscreenDialog: true)
   TemplateRoute templateRoute;
-  @MaterialRoute(fullscreenDialog: true)
-  Template2Route template2Route;
 //  @CustomRoute(
 //    transitionsBuilder: TransitionsBuilders.zoomIn,
 //    durationInMilliseconds: 200,

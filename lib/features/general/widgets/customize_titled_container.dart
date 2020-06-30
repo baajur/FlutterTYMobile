@@ -78,7 +78,7 @@ class _CustomizeTitledContainerState extends State<CustomizeTitledContainer> {
     if (_prefixWidth < 56.0) _prefixWidth = 56.0;
 
     _smallWidgetHeight =
-        ((Platform.isAndroid) ? Themes.fieldHeight : Themes.fieldHeight + 8) *
+        ((Global.device.isIos) ? Themes.fieldHeight + 8 : Themes.fieldHeight) *
                 widget.heightFactor -
             widget.minusHeight;
     if (widget.prefixIconData != null) _smallWidgetHeight += 8.0;

@@ -55,7 +55,7 @@ class WalletRepositoryImpl implements WalletRepository {
         jsonToModel: WalletModel.jsonToWalletModel,
         tag: 'remote-WALLET',
       );
-      print('test response type: ${result.runtimeType}, data: $result');
+//      print('test response type: ${result.runtimeType}, data: $result');
       return result.fold(
         (failure) => Left(failure),
         (model) => (model.auto != '-1') ? Right(model) : Left(Failure.token()),
@@ -68,7 +68,7 @@ class WalletRepositoryImpl implements WalletRepository {
 
   @override
   Future<Either<Failure, String>> postWalletType(bool toSingle) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.post(
         WalletApi.POST_CHANGE,
         data: {
@@ -90,7 +90,7 @@ class WalletRepositoryImpl implements WalletRepository {
   }
 
   Future<List> _getPromiseList() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         WalletApi.GET_PROMISE,
         userToken: jwtInterface.token,

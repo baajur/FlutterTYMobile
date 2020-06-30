@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/user/data/form/login_form.dart';
 import 'package:flutter_ty_mobile/features/user/data/models/user_model.dart';
@@ -61,8 +61,7 @@ abstract class _RegisterStore with Store {
       waitForRegister = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.REGISTER))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.REGISTER)).message;
     }
   }
 
@@ -87,8 +86,7 @@ abstract class _RegisterStore with Store {
     } on Exception {
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.REGISTER))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.REGISTER)).message;
     }
   }
 

@@ -41,14 +41,16 @@ abstract class NoticeDataModel with _$NoticeDataModel {
 @freezed
 abstract class NoticeData with _$NoticeData {
   const factory NoticeData({
-    String content,
+    @JsonKey(name: 'content_cn') String content,
     String date,
     int sort,
   }) = _NoticeData;
 
   static NoticeData jsonToNoticeData(Map<String, dynamic> jsonMap) {
     return _$_NoticeData(
-      content: jsonMap['content'] as String,
+      content: (jsonMap.containsKey('content')
+          ? jsonMap['content']
+          : jsonMap['content_cn']) as String,
       date: jsonMap['date'] as String,
       sort: jsonMap['sort'] as int,
     );

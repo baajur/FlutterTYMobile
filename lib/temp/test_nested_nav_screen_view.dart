@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
@@ -20,33 +17,43 @@ class TestNestedNavScreenView extends StatefulWidget {
 
 class _TestNestedNavScreenViewState extends State<TestNestedNavScreenView> {
   DeviceOrientation _deviceOrientation;
-  StreamSubscription<DeviceOrientation> subscription;
+  DeviceOrientation _targetOrientation;
+//  StreamSubscription<DeviceOrientation> subscription;
   bool _lockAutoRotate = true;
+  bool _sensorBind = false;
   bool _sensorOn = false;
   int _rotateIndex;
 
   @override
   void initState() {
-    subscription = OrientationHelper.onOrientationChange.listen((value) {
-      // If the widget was removed from the tree while the asynchronous platform
-      // message was in flight, we want to discard the reply rather than calling
-      // setState to update our non-existent appearance.
-      if (!mounted) return;
-      setState(() {
-        if (!_lockAutoRotate) {
-          _deviceOrientation = value;
-          _rotateIndex = value.index;
-          print('auto rotate index: $_rotateIndex');
-          OrientationHelper.forceOrientation(value);
-        }
-      });
-    });
+//    subscription = OrientationHelper.onOrientationChange.listen((value) {
+//      // If the widget was removed from the tree while the asynchronous platform
+//      // message was in flight, we want to discard the reply rather than calling
+//      // setState to update our non-existent appearance.
+//      if (!mounted) return;
+//      setState(() {
+//        if (!_lockAutoRotate) {
+//          _deviceOrientation = value;
+//          _rotateIndex = value.index;
+//          print('auto rotate index: $_rotateIndex');
+//          OrientationHelper.forceOrientation(value);
+//          Scaffold.of(context).showSnackBar(
+//            SnackBar(content: Text('received from sensor: $value')),
+//          );
+//        } else {
+//          Scaffold.of(context).showSnackBar(
+//            SnackBar(
+//                content: Text('received from sensor, unlock rotate first!!')),
+//          );
+//        }
+//      });
+//    });
     super.initState();
   }
 
   @override
   void dispose() {
-    subscription?.cancel();
+//    subscription?.cancel();
     super.dispose();
   }
 
@@ -57,17 +64,23 @@ class _TestNestedNavScreenViewState extends State<TestNestedNavScreenView> {
             ? DeviceOrientation.portraitUp
             : DeviceOrientation.landscapeLeft;
     _rotateIndex ??= _deviceOrientation.index;
+    return (Global.device.isIos) ? _buildIosTest() : _buildAndroidTest();
+  }
+
+  Widget _buildAndroidTest() {
     return ListView(
       shrinkWrap: true,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.only(top: 12.0),
           child: RaisedButton(
             onPressed: () =>
                 ScreenNavigate.switchScreen(screen: ScreenEnum.Feature),
             child: Text('Return Home'),
           ),
         ),
+
+        /// First group
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text('Device: '),
@@ -93,51 +106,45 @@ class _TestNestedNavScreenViewState extends State<TestNestedNavScreenView> {
             ),
           ],
         ),
+
+        /// Second group
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.only(top: 20.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text('Orientation: '),
-              Text(_deviceOrientation.toString()),
+              Text('Current Orientation: '),
+              Text('$_deviceOrientation'),
             ],
           ),
         ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () {
-                _rotateIndex = _rotateIndex + 1;
-                if (_rotateIndex > 3) _rotateIndex = 0;
-                OrientationHelper.forceOrientation(
-                    DeviceOrientation.values[_rotateIndex]);
-                print('rotate index: $_rotateIndex');
-              },
-              child: Text('force'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                _lockAutoRotate = !_lockAutoRotate;
-                print('lock rotate: $_lockAutoRotate');
-              },
-              child: Text('lock/unlock'),
-            ),
-          ],
-        ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.only(top: 4.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text('Rotate Sensor: '),
-              StreamBuilder<dynamic>(
-                stream: PlatformUtil.sensorStream,
-                initialData: '-1',
+              Text('Auto Orientation: ${!_lockAutoRotate}'),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              StreamBuilder<DeviceOrientation>(
+                stream: OrientationHelper.onOrientationChange,
+                initialData: _deviceOrientation,
                 builder: (context, snapshot) {
-                  return Text(
-                      '${snapshot.data.toString()} (listener: $_sensorOn)');
+                  if (!_lockAutoRotate) {
+                    _deviceOrientation = snapshot.data;
+                    _rotateIndex = snapshot.data.index;
+                    print('auto rotate index: $_rotateIndex');
+                    OrientationHelper.forceOrientation(_deviceOrientation);
+                    return Text('Auto Rotate Index: ${snapshot.data.index}');
+                  } else {
+                    return Text('Auto Rotate Index: -1');
+                  }
                 },
               ),
             ],
@@ -149,26 +156,314 @@ class _TestNestedNavScreenViewState extends State<TestNestedNavScreenView> {
           children: <Widget>[
             RaisedButton(
               onPressed: () {
-                if (_sensorOn) {
-                  PlatformUtil.stopSensorListener();
-                  _sensorOn = false;
-                } else {
-                  PlatformUtil.enableSensorListener();
-                  _sensorOn = true;
-                }
+                setState(() {
+                  _lockAutoRotate = !_lockAutoRotate;
+                });
+                print('lock rotate: $_lockAutoRotate');
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('lock rotate: $_lockAutoRotate')),
+                );
               },
-              child: Text('sensor'),
+              child: Text('lock/unlock'),
+            ),
+            if (Global.device.isIos == false)
+              RaisedButton(
+                onPressed: () {
+                  if (_targetOrientation == _deviceOrientation)
+                    return _deviceOrientation;
+                  switch (_deviceOrientation) {
+                    case DeviceOrientation.portraitUp:
+                      _targetOrientation = DeviceOrientation.landscapeLeft;
+                      break;
+                    case DeviceOrientation.landscapeLeft:
+                      _targetOrientation = DeviceOrientation.portraitDown;
+                      break;
+                    case DeviceOrientation.portraitDown:
+                      _targetOrientation = DeviceOrientation.landscapeRight;
+                      break;
+                    case DeviceOrientation.landscapeRight:
+                      _targetOrientation = DeviceOrientation.portraitUp;
+                      break;
+                  }
+                  OrientationHelper.forceOrientation(_targetOrientation)
+                      .whenComplete(() {
+                    print('rotate complete: $_deviceOrientation');
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                          content:
+                              Text('rotate complete: $_targetOrientation')),
+                    );
+                    setState(() {
+                      _deviceOrientation = _targetOrientation;
+                      _targetOrientation = null;
+                    });
+                  });
+                },
+                child: Text('rotate android'),
+              ),
+          ],
+        ),
+
+        /// Third group (Android Only)
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text('Rotate Sensor: '),
+              StreamBuilder(
+                stream: PlatformUtil.sensorStream,
+                initialData: '-1',
+                builder: (context, snapshot) {
+                  return Text('${snapshot.data}');
+                },
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text('Bind Sensor Channel: $_sensorBind'),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text('Sensor Listener On: $_sensorOn'),
+            ],
+          ),
+        ),
+
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {
+                if (_sensorBind) {
+                  PlatformUtil.disableSensor();
+                } else {
+                  PlatformUtil.enableSensor();
+                }
+                setState(() {
+                  _sensorBind = !_sensorBind;
+                });
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('Bind Sensor = $_sensorBind')),
+                );
+              },
+              child: Text('bind/unbind'),
             ),
             RaisedButton(
               onPressed: () {
-                PlatformUtil.disableSensor();
+                if (_sensorOn) {
+                  PlatformUtil.pauseSensorListener();
+                } else {
+                  PlatformUtil.enableSensorListener();
+                }
+                setState(() {
+                  _sensorOn = !_sensorOn;
+                  if (_sensorOn && !_sensorBind) _sensorBind = true;
+                });
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('Sensor Listener = $_sensorOn')),
+                );
               },
-              child: Text('sensor off'),
+              child: Text('on/off'),
             ),
           ],
         ),
+
+        /// Forth group
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0, bottom: 4.0),
+          child: Text('Input Field'),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RaisedButton(
+              child: Text('dialog'),
+              onPressed: () => showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (context) => new TestInputDialog(),
+              ),
+            ),
+            RaisedButton(
+                child: Text('push'),
+                onPressed: () =>
+                    testNavigator.pushNamed(TestRoutes.testInputRoute)),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIosTest() {
+    return ListView(
+      shrinkWrap: true,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0),
+          child: RaisedButton(
+            onPressed: () =>
+                ScreenNavigate.switchScreen(screen: ScreenEnum.Feature),
+            child: Text('Return Home'),
+          ),
+        ),
+
+        /// First group
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text('Device: '),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () =>
+                  testNavigator.pushNamed(TestRoutes.testPermissionScreen),
+              child: Text('Permission'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                FLToast.showText(
+                  text: Global.device.toString(),
+                  position: FLToastPosition.top,
+                  showDuration: ToastDuration.DEFAULT.value,
+                );
+              },
+              child: Text('Size'),
+            ),
+          ],
+        ),
+
+        /// Second group
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text('Current Orientation: '),
+              Text('$_deviceOrientation'),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text('Auto Orientation: ${!_lockAutoRotate}'),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              StreamBuilder<DeviceOrientation>(
+                stream: OrientationHelper.onOrientationChange,
+                initialData: _deviceOrientation,
+                builder: (context, snapshot) {
+                  if (!_lockAutoRotate) {
+                    _deviceOrientation = snapshot.data;
+                    _rotateIndex = snapshot.data.index;
+                    print('auto rotate index: $_rotateIndex');
+                    OrientationHelper.forceOrientation(_deviceOrientation);
+                    return Text('Auto Rotate Index: ${snapshot.data.index}');
+                  } else {
+                    return Text('Auto Rotate Index: -1');
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {
+                setState(() {
+                  _lockAutoRotate = !_lockAutoRotate;
+                });
+                if (!_lockAutoRotate)
+                  OrientationHelper.unlockPreferredOrientations();
+                else
+                  OrientationHelper.setPreferredOrientations();
+                print('lock rotate: $_lockAutoRotate');
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('lock rotate: $_lockAutoRotate')),
+                );
+              },
+              child: Text('lock/unlock'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                if (_targetOrientation == _deviceOrientation)
+                  return _deviceOrientation;
+                switch (_deviceOrientation) {
+                  case DeviceOrientation.portraitUp:
+                    _targetOrientation = DeviceOrientation.landscapeLeft;
+                    break;
+                  case DeviceOrientation.landscapeLeft:
+                  case DeviceOrientation.portraitDown:
+                    _targetOrientation = DeviceOrientation.landscapeRight;
+                    break;
+                  case DeviceOrientation.landscapeRight:
+                    _targetOrientation = DeviceOrientation.portraitUp;
+                    break;
+                }
+                OrientationHelper.setDesiredOrientations(_targetOrientation);
+                PlatformUtil.setIosOrientation(_targetOrientation);
+                OrientationHelper.forceOrientation(_targetOrientation)
+                    .whenComplete(() {
+                  print('rotate complete: $_deviceOrientation');
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text('rotate complete: $_targetOrientation')),
+                  );
+                  setState(() {
+                    _deviceOrientation = _targetOrientation;
+                    _targetOrientation = null;
+                  });
+                });
+              },
+              child: Text('rotate ios'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                OrientationHelper.setPreferredOrientations();
+                PlatformUtil.setIosOrientation(DeviceOrientation.portraitUp);
+                setState(() {
+                  _lockAutoRotate = true;
+                  _deviceOrientation = DeviceOrientation.portraitUp;
+                  _targetOrientation = null;
+                });
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text('reset orientation')),
+                );
+              },
+              child: Text('reset'),
+            ),
+          ],
+        ),
+
+        /// Forth group
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0, bottom: 4.0),
           child: Text('Input Field'),
         ),
         Row(

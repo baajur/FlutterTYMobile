@@ -33,7 +33,6 @@ import 'package:flutter_ty_mobile/features/subfeatures/viplevel/presentation/vip
 import 'package:flutter_ty_mobile/features/subfeatures/store/presentation/store_route.dart';
 import 'package:flutter_ty_mobile/features/test_area_route.dart';
 import 'package:flutter_ty_mobile/template/mobx/presentation/template_route.dart';
-import 'package:flutter_ty_mobile/template/page/presentation/template2_route.dart';
 
 abstract class Routes {
   static const homeRoute = '/';
@@ -64,7 +63,6 @@ abstract class Routes {
   static const storeRoute = '/store-route';
   static const testAreaRoute = '/test-area-route';
   static const templateRoute = '/template-route';
-  static const template2Route = '/template2-route';
   static const all = {
     homeRoute,
     loginRoute,
@@ -94,7 +92,6 @@ abstract class Routes {
     storeRoute,
     testAreaRoute,
     templateRoute,
-    template2Route,
   };
 }
 
@@ -111,12 +108,8 @@ class Router extends RouterBase {
     final args = settings.arguments;
     switch (settings.name) {
       case Routes.homeRoute:
-        if (hasInvalidArgs<HomeRouteArguments>(args)) {
-          return misTypedArgsRoute<HomeRouteArguments>(args);
-        }
-        final typedArgs = args as HomeRouteArguments ?? HomeRouteArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (context) => HomeRoute(key: typedArgs.key),
+          builder: (context) => HomeRoute(),
           settings: settings,
         );
       case Routes.loginRoute:
@@ -301,12 +294,6 @@ class Router extends RouterBase {
           settings: settings,
           fullscreenDialog: true,
         );
-      case Routes.template2Route:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => Template2Route(),
-          settings: settings,
-          fullscreenDialog: true,
-        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -316,12 +303,6 @@ class Router extends RouterBase {
 // *************************************************************************
 // Arguments holder classes
 // **************************************************************************
-
-//HomeRoute arguments holder class
-class HomeRouteArguments {
-  final Key key;
-  HomeRouteArguments({this.key});
-}
 
 //LoginRoute arguments holder class
 class LoginRouteArguments {

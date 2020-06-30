@@ -1,4 +1,4 @@
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
 
 class PromoCategory {
   final int id;
@@ -6,47 +6,43 @@ class PromoCategory {
   final String label;
   final String iconUrl;
 
-  PromoCategory(this.id, this.category, this.label, this.iconUrl);
+  const PromoCategory(this.id, this.category, this.label, this.iconUrl);
 }
 
-class PromoCategoryEnum extends GenericEnum<PromoCategory> {
-  const PromoCategoryEnum._(PromoCategory value) : super(value);
+@VnumDefinition
+class PromoCategoryEnum extends Vnum<PromoCategory> {
+  /// Case Definition
+  static const PromoCategoryEnum all = const PromoCategoryEnum.define(
+      const PromoCategory(0, 'All', '全部', 'images/index/all.png'));
+  static const PromoCategoryEnum fish = const PromoCategoryEnum.define(
+      const PromoCategory(1, 'fish', '捕鱼', 'images/index/fish.png'));
+  static const PromoCategoryEnum slot = const PromoCategoryEnum.define(
+      const PromoCategory(2, 'slot', '电子', 'images/index/slot.png'));
+  static const PromoCategoryEnum live = const PromoCategoryEnum.define(
+      const PromoCategory(3, 'live', '真人', 'images/index/casino.png'));
+  static const PromoCategoryEnum sport = const PromoCategoryEnum.define(
+      const PromoCategory(4, 'sports', '体育', 'images/index/sport.png'));
+  static const PromoCategoryEnum lottery = const PromoCategoryEnum.define(
+      const PromoCategory(5, 'lotto', '彩票', 'images/index/lottery.png'));
+  static const PromoCategoryEnum other = const PromoCategoryEnum.define(
+      const PromoCategory(6, 'other', '其他', 'images/index/icon-other.png'));
 
-  static PromoCategoryEnum all = PromoCategoryEnum._(
-      PromoCategory(0, 'All', '全部', 'images/index/all.png'));
-  static PromoCategoryEnum fish = PromoCategoryEnum._(
-      PromoCategory(1, 'fish', '捕鱼', 'images/index/fish.png'));
-  static PromoCategoryEnum slot = PromoCategoryEnum._(
-      PromoCategory(2, 'slot', '电子', 'images/index/slot.png'));
-  static PromoCategoryEnum live = PromoCategoryEnum._(
-      PromoCategory(3, 'live', '真人', 'images/index/casino.png'));
-  static PromoCategoryEnum sport = PromoCategoryEnum._(
-      PromoCategory(4, 'sports', '体育', 'images/index/sport.png'));
-  static PromoCategoryEnum lottery = PromoCategoryEnum._(
-      PromoCategory(5, 'lotto', '彩票', 'images/index/lottery.png'));
-  static PromoCategoryEnum other = PromoCategoryEnum._(
-      PromoCategory(6, 'other', '其他', 'images/index/icon-other.png'));
-}
+  /// Used for defining cases
+  const PromoCategoryEnum.define(PromoCategory fromValue)
+      : super.define(fromValue);
 
-extension PromoCategoryExtension on int {
-  PromoCategoryEnum get getPromoCategory {
-    switch (this) {
-      case 0:
-        return PromoCategoryEnum.all;
-      case 1:
-        return PromoCategoryEnum.fish;
-      case 2:
-        return PromoCategoryEnum.slot;
-      case 3:
-        return PromoCategoryEnum.live;
-      case 4:
-        return PromoCategoryEnum.sport;
-      case 5:
-        return PromoCategoryEnum.lottery;
-      case 6:
-        return PromoCategoryEnum.other;
-      default:
-        return PromoCategoryEnum.other;
-    }
-  }
+  /// Used for loading enum using value
+  factory PromoCategoryEnum(PromoCategory value) =>
+      Vnum.fromValue(value, PromoCategoryEnum);
+
+  /// Iterating cases
+  Iterable get listAll => Vnum.allCasesFor(PromoCategoryEnum);
+
+  /// (optional) Extend your Vnums
+  //PromoCategory example() {
+  //  switch(value) {
+  //    default:
+  //      return PromoCategoryEnum.example.value;
+  //  };
+  //}
 }

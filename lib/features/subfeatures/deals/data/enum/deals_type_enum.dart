@@ -1,12 +1,21 @@
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
 
-class DealsTypeEnum extends GenericEnum<int> {
-  const DealsTypeEnum._(int value) : super(value);
+@VnumDefinition
+class DealsTypeEnum extends Vnum<int> {
+  /// Case Definition
+  static const DealsTypeEnum ALL = const DealsTypeEnum.define(0);
+  static const DealsTypeEnum DEPOSIT = const DealsTypeEnum.define(1);
+  static const DealsTypeEnum WITHDRAW = const DealsTypeEnum.define(2);
+  static const DealsTypeEnum BONUS = const DealsTypeEnum.define(3);
 
-  static const DealsTypeEnum ALL = DealsTypeEnum._(0);
-  static const DealsTypeEnum DEPOSIT = DealsTypeEnum._(1);
-  static const DealsTypeEnum WITHDRAW = DealsTypeEnum._(2);
-  static const DealsTypeEnum BONUS = DealsTypeEnum._(3);
+  /// Used for defining cases
+  const DealsTypeEnum.define(int fromValue) : super.define(fromValue);
+
+  /// Used for loading enum using value
+  factory DealsTypeEnum(int value) => Vnum.fromValue(value, DealsTypeEnum);
+
+  /// Iterating cases
+  Iterable get listAll => Vnum.allCasesFor(DealsTypeEnum);
 
   static const List<DealsTypeEnum> LIST = [
     DealsTypeEnum.ALL,

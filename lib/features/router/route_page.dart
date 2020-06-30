@@ -2,33 +2,35 @@ import 'package:flutter_ty_mobile/core/error/exceptions.dart'
     show UnknownConditionException;
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart'
     show localeStr;
-import 'package:generic_enum/generic_enum.dart';
 
 import 'route_info.dart';
 import 'router.gr.dart';
 
-class RoutePage extends GenericEnum<RouteInfo> {
-  const RoutePage._(RouteInfo info) : super(info);
+import 'package:vnum/vnum.dart';
 
-  static RoutePage home = RoutePage._(RouteInfo(
+@VnumDefinition
+class RoutePage extends Vnum<RouteInfo> {
+  /// Case Definition
+  static RoutePage home = RoutePage.define(RouteInfo(
     route: Routes.homeRoute,
-    title: localeStr.pageTitleHome,
+//    title: localeStr.pageTitleHome,
+    title: '',
     isFeature: true,
     bottomNavIndex: 0,
     hideAppbarActions: false,
   ));
 
-  static RoutePage login = RoutePage._(RouteInfo(
+  static RoutePage login = RoutePage.define(RouteInfo(
     route: Routes.loginRoute,
     title: localeStr.pageTitleLogin,
   ));
 
-  static RoutePage register = RoutePage._(RouteInfo(
+  static RoutePage register = RoutePage.define(RouteInfo(
     route: Routes.registerRoute,
     title: localeStr.pageTitleRegister,
   ));
 
-  static RoutePage promo = RoutePage._(RouteInfo(
+  static RoutePage promo = RoutePage.define(RouteInfo(
     route: Routes.promoRoute,
     title: localeStr.pageTitlePromo,
     isFeature: true,
@@ -36,118 +38,125 @@ class RoutePage extends GenericEnum<RouteInfo> {
     hideAppbarActions: false,
   ));
 
-  static RoutePage service = RoutePage._(RouteInfo(
+  static RoutePage service = RoutePage.define(RouteInfo(
     route: Routes.serviceRoute,
     title: localeStr.pageTitleService,
     bottomNavIndex: 3,
     hideAppbarActions: false,
   ));
 
-  static RoutePage member = RoutePage._(RouteInfo(
+  static RoutePage member = RoutePage.define(RouteInfo(
     route: Routes.memberRoute,
     title: localeStr.pageTitleMember,
     isFeature: true,
     bottomNavIndex: 4,
   ));
 
-  static RoutePage deposit = RoutePage._(RouteInfo(
+  static RoutePage deposit = RoutePage.define(RouteInfo(
     route: Routes.depositRoute,
     title: localeStr.pageTitleDeposit,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage depositWeb = RoutePage._(RouteInfo(
+  static RoutePage depositWeb = RoutePage.define(RouteInfo(
     route: Routes.depositWebPage,
     title: localeStr.pageTitleDeposit,
     parentRoute: Routes.depositRoute,
   ));
 
-  static RoutePage transfer = RoutePage._(RouteInfo(
+  static RoutePage transfer = RoutePage.define(RouteInfo(
     route: Routes.transferRoute,
     title: localeStr.pageTitleMemberTransfer,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage bankcard = RoutePage._(RouteInfo(
+  static RoutePage bankcard = RoutePage.define(RouteInfo(
     route: Routes.bankcardRoute,
     title: localeStr.pageTitleMemberCard,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage withdraw = RoutePage._(RouteInfo(
+  static RoutePage withdraw = RoutePage.define(RouteInfo(
     route: Routes.bankcardRoute,
     title: localeStr.pageTitleMemberWithdraw,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage balance = RoutePage._(RouteInfo(
+  static RoutePage balance = RoutePage.define(RouteInfo(
     route: Routes.balanceRoute,
     title: localeStr.pageTitleMemberBalance,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage wallet = RoutePage._(RouteInfo(
+  static RoutePage wallet = RoutePage.define(RouteInfo(
     route: Routes.walletRoute,
     title: localeStr.pageTitleMemberWallet,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage message = RoutePage._(RouteInfo(
+  static RoutePage message = RoutePage.define(RouteInfo(
     route: Routes.messageRoute,
     title: localeStr.pageTitleMemberMessage,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage center = RoutePage._(RouteInfo(
+  static RoutePage center = RoutePage.define(RouteInfo(
     route: Routes.centerRoute,
     title: localeStr.pageTitleMemberCenter,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage centerPassword = RoutePage._(RouteInfo(
+  static RoutePage centerPassword = RoutePage.define(RouteInfo(
     route: Routes.centerPasswordPage,
     title: localeStr.pageTitleMemberPassword,
     parentRoute: Routes.centerRoute,
   ));
 
-  static RoutePage centerWeb = RoutePage._(RouteInfo(
+  static RoutePage centerWeb = RoutePage.define(RouteInfo(
     route: Routes.centerWebPage,
     title: localeStr.pageTitleMemberCenter,
     parentRoute: Routes.centerRoute,
   ));
 
-  static RoutePage transaction = RoutePage._(RouteInfo(
+  static RoutePage transaction = RoutePage.define(RouteInfo(
     route: Routes.transactionRoute,
     title: localeStr.pageTitleMemberTransaction,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage betRecord = RoutePage._(RouteInfo(
+  static RoutePage betRecord = RoutePage.define(RouteInfo(
     route: Routes.betRecordRoute,
     title: localeStr.pageTitleMemberBets,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage deals = RoutePage._(RouteInfo(
+  static RoutePage deals = RoutePage.define(RouteInfo(
     route: Routes.dealsRoute,
     title: localeStr.pageTitleMemberDeals,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage flows = RoutePage._(RouteInfo(
+  static RoutePage flows = RoutePage.define(RouteInfo(
     route: Routes.flowsRoute,
     title: localeStr.pageTitleMemberFlow,
     parentRoute: Routes.memberRoute,
   ));
 
-  static RoutePage agent = RoutePage._(RouteInfo(
+  static RoutePage agentFeature = RoutePage.define(RouteInfo(
     route: Routes.agentRoute,
     title: localeStr.pageTitleMemberAgent,
-    parentRoute: Routes.memberRoute,
+    parentRoute: Routes.homeRoute,
+    isFeature: true,
     bottomNavIndex: 1,
   ));
 
-  static RoutePage moreWeb = RoutePage._(RouteInfo(
+  static RoutePage agent = RoutePage.define(RouteInfo(
+    route: Routes.agentRoute,
+    title: localeStr.pageTitleMemberAgent,
+    parentRoute: Routes.memberRoute,
+  ));
+
+  static RoutePage moreWeb = RoutePage.define(RouteInfo(
     route: Routes.moreWebPage,
     title: '',
     parentRoute: Routes.homeRoute,
@@ -155,54 +164,64 @@ class RoutePage extends GenericEnum<RouteInfo> {
   ));
 
   /// side menu route
-  static RoutePage downloadArea = RoutePage._(RouteInfo(
+  static RoutePage downloadArea = RoutePage.define(RouteInfo(
     route: Routes.downloadAreaRoute,
     title: localeStr.pageTitleDownload,
     showDrawer: true,
   ));
 
-  static RoutePage noticeBoard = RoutePage._(RouteInfo(
+  static RoutePage noticeBoard = RoutePage.define(RouteInfo(
     route: Routes.noticeRoute,
     title: localeStr.pageTitleNotice,
     showDrawer: true,
   ));
 
-  static RoutePage sideWallet = RoutePage._(RouteInfo(
+  static RoutePage sideWallet = RoutePage.define(RouteInfo(
     route: Routes.walletRoute,
     title: localeStr.pageTitleMemberWallet,
     showDrawer: true,
   ));
 
-  static RoutePage vipLevel = RoutePage._(RouteInfo(
+  static RoutePage vipLevel = RoutePage.define(RouteInfo(
     route: Routes.levelRoute,
     title: localeStr.pageTitleRank,
     showDrawer: true,
   ));
 
-  static RoutePage pointStore = RoutePage._(RouteInfo(
+  static RoutePage pointStore = RoutePage.define(RouteInfo(
     route: Routes.storeRoute,
     title: localeStr.pageTitleStore,
     showDrawer: true,
   ));
 
   /// test route
-  static RoutePage template = RoutePage._(RouteInfo(
+  static RoutePage template = RoutePage.define(RouteInfo(
     route: Routes.templateRoute,
     title: 'Test Mobx',
   ));
 
-  static RoutePage template2 = RoutePage._(RouteInfo(
-    route: Routes.template2Route,
-    title: 'Test Bloc',
-  ));
-
-  static RoutePage testArea = RoutePage._(RouteInfo(
+  static RoutePage testArea = RoutePage.define(RouteInfo(
     route: Routes.testAreaRoute,
     title: 'Test Widget',
   ));
-}
 
-extension RouterPageInfoExtension on RoutePage {
+  /// Used for defining cases
+  const RoutePage.define(RouteInfo fromValue) : super.define(fromValue);
+
+  /// Used for loading enum using value
+  factory RoutePage(RouteInfo value) => Vnum.fromValue(value, RoutePage);
+
+  /// Iterating cases
+  List<Vnum> get listAll => Vnum.allCasesFor(RoutePage);
+
+  /// (optional) Extend your Vnums
+  //RouteInfo example() {
+  //  switch(value) {
+  //    default:
+  //      return RoutePage.example.value;
+  //  };
+  //}
+
   String get page => value.route;
   String get pageTitle => value.title;
   String get pageRoot => value.parentRoute;
@@ -235,8 +254,6 @@ extension PagesNameExtension on String {
         return RoutePage.center;
       case Routes.templateRoute:
         return RoutePage.template;
-      case Routes.template2Route:
-        return RoutePage.template2;
       case Routes.testAreaRoute:
         return RoutePage.testArea;
       default:

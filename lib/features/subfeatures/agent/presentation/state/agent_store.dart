@@ -111,8 +111,7 @@ abstract class _AgentStore with Store {
     } on Exception {
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 
@@ -135,8 +134,7 @@ abstract class _AgentStore with Store {
       waitForAgentResponse = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 
@@ -159,8 +157,7 @@ abstract class _AgentStore with Store {
       waitForAgentResponse = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 
@@ -187,8 +184,7 @@ abstract class _AgentStore with Store {
       waitForAgentResponse = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 
@@ -217,8 +213,7 @@ abstract class _AgentStore with Store {
       waitForAgentResponse = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 
@@ -246,8 +241,7 @@ abstract class _AgentStore with Store {
       waitForAgentResponse = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 
@@ -270,8 +264,7 @@ abstract class _AgentStore with Store {
       waitForAgentResponse = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 
@@ -302,8 +295,7 @@ abstract class _AgentStore with Store {
       waitForAgentResponse = false;
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.AGENT)).message;
     }
   }
 

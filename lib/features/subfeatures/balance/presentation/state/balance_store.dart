@@ -1,5 +1,5 @@
 import 'package:flutter_ty_mobile/core/internal/local_strings.dart';
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/balance/data/repository/balance_repository.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/balance/presentation/enum/balance_grid_action.dart';
@@ -84,8 +84,7 @@ abstract class _BalanceStore with Store {
       );
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.BALANCE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.BALANCE)).message;
     }
   }
 
@@ -121,8 +120,7 @@ abstract class _BalanceStore with Store {
       });
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.BALANCE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.BALANCE)).message;
     }
   }
 
@@ -148,8 +146,7 @@ abstract class _BalanceStore with Store {
       );
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.BALANCE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.BALANCE)).message;
     }
   }
 
@@ -169,8 +166,7 @@ abstract class _BalanceStore with Store {
       ).whenComplete(() => print('credit limit: $creditLimit'));
     } on Exception {
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.BALANCE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.BALANCE)).message;
     }
   }
 
@@ -204,8 +200,7 @@ abstract class _BalanceStore with Store {
     } on Exception {
       waitForTransferResult = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.TRANSFER))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.TRANSFER)).message;
     }
   }
 

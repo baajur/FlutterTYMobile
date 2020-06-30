@@ -3,11 +3,11 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_ty_mobile/features/exports_for_display_widget.dart';
+import 'package:flutter_ty_mobile/features/general/widgets/tabs_page_control_widget.dart';
 
 import '../../data/models/promo_category.dart';
 import '../../data/models/promo_freezed.dart';
 import 'promo_detail.dart';
-import 'promo_display_view.dart';
 import 'promo_list_view.dart';
 
 /// Display promo category and items
@@ -187,7 +187,7 @@ class _PromoDisplayState extends State<PromoDisplay>
   void afterFirstLayout(BuildContext context) async {
     print('open promo id: ${widget.showPromoId}');
     if (contentWidget == null) {
-      contentWidget = new PromoDisplayView(
+      contentWidget = new TabsPageControlWidget(
         pageController: _pageController,
         tabController: _tabController,
         children: categories.map(

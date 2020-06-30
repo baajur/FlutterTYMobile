@@ -34,7 +34,7 @@ class MessageRepositoryImpl implements MessageRepository {
       trim: false,
       tag: 'remote-MESSAGE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (list) => Right(list),
@@ -48,7 +48,7 @@ class MessageRepositoryImpl implements MessageRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-MESSAGE_STATUS',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (data) => Right(data),

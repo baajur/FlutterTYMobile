@@ -1,16 +1,13 @@
-import 'package:flutter_ty_mobile/core/network/dio_api_service.dart';
-import 'package:flutter_ty_mobile/core/network/handler/data_request_handler.dart'
-    show requestData;
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/repository_export.dart';
 import 'package:flutter_ty_mobile/features/general/data/user/user_token_storage.dart';
-import 'package:flutter_ty_mobile/features/router/route_user_streams.dart';
+import 'package:flutter_ty_mobile/features/router/route_user_streams.dart'
+    show getRouteUserStreams;
 import 'package:flutter_ty_mobile/features/user/data/repository/user_repository.dart'
     show UserApi;
-import 'package:flutter_ty_mobile/mylogger.dart';
-import 'package:meta/meta.dart' show required;
 
 abstract class MemberJwtInterface {
   String account;
+  String accountId;
   String token;
 
   /// Calls the service [UserApi.JWT_CHECK] endpoint to verify [token].
@@ -19,6 +16,7 @@ abstract class MemberJwtInterface {
     String loginAccount,
     String loginToken,
   });
+
   Future<void> clearToken();
 }
 
@@ -55,20 +53,30 @@ class MemberJwtInterfaceImpl implements MemberJwtInterface {
     if (loginAccount != null && loginToken != null) {
       account = loginAccount;
       token = loginToken;
-      return requestData<RequestStatusModel>(
+      return await requestModel<RequestStatusModel>(
         request: dioApiService.post(UserApi.JWT_CHECK,
             userToken: loginToken, data: {"href": href}),
         jsonToModel: RequestStatusModel.jsonToStatusModel,
         tag: 'remote-JWT',
+      ).then(
+        (result) => result.fold(
+          (failure) => RequestStatusModel(status: 'failed', msg: 'no user'),
+          (status) => status,
+        ),
       );
     } else {
-      return await _readToken().then((canContinue) {
+      return await _readToken().then((canContinue) async {
         if (canContinue)
-          return requestData<RequestStatusModel>(
+          return await requestModel<RequestStatusModel>(
             request: dioApiService.post(UserApi.JWT_CHECK,
                 userToken: token, data: {"href": href}),
             jsonToModel: RequestStatusModel.jsonToStatusModel,
             tag: 'remote-JWT',
+          ).then(
+            (result) => result.fold(
+              (failure) => RequestStatusModel(status: 'failed', msg: 'no user'),
+              (status) => status,
+            ),
           );
         else
           return RequestStatusModel(status: 'failed', msg: 'no user');
@@ -79,6 +87,7 @@ class MemberJwtInterfaceImpl implements MemberJwtInterface {
   @override
   Future<void> clearToken() => Future.sync(() {
         token = '';
+        accountId = '';
         MyLogger.info(msg: 'jwt token cleared', tag: 'MemberJwtInterface');
       });
 
@@ -87,4 +96,7 @@ class MemberJwtInterfaceImpl implements MemberJwtInterface {
 
   @override
   String account = '';
+
+  @override
+  String accountId = '';
 }

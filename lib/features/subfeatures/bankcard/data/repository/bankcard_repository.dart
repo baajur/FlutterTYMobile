@@ -87,8 +87,8 @@ class BankcardRepositoryImpl implements BankcardRepository {
           } catch (e) {
             MyLogger.error(
                 msg: 'banks data is not a map!!', error: e, tag: tag);
-            return Left(Failure.internal(
-                FailureCode(typeCode: FailureTypeCode.BANKCARD)));
+            return Left(
+                Failure.internal(FailureCode(type: FailureType.BANKCARD)));
           }
         } else {
           return Left(Failure.jsonFormat());
@@ -119,8 +119,8 @@ class BankcardRepositoryImpl implements BankcardRepository {
           } catch (e) {
             MyLogger.error(
                 msg: 'province data is not a map!!', error: e, tag: tag);
-            return Left(Failure.internal(
-                FailureCode(typeCode: FailureTypeCode.BANKCARD)));
+            return Left(
+                Failure.internal(FailureCode(type: FailureType.BANKCARD)));
           }
         } else {
           return Left(Failure.jsonFormat());
@@ -152,8 +152,8 @@ class BankcardRepositoryImpl implements BankcardRepository {
                 MapEntry<String, String>(key, value.toString())));
           } catch (e) {
             MyLogger.error(msg: 'area data is not a map!!', error: e, tag: tag);
-            return Left(Failure.internal(
-                FailureCode(typeCode: FailureTypeCode.BANKCARD)));
+            return Left(
+                Failure.internal(FailureCode(type: FailureType.BANKCARD)));
           }
         } else {
           return Left(Failure.jsonFormat());
@@ -174,7 +174,7 @@ class BankcardRepositoryImpl implements BankcardRepository {
       jsonToModel: RequestStatusModel.jsonToStatusModel,
       tag: 'remote-BANKCARD_NEW',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

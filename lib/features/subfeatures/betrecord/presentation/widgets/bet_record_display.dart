@@ -197,8 +197,8 @@ class _BetRecordDisplayState extends State<BetRecordDisplay>
     if (widget.store == null || categories == null || categories.isEmpty) {
       return Center(
         child: WarningDisplay(
-          message: Failure.internal(FailureCode(typeCode: FailureTypeCode.BETS))
-              .message,
+          message:
+              Failure.internal(FailureCode(type: FailureType.BETS)).message,
         ),
       );
     }

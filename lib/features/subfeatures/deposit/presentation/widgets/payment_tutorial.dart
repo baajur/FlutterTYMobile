@@ -5,7 +5,7 @@ import 'package:flutter_ty_mobile/core/internal/themes.dart';
 import 'package:flutter_ty_mobile/features/general/widgets/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../data/entity/payment_enum.dart';
+import '../../data/entity/payment_enum_data.dart';
 
 class PaymentTutorial extends StatelessWidget {
   final List tutorialData;

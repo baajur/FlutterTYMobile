@@ -33,14 +33,19 @@ class LoginNavigate extends StatelessWidget {
       }
 
       // navigate to home or member route
-      Future.delayed(Duration(milliseconds: 1500)).whenComplete(() {
+      Future.delayed(Duration(milliseconds: 1000)).whenComplete(() {
         try {
           dismiss();
-          if (ScreenNavigate.screenIndex == 2)
+          if (ScreenNavigate.screenIndex == 2) {
             ScreenNavigate.switchScreen();
-          else if (returnHomePage) {
-            if (closeDialog) Navigator.of(context).pop();
-            RouterNavigate.navigateClean(force: true);
+          } else if (returnHomePage) {
+            if (closeDialog) {
+              Future.delayed(Duration(milliseconds: 100), () {
+                Navigator.of(context).pop();
+              }).whenComplete(() => RouterNavigate.navigateClean(force: true));
+            } else {
+              RouterNavigate.navigateClean(force: true);
+            }
           } else {
             RouterNavigate.navigateToPage(RoutePage.member);
           }

@@ -33,7 +33,7 @@ class MemberRepositoryImpl implements MemberRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-MEMBER',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -49,7 +49,7 @@ class MemberRepositoryImpl implements MemberRepository {
 
   @override
   Future<Either<Failure, String>> updateCredit(String account) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.get(
         MemberApi.GET_LIMIT,
         userToken: jwtInterface.token,

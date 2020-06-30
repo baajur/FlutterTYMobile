@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart'
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart'
     show RequestStatusModel;
 
 class LocationException implements Exception {}

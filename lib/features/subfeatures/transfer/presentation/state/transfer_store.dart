@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/network/handler/request_status_freezed.dart';
+import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
 import 'package:flutter_ty_mobile/core/store_export.dart';
 
 import '../../data/form/transfer_form.dart';
@@ -147,8 +147,7 @@ abstract class _TransferStore with Store {
     } on Exception {
       waitForTransferResult = false;
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.TRANSFER))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.TRANSFER)).message;
     }
   }
 

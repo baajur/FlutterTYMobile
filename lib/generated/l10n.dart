@@ -123,11 +123,21 @@ class S {
     );
   }
 
-  /// `Lucky Roulette`
+  /// `Lucky Roller`
   String get pageTitleRoller {
     return Intl.message(
-      'Lucky Roulette',
+      'Lucky Roller',
       name: 'pageTitleRoller',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Word Collect`
+  String get pageTitleCollect {
+    return Intl.message(
+      'Word Collect',
+      name: 'pageTitleCollect',
       desc: '',
       args: [],
     );
@@ -593,6 +603,26 @@ class S {
     );
   }
 
+  /// `On`
+  String get btnOn {
+    return Intl.message(
+      'On',
+      name: 'btnOn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Off`
+  String get btnOff {
+    return Intl.message(
+      'Off',
+      name: 'btnOff',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Return`
   String get sideBtnBackHome {
     return Intl.message(
@@ -603,11 +633,21 @@ class S {
     );
   }
 
-  /// `Rotate`
+  /// `Rotate Left`
   String get sideBtnRotate {
     return Intl.message(
-      'Rotate',
+      'Rotate Left',
       name: 'sideBtnRotate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lock Rotate`
+  String get sideBtnLockRotate {
+    return Intl.message(
+      'Lock Rotate',
+      name: 'sideBtnLockRotate',
       desc: '',
       args: [],
     );

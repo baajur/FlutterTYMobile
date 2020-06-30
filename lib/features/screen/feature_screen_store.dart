@@ -38,6 +38,7 @@ abstract class _FeatureScreenStore with Store {
         signedTimes = null;
       }
     });
+    if (getRouteUserStreams.hasUser) userStatus = getRouteUserStreams.lastUser;
     userStatus ??= LoginStatus(loggedIn: false);
   }
 

@@ -43,6 +43,10 @@
   "@pageTitleRoller": {
     "type": "text"
   },
+  "pageTitleCollect": "集字活动",
+  "@pageTitleCollect": {
+    "type": "text"
+  },
   "pageTitleDeposit": "充值",
   "@pageTitleDeposit": {
     "type": "text"
@@ -232,12 +236,24 @@
   "@btnShow": {
     "type": "text"
   },
+  "btnOn": "开",
+  "@btnOn": {
+    "type": "text"
+  },
+  "btnOff": "关",
+  "@btnOff": {
+    "type": "text"
+  },
   "sideBtnBackHome": "回首页",
   "@sideBtnBackHome": {
     "type": "text"
   },
   "sideBtnRotate": "旋转屏幕",
   "@sideBtnRotate": {
+    "type": "text"
+  },
+  "sideBtnLockRotate": "锁定旋屏",
+  "@sideBtnLockRotate": {
     "type": "text"
   },
   "spinnerDateAll": "全部时间",

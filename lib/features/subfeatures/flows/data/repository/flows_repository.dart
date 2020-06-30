@@ -30,7 +30,7 @@ class FlowsRepositoryImpl implements FlowsRepository {
       jsonToModel: FlowModel.jsonToFlowModel,
       tag: 'remote-FLOW',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (list) => Right(list),

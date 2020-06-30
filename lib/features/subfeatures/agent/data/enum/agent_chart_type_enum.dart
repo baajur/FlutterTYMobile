@@ -1,12 +1,23 @@
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
 
-class AgentChartType extends GenericEnum<String> {
-  const AgentChartType._(String value) : super(value);
+@VnumDefinition
+class AgentChartType extends Vnum<String> {
+  static const AgentChartType PLATFORM =
+      const AgentChartType.define('platform');
 
-  static const AgentChartType PLATFORM = AgentChartType._('platform');
+  static const AgentChartType CATEGORY =
+      const AgentChartType.define('category');
 
-  static const AgentChartType CATEGORY = AgentChartType._('category');
+  /// Used for defining cases
+  const AgentChartType.define(String fromValue) : super.define(fromValue);
 
+  /// Used for loading enum using value
+  factory AgentChartType(String value) => Vnum.fromValue(value, AgentChartType);
+
+  /// Iterating cases
+  Iterable get listAll => Vnum.allCasesFor(AgentChartType);
+
+  /// (optional) Extend your Vnums
   static const List<AgentChartType> LIST = [
     AgentChartType.PLATFORM,
     AgentChartType.CATEGORY,

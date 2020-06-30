@@ -17,9 +17,9 @@ class CenterDialogCpw extends StatelessWidget {
   static final GlobalKey<DialogWidgetState> _dialogKey =
       new GlobalKey(debugLabel: 'cpw');
 
-  final String appUrl = (Platform.isAndroid)
-      ? 'https://www.gamewallet.asia/version.php?latest&fn=gp_a&dev=android'
-      : 'https://www.gamewallet.asia/version.php?latest&fn=gp_a&dev=iphone';
+  final String appUrl = (Global.device.isIos)
+      ? 'https://www.gamewallet.asia/version.php?latest&fn=gp_a&dev=iphone'
+      : 'https://www.gamewallet.asia/version.php?latest&fn=gp_a&dev=android';
 
   @override
   Widget build(BuildContext context) {

@@ -54,8 +54,7 @@ abstract class _NoticeStore with Store {
     } on Exception {
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.NOTICE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.NOTICE)).message;
     }
   }
 

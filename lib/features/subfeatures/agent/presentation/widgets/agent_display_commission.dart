@@ -109,8 +109,7 @@ class _AgentDisplayCommissionState extends State<AgentDisplayCommission>
       return Center(
         child: WarningDisplay(
           message:
-              Failure.internal(FailureCode(typeCode: FailureTypeCode.AGENT))
-                  .message,
+              Failure.internal(FailureCode(type: FailureType.AGENT)).message,
         ),
       );
     }

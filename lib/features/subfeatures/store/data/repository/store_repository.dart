@@ -56,7 +56,7 @@ class StoreRepositoryImpl implements StoreRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -88,7 +88,7 @@ class StoreRepositoryImpl implements StoreRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -118,7 +118,7 @@ class StoreRepositoryImpl implements StoreRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -196,7 +196,7 @@ class StoreRepositoryImpl implements StoreRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -212,7 +212,7 @@ class StoreRepositoryImpl implements StoreRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),
@@ -233,7 +233,7 @@ class StoreRepositoryImpl implements StoreRepository {
       jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) {
@@ -260,7 +260,7 @@ class StoreRepositoryImpl implements StoreRepository {
 
   @override
   Future<Either<Failure, Map<String, String>>> getProvinces() async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.post(
         StoreApi.POST_PROVINCE,
         userToken: jwtInterface.token,
@@ -268,7 +268,7 @@ class StoreRepositoryImpl implements StoreRepository {
       allowJsonString: true,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (str) {
@@ -289,7 +289,7 @@ class StoreRepositoryImpl implements StoreRepository {
 
   @override
   Future<Either<Failure, Map<String, String>>> getMapByCode(String code) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.post(
         StoreApi.POST_CITY,
         data: {"code": code},
@@ -298,7 +298,7 @@ class StoreRepositoryImpl implements StoreRepository {
       allowJsonString: true,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (str) {
@@ -319,7 +319,7 @@ class StoreRepositoryImpl implements StoreRepository {
 
   @override
   Future<Either<Failure, dynamic>> postExchange(StoreExchangeForm form) async {
-    final result = await requestRawData(
+    final result = await requestDataString(
       request: dioApiService.post(
         StoreApi.POST_EXCHANGE,
         data: form.toJson,
@@ -328,7 +328,7 @@ class StoreRepositoryImpl implements StoreRepository {
       allowJsonString: true,
       tag: 'remote-STORE',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (str) {

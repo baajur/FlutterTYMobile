@@ -34,7 +34,7 @@ class DealsRepositoryImpl implements DealsRepository {
       jsonToModel: DealsModel.jsonToDealsModel,
       tag: 'remote-DEALS',
     );
-    print('test response type: ${result.runtimeType}, data: $result');
+//    print('test response type: ${result.runtimeType}, data: $result');
     return result.fold(
       (failure) => Left(failure),
       (model) => Right(model),

@@ -113,7 +113,7 @@ class CustomizeDropdownWidgetState extends State<CustomizeDropdownWidget> {
     _postfixWidth = _viewWidth * widget.suffixWidthFactor;
 
     _smallWidgetHeight =
-        ((Platform.isAndroid) ? Themes.fieldHeight : Themes.fieldHeight + 8) -
+        ((Global.device.isIos) ? Themes.fieldHeight + 8 : Themes.fieldHeight) -
             widget.minusHeight;
     if (widget.prefixIconData != null) _smallWidgetHeight += 8.0;
 

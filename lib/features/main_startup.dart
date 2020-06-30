@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 
 import '../core/internal/device.dart';
@@ -43,7 +45,7 @@ class _MainStartupState extends State<MainStartup> {
   }
 
   void getDeviceInfo(BuildContext context) {
-    Global.device = Device(MediaQuery.of(context));
+    Global.device = Device(MediaQuery.of(context), Platform.isIOS);
     print('Device Size: ${Global.device}');
   }
 

@@ -5,8 +5,11 @@ import 'package:rxdart/rxdart.dart';
 class OrientationHelper {
   static void restoreUI() {
     try {
+      print('restoring UI...');
       // Rotate to normal
       forceOrientationEasy();
+      // Lock Screen Orientation
+      setPreferredOrientations();
       // restore the screen to normal SystemUiOverlay
       enabledSystemUIOverlays();
     } on Exception catch (e) {
@@ -33,14 +36,29 @@ class OrientationHelper {
         [DeviceOrientation.portraitUp]);
   }
 
+  static Future<void> setDesiredOrientations(DeviceOrientation orientation) {
+    return OrientationPlugin.setPreferredOrientations([orientation]);
+  }
+
+  static Future<void> unlockPreferredOrientations() {
+    return OrientationPlugin.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+  }
+
   static Future<void> forceOrientation(DeviceOrientation orientation) {
     print('force rotate: $orientation');
     return OrientationPlugin.forceOrientation(orientation);
   }
 
-  static Future<void> forceOrientationEasy(
-      {bool isPortrait = true, bool isReversed = false}) {
-    print('force rotate portrate: $isPortrait, reversed: $isReversed');
+  static Future<void> forceOrientationEasy({
+    bool isPortrait = true,
+    bool isReversed = false,
+  }) {
+    print('force rotate portrait: $isPortrait, reversed: $isReversed');
     DeviceOrientation ori;
     if (isPortrait && !isReversed)
       ori = DeviceOrientation.portraitUp;

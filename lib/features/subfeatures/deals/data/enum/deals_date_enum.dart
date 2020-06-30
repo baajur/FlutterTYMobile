@@ -1,12 +1,21 @@
-import 'package:generic_enum/generic_enum.dart';
+import 'package:vnum/vnum.dart';
 
-class DealsDateEnum extends GenericEnum<int> {
-  const DealsDateEnum._(int value) : super(value);
+@VnumDefinition
+class DealsDateEnum extends Vnum<int> {
+  /// Case Definition
+  static const DealsDateEnum TODAY = const DealsDateEnum.define(0);
+  static const DealsDateEnum YESTERDAY = const DealsDateEnum.define(1);
+  static const DealsDateEnum MONTH = const DealsDateEnum.define(2);
+  static const DealsDateEnum ALL = const DealsDateEnum.define(3);
 
-  static const DealsDateEnum TODAY = DealsDateEnum._(0);
-  static const DealsDateEnum YESTERDAY = DealsDateEnum._(1);
-  static const DealsDateEnum MONTH = DealsDateEnum._(2);
-  static const DealsDateEnum ALL = DealsDateEnum._(3);
+  /// Used for defining cases
+  const DealsDateEnum.define(int fromValue) : super.define(fromValue);
+
+  /// Used for loading enum using value
+  factory DealsDateEnum(int value) => Vnum.fromValue(value, DealsDateEnum);
+
+  /// Iterating cases
+  Iterable get listAll => Vnum.allCasesFor(DealsDateEnum);
 
   static const List<DealsDateEnum> LIST = [
     DealsDateEnum.TODAY,

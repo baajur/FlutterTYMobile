@@ -55,8 +55,7 @@ abstract class _MessageStore with Store {
     } on Exception {
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.MESSAGE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.MESSAGE)).message;
     }
   }
 
@@ -76,8 +75,7 @@ abstract class _MessageStore with Store {
     } on Exception {
       //errorMessage = "Couldn't fetch description. Is the device online?";
       errorMessage =
-          Failure.internal(FailureCode(typeCode: FailureTypeCode.MESSAGE))
-              .message;
+          Failure.internal(FailureCode(type: FailureType.MESSAGE)).message;
     }
   }
 }
