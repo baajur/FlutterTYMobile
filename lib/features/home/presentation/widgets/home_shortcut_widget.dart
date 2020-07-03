@@ -64,9 +64,10 @@ class HomeShortcutWidgetState extends State<HomeShortcutWidget> {
     _leftAreaMinWidth = FontSize.NORMAL.value * 6;
     _leftAreaMaxWidth = FontSize.NORMAL.value * 9.5 + 10.0;
 
+    if (Global.device.isIos) _leftAreaMinWidth += 8;
     if (Global.device.width > 600)
-      _leftAreaMaxWidth = _leftAreaMaxWidth * 2;
-    else if (Global.device.isIos) _leftAreaMaxWidth += 16;
+      _leftAreaMaxWidth = _leftAreaMaxWidth * 3;
+    else if (Global.device.isIos) _leftAreaMaxWidth += 8;
 
     if (_leftAreaMinWidth < availableWidth) _leftAreaMinWidth = availableWidth;
     if (_leftAreaMaxWidth < _leftAreaMinWidth)

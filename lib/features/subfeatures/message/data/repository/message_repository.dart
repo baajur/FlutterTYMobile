@@ -45,7 +45,7 @@ class MessageRepositoryImpl implements MessageRepository {
   Future<Either<Failure, RequestCodeModel>> updateMessageStatus(int id) async {
     final result = await requestModel<RequestCodeModel>(
       request: dioApiService.get(MessageApi.GET_READ_STATUS, data: {'rid': id}),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-MESSAGE_STATUS',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');

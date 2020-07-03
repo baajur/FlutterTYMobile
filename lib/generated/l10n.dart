@@ -4373,6 +4373,16 @@ class S {
     );
   }
 
+  /// `Prize image error, please check the order.`
+  String get wheelMessageErrorPrizeUrl {
+    return Intl.message(
+      'Prize image error, please check the order.',
+      name: 'wheelMessageErrorPrizeUrl',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Time`
   String get wheelOrderTableTextTime {
     return Intl.message(

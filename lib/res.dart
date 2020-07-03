@@ -41,4 +41,9 @@ class Res {
   static const String homeMemberAreaIconTransfer =
       "/images/index/idxusico_tsf.png";
   static const String homeMemberAreaIconVip = "/images/index/idxusico_vip.png";
+
+  static const String roller_title = "assets/images/roller/title.png";
+  static const String roller_top = "assets/images/roller/top_bg.jpg";
+  static const String roller_wheel_8 = "assets/images/roller/wheel8.png";
+  static const String roller_btn_go = "assets/images/roller/go.png";
 }

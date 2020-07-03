@@ -194,6 +194,12 @@ class RoutePage extends Vnum<RouteInfo> {
     showDrawer: true,
   ));
 
+  static RoutePage roller = RoutePage.define(RouteInfo(
+    route: Routes.rollerRoute,
+    title: localeStr.pageTitleRoller,
+    showDrawer: true,
+  ));
+
   /// test route
   static RoutePage template = RoutePage.define(RouteInfo(
     route: Routes.templateRoute,

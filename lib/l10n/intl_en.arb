@@ -1930,6 +1930,10 @@
   "@wheelTextTitleRules": {
     "type": "text"
   },
+  "wheelMessageErrorPrizeUrl": "Prize image error, please check the order.",
+  "@wheelMessageErrorPrizeUrl": {
+    "type": "text"
+  },
   "wheelOrderTableTextTime": "Time",
   "@wheelOrderTableTextTime": {
     "type": "text"

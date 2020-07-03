@@ -582,6 +582,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wheelApplyTableTextStatus" : MessageLookupByLibrary.simpleMessage("状态"),
     "wheelApplyTableTextStatus0" : MessageLookupByLibrary.simpleMessage("未达成"),
     "wheelApplyTableTextStatus1" : MessageLookupByLibrary.simpleMessage("已达成"),
+    "wheelMessageErrorPrizeUrl" : MessageLookupByLibrary.simpleMessage("奖品图片错误，请查看获奖纪录"),
     "wheelOrderTableTextPrize" : MessageLookupByLibrary.simpleMessage("奖项"),
     "wheelOrderTableTextStatus" : MessageLookupByLibrary.simpleMessage("派发状态"),
     "wheelOrderTableTextStatus0" : MessageLookupByLibrary.simpleMessage("未派发"),

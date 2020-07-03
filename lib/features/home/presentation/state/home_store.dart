@@ -141,7 +141,7 @@ abstract class _HomeStore with Store {
 
   @computed
   HomeStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if (_initFuture == null || _initFuture.status == FutureStatus.rejected) {
       return HomeStoreState.initial;
     }

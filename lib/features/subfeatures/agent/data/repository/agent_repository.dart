@@ -176,7 +176,7 @@ class AgentRepositoryImpl implements AgentRepository {
         },
         userToken: jwtInterface.token,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-AGENT_LEDGER',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -244,7 +244,7 @@ class AgentRepositoryImpl implements AgentRepository {
         data: {'adsId': id},
         userToken: jwtInterface.token,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-AGENT_MERGE_AD',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');

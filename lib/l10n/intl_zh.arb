@@ -1921,6 +1921,10 @@
   "@wheelTextTitleRules": {
     "type": "text"
   },
+  "wheelMessageErrorPrizeUrl": "奖品图片错误，请查看获奖纪录",
+  "@wheelMessageErrorPrizeUrl": {
+    "type": "text"
+  },
   "wheelOrderTableTextTime": "时间",
   "@wheelOrderTableTextTime": {
     "type": "text"

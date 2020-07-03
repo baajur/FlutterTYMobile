@@ -24,7 +24,7 @@ abstract class _VipLevelStore with Store {
 
   @computed
   VipLevelStoreState get state {
-    // If the user has not yet triggerd a action or there has been an error
+    // If the user has not yet triggered a action or there has been an error
     if (_levelFuture == null || _levelFuture.status == FutureStatus.rejected) {
       return VipLevelStoreState.initial;
     }

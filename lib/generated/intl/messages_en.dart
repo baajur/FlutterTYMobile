@@ -585,6 +585,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wheelApplyTableTextStatus" : MessageLookupByLibrary.simpleMessage("Status"),
     "wheelApplyTableTextStatus0" : MessageLookupByLibrary.simpleMessage("Not reached"),
     "wheelApplyTableTextStatus1" : MessageLookupByLibrary.simpleMessage("Achieved"),
+    "wheelMessageErrorPrizeUrl" : MessageLookupByLibrary.simpleMessage("Prize image error, please check the order."),
     "wheelOrderTableTextPrize" : MessageLookupByLibrary.simpleMessage("Awards"),
     "wheelOrderTableTextStatus" : MessageLookupByLibrary.simpleMessage("Dispatch Status"),
     "wheelOrderTableTextStatus0" : MessageLookupByLibrary.simpleMessage("Not dispatched"),

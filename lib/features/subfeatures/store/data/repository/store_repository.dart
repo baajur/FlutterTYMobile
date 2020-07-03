@@ -53,7 +53,7 @@ class StoreRepositoryImpl implements StoreRepository {
         StoreApi.POST_BANNER,
         userToken: jwtInterface.token,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-STORE',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -85,7 +85,7 @@ class StoreRepositoryImpl implements StoreRepository {
         userToken: jwtInterface.token,
         param: (productId != null) ? {'productid': productId} : null,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-STORE',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -115,7 +115,7 @@ class StoreRepositoryImpl implements StoreRepository {
         StoreApi.POST_POINT,
         userToken: jwtInterface.token,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-STORE',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -193,7 +193,7 @@ class StoreRepositoryImpl implements StoreRepository {
         StoreApi.POST_PLATFORM_DOLLAR,
         userToken: jwtInterface.token,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-STORE',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -209,7 +209,7 @@ class StoreRepositoryImpl implements StoreRepository {
         StoreApi.POST_RULES,
         userToken: jwtInterface.token,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-STORE',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -230,7 +230,7 @@ class StoreRepositoryImpl implements StoreRepository {
         param: (form is StoreExchangeHistoryInit) ? form.toJson() : null,
         data: (form is StoreExchangeHistoryQuery) ? form.toJson() : null,
       ),
-      jsonToModel: RequestCodeModel.jsonToRequestCodeModel,
+      jsonToModel: RequestCodeModel.jsonToCodeModel,
       tag: 'remote-STORE',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -335,8 +335,8 @@ class StoreRepositoryImpl implements StoreRepository {
         try {
           Map<String, dynamic> map = jsonDecode(str);
           if (map.containsKey('code'))
-            return Right(JsonUtil.decodeToModel(map,
-                (jsonMap) => RequestCodeModel.jsonToRequestCodeModel(jsonMap)));
+            return Right(JsonUtil.decodeToModel(
+                map, (jsonMap) => RequestCodeModel.jsonToCodeModel(jsonMap)));
           else
             return Right(JsonUtil.decodeToModel(map,
                 (jsonMap) => RequestStatusModel.jsonToStatusModel(jsonMap)));
