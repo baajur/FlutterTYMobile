@@ -133,7 +133,7 @@ Future<Either<Failure, dynamic>> requestData({
 Future<Either<Failure, T>> requestModel<T>({
   @required Future<Response<dynamic>> request,
   @required Function(Map<String, dynamic> jsonMap) jsonToModel,
-  bool trim = true,
+  bool trim = false,
   String tag = 'remote-MODEL',
 }) async {
   return await runTask(_makeRequest(request: request)).then((result) {
@@ -148,7 +148,7 @@ Future<Either<Failure, T>> requestModel<T>({
 Future<Either<Failure, List<T>>> requestModelList<T>({
   @required Future<Response<dynamic>> request,
   @required Function(Map<String, dynamic> jsonMap) jsonToModel,
-  bool trim = true,
+  bool trim = false,
   bool addKey = true,
   String tag = 'remote-MODEL_LIST',
 }) async {

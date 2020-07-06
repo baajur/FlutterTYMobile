@@ -31,7 +31,6 @@ class MessageRepositoryImpl implements MessageRepository {
     final result = await requestModelList<MessageModel>(
       request: dioApiService.get(MessageApi.GET_STATION),
       jsonToModel: MessageModel.jsonToMessageModel,
-      trim: false,
       tag: 'remote-MESSAGE',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');

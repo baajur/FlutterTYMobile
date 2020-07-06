@@ -59,7 +59,6 @@ class RollerRepositoryImpl implements RollerRepository {
     final result = await requestModel<RequestCodeModel>(
       request: dioApiService.get(RollerApi.GET_RULE),
       jsonToModel: RequestCodeModel.jsonToCodeModel,
-      trim: false,
       tag: 'remote-ROLLER',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -73,7 +72,6 @@ class RollerRepositoryImpl implements RollerRepository {
     final result = await requestModel<RequestCodeModel>(
       request: dioApiService.get(RollerApi.GET_PRIZE),
       jsonToModel: RequestCodeModel.jsonToCodeModel,
-      trim: false,
       tag: 'remote-ROLLER',
     );
 //    print('test response type: ${result.runtimeType}, data: $result');
@@ -146,7 +144,6 @@ class RollerRepositoryImpl implements RollerRepository {
     final result = await requestModel<RequestCodeModel>(
       request: dioApiService.get(RollerApi.GET_ORDER),
       jsonToModel: RequestCodeModel.jsonToCodeModel,
-      trim: false,
       tag: 'remote-ROLLER',
     );
     print('test response type: ${result.runtimeType}, data: $result');
@@ -171,7 +168,6 @@ class RollerRepositoryImpl implements RollerRepository {
     final result = await requestModel<RequestCodeModel>(
       request: dioApiService.get(RollerApi.GET_RECORD),
       jsonToModel: RequestCodeModel.jsonToCodeModel,
-      trim: false,
       tag: 'remote-ROLLER',
     );
     print('test response type: ${result.runtimeType}, data: $result');
@@ -196,7 +192,6 @@ class RollerRepositoryImpl implements RollerRepository {
     final result = await requestModel<RequestCodeModel>(
       request: dioApiService.post(RollerApi.POST_REQUIREMENT),
       jsonToModel: RequestCodeModel.jsonToCodeModel,
-      trim: false,
       tag: 'remote-ROLLER',
     );
     print('test response type: ${result.runtimeType}, data: $result');

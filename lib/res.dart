@@ -3,6 +3,7 @@ class Res {
   //  static const String fontawesome_webfont = "assets/fonts/fontawesome_webfont.ttf";
   static const String iconBarLogoTy = "assets/images/icon_bar_logo_ty.png";
   static const String iconBarLogoEg = "assets/images/icon_bar_logo_eg.png";
+  static const String iconPending = "assets/images/icon_pending.png";
 
 //  static const String tbico_casino = "assets/images/index/tbico_casino.png";
 //  static const String tbico_slot = "assets/images/index/tbico_slot.png";

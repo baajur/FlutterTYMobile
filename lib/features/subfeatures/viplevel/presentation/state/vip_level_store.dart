@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/core/mobx_store_export.dart';
 import 'package:flutter_ty_mobile/features/subfeatures/viplevel/data/models/vip_level_model.dart';
 
 import '../../data/repository/vip_repository.dart';

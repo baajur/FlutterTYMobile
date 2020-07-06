@@ -411,7 +411,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "messageInvalidPhone" : MessageLookupByLibrary.simpleMessage("电话格式错误"),
     "messageInvalidVerify" : MessageLookupByLibrary.simpleMessage("请输入验证码"),
     "messageInvalidWechat" : MessageLookupByLibrary.simpleMessage("微信号格式错误"),
-    "messageInvalidWithdrawPassword" : MessageLookupByLibrary.simpleMessage("密码为4~8个字"),
+    "messageInvalidWithdrawPassword" : MessageLookupByLibrary.simpleMessage("密码为4~20个字"),
     "messageLoginFailed" : MessageLookupByLibrary.simpleMessage("登入失败"),
     "messageLogout" : m28,
     "messageNoEvent" : MessageLookupByLibrary.simpleMessage("当前没有活动"),

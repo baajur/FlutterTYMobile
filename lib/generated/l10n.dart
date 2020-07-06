@@ -1243,10 +1243,10 @@ class S {
     );
   }
 
-  /// `Password is 4 ~ 8 words`
+  /// `Password is 4~20 characters`
   String get messageInvalidWithdrawPassword {
     return Intl.message(
-      'Password is 4 ~ 8 words',
+      'Password is 4~20 characters',
       name: 'messageInvalidWithdrawPassword',
       desc: '',
       args: [],

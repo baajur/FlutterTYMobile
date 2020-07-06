@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/core/mobx_store_export.dart';
 
 import '../../data/form/bet_record_form.dart';
 import '../../data/models/bet_record_type_model.dart';

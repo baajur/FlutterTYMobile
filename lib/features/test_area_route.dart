@@ -22,7 +22,6 @@ class _TestAreaRouteState extends State<TestAreaRoute> with AfterLayoutMixin {
       alignment: Alignment.center,
       child: Wheel(),
     );
-    return Container();
   }
 
   @override

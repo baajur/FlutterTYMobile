@@ -19,6 +19,7 @@ abstract class EventModel with _$EventModel {
         signData: jsonMap['signData'] == null
             ? null
             : EventSignData.jsonToEventSignData(jsonMap['signData']),
+        hasData: !(jsonMap.containsKey('msg') && jsonMap['msg'] == 'noData'),
       );
 }
 

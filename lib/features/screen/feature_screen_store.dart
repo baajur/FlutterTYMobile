@@ -1,4 +1,4 @@
-import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/core/mobx_store_export.dart';
 import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
 import 'package:flutter_ty_mobile/features/router/route_user_streams.dart'
     show getRouteUserStreams;
@@ -31,7 +31,7 @@ abstract class _FeatureScreenStore with Store {
         await getNewMessageCount();
         await getEvent();
       } else {
-        showEvent = false;
+        showEventOnHome = false;
         forceShowEvent = false;
         hasSignedEvent = false;
         hasNewMessage = false;
@@ -89,16 +89,18 @@ abstract class _FeatureScreenStore with Store {
   EventModel get event => _event;
 
   @observable
-  bool showEvent = false;
+  bool showEventOnHome = false;
 
   bool forceShowEvent = false;
 
+  bool get hasEvent => _event.hasData && _event.showDialog(user.vip);
+
   set setShowEvent(bool show) {
-    showEvent = show;
+    showEventOnHome = show;
   }
 
   set setForceShowEvent(bool show) {
-    showEvent = (!show) ? showEvent : true;
+    showEventOnHome = (!show) ? showEventOnHome : true;
     forceShowEvent = show;
   }
 
@@ -139,12 +141,12 @@ abstract class _FeatureScreenStore with Store {
         (failure) => errorMessage = failure.message,
         (model) {
           _event = model;
-          showEvent =
+          showEventOnHome =
               _event.hasData && _event.showDialog(user.vip) && _event.canSign;
           forceShowEvent = false;
           hasSignedEvent = _event.canSign == false;
           signedTimes = _event.signData?.times ?? 0;
-          print('event show: $showEvent, has signed: $hasSignedEvent');
+          print('event show: $showEventOnHome, has signed: $hasSignedEvent');
         },
       );
     });
@@ -169,7 +171,7 @@ abstract class _FeatureScreenStore with Store {
           if (model.isSuccess == false) {
             errorMessage = localeStr.eventButtonSignUpFailed;
           } else if (model.data is bool) {
-            showEvent = false;
+            showEventOnHome = false;
             forceShowEvent = false;
             hasSignedEvent = true;
             signedTimes = (_event.signData?.times ?? 0) + 1;

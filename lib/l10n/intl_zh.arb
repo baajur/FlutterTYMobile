@@ -555,7 +555,7 @@
   "@messageInvalidCardBankPoint": {
     "type": "text"
   },
-  "messageInvalidWithdrawPassword": "密码为4~8个字",
+  "messageInvalidWithdrawPassword": "密码为4~20个字",
   "@messageInvalidWithdrawPassword": {
     "type": "text"
   },

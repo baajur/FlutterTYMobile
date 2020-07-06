@@ -1,5 +1,5 @@
 import 'package:flutter_ty_mobile/core/network/handler/request_status_model.dart';
-import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/core/mobx_store_export.dart';
 
 import '../../data/form/transfer_form.dart';
 import '../../data/models/transfer_platform_model.dart';

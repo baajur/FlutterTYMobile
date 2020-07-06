@@ -34,14 +34,12 @@ class GridItemMix extends StatelessWidget {
           id: RelativeId('img', alignment: Alignment.topCenter),
           child: Container(
 //            margin: const EdgeInsets.only(bottom: 12.0),
-            constraints: BoxConstraints(
-              maxWidth: itemSize,
-              maxHeight: itemSize,
-            ),
+            constraints: BoxConstraints.tight(Size(itemSize, itemSize)),
             child: (imgUrl != null)
                 ? Transform.scale(
                     scale: (isPlatform) ? 1.15 : 0.9,
-                    child: networkImageBuilder(imgUrl, fill: true),
+                    child: networkImageBuilder(imgUrl,
+                        addPendingIconOnError: true),
                   )
                 : Center(child: Icon(Icons.broken_image)),
           ),

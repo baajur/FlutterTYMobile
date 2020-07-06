@@ -33,7 +33,6 @@ List<RollerRequirementType> decodeRollerRequirementType(dynamic str) {
     return JsonUtil.decodeMapToModelList(
       str,
       (jsonMap) => RollerRequirementType.jsonToRequirementType(jsonMap),
-      trim: false,
       addKey: false,
       tag: 'RollerRequirementModel',
     );
@@ -48,7 +47,6 @@ List<RollerRequirementCurrent> decodeRollerRequirementCurrent(dynamic str) {
     return JsonUtil.decodeMapToModelList(
       str,
       (jsonMap) => RollerRequirementCurrent.jsonToRequirementCurrent(jsonMap),
-      trim: false,
       tag: 'RollerRequirementModel',
     );
   } catch (e) {

@@ -101,15 +101,15 @@ mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
   final _$showEventAtom = Atom(name: '_FeatureScreenStore.showEvent');
 
   @override
-  bool get showEvent {
+  bool get showEventOnHome {
     _$showEventAtom.reportRead();
-    return super.showEvent;
+    return super.showEventOnHome;
   }
 
   @override
-  set showEvent(bool value) {
-    _$showEventAtom.reportWrite(value, super.showEvent, () {
-      super.showEvent = value;
+  set showEventOnHome(bool value) {
+    _$showEventAtom.reportWrite(value, super.showEventOnHome, () {
+      super.showEventOnHome = value;
     });
   }
 
@@ -172,7 +172,7 @@ mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
 errorMessage: $errorMessage,
 pageInfo: $pageInfo,
 userStatus: $userStatus,
-showEvent: $showEvent,
+showEvent: $showEventOnHome,
 hasSignedEvent: $hasSignedEvent,
 hasNewMessage: $hasNewMessage,
 navIndex: $navIndex,

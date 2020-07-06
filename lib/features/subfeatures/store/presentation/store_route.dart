@@ -70,8 +70,8 @@ class _StoreRouteState extends State<StoreRoute> {
   }
 
   @override
-  void dispose() async {
-    await _store.closeStreams();
+  void dispose() {
+    _store.closeStreams();
     _disposers.forEach((d) => d());
     super.dispose();
   }

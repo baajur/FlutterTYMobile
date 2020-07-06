@@ -3,7 +3,7 @@ import 'dart:async' show StreamSubscription;
 import 'package:flutter/services.dart' show DeviceOrientation;
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/orientation_helper.dart';
-import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/core/mobx_store_export.dart';
 import 'package:flutter_ty_mobile/utils/platform_util.dart';
 
 part 'web_game_screen_store.g.dart';

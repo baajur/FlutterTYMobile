@@ -556,7 +556,7 @@
   "@messageInvalidCardBankPoint": {
     "type": "text"
   },
-  "messageInvalidWithdrawPassword": "Password is 4 ~ 8 words",
+  "messageInvalidWithdrawPassword": "Password is 4~20 characters",
   "@messageInvalidWithdrawPassword": {
     "type": "text"
   },

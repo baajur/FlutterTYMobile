@@ -1,6 +1,6 @@
 import 'dart:collection' show HashMap;
 
-import 'package:flutter_ty_mobile/core/store_export.dart';
+import 'package:flutter_ty_mobile/core/mobx_store_export.dart';
 import 'package:flutter_ty_mobile/features/exports_for_route_widget.dart';
 import 'package:flutter_ty_mobile/features/home/data/entity/banner_entity.dart';
 import 'package:flutter_ty_mobile/features/home/data/entity/game_entity.dart';

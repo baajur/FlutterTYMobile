@@ -41,6 +41,7 @@ class RoutePage extends Vnum<RouteInfo> {
   static RoutePage service = RoutePage.define(RouteInfo(
     route: Routes.serviceRoute,
     title: localeStr.pageTitleService,
+    isFeature: true,
     bottomNavIndex: 3,
     hideAppbarActions: false,
   ));

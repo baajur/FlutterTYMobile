@@ -160,7 +160,10 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
 
     platforms ??= _store.homePlatformMap[widget.category];
     _grid ??= _createPlatformGrid();
-    return _grid;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: _grid,
+    );
   }
 
   /// Main layer to show platforms under category

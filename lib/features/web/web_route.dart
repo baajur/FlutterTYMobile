@@ -26,6 +26,7 @@ class _WebRouteState extends State<WebRoute> {
   void initState() {
     _store ??= WebRouteStore();
     super.initState();
+    print('opening url: ${widget.startUrl}');
   }
 
   @override
@@ -65,11 +66,11 @@ class _WebRouteState extends State<WebRoute> {
 
   @override
   Widget build(BuildContext context) {
-    print('opening url: ${widget.startUrl}');
     Future.delayed(Duration(seconds: 15), () {
       if (_stackToView == 1) {
         _controller.loadUrl(
-            Uri.dataFromString(localeStr.messageErrorLoadingPay).toString());
+          Uri.dataFromString('${localeStr.messageErrorLoadingPay}').toString(),
+        );
       }
     });
     return WillPopScope(
