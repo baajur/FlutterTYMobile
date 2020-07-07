@@ -911,6 +911,10 @@
   "@transferResultAlertTitle": {
     "type": "text"
   },
+  "transferHintRefresh": "4. If platform credit did not update after transfer, please reselect the platform to refresh or contact customer service",
+  "@transferHintRefresh": {
+    "type": "text"
+  },
   "bankcardViewTitleOwner": "Account Name",
   "@bankcardViewTitleOwner": {
     "type": "text"

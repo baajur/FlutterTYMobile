@@ -170,10 +170,11 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
   Widget _createPlatformGrid() {
     _isGameGrid = false;
     return GridView.count(
-      physics: ClampingScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       crossAxisCount: 2 + plusGrid,
       crossAxisSpacing: 4.0,
-      childAspectRatio: (plusGrid > 0) ? 1.05 : 0.95,
+      mainAxisSpacing: 6.0,
+      childAspectRatio: (plusGrid > 0) ? 1.0 : 0.9,
       shrinkWrap: true,
       children: platforms.map((entity) => _createGridItem(entity)).toList(),
     );
@@ -249,8 +250,9 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
     games = List.from(list);
     twoLineText = games.any((element) => element.cname.length >= 5);
     return new GridView.count(
-      physics: ClampingScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       crossAxisCount: 3 + plusGrid,
+      mainAxisSpacing: 4.0,
       childAspectRatio: (plusGrid > 0) ? 0.85 : 0.7,
       shrinkWrap: true,
       children: games.map((entity) => _createGridItem(entity)).toList(),
@@ -284,6 +286,8 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
       textHeight = FontSize.NORMAL.value * labelHeightFactor * 2;
     else
       textHeight = FontSize.NORMAL.value * labelHeightFactor;
+
+    if (Global.device.isIos) textHeight += 8;
 
     return Container(
       padding: const EdgeInsets.only(top: 6.0),

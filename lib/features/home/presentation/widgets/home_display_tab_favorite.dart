@@ -124,13 +124,16 @@ class _HomeDisplayTabFavoriteState extends State<HomeDisplayTabFavorite> {
           return false;
       },
     );
-    return new GridView.count(
-      physics: ClampingScrollPhysics(),
-      crossAxisCount: 3,
-      childAspectRatio: 0.7,
-      shrinkWrap: true,
-      children:
-          favorites.map<Widget>((entity) => _createGridItem(entity)).toList(),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: GridView.count(
+        physics: BouncingScrollPhysics(),
+        crossAxisCount: 3,
+        childAspectRatio: 0.7,
+        shrinkWrap: true,
+        children:
+            favorites.map<Widget>((entity) => _createGridItem(entity)).toList(),
+      ),
     );
   }
 

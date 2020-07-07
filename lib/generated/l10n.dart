@@ -2093,6 +2093,16 @@ class S {
     );
   }
 
+  /// `4. If platform credit did not update after transfer, please reselect the platform to refresh or contact customer service`
+  String get transferHintRefresh {
+    return Intl.message(
+      '4. If platform credit did not update after transfer, please reselect the platform to refresh or contact customer service',
+      name: 'transferHintRefresh',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Account Name`
   String get bankcardViewTitleOwner {
     return Intl.message(

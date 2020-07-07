@@ -105,9 +105,10 @@ mixin _$TransferStore on _TransferStore, Store {
   final _$getBalanceAsyncAction = AsyncAction('_TransferStore.getBalance');
 
   @override
-  Future<void> getBalance(String site, {bool isLimit = false}) {
-    return _$getBalanceAsyncAction
-        .run(() => super.getBalance(site, isLimit: isLimit));
+  Future<void> getBalance(String site,
+      {bool isLimit = false, bool retryOnce = false}) {
+    return _$getBalanceAsyncAction.run(
+        () => super.getBalance(site, isLimit: isLimit, retryOnce: retryOnce));
   }
 
   final _$sendRequestAsyncAction = AsyncAction('_TransferStore.sendRequest');

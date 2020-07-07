@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/orientation_helper.dart';
+import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
 import 'package:flutter_ty_mobile/features/screen/web_game_screen_drawer.dart';
 import 'package:flutter_ty_mobile/features/screen/web_game_screen_store.dart';
 import 'package:flutter_ty_mobile/injection_container.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
 import 'package:flutter_ty_mobile/utils/regex_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import 'web_game_screen_float_button.dart';
 
 class WebGameScreen extends StatefulWidget {
   final String startUrl;
@@ -104,6 +107,16 @@ class _WebGameScreenState extends State<WebGameScreen> {
           drawer: WebGameScreenDrawer(
             scaffoldKey: _scaffoldKey,
             store: _store,
+          ),
+          floatingActionButton: WebGameScreenFloatButton(
+            scaffoldKey: _scaffoldKey,
+            store: _store,
+            onReturnHome: () {
+              ScreenNavigate.switchScreen(
+                force: true,
+                screen: ScreenEnum.Feature,
+              );
+            },
           ),
           body: GestureDetector(
             onDoubleTap: () => _scaffoldKey.currentState.openDrawer(),

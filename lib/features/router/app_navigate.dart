@@ -52,6 +52,7 @@ class ScreenNavigate {
 //            ScreenRoutes.featureScreen,
 //            (route) => route.settings.name == ScreenRoutes.featureScreen,
 //          );
+        screenIndex = 0;
       } catch (e) {
         MyLogger.error(
           msg: 'force screen to switch has exception, restarting app!!',
@@ -93,6 +94,10 @@ class ScreenNavigate {
             screenIndex = 0;
             break;
         }
+        MyLogger.print(
+          msg: 'switch screen to $screen, index: $screenIndex',
+          tag: _tag,
+        );
       } catch (e) {
         MyLogger.error(
           msg: 'switch screen to $screen has exception!!',

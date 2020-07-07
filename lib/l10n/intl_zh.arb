@@ -902,6 +902,10 @@
   "@transferResultAlertTitle": {
     "type": "text"
   },
+  "transferHintRefresh": "4.转帐成功後若平台金额未改变，请再次选择平台刷新金额或联系客服",
+  "@transferHintRefresh": {
+    "type": "text"
+  },
   "bankcardViewTitleOwner": "帐户姓名",
   "@bankcardViewTitleOwner": {
     "type": "text"

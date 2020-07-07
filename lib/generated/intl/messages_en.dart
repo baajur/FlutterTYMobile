@@ -549,6 +549,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "transactionHeaderType" : MessageLookupByLibrary.simpleMessage("Category"),
     "transactionViewSpinnerTitle" : MessageLookupByLibrary.simpleMessage("Transfer time"),
     "transferDataError" : MessageLookupByLibrary.simpleMessage("Data error, please select again"),
+    "transferHintRefresh" : MessageLookupByLibrary.simpleMessage("4. If platform credit did not update after transfer, please reselect the platform to refresh or contact customer service"),
     "transferPlatformError" : MessageLookupByLibrary.simpleMessage("Selected platform is maintaining"),
     "transferResultAlertTitle" : MessageLookupByLibrary.simpleMessage("Transfer failed"),
     "transferViewButtonConfirm" : MessageLookupByLibrary.simpleMessage("Confirm Transfer"),

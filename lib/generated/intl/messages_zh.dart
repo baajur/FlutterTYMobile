@@ -546,6 +546,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "transactionHeaderType" : MessageLookupByLibrary.simpleMessage("类别"),
     "transactionViewSpinnerTitle" : MessageLookupByLibrary.simpleMessage("转帐时间"),
     "transferDataError" : MessageLookupByLibrary.simpleMessage("数据错误，请重新选择"),
+    "transferHintRefresh" : MessageLookupByLibrary.simpleMessage("4.转帐成功後若平台金额未改变，请再次选择平台刷新金额或联系客服"),
     "transferPlatformError" : MessageLookupByLibrary.simpleMessage("所选平台当前无法转帐"),
     "transferResultAlertTitle" : MessageLookupByLibrary.simpleMessage("转帐失败"),
     "transferViewButtonConfirm" : MessageLookupByLibrary.simpleMessage("确认转帐"),

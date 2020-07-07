@@ -152,7 +152,7 @@ class _LoginDisplayState extends State<LoginDisplay> {
       child: new Form(
         key: _formKey,
         child: ListView(
-          physics: ClampingScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           shrinkWrap: true,
           children: <Widget>[
             /* Login Hint Text*/

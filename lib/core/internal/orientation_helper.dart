@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 class OrientationHelper {
   static void restoreUI() {
     try {
-      print('restoring UI...');
+      print('Restoring orientation lock...');
       // Rotate to normal
       forceOrientationEasy();
       // Lock Screen Orientation
@@ -18,7 +18,7 @@ class OrientationHelper {
   }
 
   static Future<void> enabledSystemUIOverlays() {
-    print('Restore System UI');
+    print('Restoring system overlays...');
     return OrientationPlugin.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 

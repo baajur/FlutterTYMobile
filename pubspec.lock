@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  adv_fab:
+    dependency: "direct main"
+    description:
+      name: adv_fab
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   after_layout:
     dependency: "direct main"
     description:
