@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ty_mobile/core/internal/global.dart';
 
 int _sharedIndex;
 
@@ -227,7 +228,7 @@ class _FloatExpandWidgetState extends State<FloatExpandWidget>
 
   @override
   Widget build(BuildContext context) {
-    _SizeConfig.init(context);
+    _SizeConfig.init();
     if (widget.controller != null &&
         widget.controller._expandedWidget == null) {}
     return GestureDetector(
@@ -264,21 +265,21 @@ class _FloatExpandWidgetState extends State<FloatExpandWidget>
             width: // check if we need to use circular shape , is true we also check if we are expanding
                 widget.useAsFloatingActionButton
                     ? isExpanding
-                        ? (MediaQuery.of(context).size.width / 100) *
+                        ? (Global.device.width / 100) *
                             widget.floatingActionButtonExpendedWidth
-                        : (MediaQuery.of(context).size.width / 100) *
+                        : (Global.device.width / 100) *
                             widget.floatingActionButtonContainerWidth
                     :
                     //if no, we check if the spacebar has to be used
                     widget.useAsFloatingSpaceBar
-                        ? (MediaQuery.of(context).size.width / 100) *
+                        ? (Global.device.width / 100) *
                             widget.floatingSpaceBarContainerWidth
-                        : (MediaQuery.of(context).size.width / 100) *
+                        : (Global.device.width / 100) *
                             widget.floatingSpaceBarContainerWidth,
             height: isExpanding
-                ? (MediaQuery.of(context).size.height / 100) *
+                ? (Global.device.height / 100) *
                     widget.controller._heightToExpandTo
-                : (MediaQuery.of(context).size.height / 100) *
+                : (Global.device.height / 100) *
                     widget.floatingActionButtonContainerHeight,
             decoration: BoxDecoration(
                 color: animatedColor.value,
@@ -519,8 +520,6 @@ class _FloatExpandWidgetState extends State<FloatExpandWidget>
 ///Originally adapted from the DevCam developper
 /// but i made some changes to make it feel my needs better
 class _SizeConfig {
-  static MediaQueryData _mediaQueryData;
-
   ///this is the width of the screen
   static double screenWidth;
 
@@ -531,11 +530,9 @@ class _SizeConfig {
   static double safeBlockHorizontal;
 
   ///Use this Only once inside the build method, preferably on the 1st screen and never call it again during the life time of your app
-  static void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    _safeAreaHorizontal =
-        _mediaQueryData.padding.left + _mediaQueryData.padding.right;
+  static void init() {
+    screenWidth = Global.device.width;
+    _safeAreaHorizontal = Global.device.safePadding;
     safeBlockHorizontal = (screenWidth - _safeAreaHorizontal) / 100;
   }
 }

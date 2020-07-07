@@ -104,10 +104,10 @@ class _WebGameScreenState extends State<WebGameScreen> {
       child: WillPopScope(
         child: Scaffold(
           key: _scaffoldKey,
-          drawer: WebGameScreenDrawer(
-            scaffoldKey: _scaffoldKey,
-            store: _store,
-          ),
+//          drawer: WebGameScreenDrawer(
+//            scaffoldKey: _scaffoldKey,
+//            store: _store,
+//          ),
           floatingActionButton: WebGameScreenFloatButton(
             scaffoldKey: _scaffoldKey,
             store: _store,
@@ -118,50 +118,52 @@ class _WebGameScreenState extends State<WebGameScreen> {
               );
             },
           ),
-          body: GestureDetector(
-            onDoubleTap: () => _scaffoldKey.currentState.openDrawer(),
-            child: WebView(
-              initialUrl: widget.startUrl,
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController controller) async {
-                _controller = controller;
-                if (isForm) {
-                  _controller.loadUrl(Uri.dataFromString(
-                    parsedHtml,
-                    mimeType: Global.WEB_MIMETYPE,
-                    encoding: Global.webEncoding,
-                  ).toString());
-                } else if (widget.startUrl.isUrl == false) {
-                  _controller.loadUrl(Uri.dataFromString(
-                    widget.startUrl,
-                    mimeType: Global.WEB_MIMETYPE,
-                    encoding: Global.webEncoding,
-                  ).toString());
-                }
-              },
-              onPageFinished: (String url) async {
-                print('web page loaded: $url');
-                if (url.isUrl == false) return;
-                if (isForm) isForm = false;
+          body:
+//          GestureDetector(
+//            onDoubleTap: () => _scaffoldKey.currentState.openDrawer(),
+//            child:
+              WebView(
+            initialUrl: widget.startUrl,
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController controller) async {
+              _controller = controller;
+              if (isForm) {
+                _controller.loadUrl(Uri.dataFromString(
+                  parsedHtml,
+                  mimeType: Global.WEB_MIMETYPE,
+                  encoding: Global.webEncoding,
+                ).toString());
+              } else if (widget.startUrl.isUrl == false) {
+                _controller.loadUrl(Uri.dataFromString(
+                  widget.startUrl,
+                  mimeType: Global.WEB_MIMETYPE,
+                  encoding: Global.webEncoding,
+                ).toString());
+              }
+            },
+            onPageFinished: (String url) async {
+              print('web page loaded: $url');
+              if (url.isUrl == false) return;
+              if (isForm) isForm = false;
 
-                String pageTitle = await _controller.getTitle();
-                print('web page title: $pageTitle');
-                //TODO check the normal page title or 404
-                // Error 500 Title: 500 Internal Server Error
-                if (pageTitle.contains('Error') ||
-                    pageTitle.contains('Exception')) {
-                  if (pageTitle.startsWith('500')) {
-                    _controller.loadUrl(Uri.dataFromString(
-                      pageTitle,
-                      mimeType: Global.WEB_MIMETYPE,
-                      encoding: Global.webEncoding,
-                    ).toString());
-                  }
+              String pageTitle = await _controller.getTitle();
+              print('web page title: $pageTitle');
+              //TODO check the normal page title or 404
+              // Error 500 Title: 500 Internal Server Error
+              if (pageTitle.contains('Error') ||
+                  pageTitle.contains('Exception')) {
+                if (pageTitle.startsWith('500')) {
+                  _controller.loadUrl(Uri.dataFromString(
+                    pageTitle,
+                    mimeType: Global.WEB_MIMETYPE,
+                    encoding: Global.webEncoding,
+                  ).toString());
                 }
-              },
-            ),
+              }
+            },
           ),
         ),
+//        ),
         onWillPop: () async {
           MyLogger.debug(msg: 'pop web game screen', tag: 'WebGameScreen');
           return Future(() => true);

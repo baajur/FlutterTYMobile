@@ -54,7 +54,9 @@ class _WebGameScreenFloatButtonState extends State<WebGameScreenFloatButton> {
                 ),
               ),
               visualDensity: VisualDensity.compact,
-              onPressed: widget.onReturnHome ?? () => {},
+              onPressed: (widget.onReturnHome != null)
+                  ? () => widget.onReturnHome()
+                  : () => {},
             ),
             IconButton(
               icon: FittedBox(
@@ -69,7 +71,7 @@ class _WebGameScreenFloatButtonState extends State<WebGameScreenFloatButton> {
               ),
               visualDensity: VisualDensity.compact,
               onPressed: (widget.store != null)
-                  ? widget.store.rotateScreenLeft()
+                  ? () => widget.store.rotateScreenLeft()
                   : () => {},
             ),
             IconButton(
@@ -127,6 +129,7 @@ class _WebGameScreenFloatButtonState extends State<WebGameScreenFloatButton> {
     expandHeight = (Global.device.comfortButtonHeight + 12.0) /
         Global.device.featureContentHeight *
         100;
+    print('expand height: $expandHeight');
     super.initState();
     _initController();
   }
@@ -150,7 +153,8 @@ class _WebGameScreenFloatButtonState extends State<WebGameScreenFloatButton> {
         controller.expandFAB();
       },
       // take 90% of the screen horizontally
-      floatingSpaceBarContainerWidth: 60,
+      floatingSpaceBarContainerWidth:
+          Global.device.orientation == Orientation.portrait ? 60 : 40,
     );
   }
 }

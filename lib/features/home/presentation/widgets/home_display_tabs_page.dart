@@ -287,8 +287,6 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
     else
       textHeight = FontSize.NORMAL.value * labelHeightFactor;
 
-    if (Global.device.isIos) textHeight += 8;
-
     return Container(
       padding: const EdgeInsets.only(top: 6.0),
       constraints: (!_isGameGrid)
