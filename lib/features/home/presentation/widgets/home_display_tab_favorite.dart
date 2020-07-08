@@ -37,6 +37,7 @@ class _HomeDisplayTabFavoriteState extends State<HomeDisplayTabFavorite> {
   /// [itemData] should be [GamePlatformEntity] or [GameEntity]
   /// else print warn log and show toast.
   void _onItemTap(dynamic itemData) {
+    print('onItemTap favorite: $itemData');
     if (itemData is GamePlatformEntity) {
       widget.onPlatformClicked(itemData);
     } else if (itemData is GameEntity) {
@@ -124,16 +125,14 @@ class _HomeDisplayTabFavoriteState extends State<HomeDisplayTabFavorite> {
           return false;
       },
     );
-    return Padding(
+    return GridView.count(
+      physics: BouncingScrollPhysics(),
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: GridView.count(
-        physics: BouncingScrollPhysics(),
-        crossAxisCount: 3,
-        childAspectRatio: 0.7,
-        shrinkWrap: true,
-        children:
-            favorites.map<Widget>((entity) => _createGridItem(entity)).toList(),
-      ),
+      crossAxisCount: 3,
+      childAspectRatio: 0.7,
+      shrinkWrap: true,
+      children:
+          favorites.map<Widget>((entity) => _createGridItem(entity)).toList(),
     );
   }
 

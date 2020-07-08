@@ -84,7 +84,6 @@ abstract class _WebGameScreenStore with Store {
     } else {
       await _bindSensorListener();
     }
-    _lockAutoRotate = false;
   }
 
   _bindSensorListener() async {
@@ -144,6 +143,7 @@ abstract class _WebGameScreenStore with Store {
       PlatformUtil.disableSensor();
       _sensorOn = false;
     }
+    _sensorSubscription.cancel();
     _reset();
   }
 
@@ -188,6 +188,6 @@ abstract class _WebGameScreenStore with Store {
     _deviceOrientation = DeviceOrientation.portraitUp;
     _sensorRotateId = 1;
     _sensorOn = false;
-    _lockAutoRotate = false;
+    _lockAutoRotate = true;
   }
 }

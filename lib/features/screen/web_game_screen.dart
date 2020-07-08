@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ty_mobile/core/internal/global.dart';
 import 'package:flutter_ty_mobile/core/internal/orientation_helper.dart';
 import 'package:flutter_ty_mobile/features/router/app_navigate.dart';
-import 'package:flutter_ty_mobile/features/screen/web_game_screen_drawer.dart';
 import 'package:flutter_ty_mobile/features/screen/web_game_screen_store.dart';
 import 'package:flutter_ty_mobile/injection_container.dart';
 import 'package:flutter_ty_mobile/mylogger.dart';
@@ -116,6 +115,7 @@ class _WebGameScreenState extends State<WebGameScreen> {
                 force: true,
                 screen: ScreenEnum.Feature,
               );
+              _store.stopSensor();
             },
           ),
           body:

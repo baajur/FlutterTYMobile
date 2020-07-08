@@ -69,7 +69,11 @@ class _WebRouteState extends State<WebRoute> {
     Future.delayed(Duration(seconds: 15), () {
       if (_stackToView == 1) {
         _controller.loadUrl(
-          Uri.dataFromString('${localeStr.messageErrorLoadingPay}').toString(),
+          Uri.dataFromString(
+            '${localeStr.messageErrorLoadingPay}',
+            mimeType: Global.WEB_MIMETYPE,
+            encoding: Global.webEncoding,
+          ).toString(),
         );
       }
     });

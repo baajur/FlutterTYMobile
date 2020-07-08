@@ -46,12 +46,11 @@ class ScreenNavigate {
       try {
         if (screenIndex == 0)
           RouterNavigate.navigateClean();
+        else if (screenNavigator.canPop())
+          screenNavigator.popUntil(
+              (route) => route.settings.name == ScreenRoutes.featureScreen);
         else
           screenNavigator.pushFeatureScreen();
-//          screenNavigator.pushNamedAndRemoveUntil(
-//            ScreenRoutes.featureScreen,
-//            (route) => route.settings.name == ScreenRoutes.featureScreen,
-//          );
         screenIndex = 0;
       } catch (e) {
         MyLogger.error(
@@ -252,14 +251,15 @@ class RouterNavigate {
       } else if (_currentRoute != Routes.homeRoute) {
         navigator.pushNamedAndRemoveUntil(
           Routes.homeRoute,
-          (route) => route.settings.name == Routes.homeRoute,
+          (route) => false,
         );
       }
       routerStreams.setCheck(true);
     } catch (e) {
       MyLogger.error(
-          msg:
-              'navigate clean has exception!! Router current: $_currentRoute, previous: $_previousRoute',
+          msg: 'navigate clean has exception!! '
+              'Router current: $_currentRoute, '
+              'previous: $_previousRoute',
           error: e,
           tag: _tag);
     }

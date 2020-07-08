@@ -59,7 +59,8 @@ Future _makeRequest({
       throw RequestTypeErrorException();
     return response.data;
   }, tag);
-//  MyLogger.debug(msg: 'remote data result: $result', tag: tag);
+  MyLogger.debug(
+      msg: 'remote data result type: ${result.runtimeType}', tag: tag);
   return result;
 }
 
@@ -88,7 +89,7 @@ Future<Either<Failure, String>> requestDataString({
   bool allowJsonString = false,
   String tag = 'remote-STRING',
 }) async {
-  return await runTask(_makeRequest(request: request)).then((result) {
+  return await runTask(_makeRequest(request: request, tag: tag)).then((result) {
     return result.fold(
       (failure) => Left(failure),
       (data) {
@@ -104,7 +105,7 @@ Future<Either<Failure, dynamic>> requestData({
   @required Future<Response<dynamic>> request,
   String tag = 'remote-DATA',
 }) async {
-  return await runTask(_makeRequest(request: request)).then((result) {
+  return await runTask(_makeRequest(request: request, tag: tag)).then((result) {
     return result.fold(
       (failure) => Left(failure),
       (data) => Right(data),
@@ -136,7 +137,7 @@ Future<Either<Failure, T>> requestModel<T>({
   bool trim = false,
   String tag = 'remote-MODEL',
 }) async {
-  return await runTask(_makeRequest(request: request)).then((result) {
+  return await runTask(_makeRequest(request: request, tag: tag)).then((result) {
     return result.fold(
       (failure) => Left(failure),
       (data) => Right(
@@ -152,7 +153,7 @@ Future<Either<Failure, List<T>>> requestModelList<T>({
   bool addKey = true,
   String tag = 'remote-MODEL_LIST',
 }) async {
-  return await runTask(_makeRequest(request: request)).then((result) {
+  return await runTask(_makeRequest(request: request, tag: tag)).then((result) {
     return result.fold(
       (failure) => Left(failure),
       (data) {

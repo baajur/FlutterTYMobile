@@ -6,7 +6,7 @@ part of 'feature_screen_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
   Computed<int> _$navIndexComputed;
@@ -98,17 +98,18 @@ mixin _$FeatureScreenStore on _FeatureScreenStore, Store {
     });
   }
 
-  final _$showEventAtom = Atom(name: '_FeatureScreenStore.showEvent');
+  final _$showEventOnHomeAtom =
+      Atom(name: '_FeatureScreenStore.showEventOnHome');
 
   @override
   bool get showEventOnHome {
-    _$showEventAtom.reportRead();
+    _$showEventOnHomeAtom.reportRead();
     return super.showEventOnHome;
   }
 
   @override
   set showEventOnHome(bool value) {
-    _$showEventAtom.reportWrite(value, super.showEventOnHome, () {
+    _$showEventOnHomeAtom.reportWrite(value, super.showEventOnHome, () {
       super.showEventOnHome = value;
     });
   }

@@ -34,12 +34,10 @@ class HomeDisplaySizeCalc {
     double availableHeight =
         Global.device.featureContentHeight - shortcutMaxHeight;
     _tabPageMinHeight = Global.device.height / 2.75;
-    _tabPageMaxHeight = Global.device.height / 1.5;
+    _tabPageMaxHeight = availableHeight - 24;
     // check if height is larger than available height
     if (_tabPageMinHeight > availableHeight)
       _tabPageMinHeight = availableHeight;
-    if (_tabPageMaxHeight > availableHeight)
-      _tabPageMaxHeight = availableHeight;
 
     _tabPageMinWidth = Global.device.width * 0.6;
     _tabPageMaxWidth = Global.device.width / 3 * 2 - 6;

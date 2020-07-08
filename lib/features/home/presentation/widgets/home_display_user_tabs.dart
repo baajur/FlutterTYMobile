@@ -53,6 +53,13 @@ class HomeDisplayUserTabsState extends State<HomeDisplayUserTabs>
     if (_store != null) _store.showSearchPlatform(platformClassName);
   }
 
+  void _tabListener() {
+    // Set [_currentType] to change tab bar item color
+    try {
+      _selectedController.sink.add(widget.tabs[_tabController.index].type);
+    } on Exception {}
+  }
+
   @override
   void initState() {
     _selectedController.stream.listen((event) {
@@ -65,24 +72,32 @@ class HomeDisplayUserTabsState extends State<HomeDisplayUserTabs>
 //      print('game tabs = ${widget.tabs}');
 //      print('game tabs count = ${widget.tabs.length}');
       _currentType = widget.tabs[0].type;
-      _pageController = PageController();
-      _tabController = TabController(length: widget.tabs.length, vsync: this);
-      _tabController.addListener(() {
-        // Set [_currentType] to change tab bar item color
-        try {
-          _selectedController.sink.add(widget.tabs[_tabController.index].type);
-        } on Exception {}
-      });
+      _pageController = new PageController();
+      _tabController =
+          new TabController(length: widget.tabs.length, vsync: this);
+      _tabController.addListener(() => _tabListener());
     }
   }
 
   @override
   void dispose() {
-    try {
-      if (_tabController != null) _tabController.dispose();
-      _selectedController.close();
-    } catch (e) {
-      MyLogger.warn(msg: '${e.runtimeType}', tag: "HomeDisplayTabs", error: e);
+    if (!mounted) {
+      try {
+        MyLogger.print(
+            msg: 'disposing controller...', tag: "HomeDisplayUserTabs");
+        _selectedController.close();
+        if (_pageController != null) {
+          _pageController.dispose();
+          _pageController = null;
+        }
+        if (_tabController != null) {
+          _tabController.removeListener(() => _tabListener());
+          _tabController.dispose();
+          _tabController = null;
+        }
+      } catch (e) {
+        MyLogger.warn(msg: 'dispose error: $e', tag: "HomeDisplayUserTabs");
+      }
     }
     super.dispose();
   }

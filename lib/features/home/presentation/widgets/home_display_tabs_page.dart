@@ -79,6 +79,7 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
   /// [itemData] should be [GamePlatformEntity] or [GameEntity]
   /// else throw [UnknownConditionException].
   String _onItemTap(dynamic itemData, {bool search = false}) {
+    print('onItemTap page: $itemData');
     if (itemData is GamePlatformEntity) {
       if (search)
         _setContent(_buildGamesView(itemData));
@@ -160,10 +161,7 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
 
     platforms ??= _store.homePlatformMap[widget.category];
     _grid ??= _createPlatformGrid();
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: _grid,
-    );
+    return _grid;
   }
 
   /// Main layer to show platforms under category
@@ -171,10 +169,10 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
     _isGameGrid = false;
     return GridView.count(
       physics: BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(bottom: 12.0),
       crossAxisCount: 2 + plusGrid,
       crossAxisSpacing: 4.0,
-      mainAxisSpacing: 6.0,
-      childAspectRatio: (plusGrid > 0) ? 1.0 : 0.9,
+      childAspectRatio: (plusGrid > 0) ? 1.05 : 0.9,
       shrinkWrap: true,
       children: platforms.map((entity) => _createGridItem(entity)).toList(),
     );
@@ -251,8 +249,8 @@ class _HomeDisplayTabsPageState extends State<HomeDisplayTabsPage>
     twoLineText = games.any((element) => element.cname.length >= 5);
     return new GridView.count(
       physics: BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(bottom: 12.0),
       crossAxisCount: 3 + plusGrid,
-      mainAxisSpacing: 4.0,
       childAspectRatio: (plusGrid > 0) ? 0.85 : 0.7,
       shrinkWrap: true,
       children: games.map((entity) => _createGridItem(entity)).toList(),

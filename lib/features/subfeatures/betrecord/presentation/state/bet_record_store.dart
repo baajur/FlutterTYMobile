@@ -59,7 +59,7 @@ abstract class _BetRecordStore with Store {
         (result) => result.fold(
           (failure) => errorMessage = failure.message,
           (list) {
-            print('bet record types: $list');
+            print('bet record types: ${list.length}');
             typeList = list;
           },
         ),

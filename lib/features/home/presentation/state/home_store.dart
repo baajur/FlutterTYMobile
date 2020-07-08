@@ -588,9 +588,7 @@ abstract class _HomeStore with Store {
     }
   }
 
-  void clearGameUrl() {
-    Future.delayed(Duration(milliseconds: 100), () => gameUrl = null);
-  }
+  void clearGameUrl() => gameUrl = null;
 
   Future<void> closeStreams() {
     try {

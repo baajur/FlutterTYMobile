@@ -38,6 +38,7 @@ class _HomeDisplayTabRecommendState extends State<HomeDisplayTabRecommend> {
   /// [itemData] should be [GamePlatformEntity] or [GameEntity]
   /// else print warn log and show toast.
   void _onItemTap(dynamic itemData) {
+    print('onItemTap recommend: $itemData');
     if (itemData is GamePlatformEntity) {
       widget.onPlatformClicked(itemData);
     } else if (itemData is GameEntity) {
@@ -125,17 +126,14 @@ class _HomeDisplayTabRecommendState extends State<HomeDisplayTabRecommend> {
           return false;
       },
     );
-    return Padding(
+    return GridView.count(
+      physics: BouncingScrollPhysics(),
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: GridView.count(
-        physics: BouncingScrollPhysics(),
-        crossAxisCount: 3,
-        childAspectRatio: 0.7,
-        shrinkWrap: true,
-        children: recommends
-            .map<Widget>((entity) => _createGridItem(entity))
-            .toList(),
-      ),
+      crossAxisCount: 3,
+      childAspectRatio: 0.7,
+      shrinkWrap: true,
+      children:
+          recommends.map<Widget>((entity) => _createGridItem(entity)).toList(),
     );
   }
 
